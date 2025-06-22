@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ThemeProvider } from '@tuliopc23/glass-ui'
-import { Analytics } from '@vercel/analytics/react'
+// import { ThemeProvider } from '@tuliopc23/glass-ui'
+// import { Analytics } from '@vercel/analytics/react' // Optional analytics
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -81,15 +81,8 @@ export default function RootLayout({
         <meta name="color-scheme" content="light dark" />
       </head>
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Analytics />
-        </ThemeProvider>
+        {children}
+        {/* <Analytics /> */}
       </body>
     </html>
   )
