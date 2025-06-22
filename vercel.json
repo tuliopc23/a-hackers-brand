@@ -1,0 +1,37 @@
+{
+  "framework": "nextjs",
+  "regions": ["iad1"],
+  "functions": {},
+  "headers": [
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/design-system",
+      "destination": "/components",
+      "permanent": false
+    },
+    {
+      "source": "/brand",
+      "destination": "/",
+      "permanent": false
+    }
+  ]
+}

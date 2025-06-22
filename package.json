@@ -1,0 +1,56 @@
+{
+  "name": "tulio-brand-system",
+  "version": "1.0.0",
+  "description": "Interactive brand guidelines and design system documentation for Tulio Pinheiro Cunha",
+  "author": {
+    "name": "Tulio Pinheiro Cunha",
+    "email": "tulio@example.com",
+    "url": "https://tulio.dev"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tuliopc23/tulio-brand-system.git"
+  },
+  "homepage": "https://brand.tulio.dev",
+  "private": false,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,json,md}\"",
+    "analyze": "cross-env ANALYZE=true next build"
+  },
+  "dependencies": {
+    "@tuliopc23/glass-ui": "^1.0.0",
+    "next": "14.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "next-themes": "^0.2.1",
+    "framer-motion": "^10.16.16",
+    "lucide-react": "^0.295.0",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^2.1.0"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^14.0.4",
+    "@types/node": "^20.10.5",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.16",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "14.0.4",
+    "postcss": "^8.4.32",
+    "prettier": "^3.1.1",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
