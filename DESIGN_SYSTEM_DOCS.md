@@ -260,8 +260,7 @@ const transition = motion.transitions.glass;
 
 1. Import the design token files:
 ```typescript
-// In your main TypeScript file
-import '@/lib/design-tokens';
+import { tokens } from '@/lib/design-tokens';
 ```
 
 2. Import the CSS files:
