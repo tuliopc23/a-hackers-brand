@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base Brand Colors */
+    --brand-primary: 220 70% 50%;
+    --brand-secondary: 280 70% 50%;
+    --brand-accent: 190 90% 50%;
+    
+    /* Glass UI Variables */
+    --background: 220 20% 97%;
+    --foreground: 220 10% 10%;
+    --primary: var(--brand-primary);
+    --primary-foreground: 0 0% 100%;
+    --secondary: var(--brand-secondary);
+    --secondary-foreground: 0 0% 100%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 10% 10%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: var(--brand-primary);
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+    --primary: var(--brand-primary);
+    --primary-foreground: 0 0% 100%;
+    --secondary: var(--brand-secondary);
+    --secondary-foreground: 0 0% 100%;
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: var(--brand-primary);
+  }
+}
+
+/* Brand-specific glassmorphism effects */
+.glass-panel {
+  @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
+}
+
+.cli-interface {
+  @apply font-mono bg-black/90 text-green-400 p-4 rounded;
+}
+
+/* Brand animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-animation {
+  animation: float 5s ease-in-out infinite;
+}
