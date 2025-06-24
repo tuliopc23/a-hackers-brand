@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 import { useLiquidGlass, useContentAwareGlass } from "../../lib/animations/use-liquid-glass";
 import { useMagneticHover } from "../../lib/physics/glass-physics";
-import { GlassButton } from "@tuliopc23/glass-ui";
+import { GlassButton } from "@/glass-ui";
 
 export interface GlassHeroProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;

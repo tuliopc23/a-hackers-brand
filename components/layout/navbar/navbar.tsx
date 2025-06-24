@@ -1,5 +1,5 @@
 import { Search, Github, Layers } from "lucide-react";
-import { ThemeToggle } from "@tuliopc23/glass-ui";
+import { ThemeToggle } from "@/glass-ui";
 
 export function Navbar() {
   return (

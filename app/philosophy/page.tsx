@@ -16,9 +16,9 @@ import {
 } from 'lucide-react'
 
 // Dynamic imports to prevent SSR issues
-const GlassCard = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassCard), { ssr: false })
-const GlassButton = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassButton), { ssr: false })
-const GlassBadge = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassBadge), { ssr: false })
+const GlassCard = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassCard), { ssr: false })
+const GlassButton = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassButton), { ssr: false })
+const GlassBadge = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassBadge), { ssr: false })
 const GlassHero = nextDynamic(() => import('../../components').then(mod => mod.GlassHero), { ssr: false })
 const GlassFeatureShowcase = nextDynamic(() => import('../../components').then(mod => mod.GlassFeatureShowcase), { ssr: false })
 

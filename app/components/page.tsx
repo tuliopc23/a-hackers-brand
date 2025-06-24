@@ -20,17 +20,17 @@ import Link from 'next/link'
 import { useState, useRef } from 'react'
 
 // Dynamic imports to prevent SSR issues
-const GlassCard = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassCard), { ssr: false })
-const GlassButton = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassButton), { ssr: false })
-const GlassBadge = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassBadge), { ssr: false })
-const GlassInput = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassInput), { ssr: false })
-const GlassProgress = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassProgress), { ssr: false })
-const GlassModal = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassModal), { ssr: false })
-const GlassTooltip = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassTooltip), { ssr: false })
-const GlassAvatar = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassAvatar), { ssr: false })
-const GlassSwitch = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassSwitch), { ssr: false })
-const GlassCheckbox = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassCheckbox), { ssr: false })
-const GlassSlider = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.GlassSlider), { ssr: false })
+const GlassCard = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassCard), { ssr: false })
+const GlassButton = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassButton), { ssr: false })
+const GlassBadge = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassBadge), { ssr: false })
+const GlassInput = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassInput), { ssr: false })
+const GlassProgress = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassProgress), { ssr: false })
+const GlassModal = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassModal), { ssr: false })
+const GlassTooltip = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassTooltip), { ssr: false })
+const GlassAvatar = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassAvatar), { ssr: false })
+const GlassSwitch = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassSwitch), { ssr: false })
+const GlassCheckbox = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassCheckbox), { ssr: false })
+const GlassSlider = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassSlider), { ssr: false })
 const GlassHero = nextDynamic(() => import('../../components').then(mod => mod.GlassHero), { ssr: false })
 const ComponentShowcase = nextDynamic(() => import('../../components').then(mod => mod.ComponentShowcase), { ssr: false })
 // Import the hook directly since it's not a component

@@ -5,7 +5,7 @@ import nextDynamic from 'next/dynamic'
 import './globals.css'
 
 // Dynamic import to prevent SSR issues
-const ThemeProvider = nextDynamic(() => import('@tuliopc23/glass-ui').then(mod => mod.ThemeProvider), { ssr: false })
+const ThemeProvider = nextDynamic(() => import('@/glass-ui').then(mod => mod.ThemeProvider), { ssr: false })
 
 const inter = Inter({ subsets: ['latin'] })
 

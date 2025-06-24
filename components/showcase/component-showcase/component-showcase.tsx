@@ -26,7 +26,7 @@ import {
   GlassBadge,
   GlassModal,
   GlassTable
-} from "@tuliopc23/glass-ui";
+} from "@/glass-ui";
 import { Download, Github, Heart, MousePointer, Keyboard, Layers, Users, TrendingUp, Settings, Bell, ChevronDown, Search, Mail, Phone, MapPin, User, Edit, Trash, Share } from "lucide-react";
 
 interface ComponentShowcaseProps {
