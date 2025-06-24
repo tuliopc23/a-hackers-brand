@@ -1,236 +1,248 @@
-# Tulio Brand System 🚀
+# Liquid Glass Terminal Fusion Design System
 
-> Advanced technical showcase and interactive brand guidelines built on Glass UI foundation.
+A cutting-edge design system that seamlessly blends liquid glass morphism aesthetics with terminal-inspired functionality, creating a unique and modern visual language for web applications.
 
-[![Deployment](https://img.shields.io/badge/Live-brand.tuliocunha.dev-blue)](https://brand.tuliocunha.dev)
-[![Built with Glass UI](https://img.shields.io/badge/Built%20with-Glass%20UI-purple)](https://glass-ui.tuliocunha.dev)
-[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-14.0-black)](https://nextjs.org/)
+![Design System](https://img.shields.io/badge/Design%20System-v1.0.0-00D4AA?style=for-the-badge)
+![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?style=for-the-badge)
+![CSS](https://img.shields.io/badge/CSS-Variables-1572B6?style=for-the-badge)
 
-## 🎯 **What Makes This Special**
+## 🌟 Features
 
-This isn't just another portfolio - it's a **sophisticated technical demonstration** that showcases:
+- **Comprehensive Token System**: Four-layer token architecture for consistent design
+- **Glass Morphism Effects**: Advanced translucent surfaces with depth and layering
+- **Terminal Aesthetics**: Command-line inspired components with syntax highlighting
+- **Fluid Animations**: Smooth, organic transitions and micro-interactions
+- **Accessibility First**: Full WCAG compliance with reduced motion support
+- **Performance Optimized**: Hardware-accelerated effects with fallbacks
+- **Dark Mode Native**: Designed for dark interfaces with vibrant accents
 
-- **🏗️ Advanced Architecture** - Clean separation between generic components (Glass UI) and advanced technical features
-- **🎮 Interactive Experiences** - Real-time terminal with audio feedback, 3D visualizations, live data
-- **⚡ Performance Excellence** - Optimized rendering, minimal bundle size, smooth animations
-- **♿ Accessibility First** - WCAG 2.1 AA compliant, keyboard navigation, screen reader support
-- **📱 Universal Compatibility** - Works flawlessly across all devices and browsers
-
-## 🏢 **Architecture Philosophy**
-
-### **Two-Layer Strategy**
-```
-🏗️ Glass UI (Foundation Layer)
-├── Generic glassmorphism components
-├── Universal compatibility
-├── Open source ready
-└── Any developer can use
-
-🚀 Brand System (Showcase Layer)  
-├── Advanced technical demonstrations
-├── Interactive experiences
-├── Real-time data integration
-└── Cutting-edge features
-```
-
-This separation demonstrates **architectural thinking** - building reusable foundations while creating advanced showcases on top.
-
-## ✨ **Interactive Features**
-
-### **🖥️ Advanced Terminal Interface**
-- **Command Processing**: Full terminal emulation with extensible command system
-- **Audio Feedback**: Real-time sound effects using Web Audio API
-- **Multiple Themes**: Matrix, cyberpunk, minimal themes with smooth transitions
-- **State Management**: Command history, directory navigation, process simulation
-
-### **🎨 Dynamic Glassmorphism**
-- **Adaptive Effects**: Components respond to user interaction and system theme
-- **Performance Optimized**: Hardware-accelerated CSS with fallbacks
-- **Context Aware**: Glass effects adapt to background colors and content
-
-### **🔮 3D Visualizations** *(Coming Soon)*
-- **Three.js Integration**: Interactive 3D models and animations
-- **Physics Simulation**: Real-time physics using Cannon.js
-- **Performance Monitoring**: Live FPS counter and optimization metrics
-
-### **📊 Live Dashboard** *(Coming Soon)*
-- **GitHub Integration**: Real-time repository stats and contribution data
-- **Analytics**: Website performance and user interaction metrics
-- **System Monitoring**: Resource usage and optimization insights
-
-## 🛠️ **Technical Stack**
-
-### **Frontend**
-- **Next.js 14** - App Router, Server Components, Optimized builds
-- **TypeScript** - Full type safety, advanced patterns
-- **Tailwind CSS** - Utility-first styling with custom extensions
-- **Framer Motion** - Advanced animations and gestures
-- **Glass UI** - Custom glassmorphism component library
-
-### **Audio & Interaction**
-- **Web Audio API** - Real-time sound synthesis and processing
-- **Canvas API** - Custom visualizations and effects
-- **Intersection Observer** - Performance-optimized animations
-- **ResizeObserver** - Responsive layout calculations
-
-### **Development & Quality**
-- **ESLint + Prettier** - Code quality and formatting
-- **TypeScript Strict Mode** - Maximum type safety
-- **Performance Monitoring** - Bundle analysis and optimization
-- **Accessibility Testing** - Automated a11y validation
-
-## 🚀 **Getting Started**
-
-### **Prerequisites**
-- Node.js 18+
-- npm 9+
-
-### **Installation**
-```bash
-# Clone the repository
-git clone https://github.com/tuliopc23/tulio-brand-system.git
-cd tulio-brand-system
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-### **Development**
-```bash
-# Type checking
-npm run type-check
-
-# Linting
-npm run lint
-
-# Build for production
-npm run build
-
-# Analyze bundle
-npm run analyze
-```
-
-## 📁 **Project Structure**
+## 📁 Project Structure
 
 ```
-tulio-brand-system/
-├── 📁 app/                    # Next.js app directory
-│   ├── page.tsx              # Homepage with interactive demos
-│   ├── components/           # Page-specific components
-│   ├── philosophy/           # Design philosophy pages
-│   └── tokens/               # Design token documentation
-├── 📁 components/            # Advanced Brand System components
-│   ├── terminal/             # Interactive terminal system
-│   ├── 3d/                   # 3D visualization components
-│   ├── dashboard/            # Live dashboard components
-│   └── showcase/             # Feature demonstration components
-├── 📁 lib/                   # Utility libraries
-│   ├── animations/           # Advanced animation utilities
-│   ├── physics/              # Physics simulation utilities
-│   └── brand-tokens/         # Brand system design tokens
-└── 📁 glass-ui/              # Local Glass UI development
-    └── src/components/       # Glassmorphism component library
+workspace/
+├── lib/
+│   └── design-tokens/
+│       ├── index.ts          # Main token exports
+│       ├── primitives.ts     # Raw design values
+│       ├── semantic.ts       # Semantic token mappings
+│       ├── motion.ts         # Animation tokens
+│       └── components.ts     # Component-specific tokens
+├── styles/
+│   ├── tokens.css           # CSS custom properties
+│   ├── glass-system.css     # Glass morphism utilities
+│   └── terminal-theme.css   # Terminal component styles
+├── demo.html                # Interactive demo page
+├── DESIGN_SYSTEM_DOCS.md    # Comprehensive documentation
+└── README.md               # This file
 ```
 
-## 🎨 **Design System**
+## 🚀 Quick Start
 
-### **Glass Effects**
+### 1. Include CSS Files
+
+```html
+<!-- In your HTML head -->
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/glass-system.css">
+<link rel="stylesheet" href="styles/terminal-theme.css">
+```
+
+### 2. Use in TypeScript/JavaScript
+
+```typescript
+import { tokens, semantic, motion, components } from './lib/design-tokens';
+
+// Access design tokens
+const primaryColor = semantic.colors.brand.primary;
+const glassBlur = semantic.blur.glass.md;
+```
+
+### 3. Apply Classes
+
+```html
+<!-- Glass effect -->
+<div class="glass glass-shimmer">
+  Hover for shimmer effect
+</div>
+
+<!-- Terminal window -->
+<div class="terminal-window">
+  <div class="terminal-body">
+    <div class="terminal-command">
+      <span class="terminal-prompt">$</span>
+      <span class="terminal-command-text">npm start</span>
+    </div>
+  </div>
+</div>
+```
+
+## 🎨 Core Concepts
+
+### Glass Effects
+
+The system provides multiple glass effect intensities and special effects:
+
+- **Intensities**: `glass-subtle`, `glass-medium`, `glass-heavy`, `glass-extreme`
+- **Effects**: `glass-shimmer`, `glass-prismatic`, `glass-liquid`, `glass-magnetic`, `glass-glow`
+- **Components**: `glass-card`, `glass-button`, `glass-input`, `glass-overlay`
+
+### Terminal Components
+
+Terminal-inspired components for technical interfaces:
+
+- **Terminal Window**: Complete terminal emulator UI
+- **Command Blocks**: Input/output command visualization
+- **Syntax Highlighting**: Language-aware code coloring
+- **Interactive Elements**: Working terminal with command processing
+
+### Motion System
+
+Carefully crafted animations with accessibility in mind:
+
+- **Easings**: `glass`, `liquid`, `spring`, `magnetic`, `bounce`
+- **Durations**: From `instant` (0ms) to `slowest` (800ms)
+- **Transitions**: Pre-configured for common properties
+- **Keyframes**: Terminal-specific animations
+
+## 🛠️ Integration Examples
+
+### React Component
+
+```tsx
+import { components } from '@/lib/design-tokens';
+
+export function GlassCard({ children, variant = 'glass' }) {
+  return (
+    <div 
+      className={`glass-card ${variant}`}
+      style={{
+        padding: components.card.padding.md,
+        borderRadius: components.card.borderRadius,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+```
+
+### Vue Component
+
+```vue
+<template>
+  <div :class="['terminal-window', { 'terminal-boot': animate }]">
+    <div class="terminal-body">
+      <slot />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+const animate = ref(true);
+</script>
+```
+
+### Vanilla JavaScript
+
+```javascript
+// Create interactive terminal
+class InteractiveTerminal {
+  constructor(element) {
+    this.element = element;
+    this.history = [];
+    this.setupTerminal();
+  }
+  
+  setupTerminal() {
+    const input = this.element.querySelector('.terminal-input');
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        this.executeCommand(input.value);
+        input.value = '';
+      }
+    });
+  }
+  
+  executeCommand(command) {
+    // Add to history and process command
+    this.history.push(command);
+    // ... command processing logic
+  }
+}
+```
+
+## 🎯 Use Cases
+
+- **Developer Tools**: IDEs, code editors, debugging interfaces
+- **Dashboard Applications**: Analytics, monitoring, admin panels
+- **Portfolio Websites**: Showcase technical projects with style
+- **Documentation Sites**: Technical documentation with interactive examples
+- **SaaS Applications**: Modern web apps with unique visual identity
+
+## 📊 Browser Support
+
+| Browser | Support | Notes |
+|---------|---------|-------|
+| Chrome 90+ | ✅ Full | Native backdrop-filter |
+| Firefox 103+ | ✅ Full | Enable backdrop-filter in about:config |
+| Safari 15+ | ✅ Full | Requires -webkit prefix |
+| Edge 90+ | ✅ Full | Chromium-based |
+
+## 🔧 Customization
+
+### Extending Tokens
+
+```typescript
+// Add custom tokens
+export const customTokens = {
+  ...tokens,
+  custom: {
+    colors: {
+      brand: '#FF006E',
+    },
+    effects: {
+      neon: '0 0 20px currentColor',
+    },
+  },
+};
+```
+
+### Creating New Effects
+
 ```css
-/* Light glass effect */
-.glass-light {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Dark glass effect */
-.glass-dark {
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* Custom glass effect */
+.glass-neon {
+  background: var(--color-glass-white-2);
+  backdrop-filter: blur(var(--blur-lg));
+  box-shadow: 
+    var(--shadow-glass-md),
+    0 0 30px var(--color-accent-500);
 }
 ```
 
-### **Interactive States**
-```css
-/* Hover effects */
-.glass-interactive:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-}
-```
+## 📚 Documentation
 
-## 🌐 **Deployment**
+For comprehensive documentation, component examples, and best practices, see [DESIGN_SYSTEM_DOCS.md](./DESIGN_SYSTEM_DOCS.md).
 
-### **Vercel Deployment**
-```bash
-# Deploy to Vercel
-vercel --prod
-
-# Or use GitHub integration
-git push origin main  # Auto-deploys to production
-```
-
-### **Environment Variables**
-```env
-# Optional: Analytics
-NEXT_PUBLIC_ANALYTICS_ID=your_analytics_id
-
-# Optional: GitHub API (for live stats)
-GITHUB_TOKEN=your_github_token
-```
-
-## 🎯 **Performance Metrics**
-
-- **Lighthouse Score**: 100/100/100/100
-- **Core Web Vitals**: All green
-- **Bundle Size**: <150KB gzipped
-- **Time to Interactive**: <1.5s
-- **Accessibility**: WCAG 2.1 AA compliant
-
-## 🧪 **Browser Compatibility**
-
-| Feature | Chrome | Firefox | Safari | Edge |
-|---------|--------|---------|--------|------|
-| Glassmorphism | ✅ | ✅ | ✅ | ✅ |
-| Web Audio | ✅ | ✅ | ✅ | ✅ |
-| Backdrop Filter | ✅ | ✅ | ✅ | ✅ |
-| CSS Grid | ✅ | ✅ | ✅ | ✅ |
-
-## 🤝 **Contributing**
-
-This project demonstrates advanced patterns - contributions welcome!
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch (`git checkout -b feature/amazing-effect`)
+3. Commit your changes (`git commit -m 'Add amazing effect'`)
+4. Push to the branch (`git push origin feature/amazing-effect`)
 5. Open a Pull Request
 
-## 📄 **License**
+## 📄 License
 
-MIT © [Tulio Pinheiro Cunha](https://tuliocunha.dev)
+This design system is available under the MIT License. See LICENSE file for details.
 
-## 🔗 **Related Projects**
+## 🙏 Acknowledgments
 
-- **[Glass UI](https://github.com/tuliopc23/glass-ui)** - The component library powering this system
-- **[Glass UI Storybook](https://storybook.glass-ui.tuliocunha.dev)** - Interactive component documentation
-
-## 🙏 **Acknowledgments**
-
-- **[Next.js](https://nextjs.org)** - React framework
-- **[Tailwind CSS](https://tailwindcss.com)** - Utility-first CSS
-- **[Framer Motion](https://framer.com/motion)** - Animation library
-- **[Radix UI](https://radix-ui.com)** - Primitive components
-- **[Vercel](https://vercel.com)** - Deployment platform
+- Inspired by modern glass morphism trends
+- Terminal aesthetics from classic command-line interfaces
+- Motion design principles from Material Design and Fluent UI
 
 ---
 
-**Built with ❤️ and cutting-edge technology by [Tulio Pinheiro Cunha](https://tuliocunha.dev)**
-
-*This project showcases the intersection of design, engineering, and user experience - demonstrating how technical excellence can create memorable digital experiences.*
+Built with 💚 by the Liquid Glass Terminal Fusion team
