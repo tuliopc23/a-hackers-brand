@@ -1,3 +1,7 @@
+// TODO: This component appears to be a simpler/older version of `components/terminal/terminal-window.tsx`.
+// Evaluate if this version is still needed for the `brand-system` package or if it should be removed/aliased
+// to the more feature-rich component in the main `components/` directory.
+
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal, X, Minus, Square } from 'lucide-react';

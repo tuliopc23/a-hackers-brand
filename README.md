@@ -397,6 +397,19 @@ export const customTokens = {
 
 For comprehensive documentation, component examples, and best practices, see [DESIGN_SYSTEM_DOCS.md](./DESIGN_SYSTEM_DOCS.md).
 
+## 外部ライブラリ
+
+### Glass UI (`glass-ui/`)
+
+The `glass-ui` library, found in the `glass-ui/` directory, serves as the foundational component library (Layer 1) for this design system. It is included as a **vendored library or a git submodule**.
+
+**Update Strategy:**
+To update `glass-ui`, changes should be fetched or pulled from its original repository (`https://github.com/tuliopc23/glass-ui`) into the local `glass-ui/` directory. If source files within `glass-ui/src/` are modified, its `dist/` output may need to be rebuilt using its internal build process (`npm run build` within the `glass-ui/` directory). Ensure any updates are thoroughly tested within this project before committing changes to the main `tulio-brand-system` repository.
+
+### Brand System (`brand-system/`)
+
+The `brand-system/` directory contains a focused package encapsulating core brand-specific elements and certain terminal components (like `TerminalWindow`). This module is part of the broader "Liquid Glass Terminal Fusion" design system and may be intended for separate versioning, distribution, or more direct use in specific brand-related applications. Its components are built using the design principles and tokens defined in this repository.
+
 ## 🤝 Contributing
 
 1. Fork the repository
