@@ -2,21 +2,17 @@
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
-import { Terminal, X, Minus, Square, Copy, Settings, Zap, Play, Pause, Cpu, Activity } from 'lucide-react';
-import { Card } from '../../glass-ui/src/components/card';
-import { Button } from '../../glass-ui/src/components/button';
-import { cn } from '../../lib/utils';
-import { components } from '../../lib/design-tokens';
+import { Terminal, Zap, Play, Pause, Activity } from 'lucide-react';
+import { Card } from '../../../glass-ui/src/components/card';
+import { Button } from '../../../glass-ui/src/components/button';
+import { cn } from '../../../lib/utils';
+import { components } from '../../../lib/design-tokens';
+import { terminalEffects } from './constants';
+import type { TerminalCommand } from './types';
+import { CommandHistory } from './command-history';
+import { AISuggestionsPanel } from './ai-suggestions-panel';
+import { PerformanceOverlay } from './performance-overlay';
 
-interface TerminalCommand {
-  id: string;
-  command: string;
-  output?: string;
-  timestamp: Date;
-  duration?: number;
-  type: 'success' | 'error' | 'info' | 'system' | 'ai-suggestion';
-  status: 'idle' | 'running' | 'completed' | 'failed';
-}
 
 interface TerminalWindowProps {
   title?: string;
@@ -38,58 +34,6 @@ interface TerminalWindowProps {
   'aria-label'?: string;
 }
 
-// Liquid Glass Terminal Effects
-const terminalEffects = {
-  bootSequence: {
-    hidden: { opacity: 0, scale: 0.95, filter: 'blur(10px)' },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
-      filter: 'blur(0px)',
-      transition: {
-        type: 'spring',
-        stiffness: 300,
-        damping: 25,
-        staggerChildren: 0.1
-      }
-    }
-  },
-  commandBlock: {
-    hidden: { opacity: 0, x: -20, filter: 'blur(4px)' },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      filter: 'blur(0px)',
-      transition: {
-        type: 'spring',
-        stiffness: 400,
-        damping: 20
-      }
-    },
-    hover: {
-      scale: 1.01,
-      backgroundColor: 'rgba(0, 212, 170, 0.05)',
-      boxShadow: '0 8px 32px rgba(0, 212, 170, 0.15)',
-      transition: { duration: 0.15, ease: 'easeOut' }
-    }
-  },
-  liquidFlow: {
-    animate: {
-      background: [
-        'radial-gradient(circle at 20% 20%, rgba(0, 212, 170, 0.1) 0%, transparent 50%)',
-        'radial-gradient(circle at 80% 80%, rgba(0, 212, 170, 0.1) 0%, transparent 50%)',
-        'radial-gradient(circle at 20% 20%, rgba(0, 212, 170, 0.1) 0%, transparent 50%)'
-      ],
-      transition: { duration: 10, repeat: Infinity, ease: 'easeInOut' }
-    }
-  },
-  cursor: {
-    blink: {
-      opacity: [1, 0],
-      transition: { duration: 1, repeat: Infinity, ease: 'steps(1, end)' }
-    }
-  }
-};
 
 const defaultCommands = {
   help: () => `🚀 Liquid Terminal Commands:
@@ -614,105 +558,17 @@ export function TerminalWindow({
           ref={historyRef}
           className="h-96 overflow-y-auto p-4 relative z-10 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/20"
         >
-          {/* Command History */}
-          <div className="space-y-3 mb-4">
-            <AnimatePresence>
-              {history.map((cmd) => (
-                <motion.div
-                  key={cmd.id}
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  variants={terminalEffects.commandBlock}
-                  whileHover="hover"
-                  className="group relative p-3 rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm"
-                >
-                  {/* Command Input */}
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className={cn('font-bold text-lg', currentTheme.prompt)}>▶</span>
-                    <span className={cn('flex-1 font-semibold', currentTheme.text)}>{cmd.command}</span>
-                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => copyCommand(cmd.command)}
-                        className="p-1 rounded text-white/50 hover:text-white hover:bg-white/10 transition-colors"
-                      >
-                        <Copy className="w-3 h-3" />
-                      </motion.button>
-                      <motion.div 
-                        className={cn('w-2 h-2 rounded-full', {
-                          'bg-yellow-400 animate-pulse': cmd.status === 'running',
-                          'bg-emerald-400': cmd.status === 'completed' && cmd.type === 'success',
-                          'bg-red-400': cmd.status === 'failed' || cmd.type === 'error',
-                          'bg-blue-400': cmd.type === 'info'
-                        })}
-                        animate={cmd.status === 'running' ? { scale: [1, 1.2, 1] } : {}}
-                        transition={{ duration: 1, repeat: cmd.status === 'running' ? Infinity : 0 }}
-                      />
-                      <span className="text-xs text-white/50 font-mono">
-                        {cmd.duration ? `${cmd.duration}ms` : cmd.timestamp.toLocaleTimeString()}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  {/* Command Output */}
-                  {cmd.output && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      className={cn(
-                        'ml-6 whitespace-pre-wrap font-mono text-sm',
-                        cmd.type === 'error' 
-                          ? 'text-red-300 bg-red-500/10 border-l-2 border-red-500/50 pl-3 py-2' 
-                          : cn(currentTheme.text, 'opacity-80')
-                      )}
-                    >
-                      {cmd.output}
-                    </motion.div>
-                  )}
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
+          <CommandHistory history={history} currentTheme={currentTheme} onCopy={copyCommand} />
 
-          {/* AI Suggestions */}
-          <AnimatePresence>
-            {suggestions.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                className="mb-4 p-3 rounded-lg bg-gradient-to-r from-emerald-500/10 to-blue-500/10 border border-emerald-500/20 backdrop-blur-sm"
-              >
-                <div className="text-xs text-emerald-400 font-bold mb-2 flex items-center gap-2">
-                  <Zap className="w-3 h-3" />
-                  AI Suggestions
-                </div>
-                <div className="space-y-1">
-                  {suggestions.map((suggestion, index) => (
-                    <motion.button
-                      key={suggestion}
-                      whileHover={{ scale: 1.02, x: 4 }}
-                      onClick={() => {
-                        setCurrentCommand(suggestion);
-                        setSuggestions([]);
-                        inputRef.current?.focus();
-                      }}
-                      className={cn(
-                        'w-full text-left px-3 py-2 rounded text-sm transition-all duration-150',
-                        index === selectedSuggestion
-                          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                          : 'text-white/70 hover:bg-white/10 hover:text-white'
-                      )}
-                    >
-                      {suggestion}
-                    </motion.button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <AISuggestionsPanel
+            suggestions={suggestions}
+            selectedIndex={selectedSuggestion}
+            onPick={(s) => {
+              setCurrentCommand(s);
+              setSuggestions([]);
+              inputRef.current?.focus();
+            }}
+          />
 
           {/* Current Input Line */}
           {interactive && (
@@ -772,18 +628,8 @@ export function TerminalWindow({
           </motion.div>
         )}
 
-        {/* Performance Overlay */}
-        {performance && performanceMetrics.commandCount > 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.7 }}
-            className="absolute bottom-4 left-4 text-xs text-white/50 bg-black/30 px-2 py-1 rounded backdrop-blur-sm z-20"
-          >
-            <Cpu className="w-3 h-3 inline mr-1" />
-            Performance: {performanceMetrics.frameRate}fps | Memory: {performanceMetrics.memoryUsage.toFixed(1)}GB
-          </motion.div>
-        )}
+        <PerformanceOverlay metrics={performanceMetrics} enabled={performance} />
       </Card>
     </motion.div>
   );
-} 
+}
