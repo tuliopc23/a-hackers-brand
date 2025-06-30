@@ -222,6 +222,7 @@ export function TerminalWindow({
   // Performance monitoring and mount/unmount effects
   useEffect(() => {
     const startTime = Date.now();
+    const mountStarted = mountTime.current;
     onMount?.();
     
     // Boot sequence animation
@@ -235,7 +236,7 @@ export function TerminalWindow({
     return () => {
       clearTimeout(bootTimer);
       if (performance) {
-        const mountDuration = Date.now() - mountTime.current;
+        const mountDuration = Date.now() - mountStarted;
         console.log(`Terminal mount time: ${mountDuration}ms`);
       }
       onUnmount?.();
