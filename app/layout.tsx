@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ThemeProvider } from '@tuliopc23/glass-ui'
-import { Analytics } from '@vercel/analytics/react'
+import nextDynamic from 'next/dynamic'
+// import { Analytics } from '@vercel/analytics/react' // Optional analytics
 import './globals.css'
+
+// Dynamic import to prevent SSR issues
+const ThemeProvider = nextDynamic(() => import('@/glass-ui').then(mod => mod.ThemeProvider), { ssr: false })
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -81,14 +84,9 @@ export default function RootLayout({
         <meta name="color-scheme" content="light dark" />
       </head>
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider>
           {children}
-          <Analytics />
+          {/* <Analytics /> */}
         </ThemeProvider>
       </body>
     </html>

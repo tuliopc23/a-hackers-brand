@@ -5,7 +5,7 @@ const config: Config = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@tuliopc23/glass-ui/**/*.{js,ts,jsx,tsx}'
+    '../glass-ui/dist/**/*.{js,ts,jsx,tsx}'
   ],
   darkMode: ['class'],
   theme: {
@@ -17,6 +17,18 @@ const config: Config = {
           secondary: '#5856D6',
           accent: '#FF3B30',
           neutral: '#8E8E93'
+        },
+        // Terminal colors for CLI-inspired components
+        terminal: {
+          bg: '#1D1D1F',
+          fg: '#F5F5F7',
+          green: '#30D158',
+          blue: '#007AFF',
+          yellow: '#FFD60A',
+          red: '#FF453A',
+          purple: '#BF5AF2',
+          cyan: '#5AC8FA',
+          output: '#007AFF'
         },
         // Glass UI integration
         border: 'hsl(var(--border))',
@@ -105,7 +117,7 @@ const config: Config = {
       }
     }
   },
-  plugins: [require('tailwindcss-animate')]
+  plugins: []
 }
 
 export default config

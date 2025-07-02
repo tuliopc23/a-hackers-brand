@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Glass Terminal Fusion - Design System Demo</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Design System CSS -->
+    <link rel="stylesheet" href="styles/tokens.css">
+    <link rel="stylesheet" href="styles/glass-system.css">
+    <link rel="stylesheet" href="styles/terminal-theme.css">
+    
+    <style>
+        /* Demo Specific Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-text);
+            background: var(--color-terminal-950);
+            color: var(--color-terminal-100);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-8);
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: var(--space-16);
+            padding: var(--space-16) 0;
+        }
+        
+        .demo-title {
+            font-size: var(--text-6xl);
+            font-weight: var(--font-bold);
+            background: linear-gradient(135deg, var(--color-accent-400), var(--color-syntax-function));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--space-4);
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+        
+        .demo-subtitle {
+            font-size: var(--text-xl);
+            color: var(--color-terminal-400);
+        }
+        
+        .demo-section {
+            margin-bottom: var(--space-16);
+        }
+        
+        .section-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-8);
+            color: var(--color-accent-400);
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        .demo-item {
+            padding: var(--space-6);
+        }
+        
+        .demo-label {
+            font-size: var(--text-sm);
+            color: var(--color-terminal-400);
+            margin-bottom: var(--space-2);
+            font-family: var(--font-mono);
+        }
+        
+        /* Utility Classes */
+        .flex { display: flex; }
+        .flex-wrap { flex-wrap: wrap; }
+        .gap-4 { gap: var(--space-4); }
+        .mb-4 { margin-bottom: var(--space-4); }
+        .p-4 { padding: var(--space-4); }
+        .text-center { text-align: center; }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="glass-mesh" style="position: fixed; inset: 0; z-index: -1; opacity: 0.3;"></div>
+    
+    <div class="demo-container">
+        <!-- Header -->
+        <header class="demo-header">
+            <h1 class="demo-title">Liquid Glass Terminal Fusion</h1>
+            <p class="demo-subtitle">A comprehensive design system merging glass morphism with terminal aesthetics</p>
+        </header>
+        
+        <!-- Glass Effects Section -->
+        <section class="demo-section">
+            <h2 class="section-title">Glass Effects</h2>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <p class="demo-label">glass-subtle</p>
+                    <div class="glass-subtle p-4">
+                        Subtle glass effect with minimal blur
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <p class="demo-label">glass-medium</p>
+                    <div class="glass-medium p-4">
+                        Medium intensity glass morphism
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <p class="demo-label">glass-heavy</p>
+                    <div class="glass-heavy p-4">
+                        Heavy blur with strong opacity
+                    </div>
+                </div>
+            </div>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <p class="demo-label">glass-shimmer</p>
+                    <div class="glass glass-shimmer p-4 text-center">
+                        <i class="fas fa-sparkles"></i> Hover for shimmer effect
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <p class="demo-label">glass-prismatic</p>
+                    <div class="glass glass-prismatic p-4 text-center">
+                        <i class="fas fa-rainbow"></i> Rainbow border on hover
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <p class="demo-label">glass-liquid</p>
+                    <div class="glass glass-liquid p-4 text-center">
+                        <i class="fas fa-water"></i> Liquid ripple effect
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Glass Components Section -->
+        <section class="demo-section">
+            <h2 class="section-title">Glass Components</h2>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <p class="demo-label">Glass Card</p>
+                    <div class="glass-card">
+                        <h3 style="margin-bottom: var(--space-2);">Feature Card</h3>
+                        <p style="color: var(--color-terminal-300);">
+                            A beautiful glass morphism card with depth and translucency.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <p class="demo-label">Glass Buttons</p>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="glass-button" style="padding: var(--space-2) var(--space-4);">
+                            <i class="fas fa-play"></i> Primary
+                        </button>
+                        <button class="glass-button glass-glow" style="padding: var(--space-2) var(--space-4);">
+                            <i class="fas fa-star"></i> Glowing
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <p class="demo-label">Glass Input</p>
+                    <input type="text" class="glass-input" placeholder="Enter your email..." style="width: 100%; padding: var(--space-3);">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Terminal Components Section -->
+        <section class="demo-section">
+            <h2 class="section-title">Terminal Components</h2>
+            
+            <!-- Terminal Window -->
+            <div class="terminal-window terminal-boot mb-4">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-control close"></span>
+                        <span class="terminal-control minimize"></span>
+                        <span class="terminal-control maximize"></span>
+                    </div>
+                    <div class="terminal-title">zsh — design-system</div>
+                </div>
+                
+                <div class="terminal-tabs">
+                    <div class="terminal-tab active">Main</div>
+                    <div class="terminal-tab">Server</div>
+                    <div class="terminal-tab">Tests</div>
+                </div>
+                
+                <div class="terminal-body">
+                    <div class="terminal-command success">
+                        <div class="terminal-command-header">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-command-text">npm install @liquid-glass/design-system</span>
+                        </div>
+                        <div class="terminal-output">
+                            <span class="terminal-syntax-comment"># Installing dependencies...</span>
+                            <br>✓ Installed 142 packages in 3.2s
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-command">
+                        <div class="terminal-command-header">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-command-text">npm run dev</span>
+                        </div>
+                        <div class="terminal-output">
+                            <span class="terminal-syntax-function">▶ Next.js 14.0.0</span>
+                            <br><span class="terminal-syntax-comment">- Local:</span> http://localhost:3000
+                            <br><span class="terminal-syntax-type">✓ Ready</span> in 1.4s
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-command executing">
+                        <div class="terminal-command-header">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-command-text terminal-typing">Building production bundle...</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="terminal-status">
+                    <div class="terminal-status-item">
+                        <span class="terminal-status-indicator online"></span>
+                        <span>Connected</span>
+                    </div>
+                    <div class="terminal-status-item">
+                        <span>Node v20.9.0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Interactive Terminal -->
+            <div class="glass terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-title">Interactive Terminal</div>
+                </div>
+                <div class="terminal-body" style="min-height: 200px;">
+                    <div id="command-history"></div>
+                    <div class="terminal-input-wrapper">
+                        <span class="terminal-prompt">$</span>
+                        <input 
+                            type="text" 
+                            class="terminal-input" 
+                            id="terminal-input"
+                            placeholder="Try typing 'help' or any command..."
+                        >
+                        <span class="terminal-cursor"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Syntax Highlighting Section -->
+        <section class="demo-section">
+            <h2 class="section-title">Syntax Highlighting</h2>
+            
+            <div class="glass-card terminal" style="font-family: var(--font-mono);">
+                <pre style="margin: 0;"><code><span class="terminal-syntax-keyword">import</span> { <span class="terminal-syntax-variable">GlassCard</span>, <span class="terminal-syntax-variable">Terminal</span> } <span class="terminal-syntax-keyword">from</span> <span class="terminal-syntax-string">'@liquid-glass/components'</span>;
+
+<span class="terminal-syntax-keyword">function</span> <span class="terminal-syntax-function">App</span>() {
+  <span class="terminal-syntax-keyword">const</span> [<span class="terminal-syntax-variable">isLoading</span>, <span class="terminal-syntax-variable">setIsLoading</span>] <span class="terminal-syntax-operator">=</span> <span class="terminal-syntax-function">useState</span>(<span class="terminal-syntax-constant">false</span>);
+  
+  <span class="terminal-syntax-keyword">return</span> (
+    <span class="terminal-syntax-operator">&lt;</span><span class="terminal-syntax-type">GlassCard</span> <span class="terminal-syntax-variable">variant</span><span class="terminal-syntax-operator">=</span><span class="terminal-syntax-string">"prismatic"</span><span class="terminal-syntax-operator">&gt;</span>
+      <span class="terminal-syntax-operator">&lt;</span><span class="terminal-syntax-type">Terminal</span> <span class="terminal-syntax-variable">theme</span><span class="terminal-syntax-operator">=</span><span class="terminal-syntax-string">"dark"</span> <span class="terminal-syntax-operator">/&gt;</span>
+    <span class="terminal-syntax-operator">&lt;/</span><span class="terminal-syntax-type">GlassCard</span><span class="terminal-syntax-operator">&gt;</span>
+  );
+}</code></pre>
+            </div>
+        </section>
+        
+        <!-- Combined Effects Section -->
+        <section class="demo-section">
+            <h2 class="section-title">Combined Effects</h2>
+            
+            <div class="demo-grid">
+                <div class="glass-card glass-glow terminal-scanline" style="position: relative; overflow: hidden;">
+                    <h3 style="margin-bottom: var(--space-2);">System Monitor</h3>
+                    <div style="font-family: var(--font-mono); font-size: var(--mono-sm);">
+                        <div style="color: var(--color-syntax-type);">CPU: 42%</div>
+                        <div style="color: var(--color-syntax-function);">RAM: 8.2GB / 16GB</div>
+                        <div style="color: var(--color-syntax-warning);">TEMP: 67°C</div>
+                    </div>
+                </div>
+                
+                <div class="glass-orbs glass-card" style="position: relative;">
+                    <h3 style="margin-bottom: var(--space-2); position: relative; z-index: 1;">Animated Background</h3>
+                    <p style="position: relative; z-index: 1; color: var(--color-terminal-300);">
+                        Glass card with animated gradient orbs
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // Interactive Terminal Demo
+        const input = document.getElementById('terminal-input');
+        const history = document.getElementById('command-history');
+        
+        const commands = {
+            help: 'Available commands: help, clear, about, theme, date',
+            clear: () => { history.innerHTML = ''; return 'Terminal cleared'; },
+            about: 'Liquid Glass Terminal Fusion Design System v1.0.0',
+            theme: 'Current theme: Dark Terminal',
+            date: () => new Date().toLocaleString()
+        };
+        
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const command = input.value.trim();
+                
+                // Add command to history
+                const commandBlock = document.createElement('div');
+                commandBlock.className = 'terminal-command terminal-command-enter';
+                commandBlock.innerHTML = `
+                    <div class="terminal-command-header">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command-text">${command}</span>
+                    </div>
+                `;
+                
+                // Process command
+                if (command) {
+                    const output = document.createElement('div');
+                    output.className = 'terminal-output';
+                    
+                    if (commands[command]) {
+                        const result = typeof commands[command] === 'function' 
+                            ? commands[command]() 
+                            : commands[command];
+                        output.textContent = result;
+                        commandBlock.classList.add('success');
+                    } else {
+                        output.textContent = `Command not found: ${command}`;
+                        output.style.color = 'var(--color-syntax-error)';
+                        commandBlock.classList.add('error');
+                    }
+                    
+                    commandBlock.appendChild(output);
+                }
+                
+                history.appendChild(commandBlock);
+                input.value = '';
+                
+                // Scroll to bottom
+                history.parentElement.scrollTop = history.parentElement.scrollHeight;
+            }
+        });
+        
+        // Magnetic effect for glass-magnetic elements
+        document.querySelectorAll('.glass-magnetic').forEach(element => {
+            element.addEventListener('mousemove', (e) => {
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                element.style.setProperty('--magnetic-x', `${x * 0.1}px`);
+                element.style.setProperty('--magnetic-y', `${y * 0.1}px`);
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                element.style.setProperty('--magnetic-x', '0');
+                element.style.setProperty('--magnetic-y', '0');
+            });
+        });
+    </script>
+</body>
+</html>
