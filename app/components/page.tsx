@@ -19,18 +19,21 @@ import {
 import Link from 'next/link'
 import { useState, useRef } from 'react'
 
-// Dynamic imports to prevent SSR issues
-const GlassCard = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassCard), { ssr: false })
-const GlassButton = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassButton), { ssr: false })
-const GlassBadge = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassBadge), { ssr: false })
-const GlassInput = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassInput), { ssr: false })
-const GlassProgress = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassProgress), { ssr: false })
-const GlassModal = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassModal), { ssr: false })
-const GlassTooltip = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassTooltip), { ssr: false })
-const GlassAvatar = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassAvatar), { ssr: false })
-const GlassSwitch = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassSwitch), { ssr: false })
-const GlassCheckbox = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassCheckbox), { ssr: false })
-const GlassSlider = nextDynamic(() => import('@/glass-ui').then(mod => mod.GlassSlider), { ssr: false })
+// Import Glass UI components directly
+import { Card, Button, Badge, Input, Modal } from '@/glass-ui'
+
+// Create aliases for consistency
+const GlassCard = Card;
+const GlassButton = Button;
+const GlassBadge = Badge;
+const GlassInput = Input;
+const GlassProgress = Card; // Using Card as fallback for now
+const GlassModal = Modal;
+const GlassTooltip = Card; // Using Card as fallback for now
+const GlassAvatar = Card; // Using Card as fallback for now
+const GlassSwitch = Card; // Using Card as fallback for now
+const GlassCheckbox = Card; // Using Card as fallback for now
+const GlassSlider = Card; // Using Card as fallback for now
 const GlassHero = nextDynamic(() => import('../../components').then(mod => mod.GlassHero), { ssr: false })
 const ComponentShowcase = nextDynamic(() => import('../../components').then(mod => mod.ComponentShowcase), { ssr: false })
 // Import the hook directly since it's not a component

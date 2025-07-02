@@ -151,4 +151,331 @@ export class PerformanceMonitor {
   }
 }
 
-export interface PerformanceMetrics {\n  [label: string]: {\n    avg: number;\n    max: number;\n    min: number;\n    p95: number;\n    count: number;\n  };\n}\n\n// High-performance hooks\nexport function useOptimizedCallback<T extends (...args: any[]) => any>(\n  callback: T,\n  deps: DependencyList\n): T {\n  const monitor = PerformanceMonitor.getInstance();\n  \n  return useCallback((...args: Parameters<T>) => {\n    const endTiming = monitor.startTiming('callback_execution');\n    const result = callback(...args);\n    endTiming();\n    return result;\n  }, deps) as T;\n}\n\nexport function useOptimizedMemo<T>(\n  factory: () => T,\n  deps: DependencyList\n): T {\n  const monitor = PerformanceMonitor.getInstance();\n  \n  return useMemo(() => {\n    const endTiming = monitor.startTiming('memo_computation');\n    const result = factory();\n    endTiming();\n    return result;\n  }, deps);\n}\n\n// Optimized event handlers\nexport function useThrottledCallback<T extends (...args: any[]) => any>(\n  callback: T,\n  delay: number = 16, // 60fps\n  deps: DependencyList\n): T {\n  const throttledFn = useMemo(\n    () => throttle(callback, delay, { leading: true, trailing: true }),\n    deps\n  );\n  \n  useEffect(() => {\n    return () => {\n      throttledFn.cancel();\n    };\n  }, [throttledFn]);\n  \n  return throttledFn as T;\n}\n\nexport function useDebouncedCallback<T extends (...args: any[]) => any>(\n  callback: T,\n  delay: number = 300,\n  deps: DependencyList\n): T {\n  const debouncedFn = useMemo(\n    () => debounce(callback, delay),\n    deps\n  );\n  \n  useEffect(() => {\n    return () => {\n      debouncedFn.cancel();\n    };\n  }, [debouncedFn]);\n  \n  return debouncedFn as T;\n}\n\n// Animation frame scheduling\nexport function useAnimationFrame(callback: (deltaTime: number) => void, active: boolean = true): void {\n  const requestRef = useRef<number>();\n  const previousTimeRef = useRef<number>();\n  const callbackRef = useRef(callback);\n  \n  callbackRef.current = callback;\n  \n  const animate = useCallback((time: number) => {\n    if (previousTimeRef.current !== undefined) {\n      const deltaTime = time - previousTimeRef.current;\n      callbackRef.current(deltaTime);\n    }\n    previousTimeRef.current = time;\n    if (active) {\n      requestRef.current = requestAnimationFrame(animate);\n    }\n  }, [active]);\n  \n  useEffect(() => {\n    if (active) {\n      requestRef.current = requestAnimationFrame(animate);\n    }\n    return () => {\n      if (requestRef.current) {\n        cancelAnimationFrame(requestRef.current);\n      }\n    };\n  }, [animate, active]);\n}\n\n// GPU acceleration utilities\nexport const gpuAcceleration = {\n  // Enable hardware acceleration\n  enable: (element: HTMLElement): void => {\n    element.style.willChange = 'transform, opacity, filter';\n    element.style.transform = 'translateZ(0)';\n    element.style.backfaceVisibility = 'hidden';\n  },\n  \n  // Disable hardware acceleration to save resources\n  disable: (element: HTMLElement): void => {\n    element.style.willChange = 'auto';\n    element.style.transform = '';\n    element.style.backfaceVisibility = '';\n  },\n  \n  // Optimize for animations\n  optimizeForAnimation: (element: HTMLElement): void => {\n    element.style.willChange = 'transform';\n    element.style.transform = 'translateZ(0)';\n  }\n};\n\n// Memory management\nexport class MemoryManager {\n  private static weakMap = new WeakMap();\n  private static cache = new Map();\n  private static maxCacheSize = 100;\n  \n  static memoize<T extends (...args: any[]) => any>(fn: T, keyFn?: (...args: Parameters<T>) => string): T {\n    return ((...args: Parameters<T>) => {\n      const key = keyFn ? keyFn(...args) : JSON.stringify(args);\n      \n      if (this.cache.has(key)) {\n        return this.cache.get(key);\n      }\n      \n      const result = fn(...args);\n      \n      // Prevent memory leaks by limiting cache size\n      if (this.cache.size >= this.maxCacheSize) {\n        const firstKey = this.cache.keys().next().value;\n        this.cache.delete(firstKey);\n      }\n      \n      this.cache.set(key, result);\n      return result;\n    }) as T;\n  }\n  \n  static store(obj: object, key: string, value: any): void {\n    if (!this.weakMap.has(obj)) {\n      this.weakMap.set(obj, new Map());\n    }\n    this.weakMap.get(obj).set(key, value);\n  }\n  \n  static retrieve(obj: object, key: string): any {\n    const objMap = this.weakMap.get(obj);\n    return objMap ? objMap.get(key) : undefined;\n  }\n  \n  static clear(): void {\n    this.cache.clear();\n  }\n}\n\n// Virtual scrolling for large lists\nexport function useVirtualScrolling({\n  itemCount,\n  itemHeight,\n  containerHeight,\n  overscan = 5\n}: {\n  itemCount: number;\n  itemHeight: number;\n  containerHeight: number;\n  overscan?: number;\n}) {\n  const [scrollTop, setScrollTop] = useState(0);\n  \n  const visibleStart = Math.floor(scrollTop / itemHeight);\n  const visibleEnd = Math.min(\n    itemCount - 1,\n    Math.ceil((scrollTop + containerHeight) / itemHeight)\n  );\n  \n  const start = Math.max(0, visibleStart - overscan);\n  const end = Math.min(itemCount - 1, visibleEnd + overscan);\n  \n  const items = [];\n  for (let i = start; i <= end; i++) {\n    items.push({\n      index: i,\n      style: {\n        position: 'absolute' as const,\n        top: i * itemHeight,\n        height: itemHeight,\n        width: '100%'\n      }\n    });\n  }\n  \n  return {\n    items,\n    totalHeight: itemCount * itemHeight,\n    scrollTop,\n    setScrollTop\n  };\n}\n\n// Bundle size optimization\nexport const bundleOptimization = {\n  // Lazy import with error boundary\n  lazyImport: <T extends Record<string, any>>(importFn: () => Promise<T>) => {\n    return React.lazy(async () => {\n      try {\n        const module = await importFn();\n        return { default: module.default || module };\n      } catch (error) {\n        console.error('Failed to load module:', error);\n        // Return a fallback component\n        return {\n          default: () => React.createElement('div', null, 'Failed to load component')\n        };\n      }\n    });\n  },\n  \n  // Code splitting by route\n  splitByRoute: (routes: Record<string, () => Promise<any>>) => {\n    const components: Record<string, React.LazyExoticComponent<any>> = {};\n    \n    Object.entries(routes).forEach(([key, importFn]) => {\n      components[key] = bundleOptimization.lazyImport(importFn);\n    });\n    \n    return components;\n  }\n};\n\n// Performance testing utilities\nexport const performanceTesting = {\n  // Measure component render time\n  measureRender: <T extends React.ComponentType<any>>(Component: T, props: any) => {\n    const monitor = PerformanceMonitor.getInstance();\n    \n    return (renderProps: any) => {\n      const endTiming = monitor.startTiming(`${Component.name}_render`);\n      const result = React.createElement(Component, { ...props, ...renderProps });\n      \n      // Use useEffect to measure after render\n      React.useEffect(() => {\n        endTiming();\n      });\n      \n      return result;\n    };\n  },\n  \n  // Stress test with multiple renders\n  stressTest: (component: React.ReactElement, iterations: number = 100) => {\n    const monitor = PerformanceMonitor.getInstance();\n    const results: number[] = [];\n    \n    for (let i = 0; i < iterations; i++) {\n      const endTiming = monitor.startTiming('stress_test');\n      // Simulate render\n      setTimeout(() => {\n        results.push(endTiming());\n      }, 0);\n    }\n    \n    return results;\n  }\n};\n\n// Browser compatibility checks\nexport const browserSupport = {\n  hasWebGL: (): boolean => {\n    try {\n      const canvas = document.createElement('canvas');\n      return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));\n    } catch {\n      return false;\n    }\n  },\n  \n  hasWebGPU: (): boolean => {\n    return 'gpu' in navigator;\n  },\n  \n  hasBackdropFilter: (): boolean => {\n    return CSS.supports('backdrop-filter', 'blur(1px)');\n  },\n  \n  hasIntersectionObserver: (): boolean => {\n    return 'IntersectionObserver' in window;\n  },\n  \n  hasResizeObserver: (): boolean => {\n    return 'ResizeObserver' in window;\n  },\n  \n  getPerformanceGrade: (): 'high' | 'medium' | 'low' => {\n    const features = [\n      browserSupport.hasWebGL(),\n      browserSupport.hasBackdropFilter(),\n      browserSupport.hasIntersectionObserver(),\n      browserSupport.hasResizeObserver()\n    ];\n    \n    const supportedFeatures = features.filter(Boolean).length;\n    \n    if (supportedFeatures >= 4) return 'high';\n    if (supportedFeatures >= 2) return 'medium';\n    return 'low';\n  }\n};
+export interface PerformanceMetrics {
+  [label: string]: {
+    avg: number;
+    max: number;
+    min: number;
+    p95: number;
+    count: number;
+  };
+}
+
+// High-performance hooks
+export function useOptimizedCallback<T extends (...args: any[]) => any>(
+  callback: T,
+  deps: DependencyList
+): T {
+  const monitor = PerformanceMonitor.getInstance();
+  
+  return useCallback((...args: Parameters<T>) => {
+    const endTiming = monitor.startTiming('callback_execution');
+    const result = callback(...args);
+    endTiming();
+    return result;
+  }, deps) as T;
+}
+
+export function useOptimizedMemo<T>(
+  factory: () => T,
+  deps: DependencyList
+): T {
+  const monitor = PerformanceMonitor.getInstance();
+  
+  return useMemo(() => {
+    const endTiming = monitor.startTiming('memo_computation');
+    const result = factory();
+    endTiming();
+    return result;
+  }, deps);
+}
+
+// Optimized event handlers
+export function useThrottledCallback<T extends (...args: any[]) => any>(
+  callback: T,
+  delay: number = 16, // 60fps
+  deps: DependencyList
+): T {
+  const throttledFn = useMemo(
+    () => throttle(callback, delay, { leading: true, trailing: true }),
+    deps
+  );
+  
+  useEffect(() => {
+    return () => {
+      throttledFn.cancel();
+    };
+  }, [throttledFn]);
+  
+  return throttledFn as T;
+}
+
+export function useDebouncedCallback<T extends (...args: any[]) => any>(
+  callback: T,
+  delay: number = 300,
+  deps: DependencyList
+): T {
+  const debouncedFn = useMemo(
+    () => debounce(callback, delay),
+    deps
+  );
+  
+  useEffect(() => {
+    return () => {
+      debouncedFn.cancel();
+    };
+  }, [debouncedFn]);
+  
+  return debouncedFn as T;
+}
+
+// Animation frame scheduling
+export function useAnimationFrame(callback: (deltaTime: number) => void, active: boolean = true): void {
+  const requestRef = useRef<number>();
+  const previousTimeRef = useRef<number>();
+  const callbackRef = useRef(callback);
+  
+  callbackRef.current = callback;
+  
+  const animate = useCallback((time: number) => {
+    if (previousTimeRef.current !== undefined) {
+      const deltaTime = time - previousTimeRef.current;
+      callbackRef.current(deltaTime);
+    }
+    previousTimeRef.current = time;
+    if (active) {
+      requestRef.current = requestAnimationFrame(animate);
+    }
+  }, [active]);
+  
+  useEffect(() => {
+    if (active) {
+      requestRef.current = requestAnimationFrame(animate);
+    }
+    return () => {
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
+    };
+  }, [animate, active]);
+}
+
+// GPU acceleration utilities
+export const gpuAcceleration = {
+  // Enable hardware acceleration
+  enable: (element: HTMLElement): void => {
+    element.style.willChange = 'transform, opacity, filter';
+    element.style.transform = 'translateZ(0)';
+    element.style.backfaceVisibility = 'hidden';
+  },
+  
+  // Disable hardware acceleration to save resources
+  disable: (element: HTMLElement): void => {
+    element.style.willChange = 'auto';
+    element.style.transform = '';
+    element.style.backfaceVisibility = '';
+  },
+  
+  // Optimize for animations
+  optimizeForAnimation: (element: HTMLElement): void => {
+    element.style.willChange = 'transform';
+    element.style.transform = 'translateZ(0)';
+  }
+};
+
+// Memory management
+export class MemoryManager {
+  private static weakMap = new WeakMap();
+  private static cache = new Map();
+  private static maxCacheSize = 100;
+  
+  static memoize<T extends (...args: any[]) => any>(fn: T, keyFn?: (...args: Parameters<T>) => string): T {
+    return ((...args: Parameters<T>) => {
+      const key = keyFn ? keyFn(...args) : JSON.stringify(args);
+      
+      if (this.cache.has(key)) {
+        return this.cache.get(key);
+      }
+      
+      const result = fn(...args);
+      
+      // Prevent memory leaks by limiting cache size
+      if (this.cache.size >= this.maxCacheSize) {
+        const firstKey = this.cache.keys().next().value;
+        this.cache.delete(firstKey);
+      }
+      
+      this.cache.set(key, result);
+      return result;
+    }) as T;
+  }
+  
+  static store(obj: object, key: string, value: any): void {
+    if (!this.weakMap.has(obj)) {
+      this.weakMap.set(obj, new Map());
+    }
+    this.weakMap.get(obj).set(key, value);
+  }
+  
+  static retrieve(obj: object, key: string): any {
+    const objMap = this.weakMap.get(obj);
+    return objMap ? objMap.get(key) : undefined;
+  }
+  
+  static clear(): void {
+    this.cache.clear();
+  }
+}
+
+// Virtual scrolling for large lists
+export function useVirtualScrolling({
+  itemCount,
+  itemHeight,
+  containerHeight,
+  overscan = 5
+}: {
+  itemCount: number;
+  itemHeight: number;
+  containerHeight: number;
+  overscan?: number;
+}) {
+  const [scrollTop, setScrollTop] = useState(0);
+  
+  const visibleStart = Math.floor(scrollTop / itemHeight);
+  const visibleEnd = Math.min(
+    itemCount - 1,
+    Math.ceil((scrollTop + containerHeight) / itemHeight)
+  );
+  
+  const start = Math.max(0, visibleStart - overscan);
+  const end = Math.min(itemCount - 1, visibleEnd + overscan);
+  
+  const items = [];
+  for (let i = start; i <= end; i++) {
+    items.push({
+      index: i,
+      style: {
+        position: 'absolute' as const,
+        top: i * itemHeight,
+        height: itemHeight,
+        width: '100%'
+      }
+    });
+  }
+  
+  return {
+    items,
+    totalHeight: itemCount * itemHeight,
+    scrollTop,
+    setScrollTop
+  };
+}
+
+// Bundle size optimization
+export const bundleOptimization = {
+  // Lazy import with error boundary
+  lazyImport: <T extends Record<string, any>>(importFn: () => Promise<T>) => {
+    return React.lazy(async () => {
+      try {
+        const module = await importFn();
+        return { default: module.default || module };
+      } catch (error) {
+        console.error('Failed to load module:', error);
+        // Return a fallback component
+        return {
+          default: () => React.createElement('div', null, 'Failed to load component')
+        };
+      }
+    });
+  },
+  
+  // Code splitting by route
+  splitByRoute: (routes: Record<string, () => Promise<any>>) => {
+    const components: Record<string, React.LazyExoticComponent<any>> = {};
+    
+    Object.entries(routes).forEach(([key, importFn]) => {
+      components[key] = bundleOptimization.lazyImport(importFn);
+    });
+    
+    return components;
+  }
+};
+
+// Performance testing utilities
+export const performanceTesting = {
+  // Measure component render time
+  measureRender: <T extends React.ComponentType<any>>(Component: T, props: any) => {
+    const monitor = PerformanceMonitor.getInstance();
+    
+    return (renderProps: any) => {
+      const endTiming = monitor.startTiming(`${Component.name}_render`);
+      const result = React.createElement(Component, { ...props, ...renderProps });
+      
+      // Use useEffect to measure after render
+      React.useEffect(() => {
+        endTiming();
+      });
+      
+      return result;
+    };
+  },
+  
+  // Stress test with multiple renders
+  stressTest: (component: React.ReactElement, iterations: number = 100) => {
+    const monitor = PerformanceMonitor.getInstance();
+    const results: number[] = [];
+    
+    for (let i = 0; i < iterations; i++) {
+      const endTiming = monitor.startTiming('stress_test');
+      // Simulate render
+      setTimeout(() => {
+        results.push(endTiming());
+      }, 0);
+    }
+    
+    return results;
+  }
+};
+
+// Browser compatibility checks
+export const browserSupport = {
+  hasWebGL: (): boolean => {
+    try {
+      const canvas = document.createElement('canvas');
+      return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
+    } catch {
+      return false;
+    }
+  },
+  
+  hasWebGPU: (): boolean => {
+    return 'gpu' in navigator;
+  },
+  
+  hasBackdropFilter: (): boolean => {
+    return CSS.supports('backdrop-filter', 'blur(1px)');
+  },
+  
+  hasIntersectionObserver: (): boolean => {
+    return 'IntersectionObserver' in window;
+  },
+  
+  hasResizeObserver: (): boolean => {
+    return 'ResizeObserver' in window;
+  },
+  
+  getPerformanceGrade: (): 'high' | 'medium' | 'low' => {
+    const features = [
+      browserSupport.hasWebGL(),
+      browserSupport.hasBackdropFilter(),
+      browserSupport.hasIntersectionObserver(),
+      browserSupport.hasResizeObserver()
+    ];
+    
+    const supportedFeatures = features.filter(Boolean).length;
+    
+    if (supportedFeatures >= 4) return 'high';
+    if (supportedFeatures >= 2) return 'medium';
+    return 'low';
+  }
+};

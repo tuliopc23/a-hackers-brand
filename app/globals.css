@@ -1,4 +1,3 @@
-@import '@tuliopc23/glass-ui/styles';
 @import '../lib/brand-tokens/glass.css';
 @tailwind base;
 @tailwind components;

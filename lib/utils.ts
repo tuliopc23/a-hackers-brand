@@ -20,4 +20,4 @@ export {
   touchTarget,
   responsiveGlass,
   animationState
-} from '@tuliopc23/glass-ui';
+} from '@/glass-ui';
