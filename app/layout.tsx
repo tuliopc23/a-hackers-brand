@@ -6,6 +6,7 @@ import './globals.css'
 
 // Dynamic import to prevent SSR issues
 const ThemeProvider = nextDynamic(() => import('next-themes').then(mod => ({ default: mod.ThemeProvider })), { ssr: false })
+const WebVitalsInit = nextDynamic(() => import('../components/performance/web-vitals-init').then(mod => ({ default: mod.WebVitalsInit })), { ssr: false })
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -85,6 +86,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <ThemeProvider>
+          <WebVitalsInit />
           {children}
           {/* <Analytics /> */}
         </ThemeProvider>

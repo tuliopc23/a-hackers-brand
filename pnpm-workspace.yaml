@@ -1,0 +1,5 @@
+packages:
+  # Include the svelte-version (main SvelteKit project)
+  - "svelte-version"
+  # Include the glass-ui sub-package
+  - "glass-ui"

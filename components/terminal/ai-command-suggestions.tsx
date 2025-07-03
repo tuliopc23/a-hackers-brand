@@ -357,7 +357,7 @@ export function AICommandSuggestions({
             className="text-center py-4"
           >
             <p className="text-white/50 text-sm">
-              No suggestions found for "{input}"
+              No suggestions found for &ldquo;{input}&rdquo;
             </p>
             <p className="text-white/30 text-xs mt-1">
               Try a different command or continue typing

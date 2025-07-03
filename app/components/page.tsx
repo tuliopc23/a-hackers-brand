@@ -20,14 +20,14 @@ import Link from 'next/link'
 import { useState, useRef } from 'react'
 
 // Import Glass UI components directly
-import { Card, Button, Badge, Input, Modal } from '@/glass-ui'
+import { Card, Button, Badge, Input, Modal, Progress } from '@/glass-ui'
 
 // Create aliases for consistency
 const GlassCard = Card;
 const GlassButton = Button;
 const GlassBadge = Badge;
 const GlassInput = Input;
-const GlassProgress = Card; // Using Card as fallback for now
+const GlassProgress = Progress;
 const GlassModal = Modal;
 const GlassTooltip = Card; // Using Card as fallback for now
 const GlassAvatar = Card; // Using Card as fallback for now
@@ -121,7 +121,7 @@ export default function ComponentsPage() {
                 <div>
                   <label className="block text-sm font-medium mb-2">Search Components</label>
                   <GlassInput
-                    variant="search"
+                    variant="default"
                     placeholder="Search..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -178,16 +178,16 @@ export default function ComponentsPage() {
                     variant="primary" 
                     size="sm" 
                     className="w-full mb-3"
-                    leftIcon={<Download className="w-4 h-4" />}
                   >
+                    <Download className="w-4 h-4 mr-2" />
                     Install Package
                   </GlassButton>
                   <GlassButton 
                     variant="secondary" 
                     size="sm" 
                     className="w-full"
-                    leftIcon={<Code className="w-4 h-4" />}
                   >
+                    <Code className="w-4 h-4 mr-2" />
                     View Source
                   </GlassButton>
                 </div>
@@ -215,25 +215,25 @@ export default function ComponentsPage() {
               <div className="text-center">
                 <div className="text-3xl font-bold text-terminal-green mb-2">70+</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 mb-3">Total Components</div>
-                <GlassProgress value={100} color="green" />
+                <GlassProgress value={100} />
               </div>
               
               <div className="text-center">
                 <div className="text-3xl font-bold text-brand-primary mb-2">95%</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 mb-3">Test Coverage</div>
-                <GlassProgress value={95} color="blue" />
+                <GlassProgress value={95} />
               </div>
               
               <div className="text-center">
                 <div className="text-3xl font-bold text-brand-secondary mb-2">A11Y</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 mb-3">WCAG 2.1 AA</div>
-                <GlassProgress value={100} color="purple" />
+                <GlassProgress value={100} />
               </div>
               
               <div className="text-center">
                 <div className="text-3xl font-bold text-terminal-cyan mb-2">188KB</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 mb-3">Bundle Size</div>
-                <GlassProgress value={75} color="blue" />
+                <GlassProgress value={75} />
               </div>
             </div>
           </MagneticCard>

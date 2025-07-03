@@ -377,8 +377,8 @@ export const bundleOptimization = {
   lazyImport: <T extends Record<string, any>>(importFn: () => Promise<T>) => {
     return React.lazy(async () => {
       try {
-        const module = await importFn();
-        return { default: module.default || module };
+        const moduleResult = await importFn();
+        return { default: moduleResult.default || moduleResult };
       } catch (error) {
         console.error('Failed to load module:', error);
         // Return a fallback component

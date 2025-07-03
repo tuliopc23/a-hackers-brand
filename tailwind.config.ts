@@ -66,8 +66,9 @@ const config: Config = {
         }
       },
       fontFamily: {
-        sans: ['SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
-        mono: ['SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'monospace']
+        sans: ['PP Supply Sans', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+        mono: ['PP Supply Mono', 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'monospace'],
+        brand: ['PP Supply Sans', 'sans-serif']
       },
       fontSize: {
         'display-large': ['4rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],

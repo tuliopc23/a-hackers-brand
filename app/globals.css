@@ -1,10 +1,12 @@
+/* Import Design Token System */
+@import '../lib/brand-tokens/fonts.css';
+@import '../lib/brand-tokens/colors.css';
+@import '../lib/brand-tokens/spacing.css';
 @import '../lib/brand-tokens/glass.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* SF Pro Display Font */
-@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 /* Custom Properties for Brand System */
 :root {
