@@ -1,0 +1,45 @@
+/**
+ * Motion System Tokens
+ * Centralized animation constants for the Tulio Brand System
+ */
+export declare const DURATIONS: {
+    readonly instant: 0;
+    readonly fast: 150;
+    readonly moderate: 300;
+    readonly slow: 500;
+    readonly slowest: 800;
+};
+export declare const EASINGS: {
+    readonly glass: "cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+    readonly liquid: "cubic-bezier(0.23, 1, 0.32, 1)";
+    readonly spring: "cubic-bezier(0.68, -0.55, 0.265, 1.55)";
+    readonly terminal: "cubic-bezier(0.4, 0, 0.2, 1)";
+    readonly elastic: "cubic-bezier(0.68, -0.6, 0.32, 1.6)";
+    readonly bounce: "cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+};
+export declare const TRANSFORMS: {
+    readonly scale: {
+        readonly hover: 1.02;
+        readonly active: 0.98;
+        readonly press: 0.95;
+    };
+    readonly translate: {
+        readonly hover: -2;
+        readonly lift: -4;
+        readonly pop: -8;
+    };
+};
+export declare const BLUR_LEVELS: {
+    readonly sm: 4;
+    readonly md: 8;
+    readonly lg: 16;
+    readonly xl: 24;
+    readonly '2xl': 40;
+};
+export declare const OPACITY_LEVELS: {
+    readonly subtle: 0.05;
+    readonly light: 0.1;
+    readonly medium: 0.15;
+    readonly strong: 0.2;
+    readonly bold: 0.25;
+};

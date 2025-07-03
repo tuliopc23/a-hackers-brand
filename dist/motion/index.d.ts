@@ -1,0 +1,70 @@
+/**
+ * Tulio Brand System - Motion Library
+ * Native Svelte 5 animation system replacing Framer Motion
+ */
+export * from './tokens.js';
+export * from './liquidBlur.js';
+export * from './glassFade.js';
+export * from './springPop.js';
+export * from './magneticHover.js';
+export { liquidBlur as liquid } from './liquidBlur.js';
+export { glassFade as fade } from './glassFade.js';
+export { springPop as pop } from './springPop.js';
+export { magneticHover as magnetic } from './magneticHover.js';
+export declare const presets: {
+    readonly fastLiquid: (node: Element) => {
+        duration: number;
+        easing: string;
+        css: (t: number) => string;
+    };
+    readonly slowLiquid: (node: Element) => {
+        duration: number;
+        easing: string;
+        css: (t: number) => string;
+    };
+    readonly fadeUp: (node: Element) => {
+        duration: number;
+        easing: string;
+        css: (t: number) => string;
+    };
+    readonly fadeDown: (node: Element) => {
+        duration: number;
+        easing: string;
+        css: (t: number) => string;
+    };
+    readonly fadeLeft: (node: Element) => {
+        duration: number;
+        easing: string;
+        css: (t: number) => string;
+    };
+    readonly fadeRight: (node: Element) => {
+        duration: number;
+        easing: string;
+        css: (t: number) => string;
+    };
+    readonly quickPop: (node: Element) => {
+        duration: number;
+        easing: string;
+        css: (t: number) => string;
+    };
+    readonly bouncyPop: (node: Element) => {
+        duration: number;
+        easing: string;
+        css: (t: number) => string;
+    };
+    readonly cardHover: (node: Element) => {
+        duration: number;
+        easing: string;
+        css: (t: number) => string;
+    };
+    readonly buttonPress: (node: Element) => {
+        duration: number;
+        easing: string;
+        css: (t: number) => string;
+    };
+    readonly inputFocus: (node: Element) => {
+        duration: number;
+        easing: string;
+        css: (t: number) => string;
+    };
+};

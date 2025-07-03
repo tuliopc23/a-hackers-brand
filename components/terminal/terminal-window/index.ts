@@ -1,5 +1,0 @@
-export { TerminalWindow } from './terminal-window'
-export type { TerminalCommand } from './types'
-export { CommandHistory } from './command-history'
-export { AISuggestionsPanel } from './ai-suggestions-panel'
-export { PerformanceOverlay } from './performance-overlay'

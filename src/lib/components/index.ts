@@ -1,106 +1,47 @@
-// Glass UI Component Library - Main Exports
-// Automatically generated component index
+// Tulio Brand System - Component Exports
 
-// ==============================================
-// UI Components
-// ==============================================
-export { ThemeToggle } from '../../../components/ui/theme-toggle';
+// Core Glass Components
+export { default as Button } from './Button.svelte';
+export { default as Card } from './Card.svelte';
+export { default as Input } from './Input.svelte';
+export { default as Badge } from './Badge.svelte';
+export { default as Modal } from './Modal.svelte';
+export { default as Textarea } from './Textarea.svelte';
+export { default as Switch } from './Switch.svelte';
+export { default as Slider } from './Slider.svelte';
+export { default as Toast } from './Toast.svelte';
+export { default as Progress } from './Progress.svelte';
+export { default as Tabs } from './Tabs.svelte';
+export { default as Accordion } from './Accordion.svelte';
 
-// ==============================================
-// Layout Components  
-// ==============================================
-export { Navbar } from '@/components/layout/navbar/navbar';
-export { Sidebar } from '@/components/layout/sidebar/sidebar';
-export { GlassHeader } from '@/components/layout/glass-header';
-export { GlassFooter } from '@/components/layout/glass-footer';
-
-// ==============================================
-// Marketing Components
-// ==============================================
-export { GlassHero } from '@/components/marketing/glass-hero';
-export { GlassFeatureShowcase } from '@/components/marketing/glass-feature-showcase';
-export { GlassFloatingAction } from '@/components/marketing/glass-floating-action';
-export { GlassResponsiveButton } from '@/components/marketing/glass-responsive-button';
-export { GlassResponsiveCard } from '@/components/marketing/glass-responsive-card';
-
-// ==============================================
 // Terminal Components
-// ==============================================
-export { TerminalWindow } from '@/components/terminal/terminal-window';
-export { CommandBlock } from '@/components/terminal/command-block';
-export { PerformanceMonitor } from '@/components/terminal/performance-monitor';
-export { AiCommandSuggestions } from '@/components/terminal/ai-command-suggestions';
+export { default as TerminalWindow } from './TerminalWindow.svelte';
+export { default as TerminalOrbit } from './TerminalOrbit.svelte';
+export { default as LazyTerminalWindow } from './LazyTerminalWindow.svelte';
+export { default as AdvancedTerminal } from './AdvancedTerminal.svelte';
+export { default as LiquidTerminal } from './LiquidTerminal.svelte';
+export { default as CommandBlock } from './CommandBlock.svelte';
+export { default as AICommandSuggestions } from './AICommandSuggestions.svelte';
 
-// ==============================================
-// Advanced Components
-// ==============================================
-export { NeuralNetworkVisualizer } from '@/components/advanced/neural-network-visualizer';
-export { ProjectShowcaseAR } from '@/components/advanced/project-showcase-ar';
-export { SkillNetwork3D } from '@/components/advanced/skill-network-3d';
+// 3D/WebGL Components
+export { default as ThrelteCanvas } from './ThrelteCanvas.svelte';
+export { default as LazyThrelteCanvas } from './LazyThrelteCanvas.svelte';
+export { default as GlassScene } from './GlassScene.svelte';
 
-// ==============================================
-// Showcase Components
-// ==============================================
-export { ComponentShowcase } from '@/components/showcase/component-showcase';
-export { ComprehensiveDemo } from '@/components/showcase/comprehensive-demo';
+// Performance Components
+export { default as PerformanceDashboard } from './PerformanceDashboard.svelte';
+export { default as PerfOverlay } from './PerfOverlay.svelte';
+export { default as PerformanceMonitor } from './PerformanceMonitor.svelte';
 
-// ==============================================
-// Documentation Components
-// ==============================================
-export { InteractivePlayground } from '@/components/docs/interactive-playground';
+// Utility Components
+export { default as CodeHighlight } from './CodeHighlight.svelte';
+export { default as DocsNav } from './DocsNav.svelte';
 
-// ==============================================
-// Theming Components
-// ==============================================
-export { ThemeCustomizer } from '@/components/theming/theme-customizer';
-export { ThemeProvider } from '@/components/theming/theme-provider';
+// Liquidify Components (Glass UI Library)
+export * from './liquidify';
 
-// ==============================================
-// Re-export commonly used types and utilities
-// ==============================================
-export type { ComponentProps, ReactNode } from 'react';
+// WebGL/3D Effects
+export * from './webgl';
 
-// ==============================================
-// Component Groups for easier imports
-// ==============================================
-export const GlassUI = {
-  // Core UI
-  ThemeToggle,
-  
-  // Layout
-  Navbar,
-  Sidebar,
-  GlassHeader,
-  GlassFooter,
-  
-  // Marketing
-  GlassHero,
-  GlassFeatureShowcase,
-  GlassFloatingAction,
-  GlassResponsiveButton,
-  GlassResponsiveCard,
-  
-  // Terminal
-  TerminalWindow,
-  CommandBlock,
-  PerformanceMonitor,
-  AiCommandSuggestions,
-  
-  // Advanced
-  NeuralNetworkVisualizer,
-  ProjectShowcaseAR,
-  SkillNetwork3D,
-  
-  // Showcase
-  ComponentShowcase,
-  ComprehensiveDemo,
-  
-  // Docs
-  InteractivePlayground,
-  
-  // Theming
-  ThemeCustomizer,
-  ThemeProvider,
-} as const;
-
-export default GlassUI;
+// Visual Effects
+export * from './effects';

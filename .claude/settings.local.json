@@ -5,7 +5,24 @@
       "Bash(npm install:*)",
       "Bash(npm run build:*)",
       "Bash(npx sv create:*)",
-      "Bash(npx tailwindcss init:*)"
+      "Bash(npx tailwindcss init:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(rm:*)",
+      "Bash(npm run story:build:*)",
+      "Bash(npm run docs:build:*)",
+      "Bash(npm view:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run check:*)",
+      "Bash(npm run check:*)",
+      "Bash(npm run package:*)",
+      "Bash(npm run lint)",
+      "Bash(npx eslint:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": []
   }
