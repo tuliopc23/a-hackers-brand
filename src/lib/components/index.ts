@@ -1,4 +1,4 @@
-// Tulio Brand System - Component Exports
+// Hackers Brand - Component Exports
 
 // Core Glass Components
 export { default as Button } from './Button.svelte';

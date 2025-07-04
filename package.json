@@ -1,21 +1,21 @@
 {
-	"name": "tulio-brand-system",
+	"name": "hackers-brand",
 	"private": false,
 	"version": "0.2.0",
 	"type": "module",
-	"description": "Professional Liquid Glass Terminal Fusion Brand System - A cutting-edge design system combining Apple's liquid glass aesthetics with terminal/CLI hacker aesthetics",
+	"description": "Professional Hacker's Brand Design System - A cutting-edge design system combining Apple's liquid glass aesthetics with terminal/CLI hacker aesthetics",
 	"author": {
 		"name": "Tulio Pinheiro Cunha",
 		"email": "tulio@example.com"
 	},
 	"license": "MIT",
-	"homepage": "https://github.com/tuliopinheirocunha/tulio-brand-system#readme",
+	"homepage": "https://github.com/tuliopc23/hackers-brand#readme",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/tuliopinheirocunha/tulio-brand-system.git"
+		"url": "https://github.com/tuliopc23/hackers-brand.git"
 	},
 	"bugs": {
-		"url": "https://github.com/tuliopinheirocunha/tulio-brand-system/issues"
+		"url": "https://github.com/tuliopc23/hackers-brand/issues"
 	},
 	"keywords": [
 		"design-system",
