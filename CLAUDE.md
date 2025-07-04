@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is the Hackers Brand - a professional liquid glass terminal fusion design system built with SvelteKit. It combines Apple's liquid glass aesthetics with terminal/CLI hacker aesthetics to create a unique brand system for the hacker community.
+This is A Hacker's Brand - a professional liquid glass terminal fusion design system built with SvelteKit. It combines Apple's liquid glass aesthetics with terminal/CLI hacker aesthetics to create a unique brand system for the hacker community.
 
 ## Key Technologies
 

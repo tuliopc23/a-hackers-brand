@@ -1,4 +1,4 @@
-// Hackers Brand - Component Exports
+// A Hacker's Brand - Component Exports
 
 // Core Glass Components
 export { default as Button } from './Button.svelte';
