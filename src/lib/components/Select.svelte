@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { liquidBlur, glassFade } from '$lib/motion';
+	import { liquidBlur, glassFade, magneticHover, jellyHover } from '$lib/motion';
 	import { sizeOf } from '$lib/utils/bundle-size.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -16,9 +16,13 @@
 		placeholder?: string;
 		disabled?: boolean;
 		size?: 'sm' | 'md' | 'lg';
-		variant?: 'default' | 'glass' | 'terminal';
+		variant?: 'default' | 'glass' | 'terminal' | 'liquid';
 		blur?: 'sm' | 'md' | 'lg' | 'xl';
 		animate?: boolean;
+		liquid?: boolean;
+		magnetic?: boolean;
+		jelly?: boolean;
+		glow?: boolean;
 		reduceMotion?: boolean;
 		class?: string;
 		onValueChange?: (value: string) => void;
@@ -33,6 +37,10 @@
 		variant = 'glass',
 		blur = 'md',
 		animate = true,
+		liquid = false,
+		magnetic = false,
+		jelly = false,
+		glow = false,
 		reduceMotion = false,
 		class: className = '',
 		onValueChange,
@@ -53,7 +61,8 @@
 	const variants = {
 		default: 'bg-white/5 border border-white/10 text-white',
 		glass: 'glass-subtle border border-white/20 text-white',
-		terminal: 'terminal text-green-300'
+		terminal: 'terminal text-green-300',
+		liquid: 'bg-gradient-to-r from-white/5 to-white/15 border border-white/20 text-white backdrop-blur-md'
 	};
 
 	const blurLevels = {
@@ -72,6 +81,9 @@
 		sizes[size],
 		variants[variant],
 		variant === 'glass' && blurLevels[blur],
+		liquid && 'backdrop-blur-md hover:backdrop-blur-lg',
+		glow && 'focus:shadow-lg focus:shadow-brand-primary/20',
+		jelly && !disabled && 'hover:scale-105 active:scale-95',
 		disabled && 'opacity-50 cursor-not-allowed',
 		className
 	);
@@ -203,6 +215,8 @@
 	aria-haspopup="listbox"
 	aria-labelledby="select-label"
 	tabindex={disabled ? -1 : 0}
+	use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.1, distance: 40 } : undefined}
+	use:jellyHover={jelly && !disabled && !reduceMotion ? { intensity: 0.08, speed: 180 } : undefined}
 	onkeydown={handleKeydown}
 	onclick={toggleOpen}
 	{...restProps}

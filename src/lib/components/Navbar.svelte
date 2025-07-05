@@ -5,7 +5,7 @@
 	import { glassFade, liquidBlur, magneticHover, springPop } from '$lib/motion';
 	import Button from './Button.svelte';
 
-	interface NavItem {
+	export interface NavItem {
 		id: string;
 		label: string;
 		href?: string;

@@ -549,7 +549,7 @@ export declare const spacingVariants: import("tailwind-variants").TVReturnType<{
         responsive: string;
     };
 }, undefined, undefined, unknown, unknown, undefined>>;
-export declare function useBreakpoint(): "md" | "lg" | "sm" | "xl" | "mobile" | "2xl" | "xs" | "ultrawide" | "wide" | "desktop" | "tablet";
+export declare function useBreakpoint(): "md" | "lg" | "sm" | "xl" | "mobile" | "xs" | "2xl" | "ultrawide" | "wide" | "desktop" | "tablet";
 export declare const visibilityVariants: import("tailwind-variants").TVReturnType<{
     show: {
         xs: string;

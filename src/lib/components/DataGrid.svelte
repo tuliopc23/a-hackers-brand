@@ -7,7 +7,7 @@
 	import Input from './Input.svelte';
 	import Select from './Select.svelte';
 
-	interface GridColumn {
+	export interface GridColumn {
 		key: string;
 		label: string;
 		type?: 'text' | 'number' | 'date' | 'boolean' | 'custom';
@@ -22,12 +22,12 @@
 		validation?: (value: any) => string | null;
 	}
 
-	interface GridRow {
+	export interface GridRow {
 		[key: string]: any;
 		id: string | number;
 	}
 
-	interface GridFilter {
+	export interface GridFilter {
 		column: string;
 		value: any;
 		operator: 'equals' | 'contains' | 'startsWith' | 'endsWith' | 'gt' | 'lt' | 'gte' | 'lte';

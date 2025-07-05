@@ -10,9 +10,13 @@ interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'value'> {
     placeholder?: string;
     disabled?: boolean;
     size?: 'sm' | 'md' | 'lg';
-    variant?: 'default' | 'glass' | 'terminal';
+    variant?: 'default' | 'glass' | 'terminal' | 'liquid';
     blur?: 'sm' | 'md' | 'lg' | 'xl';
     animate?: boolean;
+    liquid?: boolean;
+    magnetic?: boolean;
+    jelly?: boolean;
+    glow?: boolean;
     reduceMotion?: boolean;
     class?: string;
     onValueChange?: (value: string) => void;

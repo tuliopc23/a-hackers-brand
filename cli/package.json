@@ -1,0 +1,32 @@
+{
+  "name": "create-hackers-brand",
+  "version": "0.1.0",
+  "description": "CLI for creating new projects with A Hacker's Brand design system",
+  "type": "module",
+  "bin": {
+    "create-hackers-brand": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "templates",
+    "utils"
+  ],
+  "scripts": {
+    "test": "node index.js test-project"
+  },
+  "keywords": [
+    "cli",
+    "create",
+    "svelte",
+    "sveltekit",
+    "design-system",
+    "liquid-glass",
+    "terminal",
+    "hacker"
+  ],
+  "author": "A Hacker's Brand",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

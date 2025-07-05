@@ -1,6 +1,56 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
+// Force Svelte 5 to run in browser mode - override SSR detection
+globalThis.window = globalThis.window || globalThis;
+globalThis.document = globalThis.document || {
+	createElement: vi.fn(),
+	createElementNS: vi.fn(),
+	createTextNode: vi.fn(),
+	createComment: vi.fn(),
+	createDocumentFragment: vi.fn(),
+	head: { appendChild: vi.fn(), removeChild: vi.fn() },
+	body: { appendChild: vi.fn(), removeChild: vi.fn() },
+	documentElement: { style: {} },
+	querySelector: vi.fn(),
+	querySelectorAll: vi.fn(),
+	getElementById: vi.fn(),
+	addEventListener: vi.fn(),
+	removeEventListener: vi.fn()
+};
+globalThis.navigator = globalThis.navigator || { userAgent: 'test' };
+globalThis.location = globalThis.location || { href: 'http://localhost:3000' };
+
+// Critical: Override environment variables early
+if (typeof process !== 'undefined') {
+	process.env.NODE_ENV = 'test';
+	process.env.BROWSER = 'true';
+	process.env.VITEST = 'true';
+}
+
+// Prevent Svelte from detecting server environment
+Object.defineProperty(globalThis, 'window', {
+	value: globalThis,
+	writable: true,
+	configurable: true
+});
+
+// Prevent any server-side imports by overriding require resolution
+const originalRequire = globalThis.require;
+if (originalRequire) {
+	globalThis.require = function(id: string) {
+		// Block server-specific modules
+		if (id === 'svelte/server' || id === 'svelte/ssr' || id.includes('server-route')) {
+			return {
+				mount: vi.fn(),
+				render: vi.fn(),
+				hydrate: vi.fn()
+			};
+		}
+		return originalRequire.apply(this, arguments);
+	};
+}
+
 // Mock CSS custom properties
 Object.defineProperty(window, 'getComputedStyle', {
 	value: (element: Element) => ({

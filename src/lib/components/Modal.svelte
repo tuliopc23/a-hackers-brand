@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { liquidBlur, glassFade } from '$lib/motion';
+	import { liquidBlur, glassFade, springPop, jellyHover, breathing as breathingMotion } from '$lib/motion';
 	import { sizeOf } from '$lib/utils/bundle-size.js';
 	import { onMount } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -8,11 +8,14 @@
 	interface Props extends HTMLAttributes<HTMLDivElement> {
 		open?: boolean;
 		size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-		variant?: 'default' | 'glass' | 'terminal';
+		variant?: 'glass' | 'terminal' | 'liquid' | 'neon';
 		blur?: 'sm' | 'md' | 'lg' | 'xl';
 		closeOnOutsideClick?: boolean;
 		closeOnEscape?: boolean;
 		animate?: boolean;
+		jelly?: boolean;
+		glow?: boolean;
+		breathing?: boolean;
 		reduceMotion?: boolean;
 		class?: string;
 		children?: any;
@@ -27,6 +30,9 @@
 		closeOnOutsideClick = true,
 		closeOnEscape = true,
 		animate = true,
+		jelly = true,
+		glow = false,
+		breathing = false,
 		reduceMotion = false,
 		class: className = '',
 		children,
@@ -46,9 +52,26 @@
 	};
 
 	const variants = {
-		default: 'bg-white/5 border border-white/10',
-		glass: 'glass-heavy',
-		terminal: 'terminal'
+		glass: {
+			bg: 'bg-white/10 border-white/20',
+			overlay: 'bg-black/30',
+			glow: 'shadow-[0_0_60px_rgba(255,255,255,0.2)]'
+		},
+		terminal: {
+			bg: 'bg-gray-900/95 border-green-400/30',
+			overlay: 'bg-black/70',
+			glow: 'shadow-[0_0_40px_rgba(74,222,128,0.4)]'
+		},
+		liquid: {
+			bg: 'bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-white/30',
+			overlay: 'bg-gradient-to-br from-black/40 via-blue-900/20 to-black/40',
+			glow: 'shadow-[0_0_80px_rgba(139,92,246,0.4)]'
+		},
+		neon: {
+			bg: 'bg-black/90 border-pink-500/40',
+			overlay: 'bg-black/60',
+			glow: 'shadow-[0_0_50px_rgba(236,72,153,0.6)]'
+		}
 	};
 
 	const blurLevels = {
@@ -58,16 +81,20 @@
 		xl: 'backdrop-blur-xl'
 	};
 
+	const currentVariant = variants[variant];
+
 	const overlayClasses = cn(
 		'fixed inset-0 z-50 flex items-center justify-center p-4',
-		variant === 'glass' ? `bg-black/30 ${blurLevels[blur]}` : 'bg-black/50'
+		currentVariant.overlay,
+		blurLevels[blur]
 	);
 
 	const modalClasses = cn(
-		'relative w-full rounded-brand-lg p-6 shadow-2xl',
-		'focus:outline-none',
+		'relative w-full rounded-2xl p-6 backdrop-blur-xl border transition-all duration-300',
+		'focus:outline-none transform-gpu will-change-transform',
 		sizes[size],
-		variants[variant],
+		currentVariant.bg,
+		glow && currentVariant.glow,
 		className
 	);
 
@@ -163,15 +190,27 @@
 		role="dialog"
 		aria-modal="true"
 		aria-labelledby="modal-title"
-		on:click={handleOverlayClick}
-		in:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 200 : 0 }}
-		out:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 150 : 0 }}
+		onclick={handleOverlayClick}
+		in:glassFade={{ duration: animate && !reduceMotion ? 300 : 0 }}
+		out:glassFade={{ duration: animate && !reduceMotion ? 200 : 0 }}
 	>
 		<div
 			bind:this={modalElement}
 			class={modalClasses}
 			tabindex="-1"
-			use:liquidBlur={animate && !reduceMotion ? { blur: blur, opacity: 'heavy' } : undefined}
+			in:springPop={{ scale: 0.8, duration: animate && !reduceMotion ? 400 : 0, delay: 100 }}
+			out:springPop={{ scale: 0.95, duration: animate && !reduceMotion ? 200 : 0 }}
+			use:jellyHover={{ 
+				enabled: jelly && animate && !reduceMotion, 
+				scale: 1.001, 
+				duration: 300,
+				borderRadius: '16px'
+			}}
+			use:breathingMotion={{ 
+				enabled: breathing && animate && !reduceMotion, 
+				intensity: 0.01, 
+				speed: 4000 
+			}}
 			{...restProps}
 		>
 			{#if children}

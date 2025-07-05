@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { liquidBlur, springPop } from '$lib/motion';
+	import { liquidBlur, springPop, magneticHover, jellyHover } from '$lib/motion';
 	import { sizeOf } from '$lib/utils/bundle-size.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -8,9 +8,13 @@
 		checked?: boolean;
 		disabled?: boolean;
 		size?: 'sm' | 'md' | 'lg';
-		variant?: 'default' | 'glass' | 'terminal';
+		variant?: 'default' | 'glass' | 'terminal' | 'liquid';
 		blur?: 'sm' | 'md' | 'lg' | 'xl';
 		animate?: boolean;
+		liquid?: boolean;
+		magnetic?: boolean;
+		jelly?: boolean;
+		glow?: boolean;
 		reduceMotion?: boolean;
 		label?: string;
 		description?: string;
@@ -25,6 +29,10 @@
 		variant = 'glass',
 		blur = 'md',
 		animate = true,
+		liquid = false,
+		magnetic = false,
+		jelly = false,
+		glow = false,
 		reduceMotion = false,
 		label,
 		description,
@@ -68,6 +76,11 @@
 			track: 'bg-terminal-green/20 border border-terminal-green/40',
 			trackChecked: 'bg-terminal-green/40 border-terminal-green/60',
 			thumb: 'bg-terminal-green shadow-lg'
+		},
+		liquid: {
+			track: 'bg-gradient-to-r from-white/5 to-white/15 border border-white/20 backdrop-blur-md',
+			trackChecked: 'bg-gradient-to-r from-blue-500/20 to-purple-500/30 border-blue-400/40',
+			thumb: 'bg-gradient-to-br from-white to-white/80 shadow-xl'
 		}
 	};
 
@@ -84,8 +97,11 @@
 		sizes[size].track,
 		checked ? variants[variant].trackChecked : variants[variant].track,
 		variant === 'glass' && blurLevels[blur],
+		liquid && 'backdrop-blur-md',
+		glow && checked && 'shadow-lg shadow-blue-400/30',
 		disabled && 'opacity-50 cursor-not-allowed',
 		!disabled && 'cursor-pointer hover:scale-105',
+		jelly && !disabled && 'hover:scale-110 active:scale-95',
 		className
 	);
 
@@ -131,6 +147,8 @@
 		class={trackClasses}
 		{disabled}
 		use:springPop={animate && !reduceMotion ? { scale: 0.95, duration: 100 } : undefined}
+		use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.15, distance: 30 } : undefined}
+		use:jellyHover={jelly && !disabled && !reduceMotion ? { intensity: 0.1, speed: 150 } : undefined}
 		on:click={handleClick}
 		on:keydown={handleKeydown}
 		{...restProps}
@@ -166,6 +184,46 @@
 
 	button[role='switch'] span {
 		will-change: transform;
+	}
+
+	/* Liquid switch effects */
+	button[role='switch']:hover span {
+		box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+	}
+
+	button[role='switch'][aria-checked='true'] span {
+		transform: translateX(100%) scale(1.05);
+	}
+
+	/* Enhanced liquid variant styling */
+	button:global(.backdrop-blur-md):hover {
+		backdrop-filter: blur(16px) saturate(150%);
+	}
+
+	/* Jelly physics */
+	button:global(.jelly-hover):active span {
+		transform: scale(0.9);
+		transition: transform 100ms cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+
+	/* Magnetic attraction */
+	button:global(.magnetic):hover {
+		transform: translateY(-1px);
+		box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
+	}
+
+	/* Glow effect */
+	button[aria-checked='true']:global(.shadow-lg) {
+		animation: glow-pulse 2s ease-in-out infinite alternate;
+	}
+
+	@keyframes glow-pulse {
+		from {
+			box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+		}
+		to {
+			box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {

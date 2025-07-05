@@ -2,11 +2,14 @@ import type { HTMLAttributes } from 'svelte/elements';
 interface Props extends HTMLAttributes<HTMLDivElement> {
     open?: boolean;
     size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-    variant?: 'default' | 'glass' | 'terminal';
+    variant?: 'glass' | 'terminal' | 'liquid' | 'neon';
     blur?: 'sm' | 'md' | 'lg' | 'xl';
     closeOnOutsideClick?: boolean;
     closeOnEscape?: boolean;
     animate?: boolean;
+    jelly?: boolean;
+    glow?: boolean;
+    breathing?: boolean;
     reduceMotion?: boolean;
     class?: string;
     children?: any;

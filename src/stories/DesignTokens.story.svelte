@@ -10,14 +10,14 @@
 	const tokens = tailwindConfig.theme?.extend || {};
 
 	// Function to display color swatches
-	function getColorValues(colorObj, prefix = '') {
-		const colors = [];
+	function getColorValues(colorObj: any, prefix: string = ''): Array<{name: string, value: string}> {
+		const colors: Array<{name: string, value: string}> = [];
 
 		if (typeof colorObj === 'string') {
 			return [{ name: prefix, value: colorObj }];
 		}
 
-		for (const [key, value] of Object.entries(colorObj)) {
+		for (const [key, value] of Object.entries(colorObj || {})) {
 			if (typeof value === 'string') {
 				colors.push({
 					name: prefix ? `${prefix}-${key}` : key,
@@ -31,14 +31,19 @@
 		return colors;
 	}
 
-	const brandColors = getColorValues(tokens.colors?.brand || {}, 'brand');
-	const terminalColors = getColorValues(tokens.colors?.terminal || {}, 'terminal');
+	// Extract colors safely from config
+	const configColors = (tokens.colors && typeof tokens.colors === 'object' && !Array.isArray(tokens.colors)) 
+		? tokens.colors as Record<string, any>
+		: {};
+
+	const brandColors = getColorValues(configColors.brand || {}, 'brand');
+	const terminalColors = getColorValues(configColors.terminal || {}, 'terminal');
 	const semanticColors = getColorValues({
-		primary: tokens.colors?.primary || {},
-		secondary: tokens.colors?.secondary || {},
-		accent: tokens.colors?.accent || {},
-		muted: tokens.colors?.muted || {},
-		destructive: tokens.colors?.destructive || {}
+		primary: configColors.primary || {},
+		secondary: configColors.secondary || {},
+		accent: configColors.accent || {},
+		muted: configColors.muted || {},
+		destructive: configColors.destructive || {}
 	});
 
 	const fontSizes = Object.entries(tokens.fontSize || {}).map(([name, config]) => ({
@@ -63,15 +68,15 @@
 		value
 	}));
 
-	function isHexColor(str) {
+	function isHexColor(str: string): boolean {
 		return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(str);
 	}
 
-	function isRgbColor(str) {
+	function isRgbColor(str: string): boolean {
 		return str.includes('rgb') || str.includes('hsl');
 	}
 
-	function getTextColor(bgColor) {
+	function getTextColor(bgColor: string): string {
 		if (!bgColor || (!isHexColor(bgColor) && !isRgbColor(bgColor))) {
 			return '#000000';
 		}

@@ -3,9 +3,13 @@ interface Props extends Omit<HTMLAttributes<HTMLButtonElement>, 'value'> {
     checked?: boolean;
     disabled?: boolean;
     size?: 'sm' | 'md' | 'lg';
-    variant?: 'default' | 'glass' | 'terminal';
+    variant?: 'default' | 'glass' | 'terminal' | 'liquid';
     blur?: 'sm' | 'md' | 'lg' | 'xl';
     animate?: boolean;
+    liquid?: boolean;
+    magnetic?: boolean;
+    jelly?: boolean;
+    glow?: boolean;
     reduceMotion?: boolean;
     label?: string;
     description?: string;
