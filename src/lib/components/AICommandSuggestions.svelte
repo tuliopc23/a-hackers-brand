@@ -320,7 +320,16 @@
 							index === selectedIndex ? currentTheme.selected : 'hover:bg-white/5',
 							'group'
 						)}
+						role="button"
+						tabindex="0"
+						aria-label={`Execute command: ${suggestion.command}`}
 						onclick={() => selectCommand(suggestion)}
+						onkeydown={(e) => {
+							if (e.key === 'Enter' || e.key === ' ') {
+								e.preventDefault();
+								selectCommand(suggestion);
+							}
+						}}
 						transition:fade={{ duration: 150, delay: index * 50 }}
 					>
 						<!-- Command Header -->

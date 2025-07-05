@@ -104,7 +104,7 @@
 	let time = $state(0);
 
 	// Mesh references
-	let centralSphereRef: any;
+	let centralSphereRef = $state<any>();
 	const orbitalShapesRefs: any[] = [];
 
 	// Enhanced lighting setup
@@ -184,6 +184,8 @@
 <div 
 	class={className}
 	style="width: {width}px; height: {height}px;"
+	role="img"
+	aria-label="Advanced Liquid Glass 3D Scene"
 	onmousemove={handleMouseMove}
 >
 	<Canvas>

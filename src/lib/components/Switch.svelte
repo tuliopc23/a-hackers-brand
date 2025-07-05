@@ -42,6 +42,7 @@
 	}: Props = $props();
 
 	let switchElement = $state<HTMLButtonElement>();
+	const switchId = `switch-${Math.random().toString(36).substr(2, 9)}`;
 
 	const sizes = {
 		sm: {
@@ -139,16 +140,18 @@
 <div class="flex items-center gap-3">
 	<button
 		bind:this={switchElement}
+		id={switchId}
 		type="button"
 		role="switch"
 		aria-checked={checked}
-		aria-describedby={description ? 'switch-description' : undefined}
-		aria-label={label || restProps['aria-label'] || 'Toggle switch'}
+		aria-labelledby={label ? `switch-label-${switchId}` : undefined}
+		aria-describedby={description ? `switch-description-${switchId}` : undefined}
+		aria-label={!label ? (restProps['aria-label'] || 'Toggle switch') : undefined}
 		class={trackClasses}
 		{disabled}
 		use:springPop={animate && !reduceMotion ? { scale: 0.95, duration: 100 } : undefined}
 		use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.15, distance: 30 } : undefined}
-		use:jellyHover={jelly && !disabled && !reduceMotion ? { intensity: 0.1, speed: 150 } : undefined}
+		use:magneticHover={jelly && !disabled && !reduceMotion ? { strength: 0.1 } : undefined}
 		onclick={handleClick}
 		onkeydown={handleKeydown}
 		{...restProps}
@@ -160,16 +163,16 @@
 		<div class="flex flex-col">
 			{#if label}
 				<label
+					id="switch-label-{switchId}"
+					for={switchId}
 					class="text-sm font-medium text-white cursor-pointer"
 					class:opacity-50={disabled}
-					for={switchElement?.id}
-					onclick={handleClick}
 				>
 					{label}
 				</label>
 			{/if}
 			{#if description}
-				<p id="switch-description" class="text-xs text-white/70" class:opacity-50={disabled}>
+				<p id="switch-description-{switchId}" class="text-xs text-white/70" class:opacity-50={disabled}>
 					{description}
 				</p>
 			{/if}

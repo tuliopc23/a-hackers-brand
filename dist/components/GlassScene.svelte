@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { T, useThrelte } from '@threlte/core';
+	import { T } from '@threlte/core';
 	import { OrbitControls, Edges, Environment } from '@threlte/extras';
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
@@ -16,11 +16,10 @@
 	}
 
 	const { 
-		autoRotate = true, 
+ 
 		quality = 'medium',
 		enableLiquidEffects = true,
 		enableParticles = true,
-		enableBloom = true,
 		theme = 'terminal'
 	}: Props = $props();
 

@@ -37,6 +37,7 @@
 		...restProps
 	}: Props = $props();
 
+	const progressId = `progress-${Math.random().toString(36).substr(2, 9)}`;
 	const percentage = $derived(indeterminate ? 0 : Math.min(100, Math.max(0, (value / max) * 100)));
 
 	const sizes = {
@@ -108,7 +109,7 @@
 <div class="w-full space-y-2" {...restProps}>
 	{#if label}
 		<div class="flex justify-between items-center">
-			<label id="progress-label" class="text-sm font-medium text-white">
+			<label id="progress-label-{progressId}" for="progress-{progressId}" class="text-sm font-medium text-white">
 				{label}
 			</label>
 			{#if showValue || showPercentage}
@@ -125,13 +126,14 @@
 
 	{#if type === 'linear'}
 		<div
+			id="progress-{progressId}"
 			class={cn(trackClasses, className)}
 			role="progressbar"
 			aria-valuemin="0"
 			aria-valuemax={max}
 			aria-valuenow={indeterminate ? undefined : value}
-			aria-label={label || 'Progress'}
-			aria-labelledby={label ? 'progress-label' : undefined}
+			aria-label={!label ? 'Progress' : undefined}
+			aria-labelledby={label ? `progress-label-${progressId}` : undefined}
 		>
 			<div
 				class={fillClasses}

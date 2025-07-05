@@ -91,7 +91,7 @@
 
 	const modalClasses = cn(
 		'relative w-full rounded-2xl p-6 backdrop-blur-xl border transition-all duration-300',
-		'focus:outline-none transform-gpu will-change-transform',
+		'transform-gpu will-change-transform',
 		sizes[size],
 		currentVariant.bg,
 		glow && currentVariant.glow,
@@ -158,9 +158,6 @@
 					const firstElement = focusableElements[0] as HTMLElement;
 					if (firstElement) {
 						firstElement.focus();
-					} else {
-						// If no focusable elements, focus the modal container for screen readers
-						modalElement.focus();
 					}
 				}
 			}, 100);
@@ -210,7 +207,6 @@
 		<div
 			bind:this={modalElement}
 			class={modalClasses}
-			tabindex={-1}
 			in:springPop={{ scale: 0.8, duration: animate && !reduceMotion ? 400 : 0, delay: 100 }}
 			out:springPop={{ scale: 0.95, duration: animate && !reduceMotion ? 200 : 0 }}
 			use:jellyHover={{ 

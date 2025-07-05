@@ -231,9 +231,22 @@
 		interactive && 'cursor-pointer hover:brightness-110',
 		className
 	)}
+	{...interactive ? {
+			role: 'button',
+			tabindex: 0,
+			'aria-label': `Execute command: ${command}`
+		} : {
+			role: 'article'
+		}}
 	onmouseenter={() => isHovered = true}
 	onmouseleave={() => isHovered = false}
 	onclick={executeCommand}
+	onkeydown={(e) => {
+		if (interactive && (e.key === 'Enter' || e.key === ' ')) {
+			e.preventDefault();
+			executeCommand();
+		}
+	}}
 >
 	<!-- Status Indicator -->
 	<div class="absolute top-2 right-2 flex items-center gap-2">

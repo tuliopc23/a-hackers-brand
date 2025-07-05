@@ -536,6 +536,8 @@ WARNING: SYSTEM INSTABILITY DETECTED`
 		hologramActive && 'hologram-effect',
 		className
 	)}
+	role="application"
+	aria-label="Liquid Neural Terminal Interface"
 	onmousemove={handleMouseMove}
 >
 	<!-- Liquid Flow Canvas -->

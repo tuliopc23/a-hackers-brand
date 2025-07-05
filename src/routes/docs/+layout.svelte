@@ -245,7 +245,7 @@
 		@apply list-disc list-inside text-white/80 mb-4;
 	}
 	
-	:global(.docs-content ul) > :not([hidden]) ~ :not([hidden]) {
+	:global(.docs-content ul li + li) {
 		margin-top: 0.5rem;
 	}
 

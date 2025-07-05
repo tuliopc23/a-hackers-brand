@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { T, useThrelte } from '@threlte/core';
+	import { T } from '@threlte/core';
 	import { onMount, createEventDispatcher } from 'svelte';
 	import * as THREE from 'three';
 
@@ -28,7 +28,6 @@
 	}: Props = $props();
 
 	const dispatch = createEventDispatcher();
-	const { scene, renderer, camera } = useThrelte();
 
 	let meshRef = $state<THREE.Mesh>();
 	let materialRef = $state<THREE.ShaderMaterial>();

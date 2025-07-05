@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { T, useThrelte } from '@threlte/core';
+	import { T } from '@threlte/core';
 	import { onMount, createEventDispatcher } from 'svelte';
 	import * as THREE from 'three';
 
@@ -26,13 +26,11 @@
 	}: Props = $props();
 
 	const dispatch = createEventDispatcher();
-	const { scene, renderer, camera } = useThrelte();
 
 	let particleSystemRef = $state<THREE.Points>();
 	let materialRef = $state<THREE.ShaderMaterial>();
 	let geometryRef = $state<THREE.BufferGeometry>();
 	let time = $state(0);
-	let mousePosition = $state({ x: 0, y: 0 });
 
 	// Particle vertex shader
 	const vertexShader = `
@@ -287,7 +285,6 @@
 		const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
 		const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 		
-		mousePosition = { x, y };
 		materialRef.uniforms.uMouse.value.set(x, y);
 	};
 

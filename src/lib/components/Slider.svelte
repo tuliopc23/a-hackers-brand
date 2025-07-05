@@ -47,6 +47,7 @@
 	let trackElement = $state<HTMLDivElement>();
 	let isDragging = $state(false);
 	let isFocused = $state(false);
+	const sliderId = `slider-${Math.random().toString(36).substr(2, 9)}`;
 
 	const sizes = {
 		sm: {
@@ -210,7 +211,7 @@
 
 <div class="w-full space-y-2">
 	{#if label}
-		<label id="slider-label" class="block text-sm font-medium text-white" class:opacity-50={disabled}>
+		<label id="slider-label-{sliderId}" for="slider-{sliderId}" class="block text-sm font-medium text-white" class:opacity-50={disabled}>
 			{label}
 			{#if showValue}
 				<span class="ml-2 text-white/70">({value})</span>
@@ -221,14 +222,15 @@
 	<div bind:this={sliderElement} class="relative w-full py-2" {...restProps}>
 		<div
 			bind:this={trackElement}
+			id="slider-{sliderId}"
 			class={trackClasses}
 			onmousedown={handleMouseDown}
 			role="slider"
 			aria-valuemin={min}
 			aria-valuemax={max}
 			aria-valuenow={value}
-			aria-labelledby={label ? 'slider-label' : undefined}
-			aria-label={label ? undefined : 'Slider'}
+			aria-labelledby={label ? `slider-label-${sliderId}` : undefined}
+			aria-label={!label ? 'Slider' : undefined}
 			tabindex={disabled ? -1 : 0}
 			onkeydown={handleKeydown}
 			onfocus={handleFocus}

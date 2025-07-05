@@ -257,6 +257,12 @@
 				aria-selected={value === option.value}
 				tabindex="-1"
 				onclick={() => selectOption(option)}
+				onkeydown={(e) => {
+					if (e.key === 'Enter' || e.key === ' ') {
+						e.preventDefault();
+						selectOption(option);
+					}
+				}}
 				onmouseenter={() => !option.disabled && (activeIndex = index)}
 			>
 				{option.label}

@@ -207,7 +207,6 @@
 <span 
 	bind:this={containerRef}
 	class={containerClasses}
-	role="text"
 	aria-label={text}
 >
 	{#if children}
@@ -311,7 +310,7 @@
 	}
 
 	/* Variant-specific enhancements */
-	.retro-text[data-variant="commodore"] {
+	:global(.retro-text[data-variant="commodore"]) {
 		background: linear-gradient(90deg, 
 			var(--retro-color) 0%, 
 			var(--retro-color) 100%
@@ -320,13 +319,13 @@
 		background-clip: text;
 	}
 
-	.retro-text[data-variant="apple2"] {
+	:global(.retro-text[data-variant="apple2"]) {
 		text-shadow: 
 			1px 1px 0 rgba(0, 0, 0, 0.5),
 			0 0 10px var(--retro-shadow-color);
 	}
 
-	.retro-text[data-variant="atari"] {
+	:global(.retro-text[data-variant="atari"]) {
 		border: 1px solid var(--retro-color);
 		padding: 0.25em 0.5em;
 		background: rgba(0, 0, 0, 0.8);

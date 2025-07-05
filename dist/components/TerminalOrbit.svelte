@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { T, useThrelte } from '@threlte/core';
-	import { HTML, OrbitControls, Text, Float, Environment } from '@threlte/extras';
-	import { onMount, onDestroy } from 'svelte';
-	import * as THREE from 'three';
-	import { spring } from 'svelte/motion';
+	import { T } from '@threlte/core';
+	import { HTML, OrbitControls } from '@threlte/extras';
+	import { onMount } from 'svelte';
 
 	interface Props {
 		position?: [number, number, number];
@@ -17,18 +15,12 @@
 		position = [0, 2, 0],
 		rotation = [0, 0, 0],
 		scale = 1.5,
-		quality = 'medium',
-		interactive = true
 	}: Props = $props();
 
 	let terminalRef: HTMLDivElement;
 	let inputValue = $state('');
 	let history = $state<Array<{ command: string; output: string; timestamp: Date }>>([]);
 	const currentPrompt = '$';
-	let terminalGroup: THREE.Group;
-	const floatingElements: THREE.Group[] = [];
-	const time = $state(0);
-	const isTyping = $state(false);
 
 	// Enhanced command system
 	const commands = {
@@ -42,9 +34,6 @@
 		clear: 'Terminal cleared'
 	};
 
-	// Animation springs
-	const terminalFloat = spring({ y: 0, rotation: 0 }, { stiffness: 0.1, damping: 0.8 });
-	const glitchEffect = spring(0, { stiffness: 0.3, damping: 0.6 });
 
 	const executeCommand = (command: string) => {
 		const trimmedCommand = command.trim().toLowerCase();
@@ -79,19 +68,9 @@
 	const handleKeydown = (event: KeyboardEvent) => {
 		if (event.key === 'Enter') {
 			executeCommand(inputValue);
-			// Trigger glitch effect
-			glitchEffect.set(1);
-			setTimeout(() => glitchEffect.set(0), 300);
 		}
 	};
 
-	// Simple animation with CSS transforms
-	let animationTime = $state(0);
-
-	const updateAnimation = () => {
-		animationTime += 0.01;
-		requestAnimationFrame(updateAnimation);
-	};
 
 	onMount(() => {
 		// Auto-execute help command for demo

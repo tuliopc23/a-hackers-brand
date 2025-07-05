@@ -191,15 +191,15 @@
 	}
 	
 	/* Line numbers (optional) */
-	pre.line-numbers {
+	:global(pre.line-numbers) {
 		counter-reset: line;
 	}
 	
-	pre.line-numbers code {
+	:global(pre.line-numbers code) {
 		counter-increment: line;
 	}
 	
-	pre.line-numbers code::before {
+	:global(pre.line-numbers code::before) {
 		content: counter(line);
 		display: inline-block;
 		width: 3em;
