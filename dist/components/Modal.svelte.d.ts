@@ -11,6 +11,8 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
     glow?: boolean;
     breathing?: boolean;
     reduceMotion?: boolean;
+    'aria-labelledby'?: string;
+    'aria-describedby'?: string;
     class?: string;
     children?: any;
     onClose?: () => void;

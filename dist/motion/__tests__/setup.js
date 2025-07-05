@@ -1,5 +1,5 @@
-import '@testing-library/jest-dom';
 import { vi } from 'vitest';
+<<<<<<< Updated upstream
 // Force Svelte 5 to run in browser mode - override SSR detection
 globalThis.window = globalThis.window || globalThis;
 globalThis.document = globalThis.document || {
@@ -100,57 +100,26 @@ Object.defineProperty(window, 'ResizeObserver', {
         observe: vi.fn(),
         unobserve: vi.fn(),
         disconnect: vi.fn()
+=======
+// Mock HTMLMediaElement
+if (!global.window.HTMLMediaElement.prototype.play) {
+    global.window.HTMLMediaElement.prototype.play = vi.fn();
+}
+if (!global.window.HTMLMediaElement.prototype.pause) {
+    global.window.HTMLMediaElement.prototype.pause = vi.fn();
+}
+// Mock window.matchMedia
+Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: vi.fn().mockImplementation(query => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(), // deprecated
+        removeListener: vi.fn(), // deprecated
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+>>>>>>> Stashed changes
     })),
-    writable: true
 });
-// Mock IntersectionObserver
-Object.defineProperty(window, 'IntersectionObserver', {
-    value: vi.fn().mockImplementation(() => ({
-        observe: vi.fn(),
-        unobserve: vi.fn(),
-        disconnect: vi.fn()
-    })),
-    writable: true
-});
-// Mock CSS supports
-Object.defineProperty(CSS, 'supports', {
-    value: vi.fn((property, value) => {
-        // Mock support for common CSS properties
-        const supportedProperties = ['backdrop-filter', 'transform', 'opacity', 'transition', 'will-change'];
-        return supportedProperties.some((prop) => property.includes(prop));
-    }),
-    writable: true
-});
-globalThis.testUtils = {
-    createMockElement: () => {
-        const element = document.createElement('div');
-        element.style.cssText = `
-			width: 100px;
-			height: 100px;
-			position: absolute;
-			top: 50px;
-			left: 50px;
-		`;
-        return element;
-    },
-    mockBoundingClientRect: (element, rect) => {
-        const mockRect = {
-            width: 100,
-            height: 100,
-            top: 50,
-            left: 50,
-            bottom: 150,
-            right: 150,
-            x: 50,
-            y: 50,
-            toJSON: () => ({}),
-            ...rect
-        };
-        vi.spyOn(element, 'getBoundingClientRect').mockReturnValue(mockRect);
-    },
-    triggerAnimationFrame: () => {
-        return new Promise((resolve) => {
-            requestAnimationFrame(() => resolve());
-        });
-    }
-};

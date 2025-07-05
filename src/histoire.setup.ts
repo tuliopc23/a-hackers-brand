@@ -4,10 +4,18 @@ import './app.css';
 const components = import.meta.glob('./lib/components/*.svelte', { eager: true });
 
 // Create a registry of components for auto-import
-export const componentRegistry = {};
+interface ComponentRegistry {
+	[key: string]: unknown;
+}
+
+interface ComponentModule {
+	default?: unknown;
+}
+
+export const componentRegistry: ComponentRegistry = {};
 
 for (const path in components) {
-	const component = components[path];
+	const component = components[path] as ComponentModule;
 	const name = path.split('/').pop()?.replace('.svelte', '');
 	if (name && component.default) {
 		componentRegistry[name] = component.default;
@@ -15,6 +23,10 @@ for (const path in components) {
 }
 
 // Make components globally available
+declare global {
+	var __HISTOIRE_COMPONENTS__: ComponentRegistry;
+}
+
 if (typeof globalThis !== 'undefined') {
 	globalThis.__HISTOIRE_COMPONENTS__ = componentRegistry;
 }

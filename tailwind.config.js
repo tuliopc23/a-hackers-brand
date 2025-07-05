@@ -1,8 +1,32 @@
+import containerQueries from '@tailwindcss/container-queries';
+import aspectRatio from '@tailwindcss/aspect-ratio';
+
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	darkMode: ['class'],
 	theme: {
+		screens: {
+			'xs': '475px',
+			'sm': '640px',
+			'md': '768px',
+			'lg': '1024px',
+			'xl': '1280px',
+			'2xl': '1536px',
+			// Container queries
+			'@xs': { 'container-query': '20rem' },
+			'@sm': { 'container-query': '24rem' },
+			'@md': { 'container-query': '28rem' },
+			'@lg': { 'container-query': '32rem' },
+			'@xl': { 'container-query': '36rem' },
+			'@2xl': { 'container-query': '42rem' },
+			// Custom breakpoints for design system
+			'mobile': '390px',
+			'tablet': '768px',
+			'desktop': '1024px',
+			'wide': '1440px',
+			'ultrawide': '1920px'
+		},
 		extend: {
 			colors: {
 				// Brand colors
@@ -81,5 +105,13 @@ export default {
 			}
 		}
 	},
+<<<<<<< Updated upstream
 	plugins: []
 };
+=======
+	plugins: [
+		containerQueries,
+		aspectRatio
+	]
+};
+>>>>>>> Stashed changes

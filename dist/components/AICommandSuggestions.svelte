@@ -312,7 +312,7 @@
 		<!-- Suggestions List -->
 		{#if !isThinking && $aiSuggestions.length > 0}
 			<div class="space-y-2">
-				{#each $aiSuggestions as suggestion, index}
+				{#each $aiSuggestions as suggestion, index (suggestion.command)}
 					<div 
 						class={cn(
 							'p-3 rounded-lg cursor-pointer transition-all duration-200',
@@ -375,7 +375,7 @@
 							<div class="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
 								<div class={cn('text-xs font-bold mb-1', currentTheme.text)}>Examples:</div>
 								<div class="flex flex-wrap gap-1">
-									{#each suggestion.examples as example}
+									{#each suggestion.examples as example (example)}
 										<code class={cn('text-xs px-2 py-1 rounded bg-black/40', currentTheme.muted)}>
 											{example}
 										</code>

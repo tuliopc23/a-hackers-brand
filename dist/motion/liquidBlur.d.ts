@@ -1,7 +1,7 @@
 import { BLUR_LEVELS, OPACITY_LEVELS } from './tokens.js';
 export interface LiquidBlurOptions {
     duration?: number;
-    easing?: string;
+    easing?: (t: number) => number;
     blur?: keyof typeof BLUR_LEVELS;
     opacity?: keyof typeof OPACITY_LEVELS;
     scale?: number;
@@ -12,7 +12,7 @@ export interface LiquidBlurOptions {
  */
 export declare function liquidBlur(node: Element, { duration, easing, blur, opacity, scale }?: LiquidBlurOptions): {
     duration: number;
-    easing: string;
+    easing: (t: number) => number;
     css: (t: number) => string;
 };
 /**
@@ -21,5 +21,5 @@ export declare function liquidBlur(node: Element, { duration, easing, blur, opac
 export declare function liquidBlurOut(node: Element, options?: LiquidBlurOptions): {
     css: (t: number) => string;
     duration: number;
-    easing: string;
+    easing: (t: number) => number;
 };

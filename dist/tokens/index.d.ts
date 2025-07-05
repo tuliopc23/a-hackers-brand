@@ -6,6 +6,18 @@ export declare const brandColors: {
         purple: string;
         matrix: string;
         neon: string;
+        amber: string;
+        lime: string;
+        magenta: string;
+        orange: string;
+    };
+    gradients: {
+        cyberpunk: string;
+        matrix: string;
+        neon: string;
+        synthwave: string;
+        terminal: string;
+        hologram: string;
     };
     glass: {
         primary: string;
@@ -13,12 +25,32 @@ export declare const brandColors: {
         accent: string;
         background: string;
         border: string;
+        glow: string;
+        shadow: string;
     };
     semantic: {
         success: string;
         warning: string;
         error: string;
         info: string;
+        neutral: string;
+    };
+    backgrounds: {
+        primary: string;
+        secondary: string;
+        tertiary: string;
+        surface: string;
+        panel: string;
+        overlay: string;
+    };
+    text: {
+        primary: string;
+        secondary: string;
+        muted: string;
+        inverse: string;
+        terminal: string;
+        neon: string;
+        accent: string;
     };
 };
 export declare const typography: {
@@ -151,6 +183,18 @@ export declare const tokens: {
             purple: string;
             matrix: string;
             neon: string;
+            amber: string;
+            lime: string;
+            magenta: string;
+            orange: string;
+        };
+        gradients: {
+            cyberpunk: string;
+            matrix: string;
+            neon: string;
+            synthwave: string;
+            terminal: string;
+            hologram: string;
         };
         glass: {
             primary: string;
@@ -158,12 +202,32 @@ export declare const tokens: {
             accent: string;
             background: string;
             border: string;
+            glow: string;
+            shadow: string;
         };
         semantic: {
             success: string;
             warning: string;
             error: string;
             info: string;
+            neutral: string;
+        };
+        backgrounds: {
+            primary: string;
+            secondary: string;
+            tertiary: string;
+            surface: string;
+            panel: string;
+            overlay: string;
+        };
+        text: {
+            primary: string;
+            secondary: string;
+            muted: string;
+            inverse: string;
+            terminal: string;
+            neon: string;
+            accent: string;
         };
     };
     typography: {

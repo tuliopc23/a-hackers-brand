@@ -15,7 +15,7 @@ const runLighthouse = async (url) => {
 	console.log(`🚀 Running Lighthouse for ${url}...`);
 
 	try {
-		const { stdout, stderr } = await execAsync(
+		await execAsync(
 			`npx lighthouse ${url} --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=./lighthouse-report.json --chrome-flags="--headless --no-sandbox"`
 		);
 

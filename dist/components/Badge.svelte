@@ -63,7 +63,7 @@
 	function handleKeydown(event: KeyboardEvent) {
 		if (interactive && (event.key === 'Enter' || event.key === ' ')) {
 			event.preventDefault();
-			event.currentTarget.dispatchEvent(new CustomEvent('click', { bubbles: true }));
+			(event.currentTarget as HTMLElement)?.dispatchEvent(new CustomEvent('click', { bubbles: true }));
 		}
 	}
 
@@ -101,6 +101,7 @@
 		</span>
 	{/if}
 {:else}
+<<<<<<< Updated upstream
 	{#if interactive}
 		<button
 			class={combinedClasses}
@@ -125,6 +126,20 @@
 			{/if}
 		</span>
 	{/if}
+=======
+	<span
+		class={combinedClasses}
+		role={interactive ? 'button' : 'status'}
+		tabindex={interactive ? 0 : undefined}
+		aria-label={restProps['aria-label'] || `${variant} badge`}
+		onkeydown={interactive ? handleKeydown : undefined}
+		{...restProps}
+	>
+		{#if children}
+			{@render children()}
+		{/if}
+	</span>
+>>>>>>> Stashed changes
 {/if}
 
 <style>

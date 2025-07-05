@@ -18,6 +18,8 @@ interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'value'> {
     jelly?: boolean;
     glow?: boolean;
     reduceMotion?: boolean;
+    label?: string;
+    'aria-label'?: string;
     class?: string;
     onValueChange?: (value: string) => void;
 }

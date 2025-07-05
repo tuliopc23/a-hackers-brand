@@ -17,6 +17,8 @@
 		glow?: boolean;
 		breathing?: boolean;
 		reduceMotion?: boolean;
+		'aria-labelledby'?: string;
+		'aria-describedby'?: string;
 		class?: string;
 		children?: any;
 		onClose?: () => void;
@@ -34,13 +36,19 @@
 		glow = false,
 		breathing = false,
 		reduceMotion = false,
+		'aria-labelledby': ariaLabelledby,
+		'aria-describedby': ariaDescribedby,
 		class: className = '',
 		children,
 		onClose,
 		...restProps
 	}: Props = $props();
 
+<<<<<<< Updated upstream
 	let modalElement = $state<HTMLDivElement>();
+=======
+	let modalElement: HTMLDivElement = $state();
+>>>>>>> Stashed changes
 	let previousActiveElement: Element | null = null;
 
 	const sizes = {
@@ -197,12 +205,22 @@
 		class={overlayClasses}
 		role="dialog"
 		aria-modal="true"
+<<<<<<< Updated upstream
 		aria-labelledby="modal-title"
 		tabindex={-1}
 		onclick={handleOverlayClick}
 		onkeydown={(e) => e.key === 'Escape' && handleClose()}
 		in:glassFade={{ duration: animate && !reduceMotion ? 300 : 0 }}
 		out:glassFade={{ duration: animate && !reduceMotion ? 200 : 0 }}
+=======
+		aria-labelledby={ariaLabelledby}
+		aria-describedby={ariaDescribedby}
+		tabindex="0"
+		onclick={handleOverlayClick}
+		onkeydown={(e) => e.key === 'Escape' && handleOverlayClick(e)}
+		in:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 200 : 0 }}
+		out:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 150 : 0 }}
+>>>>>>> Stashed changes
 	>
 		<div
 			bind:this={modalElement}

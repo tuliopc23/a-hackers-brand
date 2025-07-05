@@ -109,7 +109,11 @@
 <div class="w-full space-y-2" {...restProps}>
 	{#if label}
 		<div class="flex justify-between items-center">
+<<<<<<< Updated upstream
 			<label id="progress-label-{progressId}" for="progress-{progressId}" class="text-sm font-medium text-white">
+=======
+			<label id="progress-label" class="text-sm font-medium text-white">
+>>>>>>> Stashed changes
 				{label}
 			</label>
 			{#if showValue || showPercentage}

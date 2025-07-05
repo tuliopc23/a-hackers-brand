@@ -15,57 +15,37 @@ export { magneticHover as magnetic } from './magneticHover.js';
 export declare const presets: {
     readonly fastLiquid: (node: Element) => {
         duration: number;
-        easing: string;
+        easing: (t: number) => number;
         css: (t: number) => string;
     };
     readonly slowLiquid: (node: Element) => {
         duration: number;
-        easing: string;
+        easing: (t: number) => number;
         css: (t: number) => string;
     };
-    readonly fadeUp: (node: Element) => {
-        duration: number;
-        easing: string;
-        css: (t: number) => string;
-    };
-    readonly fadeDown: (node: Element) => {
-        duration: number;
-        easing: string;
-        css: (t: number) => string;
-    };
-    readonly fadeLeft: (node: Element) => {
-        duration: number;
-        easing: string;
-        css: (t: number) => string;
-    };
-    readonly fadeRight: (node: Element) => {
-        duration: number;
-        easing: string;
-        css: (t: number) => string;
-    };
+    readonly fadeUp: (node: Element) => import("svelte/transition").TransitionConfig;
+    readonly fadeDown: (node: Element) => import("svelte/transition").TransitionConfig;
+    readonly fadeLeft: (node: Element) => import("svelte/transition").TransitionConfig;
+    readonly fadeRight: (node: Element) => import("svelte/transition").TransitionConfig;
     readonly quickPop: (node: Element) => {
         duration: number;
-        easing: string;
+        easing: (t: number) => number;
         css: (t: number) => string;
     };
     readonly bouncyPop: (node: Element) => {
         duration: number;
-        easing: string;
+        easing: (t: number) => number;
         css: (t: number) => string;
     };
     readonly cardHover: (node: Element) => {
         duration: number;
-        easing: string;
+        easing: (t: number) => number;
         css: (t: number) => string;
     };
     readonly buttonPress: (node: Element) => {
         duration: number;
-        easing: string;
+        easing: (t: number) => number;
         css: (t: number) => string;
     };
-    readonly inputFocus: (node: Element) => {
-        duration: number;
-        easing: string;
-        css: (t: number) => string;
-    };
+    readonly inputFocus: (node: Element) => import("svelte/transition").TransitionConfig;
 };

@@ -3,7 +3,7 @@ import { DURATIONS, EASINGS, OPACITY_LEVELS } from './tokens.js';
  * Glass fade transition with directional slide
  * Creates elegant glass panel sliding effects
  */
-export function glassFade(node, { duration = DURATIONS.moderate, easing = EASINGS.glass, opacity = 'medium', direction = 'up', distance = 20 } = {}) {
+export function glassFade(node, { duration = DURATIONS.moderate, easing = (t) => t, opacity = 'medium', direction = 'up', distance = 20 } = {}) {
     const htmlNode = node;
     const initialStyle = getComputedStyle(htmlNode);
     const initialOpacity = parseFloat(initialStyle.opacity || '1');
@@ -64,7 +64,7 @@ export function glassFadeOut(node, options = {}) {
                             : 'left'
             };
             const reverseTransition = glassFade(node, reverseOptions);
-            return reverseTransition.css(reverseT);
+            return reverseTransition.css?.(reverseT, 1) || '';
         }
     };
 }

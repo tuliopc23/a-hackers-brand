@@ -3,18 +3,27 @@
 	import { glassFade, liquidBlur, magneticHover } from '$lib/motion';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
+<<<<<<< Updated upstream
 	interface Props extends HTMLInputAttributes {
 		variant?: 'default' | 'glass' | 'terminal' | 'liquid';
+=======
+	interface Props extends Omit<HTMLInputAttributes, 'size'> {
+		variant?: 'default' | 'glass' | 'terminal';
+>>>>>>> Stashed changes
 		size?: 'sm' | 'md' | 'lg';
 		label?: string;
 		error?: string;
 		icon?: any;
 		children?: any;
 		animate?: boolean;
+<<<<<<< Updated upstream
 		liquid?: boolean;
 		magnetic?: boolean;
 		jelly?: boolean;
 		glow?: boolean;
+=======
+		'aria-label'?: string;
+>>>>>>> Stashed changes
 		class?: string;
 	}
 
@@ -31,6 +40,7 @@
 		glow = false,
 		class: className = '',
 		id = '',
+		'aria-label': ariaLabel,
 		children,
 		...restProps
 	}: Props = $props();
@@ -38,8 +48,13 @@
 	const variants = {
 		default: 'bg-white/5 border border-white/20 focus:border-brand-primary',
 		glass: 'glass border-white/30 focus:border-terminal-green/50 focus:shadow-lg',
+<<<<<<< Updated upstream
 		terminal: 'bg-terminal-bg border border-terminal-green/20 focus:border-terminal-green text-terminal-fg font-mono',
 		liquid: 'bg-gradient-to-r from-white/5 to-white/10 border border-white/20 focus:border-brand-primary focus:bg-gradient-to-r focus:from-white/10 focus:to-white/15'
+=======
+		terminal:
+			'bg-terminal-bg border border-terminal-green/20 focus:border-terminal-green text-terminal-fg font-mono'
+>>>>>>> Stashed changes
 	};
 
 	const sizes = {
@@ -55,6 +70,7 @@
 	const liquidClasses = liquid ? 'backdrop-blur-md' : '';
 
 	const combinedClasses = cn(
+<<<<<<< Updated upstream
 		baseClasses, 
 		variants[variant], 
 		sizes[size], 
@@ -62,10 +78,18 @@
 		iconClasses, 
 		glowClasses,
 		liquidClasses,
+=======
+		baseClasses,
+		variants[variant],
+		sizes[size],
+		errorClasses,
+		iconClasses,
+>>>>>>> Stashed changes
 		className
 	);
 
 	const uniqueId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+	const errorId = error ? `${uniqueId}-error` : undefined;
 </script>
 
 <div class="relative">
@@ -97,26 +121,39 @@
 			/>
 		{:else if animate}
 			<input
-				{id}
+				id={uniqueId}
 				class={combinedClasses}
+				aria-label={ariaLabel}
+				aria-invalid={!!error}
+				aria-describedby={errorId}
 				in:glassFade={{ duration: 200, direction: 'up', distance: 5, opacity: 'light' }}
 				use:magneticHover={magnetic ? { strength: 0.1, distance: 50 } : undefined}
 				use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
 				{...restProps}
 			/>
 		{:else}
+<<<<<<< Updated upstream
 			<input 
 				{id} 
 				class={combinedClasses} 
 				use:magneticHover={magnetic ? { strength: 0.1, distance: 50 } : undefined}
 				use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
 				{...restProps} 
+=======
+			<input
+				id={uniqueId}
+				class={combinedClasses}
+				aria-label={ariaLabel}
+				aria-invalid={!!error}
+				aria-describedby={errorId}
+				{...restProps}
+>>>>>>> Stashed changes
 			/>
 		{/if}
 	</div>
 
 	{#if error}
-		<p class="mt-1 text-sm text-red-400" role="alert">
+		<p id={errorId} class="mt-1 text-sm text-red-400" role="alert">
 			{error}
 		</p>
 	{/if}

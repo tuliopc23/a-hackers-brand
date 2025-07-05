@@ -12,6 +12,7 @@ interface Props extends Omit<HTMLAttributes<HTMLButtonElement>, 'value'> {
     glow?: boolean;
     reduceMotion?: boolean;
     label?: string;
+    'aria-label'?: string;
     description?: string;
     class?: string;
     onCheckedChange?: (checked: boolean) => void;

@@ -9,7 +9,7 @@ export declare const DURATIONS: {
     readonly slow: 500;
     readonly slowest: 800;
 };
-export declare const EASINGS: {
+export declare const EASING_CSS: {
     readonly glass: "cubic-bezier(0.25, 0.46, 0.45, 0.94)";
     readonly liquid: "cubic-bezier(0.23, 1, 0.32, 1)";
     readonly spring: "cubic-bezier(0.68, -0.55, 0.265, 1.55)";
@@ -28,6 +28,14 @@ export declare const EASING_CSS: {
     readonly bounce: "cubic-bezier(0.175, 0.885, 0.32, 1.275)";
     readonly jelly: "cubic-bezier(0.68, -0.55, 0.265, 1.55)";
     readonly liquidJelly: "cubic-bezier(0.23, 1, 0.32, 1.6)";
+};
+export declare const EASINGS: {
+    readonly glass: (t: number) => number;
+    readonly liquid: (t: number) => number;
+    readonly spring: (t: number) => number;
+    readonly terminal: (t: number) => number;
+    readonly elastic: (t: number) => number;
+    readonly bounce: (t: number) => number;
 };
 export declare const TRANSFORMS: {
     readonly scale: {

@@ -2,7 +2,7 @@ import { DURATIONS, EASINGS, BLUR_LEVELS, OPACITY_LEVELS } from './tokens.js';
 
 export interface LiquidBlurOptions {
 	duration?: number;
-	easing?: string;
+	easing?: (t: number) => number;
 	blur?: keyof typeof BLUR_LEVELS;
 	opacity?: keyof typeof OPACITY_LEVELS;
 	scale?: number;
@@ -24,9 +24,9 @@ export function liquidBlur(
 ) {
 	const htmlNode = node as HTMLElement;
 	const initialStyle = getComputedStyle(htmlNode);
-	const initialBlur = parseFloat(initialStyle.backdropFilter.match(/blur\((\d+)px\)/)?.[1] || '0');
+	const initialBlur = parseFloat((initialStyle.backdropFilter || '').match(/blur\((\d+)px\)/)?.[1] || '0');
 	const initialOpacity = parseFloat(initialStyle.opacity || '1');
-	const initialScale = parseFloat(initialStyle.transform.match(/scale\(([^)]+)\)/)?.[1] || '1');
+	const initialScale = parseFloat((initialStyle.transform || '').match(/scale\(([^)]+)\)/)?.[1] || '1');
 
 	return {
 		duration,

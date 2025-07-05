@@ -1,8 +1,10 @@
 import { DURATIONS, EASINGS, OPACITY_LEVELS } from './tokens.js';
 
+import type { TransitionConfig } from 'svelte/transition';
+
 export interface GlassFadeOptions {
 	duration?: number;
-	easing?: string;
+	easing?: (t: number) => number;
 	opacity?: keyof typeof OPACITY_LEVELS;
 	direction?: 'up' | 'down' | 'left' | 'right';
 	distance?: number;
@@ -16,12 +18,12 @@ export function glassFade(
 	node: Element,
 	{
 		duration = DURATIONS.moderate,
-		easing = EASINGS.glass,
+		easing = (t: number) => t,
 		opacity = 'medium',
 		direction = 'up',
 		distance = 20
 	}: GlassFadeOptions = {}
-) {
+): TransitionConfig {
 	const htmlNode = node as HTMLElement;
 	const initialStyle = getComputedStyle(htmlNode);
 	const initialOpacity = parseFloat(initialStyle.opacity || '1');
@@ -69,7 +71,7 @@ export function glassFade(
 /**
  * Glass fade out transition
  */
-export function glassFadeOut(node: Element, options: GlassFadeOptions = {}) {
+export function glassFadeOut(node: Element, options: GlassFadeOptions = {}): TransitionConfig {
 	const transition = glassFade(node, options);
 
 	return {
@@ -77,20 +79,20 @@ export function glassFadeOut(node: Element, options: GlassFadeOptions = {}) {
 		css: (t: number) => {
 			// Reverse the progress and invert direction for out transition
 			const reverseT = 1 - t;
-			const reverseOptions = {
+			const reverseOptions: GlassFadeOptions = {
 				...options,
 				direction:
 					options.direction === 'up'
-						? 'down'
+						? 'down' as const
 						: options.direction === 'down'
-							? 'up'
+							? 'up' as const
 							: options.direction === 'left'
-								? 'right'
-								: 'left'
+								? 'right' as const
+								: 'left' as const
 			};
 
 			const reverseTransition = glassFade(node, reverseOptions);
-			return reverseTransition.css(reverseT);
+			return reverseTransition.css?.(reverseT, 1) || '';
 		}
 	};
 }

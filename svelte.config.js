@@ -7,6 +7,13 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 
+	compilerOptions: {
+		// Enable Svelte 4 compatibility for testing
+		compatibility: {
+			componentApi: 4
+		}
+	},
+
 	kit: {
 		// Vercel adapter with runtime configuration
 		adapter: adapter({

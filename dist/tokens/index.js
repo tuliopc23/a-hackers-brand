@@ -1,26 +1,64 @@
 // Tulio Brand System - Design Tokens
-// Brand Colors
+// Advanced Hacker Color Palette - Retro Futuristic
 export const brandColors = {
+    // Core Hacker Terminal Colors
     terminal: {
-        green: '#00d4aa',
-        cyan: '#00aaff',
-        blue: '#0088ff',
-        purple: '#8844ff',
-        matrix: '#00ff88',
-        neon: '#ff0080'
+        green: '#00ff41', // Classic Matrix green
+        cyan: '#00ffff', // Electric cyan
+        blue: '#0080ff', // Neon blue
+        purple: '#8a2be2', // Deep purple
+        matrix: '#00ff88', // Matrix accent green
+        neon: '#ff1493', // Hot pink neon
+        amber: '#ffbf00', // Retro amber
+        lime: '#32cd32', // Lime green
+        magenta: '#ff00ff', // Electric magenta
+        orange: '#ff4500' // Cyber orange
     },
+    // Retro Futuristic Gradients
+    gradients: {
+        cyberpunk: 'linear-gradient(135deg, #ff1493 0%, #8a2be2 50%, #00ffff 100%)',
+        matrix: 'linear-gradient(180deg, #00ff41 0%, #008f11 100%)',
+        neon: 'linear-gradient(90deg, #ff00ff 0%, #00ffff 50%, #ffff00 100%)',
+        synthwave: 'linear-gradient(135deg, #ff006e 0%, #8338ec 50%, #3a86ff 100%)',
+        terminal: 'linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%)',
+        hologram: 'linear-gradient(45deg, rgba(0,255,255,0.1) 0%, rgba(255,0,255,0.1) 50%, rgba(255,255,0,0.1) 100%)'
+    },
+    // Glass Morphism System
     glass: {
-        primary: 'rgba(0, 212, 170, 0.8)',
-        secondary: 'rgba(0, 170, 255, 0.6)',
-        accent: 'rgba(255, 255, 255, 0.1)',
-        background: 'rgba(0, 0, 0, 0.3)',
-        border: 'rgba(255, 255, 255, 0.2)'
+        primary: 'rgba(0, 255, 65, 0.15)',
+        secondary: 'rgba(0, 255, 255, 0.12)',
+        accent: 'rgba(255, 255, 255, 0.08)',
+        background: 'rgba(0, 0, 0, 0.4)',
+        border: 'rgba(0, 255, 65, 0.3)',
+        glow: 'rgba(0, 255, 65, 0.5)',
+        shadow: 'rgba(0, 255, 65, 0.2)'
     },
+    // Semantic Colors with Hacker Aesthetic
     semantic: {
-        success: '#00ff88',
-        warning: '#ffaa00',
-        error: '#ff4444',
-        info: '#00aaff'
+        success: '#00ff41',
+        warning: '#ffbf00',
+        error: '#ff073a',
+        info: '#00ffff',
+        neutral: '#808080'
+    },
+    // Background System
+    backgrounds: {
+        primary: '#0a0a0f',
+        secondary: '#1a1a2e',
+        tertiary: '#16213e',
+        surface: '#1e1e1e',
+        panel: 'rgba(255, 255, 255, 0.05)',
+        overlay: 'rgba(0, 0, 0, 0.8)'
+    },
+    // Text Colors
+    text: {
+        primary: '#ffffff',
+        secondary: '#cccccc',
+        muted: '#888888',
+        inverse: '#000000',
+        terminal: '#00ff41',
+        neon: '#00ffff',
+        accent: '#ff1493'
     }
 };
 // Typography Scale

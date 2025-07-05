@@ -135,7 +135,7 @@
 			{#if showCopy}
 				<button 
 					class="p-1 hover:bg-white/10 rounded transition-colors text-white/60 hover:text-white"
-					on:click={copyToClipboard}
+					onclick={copyToClipboard}
 					title={copied ? 'Copied!' : 'Copy code'}
 				>
 					{#if copied}
@@ -156,7 +156,7 @@
 		{#if showCopy && !title}
 			<button 
 				class="absolute top-3 right-3 p-2 bg-black/50 hover:bg-black/70 rounded transition-colors text-white/60 hover:text-white opacity-0 group-hover:opacity-100 z-10"
-				on:click={copyToClipboard}
+				onclick={copyToClipboard}
 				title={copied ? 'Copied!' : 'Copy code'}
 			>
 				{#if copied}

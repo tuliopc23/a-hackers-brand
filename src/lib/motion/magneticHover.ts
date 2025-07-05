@@ -1,4 +1,4 @@
-import { DURATIONS, EASINGS, TRANSFORMS } from './tokens.js';
+import { DURATIONS, EASING_CSS, TRANSFORMS } from './tokens.js';
 
 export interface MagneticHoverOptions {
 	duration?: number;
@@ -17,7 +17,7 @@ export function magneticHover(
 	node: HTMLElement,
 	{
 		duration = DURATIONS.fast,
-		easing = EASINGS.spring,
+		easing = EASING_CSS.spring,
 		strength = 0.3,
 		scale = TRANSFORMS.scale.hover,
 		magnetRadius = 100,
@@ -25,7 +25,7 @@ export function magneticHover(
 	}: MagneticHoverOptions = {}
 ) {
 	let isHovering = false;
-	let animationFrame: number;
+	let animationFrame: number | undefined;
 
 	const getDistance = (x1: number, y1: number, x2: number, y2: number) => {
 		return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
@@ -95,7 +95,7 @@ export function magneticHover(
 			// Update options
 			({
 				duration = DURATIONS.fast,
-				easing = EASINGS.spring,
+				easing = EASING_CSS.spring,
 				strength = 0.3,
 				scale = TRANSFORMS.scale.hover,
 				magnetRadius = 100,

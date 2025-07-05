@@ -1,6 +1,6 @@
 export interface SpringPopOptions {
     duration?: number;
-    easing?: string;
+    easing?: (t: number) => number;
     scale?: number;
     rotation?: number;
     bounce?: boolean;
@@ -12,7 +12,7 @@ export interface SpringPopOptions {
  */
 export declare function springPop(node: Element, { duration, easing, scale, rotation, bounce, stagger }?: SpringPopOptions): {
     duration: number;
-    easing: string;
+    easing: (t: number) => number;
     css: (t: number) => string;
 };
 /**
@@ -21,14 +21,14 @@ export declare function springPop(node: Element, { duration, easing, scale, rota
 export declare function springPopOut(node: Element, options?: SpringPopOptions): {
     css: (t: number) => string;
     duration: number;
-    easing: string;
+    easing: (t: number) => number;
 };
 /**
  * Staggered spring pop for multiple elements
  */
 export declare function createStaggeredSpringPop(baseDelay?: number): (node: Element, options?: SpringPopOptions) => {
     duration: number;
-    easing: string;
+    easing: (t: number) => number;
     css: (t: number) => string;
 };
 /**
@@ -36,6 +36,6 @@ export declare function createStaggeredSpringPop(baseDelay?: number): (node: Ele
  */
 export declare function chainSpringPop(nodes: Element[], options?: SpringPopOptions, chainDelay?: number): {
     duration: number;
-    easing: string;
+    easing: (t: number) => number;
     css: (t: number) => string;
 }[];

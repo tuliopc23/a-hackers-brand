@@ -43,6 +43,7 @@
 	}: Props = $props();
 
 	let openItems = $state(new Set(defaultOpen));
+	const uniqueId = `accordion-${Math.random().toString(36).substr(2, 9)}`;
 
 	const sizes = {
 		sm: {
@@ -190,6 +191,8 @@
 		{@const isOpen = openItems.has(item.id)}
 		{@const isFirst = index === 0}
 		{@const isLast = index === items.length - 1}
+		{@const headerId = `${uniqueId}-header-${item.id}`}
+		{@const contentId = `${uniqueId}-content-${item.id}`}
 
 		<div
 			class={cn(
@@ -203,6 +206,7 @@
 		>
 			<!-- Header -->
 			<button
+				id={headerId}
 				class={cn(
 					'w-full flex items-center justify-between transition-all duration-200',
 					'focus:outline-none focus:ring-2 focus:ring-blue-400/50',
@@ -213,7 +217,7 @@
 				)}
 				type="button"
 				aria-expanded={isOpen}
-				aria-controls={`accordion-content-${item.id}`}
+				aria-controls={contentId}
 				aria-disabled={item.disabled}
 				data-accordion-header={item.id}
 				disabled={item.disabled}
@@ -224,7 +228,11 @@
 				<span class="text-left">{item.title}</span>
 
 				<svg
-					class={cn('transition-transform duration-200 flex-shrink-0 ml-2', sizes[size].icon, isOpen && 'rotate-180')}
+					class={cn(
+						'transition-transform duration-200 flex-shrink-0 ml-2',
+						sizes[size].icon,
+						isOpen && 'rotate-180'
+					)}
 					fill="none"
 					stroke="currentColor"
 					viewBox="0 0 24 24"
@@ -237,9 +245,9 @@
 			<!-- Content -->
 			{#if isOpen}
 				<div
-					id={`accordion-content-${item.id}`}
+					id={contentId}
 					role="region"
-					aria-labelledby={`accordion-header-${item.id}`}
+					aria-labelledby={headerId}
 					class={cn(
 						'border-t border-white/10 transition-all duration-200',
 						sizes[size].content,

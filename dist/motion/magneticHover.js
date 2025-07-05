@@ -1,9 +1,9 @@
-import { DURATIONS, EASINGS, TRANSFORMS } from './tokens.js';
+import { DURATIONS, EASING_CSS, TRANSFORMS } from './tokens.js';
 /**
  * Magnetic hover effect that follows cursor movement
  * Creates smooth attraction-based interactions
  */
-export function magneticHover(node, { duration = DURATIONS.fast, easing = EASINGS.spring, strength = 0.3, scale = TRANSFORMS.scale.hover, magnetRadius = 100, enabled = true } = {}) {
+export function magneticHover(node, { duration = DURATIONS.fast, easing = EASING_CSS.spring, strength = 0.3, scale = TRANSFORMS.scale.hover, magnetRadius = 100, enabled = true } = {}) {
     let isHovering = false;
     let animationFrame;
     const getDistance = (x1, y1, x2, y2) => {
@@ -59,7 +59,7 @@ export function magneticHover(node, { duration = DURATIONS.fast, easing = EASING
             // Update options
             ({
                 duration = DURATIONS.fast,
-                easing = EASINGS.spring,
+                easing = EASING_CSS.spring,
                 strength = 0.3,
                 scale = TRANSFORMS.scale.hover,
                 magnetRadius = 100,

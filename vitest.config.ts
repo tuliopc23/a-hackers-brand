@@ -13,16 +13,21 @@ export default defineConfig({
 	},
 	test: {
 		globals: true,
+<<<<<<< Updated upstream
 		environment: 'happy-dom',
 		setupFiles: ['./src/lib/motion/__tests__/setup-legacy.ts'],
+=======
+		environment: 'jsdom',
+>>>>>>> Stashed changes
 		include: ['src/**/*.{test,spec}.{js,ts,svelte}'],
-		// Ensure tests run in browser-like environment
+		setupFiles: ['./src/lib/motion/__tests__/setup.ts'],
 		pool: 'forks',
 		poolOptions: {
 			forks: {
 				singleFork: true
 			}
 		},
+<<<<<<< Updated upstream
 		// Force browser environment for Svelte 5 mount
 		server: {
 			deps: {
@@ -35,6 +40,13 @@ export default defineConfig({
 			VITEST: 'true',
 			BROWSER: 'true'
 		},
+=======
+		environmentOptions: {
+			jsdom: {
+				url: 'http://localhost:3000'
+			}
+		},
+>>>>>>> Stashed changes
 		coverage: {
 			provider: 'v8',
 			reporter: ['text', 'json', 'html', 'lcov'],
@@ -52,10 +64,15 @@ export default defineConfig({
 				branches: 70
 			}
 		},
-		// Performance testing configuration
 		benchmark: {
 			include: ['src/**/*.{bench,benchmark}.{js,ts}'],
 			reporters: ['verbose']
-		}
+		},
+		resolve: {
+			alias: {
+				$lib: new URL('./src/lib', import.meta.url).pathname
+			}
+		},
+		reporter: ['default']
 	}
 });

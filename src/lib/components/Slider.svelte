@@ -47,6 +47,10 @@
 	let trackElement = $state<HTMLDivElement>();
 	let isDragging = $state(false);
 	let isFocused = $state(false);
+<<<<<<< Updated upstream
+=======
+	
+>>>>>>> Stashed changes
 	const sliderId = `slider-${Math.random().toString(36).substr(2, 9)}`;
 
 	const sizes = {
@@ -211,7 +215,11 @@
 
 <div class="w-full space-y-2">
 	{#if label}
+<<<<<<< Updated upstream
 		<label id="slider-label-{sliderId}" for="slider-{sliderId}" class="block text-sm font-medium text-white" class:opacity-50={disabled}>
+=======
+		<label for={sliderId} class="block text-sm font-medium text-white" class:opacity-50={disabled}>
+>>>>>>> Stashed changes
 			{label}
 			{#if showValue}
 				<span class="ml-2 text-white/70">({value})</span>
@@ -222,7 +230,11 @@
 	<div bind:this={sliderElement} class="relative w-full py-2" {...restProps}>
 		<div
 			bind:this={trackElement}
+<<<<<<< Updated upstream
 			id="slider-{sliderId}"
+=======
+			id={sliderId}
+>>>>>>> Stashed changes
 			class={trackClasses}
 			onmousedown={handleMouseDown}
 			role="slider"

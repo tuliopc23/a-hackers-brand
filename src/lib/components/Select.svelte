@@ -24,6 +24,8 @@
 		jelly?: boolean;
 		glow?: boolean;
 		reduceMotion?: boolean;
+		label?: string;
+		'aria-label'?: string;
 		class?: string;
 		onValueChange?: (value: string) => void;
 	}
@@ -42,15 +44,26 @@
 		jelly = false,
 		glow = false,
 		reduceMotion = false,
+		label = '',
+		'aria-label': ariaLabel,
 		class: className = '',
 		onValueChange,
 		...restProps
 	}: Props = $props();
 
 	let isOpen = $state(false);
+<<<<<<< Updated upstream
 	let selectElement = $state<HTMLDivElement>();
 	let listboxElement = $state<HTMLUListElement>();
+=======
+	let selectElement: HTMLDivElement;
+	let listboxElement: HTMLUListElement = $state();
+>>>>>>> Stashed changes
 	let activeIndex = $state(-1);
+
+	const uniqueId = `select-${Math.random().toString(36).substr(2, 9)}`;
+	const labelId = label ? `${uniqueId}-label` : undefined;
+	const listboxId = `${uniqueId}-listbox`;
 
 	const sizes = {
 		sm: 'h-8 px-3 text-sm',
@@ -207,13 +220,21 @@
 	});
 </script>
 
+{#if label}
+	<label id={labelId} for={uniqueId} class="block text-sm font-medium text-white/80 mb-2">
+		{label}
+	</label>
+{/if}
+
 <div
 	bind:this={selectElement}
+	id={uniqueId}
 	class={selectClasses}
 	role="combobox"
 	aria-expanded={isOpen}
 	aria-haspopup="listbox"
-	aria-labelledby="select-label"
+	aria-labelledby={labelId || ariaLabel}
+	aria-activedescendant={activeIndex > -1 ? `${uniqueId}-option-${activeIndex}` : undefined}
 	tabindex={disabled ? -1 : 0}
 	use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.1, distance: 40 } : undefined}
 	use:magneticHover={jelly && !disabled && !reduceMotion ? { strength: 0.08 } : undefined}
@@ -241,13 +262,15 @@
 	<ul
 		bind:this={listboxElement}
 		class={dropdownClasses}
+		id={listboxId}
 		role="listbox"
-		aria-labelledby="select-label"
+		aria-labelledby={labelId || ariaLabel}
 		in:glassFade={{ direction: 'down', distance: 10, duration: animate && !reduceMotion ? 150 : 0 }}
 		out:glassFade={{ direction: 'up', distance: 10, duration: animate && !reduceMotion ? 100 : 0 }}
 	>
 		{#each options as option, index}
 			<li
+				id={`${uniqueId}-option-${index}`}
 				class={cn(
 					'px-4 py-2 cursor-pointer transition-colors duration-150 hover:bg-white/10 focus:bg-white/10',
 					activeIndex === index && 'bg-white/20',
@@ -255,14 +278,19 @@
 				)}
 				role="option"
 				aria-selected={value === option.value}
+				aria-disabled={option.disabled}
 				tabindex="-1"
 				onclick={() => selectOption(option)}
+<<<<<<< Updated upstream
 				onkeydown={(e) => {
 					if (e.key === 'Enter' || e.key === ' ') {
 						e.preventDefault();
 						selectOption(option);
 					}
 				}}
+=======
+				onkeydown={(e) => e.key === 'Enter' && selectOption(option)}
+>>>>>>> Stashed changes
 				onmouseenter={() => !option.disabled && (activeIndex = index)}
 			>
 				{option.label}

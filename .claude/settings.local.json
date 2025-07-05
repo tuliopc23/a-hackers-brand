@@ -23,6 +23,7 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
+<<<<<<< Updated upstream
       "Bash(git fetch:*)",
       "Bash(git ls-tree:*)",
       "Bash(echo)",
@@ -41,6 +42,17 @@
       "Bash(npm uninstall:*)",
       "Bash(sed:*)",
       "Bash(npm run test:*)"
+=======
+      "Bash(npx svelte-check:*)",
+      "Bash(rg:*)",
+      "Bash(npm outdated)",
+      "Bash(npm update:*)",
+      "mcp__github__search_repositories",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Bash(npm run test:*)",
+      "Bash(cat:*)"
+>>>>>>> Stashed changes
     ],
     "deny": []
   }

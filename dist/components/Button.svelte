@@ -9,6 +9,8 @@
 		loading?: boolean;
 		icon?: boolean;
 		animate?: boolean;
+		'aria-label'?: string;
+		'aria-describedby'?: string;
 		class?: string;
 		children?: any;
 	}
@@ -22,6 +24,8 @@
 		class: className = '',
 		children,
 		disabled = false,
+		'aria-label': ariaLabel,
+		'aria-describedby': ariaDescribedBy,
 		...restProps
 	}: Props = $props();
 
@@ -31,7 +35,8 @@
 		outline: 'border border-brand-primary text-brand-primary hover:bg-brand-primary/10',
 		ghost: 'hover:bg-brand-primary/10 text-brand-primary',
 		glass: 'glass glass-shimmer hover:glass-glow text-white',
-		'glass-dark': 'glass-heavy border-terminal-green/20 hover:border-terminal-green/40 text-terminal-green'
+		'glass-dark':
+			'glass-heavy border-terminal-green/20 hover:border-terminal-green/40 text-terminal-green'
 	};
 
 	const sizes = {
@@ -60,13 +65,20 @@
 	<button
 		class={combinedClasses}
 		{disabled}
+		aria-label={ariaLabel}
+		aria-describedby={ariaDescribedBy}
 		aria-busy={loading}
 		use:magneticHover={{ enabled: !disabled && !loading, strength: 0.15, scale: 1.02 }}
 		in:springPop={{ duration: 200, bounce: variant.includes('glass') }}
 		{...restProps}
 	>
 		{#if loading}
-			<div class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+			<div
+				class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"
+				role="status"
+			>
+				<span class="sr-only">Loading...</span>
+			</div>
 		{/if}
 
 		{#if children}
@@ -77,12 +89,19 @@
 	<button
 		class={combinedClasses}
 		{disabled}
+		aria-label={ariaLabel}
+		aria-describedby={ariaDescribedBy}
 		aria-busy={loading}
 		use:magneticHover={{ enabled: !disabled && !loading, strength: 0.15, scale: 1.02 }}
 		{...restProps}
 	>
 		{#if loading}
-			<div class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+			<div
+				class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"
+				role="status"
+			>
+				<span class="sr-only">Loading...</span>
+			</div>
 		{/if}
 
 		{#if children}

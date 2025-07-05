@@ -20,6 +20,7 @@
 		blur?: 'sm' | 'md' | 'lg' | 'xl';
 		animate?: boolean;
 		reduceMotion?: boolean;
+		'aria-label'?: string;
 		class?: string;
 		children?: any;
 		onTabChange?: (tabId: string) => void;
@@ -34,6 +35,7 @@
 		blur = 'md',
 		animate = true,
 		reduceMotion = false,
+		'aria-label': ariaLabel,
 		class: className = '',
 		children,
 		onTabChange,
@@ -42,6 +44,7 @@
 
 	let tabsListElement: HTMLDivElement;
 	let activeIndex = $state(tabs.findIndex((tab) => tab.id === activeTab));
+	const uniqueId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
 
 	const sizes = {
 		sm: 'px-3 py-1.5 text-sm',
@@ -165,16 +168,23 @@
 
 <div class={cn('w-full', isHorizontal ? '' : 'flex', className)} {...restProps}>
 	<!-- Tab List -->
-	<div bind:this={tabsListElement} class={listClasses} role="tablist" aria-orientation={orientation}>
+	<div
+		bind:this={tabsListElement}
+		class={listClasses}
+		role="tablist"
+		aria-orientation={orientation}
+		aria-label={ariaLabel}
+	>
 		{#each tabs as tab, index}
 			<button
+				id={`${uniqueId}-tab-${tab.id}`}
 				class={tab.id === activeTab ? activeTabClasses : tabClasses}
 				class:opacity-50={tab.disabled}
 				class:cursor-not-allowed={tab.disabled}
 				role="tab"
 				tabindex={tab.id === activeTab ? 0 : -1}
 				aria-selected={tab.id === activeTab}
-				aria-controls={`tabpanel-${tab.id}`}
+				aria-controls={`${uniqueId}-tabpanel-${tab.id}`}
 				aria-disabled={tab.disabled}
 				data-tab-id={tab.id}
 				disabled={tab.disabled}
@@ -193,8 +203,13 @@
 	<div
 		class={contentClasses}
 		role="tabpanel"
+<<<<<<< Updated upstream
 		id={`tabpanel-${activeTab}`}
 		aria-labelledby={activeTab}
+=======
+		id={`${uniqueId}-tabpanel-${activeTab}`}
+		aria-labelledby={`${uniqueId}-tab-${activeTab}`}
+>>>>>>> Stashed changes
 		tabindex="0"
 	>
 		{#if activeTabData?.content}

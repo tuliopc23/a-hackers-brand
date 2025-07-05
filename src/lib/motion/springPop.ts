@@ -2,7 +2,7 @@ import { DURATIONS, EASINGS, TRANSFORMS } from './tokens.js';
 
 export interface SpringPopOptions {
 	duration?: number;
-	easing?: string;
+	easing?: (t: number) => number;
 	scale?: number;
 	rotation?: number;
 	bounce?: boolean;

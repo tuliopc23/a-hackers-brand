@@ -5,6 +5,8 @@ interface Props extends HTMLButtonAttributes {
     loading?: boolean;
     icon?: boolean;
     animate?: boolean;
+    'aria-label'?: string;
+    'aria-describedby'?: string;
     class?: string;
     children?: any;
 }

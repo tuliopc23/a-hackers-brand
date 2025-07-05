@@ -14,6 +14,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
     blur?: 'sm' | 'md' | 'lg' | 'xl';
     animate?: boolean;
     reduceMotion?: boolean;
+    'aria-label'?: string;
     class?: string;
     children?: any;
     onTabChange?: (tabId: string) => void;

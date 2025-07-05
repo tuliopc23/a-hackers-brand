@@ -1,6 +1,7 @@
+import { vi, beforeEach } from 'vitest';
 import '@testing-library/jest-dom';
-import { vi } from 'vitest';
 
+<<<<<<< Updated upstream
 // Force Svelte 5 to run in browser mode - override SSR detection
 globalThis.window = globalThis.window || globalThis;
 globalThis.document = globalThis.document || {
@@ -75,106 +76,122 @@ Object.defineProperty(window, 'getComputedStyle', {
 		backdropFilter: 'blur(8px)'
 	}),
 	writable: true
+=======
+// Force client-side environment for Svelte 5
+Object.defineProperty(globalThis, 'process', {
+  value: {
+    env: {
+      NODE_ENV: 'test',
+      VITE_SSR: 'false'
+    }
+  }
+>>>>>>> Stashed changes
 });
 
-// Mock performance API
-Object.defineProperty(window, 'performance', {
-	value: {
-		now: vi.fn(() => Date.now()),
-		memory: {
-			usedJSHeapSize: 1000000,
-			totalJSHeapSize: 2000000,
-			jsHeapSizeLimit: 4000000
-		}
-	},
-	writable: true
+// Enhanced JSDOM setup for Svelte 5
+beforeEach(() => {
+  // Clear any previous DOM state
+  document.body.innerHTML = '';
+  document.head.innerHTML = '';
+  
+  // Ensure we're in a browser-like environment
+  Object.defineProperty(globalThis, 'window', {
+    value: global.window,
+    writable: true
+  });
+  
+  Object.defineProperty(globalThis, 'document', {
+    value: global.document,
+    writable: true
+  });
 });
 
-// Mock requestAnimationFrame
-Object.defineProperty(window, 'requestAnimationFrame', {
-	value: vi.fn((callback: FrameRequestCallback) => {
-		return setTimeout(() => callback(Date.now()), 16);
-	}),
-	writable: true
-});
+// Mock HTMLMediaElement
+if (typeof window !== 'undefined' && window.HTMLMediaElement) {
+  if (!window.HTMLMediaElement.prototype.play) {
+    window.HTMLMediaElement.prototype.play = vi.fn();
+  }
+  if (!window.HTMLMediaElement.prototype.pause) {
+    window.HTMLMediaElement.prototype.pause = vi.fn();
+  }
+}
 
-Object.defineProperty(window, 'cancelAnimationFrame', {
-	value: vi.fn((id: number) => clearTimeout(id)),
-	writable: true
+// Mock window.matchMedia
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(), // deprecated
+    removeListener: vi.fn(), // deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
 });
 
 // Mock ResizeObserver
-Object.defineProperty(window, 'ResizeObserver', {
-	value: vi.fn().mockImplementation(() => ({
-		observe: vi.fn(),
-		unobserve: vi.fn(),
-		disconnect: vi.fn()
-	})),
-	writable: true
-});
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
 
 // Mock IntersectionObserver
-Object.defineProperty(window, 'IntersectionObserver', {
-	value: vi.fn().mockImplementation(() => ({
-		observe: vi.fn(),
-		unobserve: vi.fn(),
-		disconnect: vi.fn()
-	})),
-	writable: true
+global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
+
+// Mock requestAnimationFrame and cancelAnimationFrame
+global.requestAnimationFrame = vi.fn((callback) => {
+  return setTimeout(callback, 16);
+});
+global.cancelAnimationFrame = vi.fn((id) => {
+  clearTimeout(id);
 });
 
-// Mock CSS supports
-Object.defineProperty(CSS, 'supports', {
-	value: vi.fn((property: string, value: string) => {
-		// Mock support for common CSS properties
-		const supportedProperties = ['backdrop-filter', 'transform', 'opacity', 'transition', 'will-change'];
-		return supportedProperties.some((prop) => property.includes(prop));
-	}),
-	writable: true
+// Mock performance.now for animations
+Object.defineProperty(window, 'performance', {
+  writable: true,
+  value: {
+    now: vi.fn(() => Date.now()),
+  },
 });
 
-// Global test helpers
-declare global {
-	var testUtils: {
-		createMockElement: () => HTMLElement;
-		mockBoundingClientRect: (element: Element, rect: Partial<DOMRect>) => void;
-		triggerAnimationFrame: () => Promise<void>;
-	};
-}
+// Mock CSS.supports for feature detection
+Object.defineProperty(window, 'CSS', {
+  writable: true,
+  value: {
+    supports: vi.fn(() => true),
+  },
+});
 
-globalThis.testUtils = {
-	createMockElement: () => {
-		const element = document.createElement('div');
-		element.style.cssText = `
-			width: 100px;
-			height: 100px;
-			position: absolute;
-			top: 50px;
-			left: 50px;
-		`;
-		return element;
-	},
+// Mock getComputedStyle for CSS property checks
+Object.defineProperty(window, 'getComputedStyle', {
+  writable: true,
+  value: vi.fn(() => ({
+    getPropertyValue: vi.fn(() => ''),
+    transform: 'none',
+    transition: 'none',
+    animation: 'none',
+  })),
+});
 
-	mockBoundingClientRect: (element: Element, rect: Partial<DOMRect>) => {
-		const mockRect = {
-			width: 100,
-			height: 100,
-			top: 50,
-			left: 50,
-			bottom: 150,
-			right: 150,
-			x: 50,
-			y: 50,
-			toJSON: () => ({}),
-			...rect
-		};
-
-		vi.spyOn(element, 'getBoundingClientRect').mockReturnValue(mockRect as DOMRect);
-	},
-
-	triggerAnimationFrame: () => {
-		return new Promise((resolve) => {
-			requestAnimationFrame(() => resolve());
-		});
-	}
-};
+// Suppress console warnings for tests
+const originalConsoleWarn = console.warn;
+console.warn = vi.fn((message, ...args) => {
+  // Suppress specific Svelte warnings that are expected in tests
+  if (typeof message === 'string' && (
+    message.includes('lifecycle_function_unavailable') ||
+    message.includes('element_invalid_self_closing_tag') ||
+    message.includes('a11y_no_static_element_interactions') ||
+    message.includes('a11y_click_events_have_key_events') ||
+    message.includes('css_unused_selector')
+  )) {
+    return;
+  }
+  originalConsoleWarn(message, ...args);
+});
