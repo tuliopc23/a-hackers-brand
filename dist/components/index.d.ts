@@ -27,6 +27,7 @@ export { default as AICommandSuggestions } from './AICommandSuggestions.svelte';
 export { default as BootSequence } from './BootSequence.svelte';
 export { default as TerminalStartup } from './TerminalStartup.svelte';
 export { default as MatrixRain } from './MatrixRain.svelte';
+export { default as RetroText } from './RetroText.svelte';
 export { default as ThrelteCanvas } from './ThrelteCanvas.svelte';
 export { default as LazyThrelteCanvas } from './LazyThrelteCanvas.svelte';
 export { default as GlassScene } from './GlassScene.svelte';

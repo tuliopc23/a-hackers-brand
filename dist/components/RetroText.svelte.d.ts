@@ -1,17 +1,16 @@
-import type { HTMLAttributes } from 'svelte/elements';
-interface Props extends HTMLAttributes<HTMLElement> {
-    text: string;
-    variant?: 'macintosh' | 'dos' | 'amiga' | 'commodore' | 'atari' | 'crt' | 'phosphor' | 'matrix' | 'cyberpunk' | 'vaporwave' | 'neon' | 'hologram' | 'glitch' | 'terminal';
+interface Props {
+    text?: string;
+    variant?: 'bitmap' | 'terminal' | 'vintage' | 'commodore' | 'apple2' | 'atari';
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
-    animated?: boolean;
-    typewriter?: boolean;
-    scanlines?: boolean;
+    color?: 'green' | 'amber' | 'blue' | 'white' | 'red' | 'cyan' | 'magenta';
     glow?: boolean;
+    scanlines?: boolean;
     flicker?: boolean;
-    chromatic?: boolean;
-    breathing?: boolean;
+    animate?: boolean;
+    typewriter?: boolean;
+    speed?: number;
     class?: string;
-    element?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div';
+    children?: any;
 }
 declare const RetroText: import("svelte").Component<Props, {}, "">;
 type RetroText = ReturnType<typeof RetroText>;

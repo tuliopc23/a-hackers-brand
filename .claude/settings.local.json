@@ -35,7 +35,8 @@
       "Bash(mv:*)",
       "Bash(npm test:*)",
       "Bash(chmod:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(npm publish:*)"
     ],
     "deny": []
   }

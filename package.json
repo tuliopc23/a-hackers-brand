@@ -12,7 +12,7 @@
 	"homepage": "https://github.com/tuliopc23/a-hackers-brand#readme",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/tuliopc23/a-hackers-brand.git"
+		"url": "git+https://github.com/tuliopc23/a-hackers-brand.git"
 	},
 	"bugs": {
 		"url": "https://github.com/tuliopc23/a-hackers-brand/issues"

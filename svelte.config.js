@@ -11,7 +11,7 @@ const config = {
 		// Vercel adapter with runtime configuration
 		adapter: adapter({
 			// Use Node.js runtime instead of edge for better compatibility
-			runtime: 'nodejs18.x',
+			runtime: 'nodejs20.x',
 			// Enable ISR (Incremental Static Regeneration) for better performance
 			isr: true
 		}),
