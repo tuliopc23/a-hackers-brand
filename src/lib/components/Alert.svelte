@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { glassFade, jellyHover } from '$lib/motion';
+	import { glassFade, magneticHover } from '$lib/motion';
 	import { X, CheckCircle2, AlertCircle, XCircle, Info } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 

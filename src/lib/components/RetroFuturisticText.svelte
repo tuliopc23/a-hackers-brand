@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
 	import { onMount } from 'svelte';
-	import { jellyHover, breathing } from '$lib/motion';
+	import { magneticHover, breathing } from '$lib/motion';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLAttributes<HTMLElement> {

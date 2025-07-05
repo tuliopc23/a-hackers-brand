@@ -26,8 +26,8 @@
 
 	const dispatch = createEventDispatcher();
 
-	let modalRef: HTMLDivElement;
-	let backdropRef: HTMLDivElement;
+	let modalRef = $state<HTMLDivElement>();
+	let backdropRef = $state<HTMLDivElement>();
 
 	const handleClose = () => {
 		isOpen = false;
@@ -82,9 +82,8 @@
 		class="fixed inset-0 z-50 flex items-center justify-center p-4"
 		onclick={handleBackdropClick}
 		onkeydown={(e) => e.key === 'Enter' && handleBackdropClick(e)}
-		role="button"
-		tabindex="-1"
-		aria-label="Close modal"
+		role="presentation"
+		aria-hidden="true"
 		transition:fade={{ duration: 300 }}
 	>
 		<!-- Backdrop blur -->

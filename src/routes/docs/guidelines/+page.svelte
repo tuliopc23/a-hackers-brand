@@ -3,8 +3,7 @@
 	import { GlassCard, GlassButton } from '$lib/components/liquidify';
 	import { TerminalWindow } from '$lib/components';
 	import CodeHighlight from '$lib/components/CodeHighlight.svelte';
-	import DocsNav from '$lib/components/DocsNav.svelte';
-	import { magneticHover } from '$lib/motion';
+		import { magneticHover } from '$lib/motion';
 	import { lazy } from '$lib/utils/lazy.js';
 	
 	// Lazy load WebGL background
@@ -166,7 +165,16 @@
 	{/if}
 	
 	<!-- Navigation -->
-	<DocsNav currentSection="Brand Guidelines" />
+	<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between items-center h-16">
+				<div class="flex items-center">
+					<h1 class="text-xl font-bold text-white">A Hacker's Brand</h1>
+				</div>
+				<div class="text-sm text-white/70">Brand Guidelines</div>
+			</div>
+		</div>
+	</nav>
 	
 	<!-- Header -->
 	<section class="relative z-10 py-16 px-6">

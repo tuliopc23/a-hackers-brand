@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { liquidBlur, glassFade, magneticHover, jellyHover } from '../motion';
+	import { liquidBlur, glassFade, magneticHover } from '../motion';
 	import { sizeOf } from '../utils/bundle-size.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -48,8 +48,8 @@
 	}: Props = $props();
 
 	let isOpen = $state(false);
-	let selectElement: HTMLDivElement;
-	let listboxElement: HTMLUListElement;
+	let selectElement = $state<HTMLDivElement>();
+	let listboxElement = $state<HTMLUListElement>();
 	let activeIndex = $state(-1);
 
 	const sizes = {
@@ -216,7 +216,7 @@
 	aria-labelledby="select-label"
 	tabindex={disabled ? -1 : 0}
 	use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.1, distance: 40 } : undefined}
-	use:jellyHover={jelly && !disabled && !reduceMotion ? { intensity: 0.08, speed: 180 } : undefined}
+	use:magneticHover={jelly && !disabled && !reduceMotion ? { strength: 0.08 } : undefined}
 	onkeydown={handleKeydown}
 	onclick={toggleOpen}
 	{...restProps}

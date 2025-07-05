@@ -14,6 +14,9 @@ export * from './springPop.js';
 // Export actions
 export * from './magneticHover.js';
 
+// Export jelly motion
+export * from './jellyMotion.js';
+
 // Convenience re-exports with common configurations
 export { liquidBlur as liquid } from './liquidBlur.js';
 export { glassFade as fade } from './glassFade.js';

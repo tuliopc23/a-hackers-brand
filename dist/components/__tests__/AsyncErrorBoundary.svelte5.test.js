@@ -58,7 +58,7 @@ describe('AsyncErrorBoundary Component (Svelte 5)', () => {
     });
     describe('Promise State Management', () => {
         it('should handle pending promise state', () => {
-            let state = 'pending';
+            const state = 'pending';
             const promise = new Promise(resolve => {
                 setTimeout(() => resolve('success'), 1000);
             });
@@ -129,7 +129,7 @@ describe('AsyncErrorBoundary Component (Svelte 5)', () => {
         });
         it('should reset retry count on successful retry', () => {
             let retryCount = 2;
-            let success = true;
+            const success = true;
             if (success) {
                 retryCount = 0;
             }
@@ -315,7 +315,7 @@ describe('AsyncErrorBoundary Component (Svelte 5)', () => {
                 Promise.resolve('result2'),
                 Promise.reject(new Error('error'))
             ];
-            let promiseStates = promises.map(() => 'pending');
+            const promiseStates = promises.map(() => 'pending');
             promises.forEach(async (promise, index) => {
                 try {
                     await promise;

@@ -30,8 +30,8 @@
 	const dispatch = createEventDispatcher();
 	const { scene, renderer, camera } = useThrelte();
 
-	let meshRef: THREE.Mesh;
-	let materialRef: THREE.ShaderMaterial;
+	let meshRef = $state<THREE.Mesh>();
+	let materialRef = $state<THREE.ShaderMaterial>();
 	let time = $state(0);
 
 	// Vertex shader for liquid distortion

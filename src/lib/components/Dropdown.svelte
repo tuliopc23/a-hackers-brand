@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { glassFade, jellyHover } from '$lib/motion';
+	import { glassFade, magneticHover } from '$lib/motion';
 	import { ChevronDown } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { onMount } from 'svelte';

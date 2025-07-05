@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { liquidBlur, glassFade, springPop, jellyHover, breathing as breathingMotion } from '../motion';
+	import { liquidBlur, glassFade, springPop, magneticHover, breathing as breathingMotion } from '../motion';
 	import { sizeOf } from '../utils/bundle-size.js';
 	import { onMount } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -40,7 +40,7 @@
 		...restProps
 	}: Props = $props();
 
-	let modalElement: HTMLDivElement;
+	let modalElement = $state<HTMLDivElement>();
 	let previousActiveElement: Element | null = null;
 
 	const sizes = {
@@ -149,10 +149,21 @@
 			// Store previously focused element
 			previousActiveElement = document.activeElement;
 
-			// Focus modal
-			if (modalElement) {
-				modalElement.focus();
-			}
+			// Focus first focusable element in modal
+			setTimeout(() => {
+				if (modalElement) {
+					const focusableElements = modalElement.querySelectorAll(
+						'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])'
+					);
+					const firstElement = focusableElements[0] as HTMLElement;
+					if (firstElement) {
+						firstElement.focus();
+					} else {
+						// If no focusable elements, focus the modal container for screen readers
+						modalElement.focus();
+					}
+				}
+			}, 100);
 
 			// Prevent body scroll
 			document.body.style.overflow = 'hidden';
@@ -190,14 +201,16 @@
 		role="dialog"
 		aria-modal="true"
 		aria-labelledby="modal-title"
+		tabindex={-1}
 		onclick={handleOverlayClick}
+		onkeydown={(e) => e.key === 'Escape' && handleClose()}
 		in:glassFade={{ duration: animate && !reduceMotion ? 300 : 0 }}
 		out:glassFade={{ duration: animate && !reduceMotion ? 200 : 0 }}
 	>
 		<div
 			bind:this={modalElement}
 			class={modalClasses}
-			tabindex="-1"
+			tabindex={-1}
 			in:springPop={{ scale: 0.8, duration: animate && !reduceMotion ? 400 : 0, delay: 100 }}
 			out:springPop={{ scale: 0.95, duration: animate && !reduceMotion ? 200 : 0 }}
 			use:jellyHover={{ 

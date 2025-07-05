@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
 	export const title = 'Components/Badge';
 </script>
 

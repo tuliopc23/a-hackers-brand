@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { jellyHover } from '../motion';
+	import { magneticHover } from '../motion';
 	import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 

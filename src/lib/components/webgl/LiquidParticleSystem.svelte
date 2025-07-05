@@ -28,9 +28,9 @@
 	const dispatch = createEventDispatcher();
 	const { scene, renderer, camera } = useThrelte();
 
-	let particleSystemRef: THREE.Points;
-	let materialRef: THREE.ShaderMaterial;
-	let geometryRef: THREE.BufferGeometry;
+	let particleSystemRef = $state<THREE.Points>();
+	let materialRef = $state<THREE.ShaderMaterial>();
+	let geometryRef = $state<THREE.BufferGeometry>();
 	let time = $state(0);
 	let mousePosition = $state({ x: 0, y: 0 });
 

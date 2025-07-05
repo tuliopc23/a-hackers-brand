@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { jellyHover, breathing } from '$lib/motion';
+	import { magneticHover, breathing } from '$lib/motion';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	interface RadioOption {
@@ -159,7 +159,7 @@
 							currentSize.dot,
 							animated && 'animate-pulse'
 						)}
-					/>
+					></div>
 				{/if}
 			</div>
 			

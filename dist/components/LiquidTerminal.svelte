@@ -121,10 +121,10 @@ WARNING: SYSTEM INSTABILITY DETECTED`
 
 	const dispatch = createEventDispatcher();
 
-	let terminalRef: HTMLDivElement;
-	let liquidCanvasRef: HTMLCanvasElement;
-	let particleCanvasRef: HTMLCanvasElement;
-	let waveformCanvasRef: HTMLCanvasElement;
+	let terminalRef = $state<HTMLDivElement>();
+	let liquidCanvasRef = $state<HTMLCanvasElement>();
+	let particleCanvasRef = $state<HTMLCanvasElement>();
+	let waveformCanvasRef = $state<HTMLCanvasElement>();
 	let inputValue = $state('');
 	let history = $state<Array<{ command: string; output: string; timestamp: Date }>>([]);
 	const currentPrompt = $state('◉ NEURAL@liquid-interface ◈ ~/quantum $ ');

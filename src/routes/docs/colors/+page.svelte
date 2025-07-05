@@ -1,7 +1,7 @@
 <script lang="ts">
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { colors } from '$lib/tokens';
+	import { brandColors } from '$lib/tokens';
 	
 	// Terminal color palette - Classic phosphor monitor meets modern Apple glass
 	const terminalPalette = [
@@ -26,10 +26,10 @@
 
 	// Semantic colors
 	const semanticColors = [
-		{ name: 'Success', value: colors.semantic.success, hex: '#00ff41', usage: 'Positive actions, confirmations' },
-		{ name: 'Warning', value: colors.semantic.warning, hex: '#ff6b35', usage: 'Caution, non-critical issues' },
-		{ name: 'Error', value: colors.semantic.error, hex: '#ff0040', usage: 'Errors, failures' },
-		{ name: 'Info', value: colors.semantic.info, hex: '#00ffff', usage: 'Informational messages' }
+		{ name: 'Success', value: brandColors.semantic.success, hex: '#00ff88', usage: 'Positive actions, confirmations' },
+		{ name: 'Warning', value: brandColors.semantic.warning, hex: '#ffaa00', usage: 'Caution, non-critical issues' },
+		{ name: 'Error', value: brandColors.semantic.error, hex: '#ff4444', usage: 'Errors, failures' },
+		{ name: 'Info', value: brandColors.semantic.info, hex: '#00aaff', usage: 'Informational messages' }
 	];
 
 	// Dark terminal backgrounds - Space Gray meets terminal black
@@ -124,7 +124,7 @@
 							<h3 class="font-semibold text-lg mb-1">{color.name}</h3>
 							<div class="space-y-1 text-sm">
 								<p class="font-mono text-white/60">{color.hex}</p>
-								<p class="font-mono text-white/60">colors.terminal.{color.key}</p>
+								<p class="font-mono text-white/60">brandColors.terminal.{color.key}</p>
 								<p class="text-white/70 mt-2">{color.usage}</p>
 							</div>
 						</div>
@@ -194,7 +194,7 @@
 					></div>
 					<h3 class="font-semibold mb-1">{gradient.name}</h3>
 					<p class="text-sm text-white/70 mb-2">{gradient.usage}</p>
-					<code class="text-xs font-mono text-white/60">colors.gradients.{gradient.name.toLowerCase()}</code>
+					<code class="text-xs font-mono text-white/60">brandColors.gradients.{gradient.name.toLowerCase()}</code>
 				</div>
 			{/each}
 		</div>
@@ -246,7 +246,7 @@
 						</div>
 						<div class="text-right">
 							<code class="font-mono text-sm">{bg.hex}</code>
-							<p class="text-xs text-white/60">colors.background.{bg.name.toLowerCase()}</p>
+							<p class="text-xs text-white/60">brandColors.background.{bg.name.toLowerCase()}</p>
 						</div>
 					</div>
 				</div>
@@ -377,18 +377,18 @@
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="mb-4">Using Design Tokens</h3>
 				<CodeBlock 
-					code={`import { colors } from 'tulio-brand-system/tokens';
+					code={`import { brandColors } from 'tulio-brand-system/tokens';
 
 // Terminal colors
-const success = colors.terminal.green;
-const accent = colors.terminal.cyan;
+const success = brandColors.terminal.green;
+const accent = brandColors.terminal.cyan;
 
 // Glass effects
-const glassBg = colors.glass.primary;
-const glassBorder = colors.glass.border;
+const glassBg = brandColors.glass.primary;
+const glassBorder = brandColors.glass.border;
 
-// Gradients
-const heroGradient = colors.gradients.cyberpunk;`}
+// Semantic colors
+const errorColor = brandColors.semantic.error;`}
 					language="javascript"
 				/>
 			</div>

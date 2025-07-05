@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { liquidBlur, springPop, magneticHover, jellyHover } from '../motion';
+	import { liquidBlur, springPop, magneticHover } from '../motion';
 	import { sizeOf } from '../utils/bundle-size.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -41,7 +41,7 @@
 		...restProps
 	}: Props = $props();
 
-	let switchElement: HTMLButtonElement;
+	let switchElement = $state<HTMLButtonElement>();
 
 	const sizes = {
 		sm: {
@@ -149,8 +149,8 @@
 		use:springPop={animate && !reduceMotion ? { scale: 0.95, duration: 100 } : undefined}
 		use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.15, distance: 30 } : undefined}
 		use:jellyHover={jelly && !disabled && !reduceMotion ? { intensity: 0.1, speed: 150 } : undefined}
-		on:click={handleClick}
-		on:keydown={handleKeydown}
+		onclick={handleClick}
+		onkeydown={handleKeydown}
 		{...restProps}
 	>
 		<span class={thumbClasses}></span>
@@ -163,7 +163,7 @@
 					class="text-sm font-medium text-white cursor-pointer"
 					class:opacity-50={disabled}
 					for={switchElement?.id}
-					on:click={handleClick}
+					onclick={handleClick}
 				>
 					{label}
 				</label>

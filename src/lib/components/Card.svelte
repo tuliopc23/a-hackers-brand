@@ -55,6 +55,12 @@
 			class={combinedClasses}
 			role="button"
 			tabindex="0"
+			onkeydown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					e.currentTarget.click();
+				}
+			}}
 			use:magneticHover={{ enabled: true, strength: 0.2, scale: 1.02 }}
 			in:liquidBlur={{ blur: blur, opacity: 'medium' }}
 			{...restProps}
@@ -75,6 +81,12 @@
 		class={combinedClasses}
 		role="button"
 		tabindex="0"
+		onkeydown={(e) => {
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault();
+				e.currentTarget.click();
+			}
+		}}
 		use:magneticHover={{ enabled: true, strength: 0.2, scale: 1.02 }}
 		{...restProps}
 	>

@@ -5,8 +5,27 @@
 
 import fs from 'fs';
 import path from 'path';
+import type { FullConfig } from '@playwright/test';
 
-async function globalTeardown(config) {
+interface ConsolidatedReport {
+  timestamp: string;
+  testRun: {
+    environment: string;
+    nodeVersion: string;
+    platform: string;
+  };
+  reports: Record<string, any>;
+  statistics?: {
+    totalTests: number;
+    passedTests: number;
+    failedTests: number;
+    skippedTests: number;
+    visualDiffs: number;
+    duration: number;
+  };
+}
+
+async function globalTeardown(config: FullConfig): Promise<void> {
   console.log('🧹 Cleaning up visual regression testing environment...');
   
   try {
@@ -18,7 +37,7 @@ async function globalTeardown(config) {
       'results.json'
     ];
     
-    const consolidatedReport = {
+    const consolidatedReport: ConsolidatedReport = {
       timestamp: new Date().toISOString(),
       testRun: {
         environment: process.env.NODE_ENV || 'test',
@@ -36,7 +55,7 @@ async function globalTeardown(config) {
           const reportData = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
           consolidatedReport.reports[reportFile.replace('.json', '')] = reportData;
         } catch (error) {
-          console.warn(`⚠️  Could not read report ${reportFile}: ${error.message}`);
+          console.warn(`⚠️  Could not read report ${reportFile}: ${error instanceof Error ? error.message : String(error)}`);
         }
       }
     }
@@ -90,7 +109,7 @@ async function globalTeardown(config) {
         try {
           fs.unlinkSync(tempFile);
         } catch (error) {
-          console.warn(`⚠️  Could not delete temp file ${tempFile}: ${error.message}`);
+          console.warn(`⚠️  Could not delete temp file ${tempFile}: ${error instanceof Error ? error.message : String(error)}`);
         }
       }
     }
@@ -115,7 +134,7 @@ async function globalTeardown(config) {
         try {
           fs.copyFileSync(sourcePath, destPath);
         } catch (error) {
-          console.warn(`⚠️  Could not archive ${file}: ${error.message}`);
+          console.warn(`⚠️  Could not archive ${file}: ${error instanceof Error ? error.message : String(error)}`);
         }
       }
       

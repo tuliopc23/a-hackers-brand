@@ -115,7 +115,7 @@ describe('BootSequence Component (Svelte 5)', () => {
 		it('should process messages sequentially', () => {
 			let currentIndex = 0;
 			const messages = defaultMessages;
-			let processedMessages: any[] = [];
+			const processedMessages: any[] = [];
 			
 			const processNextMessage = () => {
 				if (currentIndex < messages.length) {

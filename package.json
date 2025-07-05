@@ -150,7 +150,6 @@
 		"@sveltejs/kit": "^2.22.2",
 		"@sveltejs/package": "^2.3.12",
 		"@swc/core": "^1.12.9",
-		"@tailwindcss/postcss": "^4.1.11",
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/svelte": "^5.2.8",
 		"@typescript-eslint/eslint-plugin": "^8.35.1",
@@ -173,7 +172,7 @@
 		"size-limit": "^11.2.0",
 		"svelte": "^5.35.1",
 		"svelte-check": "^4.0.0",
-		"tailwindcss": "^4.1.11",
+		"tailwindcss": "^3.4.17",
 		"typescript": "^5.8.3",
 		"typescript-eslint": "^8.35.1",
 		"vite": "^6.0.0",
@@ -193,6 +192,7 @@
 		]
 	},
 	"dependencies": {
+		"@ibm-cloud/watsonx-ai": "^1.6.8",
 		"@threlte/core": "^8.0.0",
 		"@threlte/extras": "^9.0.0",
 		"class-variance-authority": "^0.7.1",

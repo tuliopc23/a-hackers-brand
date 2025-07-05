@@ -97,7 +97,7 @@
 	const radius = (circularSize - strokeWidth) / 2;
 	const circumference = 2 * Math.PI * radius;
 	const strokeDasharray = circumference;
-	const strokeDashoffset = circumference - (percentage / 100) * circumference;
+	const strokeDashoffset = $derived(circumference - (percentage / 100) * circumference);
 
 	// Track bundle size
 	$effect(() => {
@@ -108,7 +108,7 @@
 <div class="w-full space-y-2" {...restProps}>
 	{#if label}
 		<div class="flex justify-between items-center">
-			<label class="text-sm font-medium text-white">
+			<label id="progress-label" class="text-sm font-medium text-white">
 				{label}
 			</label>
 			{#if showValue || showPercentage}

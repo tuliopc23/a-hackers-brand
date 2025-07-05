@@ -49,12 +49,12 @@ export default defineConfig({
       outputFile: 'test-results/visual-regression/junit.xml' 
     }],
     // Custom visual diff reporter
-    ['./tests/visual-regression/reporters/visual-diff-reporter.js']
+    ['./tests/visual-regression/reporters/visual-diff-reporter.ts']
   ],
   
   // Global setup and teardown
-  globalSetup: './tests/visual-regression/setup/global-setup.js',
-  globalTeardown: './tests/visual-regression/setup/global-teardown.js',
+  globalSetup: './tests/visual-regression/setup/global-setup.ts',
+  globalTeardown: './tests/visual-regression/setup/global-teardown.ts',
   
   // Test configuration
   use: {

@@ -41,7 +41,7 @@
 		...restProps
 	}: Props = $props();
 
-	let toastElement: HTMLDivElement;
+	let toastElement = $state<HTMLDivElement>();
 	let timeoutId: NodeJS.Timeout | null = null;
 
 	const types = {
@@ -190,7 +190,7 @@
 			{#if action}
 				<button
 					class="mt-2 text-sm font-medium text-white hover:text-white/80 focus:outline-none focus:underline transition-colors duration-150"
-					on:click={handleAction}
+					onclick={handleAction}
 					use:springPop={animate && !reduceMotion ? { scale: 0.98, duration: 100 } : undefined}
 				>
 					{action.label}
@@ -202,7 +202,7 @@
 		{#if closable}
 			<button
 				class="flex-shrink-0 text-white/60 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 rounded transition-all duration-150"
-				on:click={handleClose}
+				onclick={handleClose}
 				aria-label="Close notification"
 				use:springPop={animate && !reduceMotion ? { scale: 0.9, duration: 100 } : undefined}
 			>

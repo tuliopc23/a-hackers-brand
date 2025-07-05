@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Button from '$lib/components/Button.svelte';
-	import ComponentPlayground from '$lib/components/ComponentPlayground.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import { glassFade } from '$lib/motion';
 
@@ -144,7 +143,9 @@
 		<p class="mb-8">
 			Experiment with different props and see the changes in real-time.
 		</p>
-		<ComponentPlayground selectedComponent="Button" />
+		<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
+			<p class="text-white/70">Interactive playground coming soon...</p>
+		</div>
 	</section>
 
 	<!-- Examples -->

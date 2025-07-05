@@ -43,7 +43,7 @@
 		...restProps
 	}: Props = $props();
 
-	let textareaElement: HTMLTextAreaElement;
+	let textareaElement = $state<HTMLTextAreaElement>();
 	let isFocused = $state(false);
 
 	const sizes = {
@@ -72,7 +72,7 @@
 		vertical: 'resize-y'
 	};
 
-	const textareaClasses = cn(
+	const textareaClasses = $derived(cn(
 		'w-full rounded-brand-md transition-all duration-200',
 		'focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400/50',
 		'placeholder:transition-colors placeholder:duration-200',
@@ -83,7 +83,7 @@
 		disabled && 'opacity-50 cursor-not-allowed',
 		isFocused && variant === 'glass' && 'glass-medium',
 		className
-	);
+	));
 
 	function handleInput(event: Event) {
 		const target = event.target as HTMLTextAreaElement;
@@ -187,10 +187,10 @@
 	style:max-height={autoResize ? `${maxHeight}px` : undefined}
 	aria-label={restProps['aria-label'] || placeholder}
 	use:liquidBlur={animate && !reduceMotion && isFocused ? { blur: blur, opacity: 'medium' } : undefined}
-	on:input={handleInput}
-	on:focus={handleFocus}
-	on:blur={handleBlur}
-	on:keydown={handleKeydown}
+	oninput={handleInput}
+	onfocus={handleFocus}
+	onblur={handleBlur}
+	onkeydown={handleKeydown}
 	{...restProps}
 ></textarea>
 

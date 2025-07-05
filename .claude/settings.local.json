@@ -36,7 +36,10 @@
       "Bash(npm test:*)",
       "Bash(chmod:*)",
       "Bash(node:*)",
-      "Bash(npm publish:*)"
+      "Bash(npm publish:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(sed:*)"
     ],
     "deny": []
   }

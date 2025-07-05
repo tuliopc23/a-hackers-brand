@@ -108,7 +108,7 @@
 
 <!-- Performance Dashboard Toggle -->
 <button
-	on:click={toggleVisibility}
+	onclick={toggleVisibility}
 	class="fixed bottom-4 right-4 z-50 p-3 glass rounded-full shadow-lg hover:scale-105 transition-all duration-200"
 	title="Toggle Performance Dashboard"
 >
@@ -123,7 +123,7 @@
 				<Gauge class="w-6 h-6 text-terminal-green" />
 				Performance Dashboard
 			</h2>
-			<button on:click={toggleVisibility} class="text-white/60 hover:text-white transition-colors"> ✕ </button>
+			<button onclick={toggleVisibility} class="text-white/60 hover:text-white transition-colors"> ✕ </button>
 		</div>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">

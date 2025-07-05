@@ -76,7 +76,7 @@
 	const currentSpeed = speeds[speed];
 	const currentDensity = densities[density];
 
-	let fontSize = 14;
+	const fontSize = 14;
 	let columns = 0;
 
 	const resizeCanvas = () => {

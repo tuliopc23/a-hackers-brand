@@ -260,7 +260,7 @@
 </div>
 
 <!-- Expose start method -->
-<script context="module">
+<script module>
 	export interface BootSequenceAPI {
 		start: () => void;
 	}

@@ -75,19 +75,18 @@
 
 {#if animate && !reduceMotion}
 	{#if interactive}
-		<span
+		<button
 			class={combinedClasses}
-			role="button"
-			tabindex="0"
+			type="button"
 			aria-label={restProps['aria-label'] || `${variant} badge`}
-			on:keydown={handleKeydown}
+			onkeydown={handleKeydown}
 			use:liquidBlur={{ blur: blur, opacity: 'subtle' }}
 			{...restProps}
 		>
 			{#if children}
 				{@render children()}
 			{/if}
-		</span>
+		</button>
 	{:else}
 		<span
 			class={combinedClasses}
@@ -102,27 +101,39 @@
 		</span>
 	{/if}
 {:else}
-	<span
-		class={combinedClasses}
-		role={interactive ? 'button' : 'status'}
-		tabindex={interactive ? 0 : undefined}
-		aria-label={restProps['aria-label'] || `${variant} badge`}
-		on:keydown={interactive ? handleKeydown : undefined}
-		{...restProps}
-	>
-		{#if children}
-			{@render children()}
-		{/if}
-	</span>
+	{#if interactive}
+		<button
+			class={combinedClasses}
+			type="button"
+			aria-label={restProps['aria-label'] || `${variant} badge`}
+			onkeydown={handleKeydown}
+			{...restProps}
+		>
+			{#if children}
+				{@render children()}
+			{/if}
+		</button>
+	{:else}
+		<span
+			class={combinedClasses}
+			role="status"
+			aria-label={restProps['aria-label'] || `${variant} badge`}
+			{...restProps}
+		>
+			{#if children}
+				{@render children()}
+			{/if}
+		</span>
+	{/if}
 {/if}
 
 <style>
-	span[role='button'] {
+	button {
 		will-change: transform;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		span {
+		button, span {
 			transition: none;
 			animation: none;
 		}

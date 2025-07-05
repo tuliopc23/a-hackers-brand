@@ -152,8 +152,6 @@
 <!-- Render children (form fields) -->
 {#if children}
 	{@render children({ errors: errorsByField, hasErrors })}
-{:else}
-	<slot {errors} {hasErrors} />
 {/if}
 
 <!-- Individual field error displays -->

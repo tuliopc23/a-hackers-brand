@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { glassFade, liquidBlur, magneticHover, jellyHover } from '$lib/motion';
+	import { glassFade, liquidBlur, magneticHover } from '$lib/motion';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLInputAttributes {

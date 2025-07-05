@@ -13,7 +13,7 @@ export interface ThrelteConfig {
 }
 export declare const threlteConfig: import("svelte/store").Writable<ThrelteConfig>;
 export declare const enabled3D: import("svelte/store").Readable<boolean>;
-export declare const sceneType: import("svelte/store").Readable<"default" | "glass" | "terminal">;
+export declare const sceneType: import("svelte/store").Readable<"glass" | "terminal" | "default">;
 export declare const quality: import("svelte/store").Readable<"medium" | "low" | "high">;
 export declare const autoRotate: import("svelte/store").Readable<boolean>;
 export declare const performanceStats: import("svelte/store").Readable<{

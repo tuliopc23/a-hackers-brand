@@ -136,7 +136,7 @@
 							shimmerSpeed,
 							'animate-shimmer'
 						)}
-					/>
+					></div>
 				{/if}
 			</div>
 		{/each}
@@ -168,7 +168,7 @@
 					shimmerSpeed,
 					'animate-shimmer'
 				)}
-			/>
+			></div>
 		{/if}
 	</div>
 {/if}

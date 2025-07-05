@@ -296,7 +296,7 @@ export function breathing(node: Element, config: { intensity?: number; speed?: n
 	const { intensity = 0.02, speed = 3000 } = config;
 	
 	let animationId: number;
-	let startTime = Date.now();
+	const startTime = Date.now();
 	
 	function animate() {
 		const elapsed = Date.now() - startTime;

@@ -3,11 +3,17 @@
  * Prepares environment for consistent visual testing
  */
 
-import { chromium } from '@playwright/test';
+import { chromium, type FullConfig } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
 
-async function globalSetup(config) {
+declare global {
+  interface Window {
+    __visualRegressionSetupComplete?: boolean;
+  }
+}
+
+async function globalSetup(config: FullConfig): Promise<void> {
   console.log('🔧 Setting up visual regression testing environment...');
   
   // Create output directories
@@ -84,7 +90,7 @@ async function globalSetup(config) {
         });
         await page.waitForTimeout(1000); // Let animations settle
       } catch (error) {
-        console.warn(`⚠️  Could not warm up ${componentPage}: ${error.message}`);
+        console.warn(`⚠️  Could not warm up ${componentPage}: ${error instanceof Error ? error.message : String(error)}`);
       }
     }
     
@@ -128,7 +134,7 @@ async function globalSetup(config) {
           animations: 'disabled'
         });
       } catch (error) {
-        console.warn(`⚠️  Could not generate baseline for ${component.name}: ${error.message}`);
+        console.warn(`⚠️  Could not generate baseline for ${component.name}: ${error instanceof Error ? error.message : String(error)}`);
       }
     }
     

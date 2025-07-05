@@ -71,7 +71,7 @@ describe('Progress Component (Svelte 5)', () => {
         it('should clamp percentage between 0 and 100', () => {
             // Over 100%
             let value = 150;
-            let max = 100;
+            const max = 100;
             let percentage = Math.min(100, Math.max(0, (value / max) * 100));
             expect(percentage).toBe(100);
             // Negative value

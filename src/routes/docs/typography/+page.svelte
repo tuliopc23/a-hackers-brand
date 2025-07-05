@@ -1,7 +1,10 @@
 <script lang="ts">
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { fontFamilies, fontSizes, lineHeights, fontWeights } from '$lib/tokens';
+	import { typography } from '$lib/tokens';
+
+	const { fontFamily: fontFamilies, fontSize: fontSizes, lineHeight: lineHeights } = typography;
+	const fontWeights = { normal: '400', medium: '500', semibold: '600', bold: '700' };
 	
 	// Font combinations
 	const fontCombinations = [

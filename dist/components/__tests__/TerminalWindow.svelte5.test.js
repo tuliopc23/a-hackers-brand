@@ -274,7 +274,7 @@ describe('TerminalWindow Component (Svelte 5)', () => {
         });
         it('should handle cursor during typing', () => {
             const cursor = createMockElement();
-            let isTyping = true;
+            const isTyping = true;
             if (isTyping) {
                 cursor.style.opacity = '1';
             }
@@ -344,7 +344,7 @@ describe('TerminalWindow Component (Svelte 5)', () => {
         });
         it('should not auto-scroll when user is scrolling', () => {
             const container = createMockElement();
-            let userIsScrolling = true;
+            const userIsScrolling = true;
             const scrollOnOutput = true;
             if (scrollOnOutput && !userIsScrolling) {
                 container.scrollTop = container.scrollHeight || 1000;

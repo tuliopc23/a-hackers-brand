@@ -219,7 +219,7 @@ describe('GlassButton Component (Svelte 5)', () => {
 		it('should handle magnetic hover effect', () => {
 			const button = createMockElement();
 			const magnetic = true;
-			let magneticStrength = 0.3;
+			const magneticStrength = 0.3;
 			
 			if (magnetic) {
 				button.addEventListener('mousemove', (e: any) => {

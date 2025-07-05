@@ -203,7 +203,7 @@ describe('Toast Component (Svelte 5)', () => {
 		});
 
 		it('should not auto-dismiss when duration is null', () => {
-			let open = true;
+			const open = true;
 			const duration = null;
 			const onOpenChange = vi.fn();
 			

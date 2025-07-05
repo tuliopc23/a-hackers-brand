@@ -248,7 +248,7 @@ describe('Grid Component (Svelte 5)', () => {
         });
         it('should handle dynamic item addition', () => {
             const grid = createMockElement();
-            let itemCount = 3;
+            const itemCount = 3;
             const items = [];
             // Add initial items
             for (let i = 0; i < itemCount; i++) {

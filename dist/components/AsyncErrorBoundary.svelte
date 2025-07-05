@@ -255,15 +255,11 @@
 	<!-- Render children with result -->
 	{#if children}
 		{@render children({ result })}
-	{:else}
-		<slot {result} />
 	{/if}
 {:else}
 	<!-- Idle state - render children normally -->
 	{#if children}
 		{@render children()}
-	{:else}
-		<slot />
 	{/if}
 {/if}
 

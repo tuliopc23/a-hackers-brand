@@ -43,8 +43,8 @@
 		...restProps
 	}: Props = $props();
 
-	let sliderElement: HTMLDivElement;
-	let trackElement: HTMLDivElement;
+	let sliderElement = $state<HTMLDivElement>();
+	let trackElement = $state<HTMLDivElement>();
 	let isDragging = $state(false);
 	let isFocused = $state(false);
 
@@ -106,7 +106,7 @@
 		variants[variant].fill
 	);
 
-	const thumbClasses = cn(
+	const thumbClasses = $derived(cn(
 		'absolute top-1/2 -translate-y-1/2 rounded-full cursor-pointer transition-all duration-200',
 		'focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:ring-offset-2',
 		'hover:scale-110 active:scale-95',
@@ -115,7 +115,7 @@
 		disabled && 'cursor-not-allowed hover:scale-100 active:scale-100',
 		isDragging && 'scale-110',
 		isFocused && 'ring-2 ring-blue-400/50'
-	);
+	));
 
 	function handleMouseDown(event: MouseEvent) {
 		if (disabled) return;
@@ -210,7 +210,7 @@
 
 <div class="w-full space-y-2">
 	{#if label}
-		<label class="block text-sm font-medium text-white" class:opacity-50={disabled}>
+		<label id="slider-label" class="block text-sm font-medium text-white" class:opacity-50={disabled}>
 			{label}
 			{#if showValue}
 				<span class="ml-2 text-white/70">({value})</span>
@@ -222,16 +222,17 @@
 		<div
 			bind:this={trackElement}
 			class={trackClasses}
-			on:mousedown={handleMouseDown}
+			onmousedown={handleMouseDown}
 			role="slider"
 			aria-valuemin={min}
 			aria-valuemax={max}
 			aria-valuenow={value}
-			aria-label={label || 'Slider'}
+			aria-labelledby={label ? 'slider-label' : undefined}
+			aria-label={label ? undefined : 'Slider'}
 			tabindex={disabled ? -1 : 0}
-			on:keydown={handleKeydown}
-			on:focus={handleFocus}
-			on:blur={handleBlur}
+			onkeydown={handleKeydown}
+			onfocus={handleFocus}
+			onblur={handleBlur}
 		>
 			<!-- Fill -->
 			<div class={fillClasses} style:width="{percentage}%"></div>

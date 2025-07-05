@@ -181,7 +181,7 @@ test.describe('Accessibility Compliance Tests', () => {
 				await expect(tabs.nth(1)).toBeFocused();
 				
 				// Test tab panel association
-				const activeTab = tabs.filter({ hasAttribute: 'aria-selected' });
+				const activeTab = tabs.first();
 				const ariaControls = await activeTab.getAttribute('aria-controls');
 				if (ariaControls) {
 					const tabPanel = page.locator(`#${ariaControls}`);
@@ -255,7 +255,7 @@ test.describe('Keyboard Navigation Tests', () => {
 		// Start from the top of the page
 		await page.keyboard.press('Tab');
 		
-		let focusedElements = [];
+		const focusedElements = [];
 		let previousElement = null;
 		
 		// Tab through first 10 focusable elements

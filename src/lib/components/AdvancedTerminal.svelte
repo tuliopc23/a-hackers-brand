@@ -41,8 +41,8 @@
 
 	const dispatch = createEventDispatcher();
 
-	let terminalRef: HTMLDivElement;
-	let canvasRef: HTMLCanvasElement;
+	let terminalRef = $state<HTMLDivElement>();
+	let canvasRef = $state<HTMLCanvasElement>();
 	let inputValue = $state('');
 	let history = $state<Array<{ command: string; output: string; timestamp: Date }>>([]);
 	const currentPrompt = $state('┌─[HACKER@liquid-glass]─[~/]\n└─$ ');

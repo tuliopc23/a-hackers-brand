@@ -1,9 +1,8 @@
 <script lang="ts">
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import { 
-		colors, 
-		fontFamilies, 
-		fontSizes, 
+		brandColors, 
+		typography, 
 		spacing,
 		animations,
 		shadows
@@ -11,12 +10,12 @@
 	
 	// Color examples for the palette
 	const terminalColors = [
-		{ name: 'Matrix Green', value: colors.terminal.green, hex: '#00ff41' },
-		{ name: 'Electric Cyan', value: colors.terminal.cyan, hex: '#00ffff' },
-		{ name: 'Neon Blue', value: colors.terminal.blue, hex: '#0080ff' },
-		{ name: 'Deep Purple', value: colors.terminal.purple, hex: '#8a2be2' },
-		{ name: 'Hot Pink', value: colors.terminal.pink, hex: '#ff1493' },
-		{ name: 'Neon Orange', value: colors.terminal.orange, hex: '#ff6b35' }
+		{ name: 'Matrix Green', value: brandColors.terminal.green, hex: '#00d4aa' },
+		{ name: 'Electric Cyan', value: brandColors.terminal.cyan, hex: '#00aaff' },
+		{ name: 'Neon Blue', value: brandColors.terminal.blue, hex: '#0088ff' },
+		{ name: 'Deep Purple', value: brandColors.terminal.purple, hex: '#8844ff' },
+		{ name: 'Matrix Bright', value: brandColors.terminal.matrix, hex: '#00ff88' },
+		{ name: 'Neon Pink', value: brandColors.terminal.neon, hex: '#ff0080' }
 	];
 
 	const glassColors = [
@@ -98,7 +97,7 @@
 						Used for: Code, terminal interfaces, technical content, data displays
 					</p>
 					<CodeBlock 
-						code={`font-family: 'PP Supply Mono', monospace;`}
+						code="font-family: 'PP Supply Mono', monospace;"
 						language="css"
 					/>
 				</div>
@@ -110,7 +109,7 @@
 						Used for: Headings, UI elements, marketing content, body text
 					</p>
 					<CodeBlock 
-						code={`font-family: 'PP Supply Sans', sans-serif;`}
+						code="font-family: 'PP Supply Sans', sans-serif;"
 						language="css"
 					/>
 				</div>

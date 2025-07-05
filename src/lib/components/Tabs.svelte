@@ -181,8 +181,8 @@
 				use:liquidBlur={animate && !reduceMotion && tab.id === activeTab
 					? { blur: blur, opacity: 'medium' }
 					: undefined}
-				on:click={() => handleTabClick(tab)}
-				on:keydown={(e) => handleKeydown(e, tab)}
+				onclick={() => handleTabClick(tab)}
+				onkeydown={(e) => handleKeydown(e, tab)}
 			>
 				{tab.label}
 			</button>
@@ -194,7 +194,7 @@
 		class={contentClasses}
 		role="tabpanel"
 		id={`tabpanel-${activeTab}`}
-		aria-labelledby={`tab-${activeTab}`}
+		aria-labelledby={activeTab}
 		tabindex="0"
 	>
 		{#if activeTabData?.content}

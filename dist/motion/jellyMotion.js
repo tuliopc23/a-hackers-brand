@@ -206,7 +206,7 @@ export function liquidResponsive(node, config = {}) {
 export function breathing(node, config = {}) {
     const { intensity = 0.02, speed = 3000 } = config;
     let animationId;
-    let startTime = Date.now();
+    const startTime = Date.now();
     function animate() {
         const elapsed = Date.now() - startTime;
         const progress = (elapsed % speed) / speed;

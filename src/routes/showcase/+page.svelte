@@ -1,9 +1,5 @@
 <script lang="ts">
-	import BrandStyleguide from '$lib/components/BrandStyleguide.svelte';
 	import RetroText from '$lib/components/RetroText.svelte';
-	import AdvancedLiquidTerminal from '$lib/components/AdvancedLiquidTerminal.svelte';
-	import VintageMacScreen from '$lib/components/VintageMacScreen.svelte';
-	import PortfolioCard from '$lib/components/PortfolioCard.svelte';
 	import { brandColors } from '$lib/tokens';
 
 	let activeSection = $state('showcase');
@@ -84,31 +80,34 @@
 			<!-- Demo Components Grid -->
 			<div class="demo-grid">
 				<!-- Terminal Demo -->
-				<div style="height: 400px;">
-					<AdvancedLiquidTerminal 
-						title="Matrix Terminal"
-						variant="matrix"
-						commands={[
-							'echo "Welcome to the future"',
-							'ls portfolio/',
-							'cat skills.txt',
-							'run design-system.exe'
-						]}
-						autoType={true}
-						liquidEffect={true}
-						glowIntensity={1.2}
-					/>
+				<div style="height: 400px;" class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
+					<div class="text-terminal-green font-mono">
+						<div class="mb-2 text-white/70">Matrix Terminal</div>
+						<div>$ echo "Welcome to the future"</div>
+						<div class="text-white">Welcome to the future</div>
+						<div>$ ls portfolio/</div>
+						<div class="text-blue-400">projects/  skills/  design-system/</div>
+						<div>$ cat skills.txt</div>
+						<div class="text-yellow-400">• WebGL Development</div>
+						<div class="text-yellow-400">• Liquid Glass Design</div>
+						<div class="text-yellow-400">• Terminal UI Systems</div>
+						<div>$ run design-system.exe</div>
+						<div class="text-green-400">✓ System activated</div>
+					</div>
 				</div>
 
-				<!-- Vintage Mac Demo -->
+				<!-- System Demo -->
 				<div style="display: flex; justify-content: center; align-items: center;">
-					<VintageMacScreen 
-						variant="se30"
-						content="SYSTEM BOOT SEQUENCE&#10;&#10;Loading Tulio Brand System...&#10;✓ Matrix effects initialized&#10;✓ Liquid glass ready&#10;✓ WebGL acceleration active&#10;&#10;Welcome to the future of design."
-						animated={true}
-						scanlines={true}
-						crtEffect={true}
-					/>
+					<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-8">
+						<div class="text-terminal-green font-mono">
+							<div>SYSTEM BOOT SEQUENCE</div>
+							<div>Loading A Hacker's Brand System...</div>
+							<div>✓ Matrix effects initialized</div>
+							<div>✓ Liquid glass ready</div>
+							<div>✓ WebGL acceleration active</div>
+							<div>Welcome to the future of design.</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -134,38 +133,35 @@
 				max-width: 1200px;
 				margin: 0 auto;
 			">
-				<PortfolioCard
-					title="Neural Network Visualizer"
-					description="Interactive 3D visualization of neural networks with real-time training data. Built with WebGL shaders and liquid morphing effects."
-					technologies={['Three.js', 'WebGL', 'TypeScript', 'Svelte']}
-					variant="matrix"
-					animated={true}
-					liquidEffect={true}
-					demoUrl="https://example.com/neural"
-					githubUrl="https://github.com/example/neural"
-				/>
+				<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
+					<h3 class="text-xl font-bold mb-3">Neural Network Visualizer</h3>
+					<p class="text-white/70 mb-4">Interactive 3D visualization of neural networks with real-time training data. Built with WebGL shaders and liquid morphing effects.</p>
+					<div class="flex flex-wrap gap-2 mb-4">
+						{#each ['Three.js', 'WebGL', 'TypeScript', 'Svelte'] as tech}
+							<span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-sm">{tech}</span>
+						{/each}
+					</div>
+				</div>
 
-				<PortfolioCard
-					title="Cyberpunk Dashboard"
-					description="Retro-futuristic data dashboard with real-time metrics, holographic displays, and terminal interfaces."
-					technologies={['D3.js', 'WebGL', 'Node.js', 'PostgreSQL']}
-					variant="cyberpunk"
-					animated={true}
-					liquidEffect={true}
-					demoUrl="https://example.com/dashboard"
-					githubUrl="https://github.com/example/dashboard"
-				/>
+				<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
+					<h3 class="text-xl font-bold mb-3">Cyberpunk Dashboard</h3>
+					<p class="text-white/70 mb-4">Retro-futuristic data dashboard with real-time metrics, holographic displays, and terminal interfaces.</p>
+					<div class="flex flex-wrap gap-2 mb-4">
+						{#each ['D3.js', 'WebGL', 'Node.js', 'PostgreSQL'] as tech}
+							<span class="px-2 py-1 bg-purple-500/20 text-purple-300 rounded text-sm">{tech}</span>
+						{/each}
+					</div>
+				</div>
 
-				<PortfolioCard
-					title="Quantum Code Editor"
-					description="Next-generation code editor with AI assistance, liquid syntax highlighting, and holographic code completion."
-					technologies={['Monaco', 'AI/ML', 'Rust', 'WASM']}
-					variant="hologram"
-					animated={true}
-					liquidEffect={true}
-					demoUrl="https://example.com/editor"
-					githubUrl="https://github.com/example/editor"
-				/>
+				<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
+					<h3 class="text-xl font-bold mb-3">Quantum Code Editor</h3>
+					<p class="text-white/70 mb-4">Next-generation code editor with AI assistance, liquid syntax highlighting, and holographic code completion.</p>
+					<div class="flex flex-wrap gap-2 mb-4">
+						{#each ['Monaco', 'AI/ML', 'Rust', 'WASM'] as tech}
+							<span class="px-2 py-1 bg-green-500/20 text-green-300 rounded text-sm">{tech}</span>
+						{/each}
+					</div>
+				</div>
 			</div>
 		</section>
 
@@ -270,7 +266,12 @@
 			</button>
 		</section>
 	{:else if activeSection === 'styleguide'}
-		<BrandStyleguide />
+		<div class="min-h-screen p-8">
+			<h1 class="text-4xl font-bold mb-8">Brand Styleguide</h1>
+			<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
+				<p class="text-white/70">Brand styleguide component coming soon...</p>
+			</div>
+		</div>
 		
 		<!-- Back button -->
 		<button

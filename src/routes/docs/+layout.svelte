@@ -3,7 +3,6 @@
 	import { onMount } from 'svelte';
 	import { glassFade, magneticHover } from '$lib/motion';
 	import { lazy } from '$lib/utils/lazy.js';
-	import DocsNav from '$lib/components/DocsNav.svelte';
 
 	// Lazy load WebGL components for performance
 	const LazyLiquidBackground = lazy(() => import('$lib/components/webgl/LiquidBackground.svelte'));
@@ -111,17 +110,31 @@
 	{/if}
 
 	<!-- Top Navigation -->
-	<DocsNav currentSection="Documentation" />
+	<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between items-center h-16">
+				<div class="flex items-center">
+					<h1 class="text-xl font-bold text-white">A Hacker's Brand</h1>
+				</div>
+				<div class="text-sm text-white/70">Documentation</div>
+			</div>
+		</div>
+	</nav>
 
 	<div class="flex relative z-10">
 		<!-- Mobile Sidebar Overlay -->
 		{#if sidebarOpen}
 			<div 
 				class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
-				on:click={toggleSidebar}
-				role="button"
-				tabindex="0"
-				on:keydown={(e) => e.key === 'Escape' && toggleSidebar()}
+				onclick={toggleSidebar}
+				onkeydown={(e) => {
+					if (e.key === 'Escape') {
+						e.preventDefault();
+						toggleSidebar();
+					}
+				}}
+				role="presentation"
+				aria-hidden="true"
 			></div>
 		{/if}
 
@@ -137,7 +150,7 @@
 					<h2 class="text-lg font-semibold text-white">Documentation</h2>
 					<button 
 						class="p-2 hover:bg-white/10 rounded-lg transition-colors lg:hidden"
-						on:click={toggleSidebar}
+						onclick={toggleSidebar}
 						aria-label="Close sidebar"
 					>
 						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -183,7 +196,7 @@
 			<div class="lg:hidden sticky top-0 z-30 bg-slate-900/95 backdrop-blur-xl border-b border-white/10 p-4">
 				<button 
 					class="flex items-center space-x-2 p-2 hover:bg-white/10 rounded-lg transition-colors"
-					on:click={toggleSidebar}
+					onclick={toggleSidebar}
 					aria-label="Open sidebar"
 				>
 					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -229,7 +242,11 @@
 	}
 
 	:global(.docs-content ul) {
-		@apply list-disc list-inside space-y-2 text-white/80 mb-4;
+		@apply list-disc list-inside text-white/80 mb-4;
+	}
+	
+	:global(.docs-content ul) > :not([hidden]) ~ :not([hidden]) {
+		margin-top: 0.5rem;
 	}
 
 	:global(.docs-content code) {

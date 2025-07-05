@@ -226,8 +226,6 @@
 	<!-- Render children normally -->
 	{#if children}
 		{@render children()}
-	{:else}
-		<slot />
 	{/if}
 {/if}
 

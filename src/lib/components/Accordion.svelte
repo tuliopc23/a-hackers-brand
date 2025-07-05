@@ -218,8 +218,8 @@
 				data-accordion-header={item.id}
 				disabled={item.disabled}
 				use:liquidBlur={animate && !reduceMotion && isOpen ? { blur: blur, opacity: 'subtle' } : undefined}
-				on:click={() => toggleItem(item.id)}
-				on:keydown={(e) => handleKeydown(e, item.id)}
+				onclick={() => toggleItem(item.id)}
+				onkeydown={(e) => handleKeydown(e, item.id)}
 			>
 				<span class="text-left">{item.title}</span>
 
