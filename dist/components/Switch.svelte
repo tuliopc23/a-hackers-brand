@@ -43,14 +43,10 @@
 		...restProps
 	}: Props = $props();
 
-<<<<<<< Updated upstream
 	let switchElement = $state<HTMLButtonElement>();
-	const switchId = `switch-${Math.random().toString(36).substr(2, 9)}`;
-=======
 	const uniqueId = `switch-${Math.random().toString(36).substr(2, 9)}`;
 	const labelId = label ? `${uniqueId}-label` : undefined;
 	const descriptionId = description ? `${uniqueId}-description` : undefined;
->>>>>>> Stashed changes
 
 	const sizes = {
 		sm: {
@@ -147,21 +143,7 @@
 
 <div class="flex items-center gap-3">
 	<button
-<<<<<<< Updated upstream
 		bind:this={switchElement}
-		id={switchId}
-		type="button"
-		role="switch"
-		aria-checked={checked}
-		aria-labelledby={label ? `switch-label-${switchId}` : undefined}
-		aria-describedby={description ? `switch-description-${switchId}` : undefined}
-		aria-label={!label ? (restProps['aria-label'] || 'Toggle switch') : undefined}
-		class={trackClasses}
-		{disabled}
-		use:springPop={animate && !reduceMotion ? { scale: 0.95, duration: 100 } : undefined}
-		use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.15, distance: 30 } : undefined}
-		use:magneticHover={jelly && !disabled && !reduceMotion ? { strength: 0.1 } : undefined}
-=======
 		id={uniqueId}
 		type="button"
 		role="switch"
@@ -172,7 +154,8 @@
 		class={trackClasses}
 		{disabled}
 		use:springPop={animate && !reduceMotion ? { scale: 0.95, duration: 100 } : undefined}
->>>>>>> Stashed changes
+		use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.15, distance: 30 } : undefined}
+		use:magneticHover={jelly && !disabled && !reduceMotion ? { strength: 0.1 } : undefined}
 		onclick={handleClick}
 		onkeydown={handleKeydown}
 		{...restProps}
@@ -184,27 +167,16 @@
 		<div class="flex flex-col">
 			{#if label}
 				<label
-<<<<<<< Updated upstream
-					id="switch-label-{switchId}"
-					for={switchId}
-					class="text-sm font-medium text-white cursor-pointer"
-					class:opacity-50={disabled}
-=======
 					id={labelId}
+					for={uniqueId}
 					class="text-sm font-medium text-white cursor-pointer"
 					class:opacity-50={disabled}
-					for={uniqueId}
->>>>>>> Stashed changes
 				>
 					{label}
 				</label>
 			{/if}
 			{#if description}
-<<<<<<< Updated upstream
-				<p id="switch-description-{switchId}" class="text-xs text-white/70" class:opacity-50={disabled}>
-=======
 				<p id={descriptionId} class="text-xs text-white/70" class:opacity-50={disabled}>
->>>>>>> Stashed changes
 					{description}
 				</p>
 			{/if}

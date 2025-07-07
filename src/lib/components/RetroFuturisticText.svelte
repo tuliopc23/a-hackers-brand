@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
 	import { onMount } from 'svelte';
-	import { magneticHover, breathing } from '$lib/motion';
+	import { magneticHover, breathing, jellyHover } from '$lib/motion';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLAttributes<HTMLElement> {
@@ -215,36 +215,9 @@
 
 	// Component renderer function
 	function renderElement() {
-		const content = (
-			<>
-				<span 
-					class={combinedClasses}
-					style={`filter: ${currentVariant.filter}`}
-				>
-					{typewriter ? displayText : text}
-					{typewriter && showCursor && (
-						<span class="animate-pulse">|</span>
-					)}
-				</span>
-				
-				{scanlines && (
-					<div class="retro-scanlines-overlay"></div>
-				)}
-				
-				{variant === 'crt' && (
-					<div class="crt-bezel"></div>
-				)}
-			</>
-		);
-
-		const elementProps = {
-			class: containerClasses,
-			'use:jellyHover': { enabled: animated, duration: 300, scale: 1.02, borderRadius: '12px' },
-			'use:breathing': { enabled: breathingProp, intensity: 0.01, speed: 3000 },
-			...restProps
-		};
-
-		return { content, elementProps };
+		// This function is not used in Svelte 5 - remove or comment out
+		// The actual rendering happens in the template below
+		return null;
 	}
 </script>
 

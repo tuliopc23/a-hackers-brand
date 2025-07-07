@@ -18,17 +18,8 @@ export const EASING_CSS = {
     elastic: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
     bounce: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
     jelly: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-    liquidJelly: 'cubic-bezier(0.23, 1, 0.32, 1.6)'
-};
-export const EASING_CSS = {
-    glass: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-    liquid: 'cubic-bezier(0.23, 1, 0.32, 1)',
-    spring: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-    terminal: 'cubic-bezier(0.4, 0, 0.2, 1)',
-    elastic: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
-    bounce: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-    jelly: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-    liquidJelly: 'cubic-bezier(0.23, 1, 0.32, 1.6)'
+    jellyBounce: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
+    liquidJelly: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
 };
 // Easing functions for Svelte transitions
 export const EASINGS = {
@@ -50,6 +41,17 @@ export const EASINGS = {
         else {
             return 7.5625 * (t -= 2.625 / 2.75) * t + 0.984375;
         }
+    },
+    jelly: (t) => {
+        const elastic = Math.sin(t * Math.PI * 3) * Math.pow(1 - t, 2) * 0.1;
+        return t + elastic;
+    },
+    liquidJelly: (t) => {
+        const c1 = 1.70158;
+        const c2 = c1 * 1.525;
+        return t < 0.5
+            ? (Math.pow(2 * t, 2) * ((c2 + 1) * 2 * t - c2)) / 2
+            : (Math.pow(2 * t - 2, 2) * ((c2 + 1) * (t * 2 - 2) + c2) + 2) / 2;
     }
 };
 export const TRANSFORMS = {
@@ -58,17 +60,23 @@ export const TRANSFORMS = {
         active: 0.98,
         press: 0.95,
         jellyHover: 1.05,
+        jellyPress: 0.92,
         liquidExpand: 1.08
     },
     translate: {
         hover: -2,
         lift: -4,
-        pop: -8
+        pop: -8,
+        jellyBounce: -6,
+        liquidFloat: -3
     },
     borderRadius: {
-        jelly: '12',
-        liquid: '16',
-        hover: '8'
+        normal: '8px',
+        hover: '12px',
+        active: '16px',
+        jelly: '20px',
+        liquid: '24px',
+        blob: '50%'
     }
 };
 export const BLUR_LEVELS = {

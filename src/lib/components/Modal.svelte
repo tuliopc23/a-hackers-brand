@@ -44,11 +44,7 @@
 		...restProps
 	}: Props = $props();
 
-<<<<<<< Updated upstream
 	let modalElement = $state<HTMLDivElement>();
-=======
-	let modalElement: HTMLDivElement = $state();
->>>>>>> Stashed changes
 	let previousActiveElement: Element | null = null;
 
 	const sizes = {
@@ -203,24 +199,15 @@
 {#if open}
 	<div
 		class={overlayClasses}
-		role="dialog"
-		aria-modal="true"
-<<<<<<< Updated upstream
-		aria-labelledby="modal-title"
-		tabindex={-1}
-		onclick={handleOverlayClick}
-		onkeydown={(e) => e.key === 'Escape' && handleClose()}
-		in:glassFade={{ duration: animate && !reduceMotion ? 300 : 0 }}
-		out:glassFade={{ duration: animate && !reduceMotion ? 200 : 0 }}
-=======
-		aria-labelledby={ariaLabelledby}
-		aria-describedby={ariaDescribedby}
-		tabindex="0"
-		onclick={handleOverlayClick}
-		onkeydown={(e) => e.key === 'Escape' && handleOverlayClick(e)}
-		in:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 200 : 0 }}
-		out:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 150 : 0 }}
->>>>>>> Stashed changes
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby={ariaLabelledby}
+	aria-describedby={ariaDescribedby}
+	tabindex="0"
+	onclick={handleOverlayClick}
+	onkeydown={(e) => e.key === 'Escape' && handleClose()}
+	in:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 200 : 0 }}
+	out:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 150 : 0 }}
 	>
 		<div
 			bind:this={modalElement}

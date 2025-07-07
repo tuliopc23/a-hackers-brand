@@ -6,9 +6,9 @@ import { DURATIONS, EASINGS, BLUR_LEVELS, OPACITY_LEVELS } from './tokens.js';
 export function liquidBlur(node, { duration = DURATIONS.moderate, easing = EASINGS.liquid, blur = 'md', opacity = 'medium', scale = 1.02 } = {}) {
     const htmlNode = node;
     const initialStyle = getComputedStyle(htmlNode);
-    const initialBlur = parseFloat(initialStyle.backdropFilter.match(/blur\((\d+)px\)/)?.[1] || '0');
+    const initialBlur = parseFloat((initialStyle.backdropFilter || '').match(/blur\((\d+)px\)/)?.[1] || '0');
     const initialOpacity = parseFloat(initialStyle.opacity || '1');
-    const initialScale = parseFloat(initialStyle.transform.match(/scale\(([^)]+)\)/)?.[1] || '1');
+    const initialScale = parseFloat((initialStyle.transform || '').match(/scale\(([^)]+)\)/)?.[1] || '1');
     return {
         duration,
         easing,

@@ -149,12 +149,12 @@
 		"@sveltejs/adapter-vercel": "^5.7.2",
 		"@sveltejs/kit": "^2.22.2",
 		"@sveltejs/package": "^2.3.12",
+		"@sveltejs/vite-plugin-svelte": "^5.1.0",
 		"@swc/core": "^1.12.9",
-<<<<<<< Updated upstream
-=======
+		"@tailwindcss/aspect-ratio": "^0.4.2",
+		"@tailwindcss/container-queries": "^0.1.1",
 		"@tailwindcss/postcss": "^4.1.11",
 		"@tailwindcss/typography": "^0.5.16",
->>>>>>> Stashed changes
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/svelte": "^5.2.8",
 		"@typescript-eslint/eslint-plugin": "^8.35.1",

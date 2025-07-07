@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { magneticHover, liquidBlur, jellyHover, liquidResponsive, breathing } from '$lib/motion';
+	import { magneticHover, liquidBlur, jellyHover, liquidResponsive, breathing as breathingMotion } from '$lib/motion';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -63,30 +63,26 @@
 			class={combinedClasses}
 			role="button"
 			tabindex="0"
-<<<<<<< Updated upstream
-			onkeydown={(e) => {
-				if (e.key === 'Enter' || e.key === ' ') {
-					e.preventDefault();
-					e.currentTarget.click();
-				}
-			}}
-			use:magneticHover={{ enabled: true, strength: 0.2, scale: 1.02 }}
-=======
-			use:jellyHover={{ 
-				enabled: jelly, 
-				duration: 250,
-				scale: variant === 'liquid' ? 1.08 : variant === 'jelly' ? 1.06 : 1.03,
-				borderRadius: variant === 'liquid' ? '32px' : variant === 'jelly' ? '28px' : '20px',
-				responsiveness: 'medium'
-			}}
-			use:liquidResponsive={{ 
-				enabled: liquid, 
-				liquidIntensity: 1.0,
-				morphStrength: 0.3
-			}}
-			use:breathing={{ enabled: breathing, intensity: 0.015, speed: 3500 }}
-			use:magneticHover={{ enabled: !jelly && !liquid, strength: 0.2, scale: 1.02 }}
->>>>>>> Stashed changes
+		onkeydown={(e) => {
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault();
+				e.currentTarget.click();
+			}
+		}}
+		use:jellyHover={{ 
+			enabled: jelly, 
+			duration: 250,
+			scale: variant === 'liquid' ? 1.08 : variant === 'jelly' ? 1.06 : 1.03,
+			borderRadius: variant === 'liquid' ? '32px' : variant === 'jelly' ? '28px' : '20px',
+			responsiveness: 'medium'
+		}}
+		use:liquidResponsive={{ 
+			enabled: liquid, 
+			liquidIntensity: 1.0,
+			morphStrength: 0.3
+		}}
+		use:breathingMotion={{ enabled: breathing, intensity: 0.015, speed: 3500 }}
+		use:magneticHover={{ enabled: !jelly && !liquid, strength: 0.2, scale: 1.02 }}
 			in:liquidBlur={{ blur: blur, opacity: 'medium' }}
 			{...restProps}
 		>
@@ -104,7 +100,7 @@
 				borderRadius: '24px',
 				responsiveness: 'subtle'
 			}}
-			use:breathing={{ enabled: breathing, intensity: 0.01, speed: 4000 }}
+		use:breathingMotion={{ enabled: breathing, intensity: 0.01, speed: 4000 }}
 			in:liquidBlur={{ blur: blur, opacity: 'subtle' }} 
 			{...restProps}
 		>
@@ -118,15 +114,12 @@
 		class={combinedClasses}
 		role="button"
 		tabindex="0"
-<<<<<<< Updated upstream
 		onkeydown={(e) => {
 			if (e.key === 'Enter' || e.key === ' ') {
 				e.preventDefault();
 				e.currentTarget.click();
 			}
 		}}
-		use:magneticHover={{ enabled: true, strength: 0.2, scale: 1.02 }}
-=======
 		use:jellyHover={{ 
 			enabled: jelly, 
 			duration: 250,
@@ -139,9 +132,8 @@
 			liquidIntensity: 1.0,
 			morphStrength: 0.3
 		}}
-		use:breathing={{ enabled: breathing, intensity: 0.015, speed: 3500 }}
+		use:breathingMotion={{ enabled: breathing, intensity: 0.015, speed: 3500 }}
 		use:magneticHover={{ enabled: !jelly && !liquid, strength: 0.2, scale: 1.02 }}
->>>>>>> Stashed changes
 		{...restProps}
 	>
 		{#if children}
@@ -151,7 +143,7 @@
 {:else}
 	<div 
 		class={combinedClasses} 
-		use:breathing={{ enabled: breathing, intensity: 0.01, speed: 4000 }}
+		use:breathingMotion={{ enabled: breathing, intensity: 0.01, speed: 4000 }}
 		{...restProps}
 	>
 		{#if children}

@@ -99,9 +99,8 @@
 				{@render children()}
 			{/if}
 		</span>
-	{/if}
+{/if}
 {:else}
-<<<<<<< Updated upstream
 	{#if interactive}
 		<button
 			class={combinedClasses}
@@ -126,20 +125,6 @@
 			{/if}
 		</span>
 	{/if}
-=======
-	<span
-		class={combinedClasses}
-		role={interactive ? 'button' : 'status'}
-		tabindex={interactive ? 0 : undefined}
-		aria-label={restProps['aria-label'] || `${variant} badge`}
-		onkeydown={interactive ? handleKeydown : undefined}
-		{...restProps}
-	>
-		{#if children}
-			{@render children()}
-		{/if}
-	</span>
->>>>>>> Stashed changes
 {/if}
 
 <style>

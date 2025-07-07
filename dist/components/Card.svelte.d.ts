@@ -1,9 +1,12 @@
 import type { HTMLAttributes } from 'svelte/elements';
 interface Props extends HTMLAttributes<HTMLDivElement> {
-    variant?: 'default' | 'glass' | 'glass-subtle' | 'glass-heavy' | 'terminal';
+    variant?: 'default' | 'glass' | 'glass-subtle' | 'glass-heavy' | 'terminal' | 'liquid' | 'jelly';
     blur?: 'sm' | 'md' | 'lg' | 'xl';
     interactive?: boolean;
     animate?: boolean;
+    jelly?: boolean;
+    liquid?: boolean;
+    breathing?: boolean;
     class?: string;
     children?: any;
 }

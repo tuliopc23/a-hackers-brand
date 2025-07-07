@@ -19,22 +19,7 @@ export const EASING_CSS = {
 	terminal: 'cubic-bezier(0.4, 0, 0.2, 1)',
 	elastic: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
 	bounce: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-<<<<<<< Updated upstream
 	jelly: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-	liquidJelly: 'cubic-bezier(0.23, 1, 0.32, 1.6)'
-} as const;
-
-export const EASING_CSS = {
-	glass: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-	liquid: 'cubic-bezier(0.23, 1, 0.32, 1)',
-	spring: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-	terminal: 'cubic-bezier(0.4, 0, 0.2, 1)',
-	elastic: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
-	bounce: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-	jelly: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-	liquidJelly: 'cubic-bezier(0.23, 1, 0.32, 1.6)'
-=======
-	jelly: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
 	jellyBounce: 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
 	liquidJelly: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
 } as const;
@@ -68,7 +53,6 @@ export const EASINGS = {
 			? (Math.pow(2 * t, 2) * ((c2 + 1) * 2 * t - c2)) / 2
 			: (Math.pow(2 * t - 2, 2) * ((c2 + 1) * (t * 2 - 2) + c2) + 2) / 2;
 	}
->>>>>>> Stashed changes
 } as const;
 
 export const TRANSFORMS = {
@@ -77,23 +61,12 @@ export const TRANSFORMS = {
 		active: 0.98,
 		press: 0.95,
 		jellyHover: 1.05,
-<<<<<<< Updated upstream
-=======
 		jellyPress: 0.92,
->>>>>>> Stashed changes
 		liquidExpand: 1.08
 	},
 	translate: {
 		hover: -2,
 		lift: -4,
-<<<<<<< Updated upstream
-		pop: -8
-	},
-	borderRadius: {
-		jelly: '12',
-		liquid: '16',
-		hover: '8'
-=======
 		pop: -8,
 		jellyBounce: -6,
 		liquidFloat: -3
@@ -105,7 +78,6 @@ export const TRANSFORMS = {
 		jelly: '20px',
 		liquid: '24px',
 		blob: '50%'
->>>>>>> Stashed changes
 	}
 } as const;
 

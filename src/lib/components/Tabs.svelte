@@ -202,14 +202,9 @@
 	<!-- Tab Content -->
 	<div
 		class={contentClasses}
-		role="tabpanel"
-<<<<<<< Updated upstream
-		id={`tabpanel-${activeTab}`}
-		aria-labelledby={activeTab}
-=======
-		id={`${uniqueId}-tabpanel-${activeTab}`}
-		aria-labelledby={`${uniqueId}-tab-${activeTab}`}
->>>>>>> Stashed changes
+	role="tabpanel"
+	id={`${uniqueId}-tabpanel-${activeTab}`}
+	aria-labelledby={`${uniqueId}-tab-${activeTab}`}
 		tabindex="0"
 	>
 		{#if activeTabData?.content}

@@ -52,13 +52,8 @@
 	}: Props = $props();
 
 	let isOpen = $state(false);
-<<<<<<< Updated upstream
 	let selectElement = $state<HTMLDivElement>();
 	let listboxElement = $state<HTMLUListElement>();
-=======
-	let selectElement: HTMLDivElement;
-	let listboxElement: HTMLUListElement = $state();
->>>>>>> Stashed changes
 	let activeIndex = $state(-1);
 
 	const uniqueId = `select-${Math.random().toString(36).substr(2, 9)}`;
@@ -280,17 +275,13 @@
 				aria-selected={value === option.value}
 				aria-disabled={option.disabled}
 				tabindex="-1"
-				onclick={() => selectOption(option)}
-<<<<<<< Updated upstream
-				onkeydown={(e) => {
-					if (e.key === 'Enter' || e.key === ' ') {
-						e.preventDefault();
-						selectOption(option);
-					}
-				}}
-=======
-				onkeydown={(e) => e.key === 'Enter' && selectOption(option)}
->>>>>>> Stashed changes
+			onclick={() => selectOption(option)}
+			onkeydown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					selectOption(option);
+				}
+			}}
 				onmouseenter={() => !option.disabled && (activeIndex = index)}
 			>
 				{option.label}

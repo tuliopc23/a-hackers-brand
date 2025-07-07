@@ -1,6 +1,5 @@
-import { vi } from 'vitest';
-<<<<<<< Updated upstream
-// Force Svelte 5 to run in browser mode - override SSR detection
+import { vi, beforeEach } from 'vitest';
+import '@testing-library/jest-dom';
 globalThis.window = globalThis.window || globalThis;
 globalThis.document = globalThis.document || {
     createElement: vi.fn(),
@@ -71,42 +70,29 @@ Object.defineProperty(window, 'getComputedStyle', {
     }),
     writable: true
 });
-// Mock performance API
-Object.defineProperty(window, 'performance', {
-    value: {
-        now: vi.fn(() => Date.now()),
-        memory: {
-            usedJSHeapSize: 1000000,
-            totalJSHeapSize: 2000000,
-            jsHeapSizeLimit: 4000000
-        }
-    },
-    writable: true
+// Enhanced JSDOM setup for Svelte 5
+beforeEach(() => {
+    // Clear any previous DOM state
+    document.body.innerHTML = '';
+    document.head.innerHTML = '';
+    // Ensure we're in a browser-like environment
+    Object.defineProperty(globalThis, 'window', {
+        value: global.window,
+        writable: true
+    });
+    Object.defineProperty(globalThis, 'document', {
+        value: global.document,
+        writable: true
+    });
 });
-// Mock requestAnimationFrame
-Object.defineProperty(window, 'requestAnimationFrame', {
-    value: vi.fn((callback) => {
-        return setTimeout(() => callback(Date.now()), 16);
-    }),
-    writable: true
-});
-Object.defineProperty(window, 'cancelAnimationFrame', {
-    value: vi.fn((id) => clearTimeout(id)),
-    writable: true
-});
-// Mock ResizeObserver
-Object.defineProperty(window, 'ResizeObserver', {
-    value: vi.fn().mockImplementation(() => ({
-        observe: vi.fn(),
-        unobserve: vi.fn(),
-        disconnect: vi.fn()
-=======
 // Mock HTMLMediaElement
-if (!global.window.HTMLMediaElement.prototype.play) {
-    global.window.HTMLMediaElement.prototype.play = vi.fn();
-}
-if (!global.window.HTMLMediaElement.prototype.pause) {
-    global.window.HTMLMediaElement.prototype.pause = vi.fn();
+if (typeof window !== 'undefined' && window.HTMLMediaElement) {
+    if (!window.HTMLMediaElement.prototype.play) {
+        window.HTMLMediaElement.prototype.play = vi.fn();
+    }
+    if (!window.HTMLMediaElement.prototype.pause) {
+        window.HTMLMediaElement.prototype.pause = vi.fn();
+    }
 }
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
@@ -120,6 +106,61 @@ Object.defineProperty(window, 'matchMedia', {
         addEventListener: vi.fn(),
         removeEventListener: vi.fn(),
         dispatchEvent: vi.fn(),
->>>>>>> Stashed changes
     })),
+});
+// Mock ResizeObserver
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+}));
+// Mock IntersectionObserver
+global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+}));
+// Mock requestAnimationFrame and cancelAnimationFrame
+global.requestAnimationFrame = vi.fn((callback) => {
+    return setTimeout(callback, 16);
+});
+global.cancelAnimationFrame = vi.fn((id) => {
+    clearTimeout(id);
+});
+// Mock performance.now for animations
+Object.defineProperty(window, 'performance', {
+    writable: true,
+    value: {
+        now: vi.fn(() => Date.now()),
+    },
+});
+// Mock CSS.supports for feature detection
+Object.defineProperty(window, 'CSS', {
+    writable: true,
+    value: {
+        supports: vi.fn(() => true),
+    },
+});
+// Mock getComputedStyle for CSS property checks
+Object.defineProperty(window, 'getComputedStyle', {
+    writable: true,
+    value: vi.fn(() => ({
+        getPropertyValue: vi.fn(() => ''),
+        transform: 'none',
+        transition: 'none',
+        animation: 'none',
+    })),
+});
+// Suppress console warnings for tests
+const originalConsoleWarn = console.warn;
+console.warn = vi.fn((message, ...args) => {
+    // Suppress specific Svelte warnings that are expected in tests
+    if (typeof message === 'string' && (message.includes('lifecycle_function_unavailable') ||
+        message.includes('element_invalid_self_closing_tag') ||
+        message.includes('a11y_no_static_element_interactions') ||
+        message.includes('a11y_click_events_have_key_events') ||
+        message.includes('css_unused_selector'))) {
+        return;
+    }
+    originalConsoleWarn(message, ...args);
 });

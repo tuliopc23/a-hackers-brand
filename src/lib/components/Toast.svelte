@@ -41,11 +41,7 @@
 		...restProps
 	}: Props = $props();
 
-<<<<<<< Updated upstream
 	let toastElement = $state<HTMLDivElement>();
-=======
-	let toastElement: HTMLDivElement = $state();
->>>>>>> Stashed changes
 	let timeoutId: NodeJS.Timeout | null = null;
 
 	const types = {

@@ -105,13 +105,8 @@ export default {
 			}
 		}
 	},
-<<<<<<< Updated upstream
-	plugins: []
-};
-=======
 	plugins: [
 		containerQueries,
 		aspectRatio
 	]
 };
->>>>>>> Stashed changes
