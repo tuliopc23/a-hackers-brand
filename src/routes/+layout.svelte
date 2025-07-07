@@ -11,7 +11,7 @@
 	const lazyPerfOverlay = lazy(() => import('$lib/components/PerfOverlay.svelte'));
 
 	// Only show PerfOverlay in development
-	$: showPerfOverlay = dev && lazyPerfOverlay.component;
+	const showPerfOverlay = $derived(() => dev && lazyPerfOverlay.component);
 </script>
 
 <slot />

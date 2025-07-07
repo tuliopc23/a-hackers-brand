@@ -277,16 +277,18 @@
 		}
 	};
 
-	// Handle mouse movement
-	const handleMouseMove = (event: MouseEvent) => {
-		if (!interactive || !materialRef) return;
-		
-		const rect = renderer.domElement.getBoundingClientRect();
-		const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-		const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-		
-		materialRef.uniforms.uMouse.value.set(x, y);
-	};
+// Handle mouse movement
+const handleMouseMove = (event: MouseEvent) => {
+	if (!interactive || !materialRef) return;
+	
+	// Try to get canvas element for mouse coordinates
+	const canvas = event.target as HTMLElement;
+	const rect = canvas.getBoundingClientRect();
+	const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+	const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+	
+	materialRef.uniforms.uMouse.value.set(x, y);
+};
 
 	// Animation loop (manual since useFrame is not available)
 	let animationId: number;
@@ -333,24 +335,30 @@
 		materialRef = createShaderMaterial();
 		startAnimation();
 		
-		// Add mouse listener for interactivity
-		if (interactive) {
-			renderer.domElement.addEventListener('mousemove', handleMouseMove);
+	// Add mouse listener for interactivity
+	if (interactive && typeof window !== 'undefined') {
+		const canvas = document.querySelector('canvas');
+		if (canvas) {
+			canvas.addEventListener('mousemove', handleMouseMove);
 		}
+	}
 		
 		dispatch('ready', { 
 			geometry: geometryRef, 
 			material: materialRef 
 		});
 		
-		return () => {
-			if (interactive) {
-				renderer.domElement.removeEventListener('mousemove', handleMouseMove);
+	return () => {
+		if (interactive && typeof window !== 'undefined') {
+			const canvas = document.querySelector('canvas');
+			if (canvas) {
+				canvas.removeEventListener('mousemove', handleMouseMove);
 			}
-			if (animationId) {
-				cancelAnimationFrame(animationId);
-			}
-		};
+		}
+		if (animationId) {
+			cancelAnimationFrame(animationId);
+		}
+	};
 	});
 </script>
 

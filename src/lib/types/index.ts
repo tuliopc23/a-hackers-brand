@@ -1,6 +1,169 @@
 // Tulio Brand System - Type Definitions
 
-// Component Props Types
+// Common Component Props
+export interface BaseComponentProps {
+	class?: string;
+	id?: string;
+	'data-testid'?: string;
+	[key: string]: any; // Allow additional HTML attributes
+}
+
+// Component variant types
+export type ComponentVariant = 'glass' | 'terminal' | 'liquid' | 'neon' | 'classic' | 'default';
+export type ComponentSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
+export type ComponentState = 'default' | 'hover' | 'active' | 'disabled' | 'loading' | 'error';
+
+// Button Props
+export interface ButtonProps extends BaseComponentProps {
+	variant?: ComponentVariant;
+	size?: ComponentSize;
+	type?: 'button' | 'submit' | 'reset';
+	disabled?: boolean;
+	loading?: boolean;
+	glow?: boolean;
+	jelly?: boolean;
+	liquid?: boolean;
+	magnetic?: boolean;
+	ripple?: boolean;
+	animated?: boolean;
+	children?: any;
+}
+
+// Input Props
+export interface InputProps extends BaseComponentProps {
+	variant?: ComponentVariant;
+	size?: ComponentSize;
+	type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search';
+	placeholder?: string;
+	value?: string;
+	disabled?: boolean;
+	readonly?: boolean;
+	required?: boolean;
+	error?: string;
+	label?: string;
+	name?: string;
+	minlength?: number;
+	maxlength?: number;
+	glow?: boolean;
+	liquid?: boolean;
+	blur?: ComponentSize;
+	animated?: boolean;
+}
+
+// Modal Props
+export interface ModalProps extends BaseComponentProps {
+	open: boolean;
+	title?: string;
+	description?: string;
+	variant?: ComponentVariant;
+	size?: ComponentSize;
+	showHeader?: boolean;
+	closable?: boolean;
+	closeOnOverlay?: boolean;
+	closeOnEscape?: boolean;
+	backdrop?: 'blur' | 'solid' | 'transparent';
+	breathing?: boolean;
+	glow?: boolean;
+	animated?: boolean;
+	transition?: string;
+	portalTarget?: string;
+}
+
+// Alert Props
+export interface AlertProps extends BaseComponentProps {
+	variant?: 'success' | 'error' | 'warning' | 'info' | 'terminal';
+	title?: string;
+	description?: string;
+	closable?: boolean;
+	animated?: boolean;
+	glow?: boolean;
+	jelly?: boolean;
+	icon?: boolean;
+	position?: 'static' | 'fixed' | 'absolute';
+	placement?: 'top' | 'bottom' | 'left' | 'right' | 'center';
+}
+
+// Toast Props
+export interface ToastProps extends BaseComponentProps {
+	open: boolean;
+	type?: 'success' | 'error' | 'warning' | 'info';
+	variant?: ComponentVariant;
+	position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center' | 'bottom-center';
+	blur?: ComponentSize;
+	duration?: number;
+	closable?: boolean;
+	animate?: boolean;
+	reduceMotion?: boolean;
+	title?: string;
+	description?: string;
+	action?: {
+		label: string;
+		onClick: () => void;
+	};
+}
+
+// Generic List Item
+export interface ListItem {
+	id: string;
+	label: string;
+	value?: string;
+	href?: string;
+	disabled?: boolean;
+	[key: string]: any;
+}
+
+// Breadcrumb Item
+export interface BreadcrumbItem extends ListItem {
+	href?: string;
+}
+
+// Select Option
+export interface SelectOption extends ListItem {
+	value: string;
+	disabled?: boolean;
+}
+
+// Table Column
+export interface TableColumn {
+	key: string;
+	label: string;
+	sortable?: boolean;
+	render?: (value: any, row?: any) => any;
+	width?: string;
+	align?: 'left' | 'center' | 'right';
+}
+
+// File Upload Types
+export interface UploadFile {
+	id: string;
+	name: string;
+	size: number;
+	type: string;
+	status: 'pending' | 'uploading' | 'success' | 'error';
+	progress?: number;
+	error?: string;
+	url?: string;
+}
+
+// Grid Props
+export interface GridProps extends BaseComponentProps {
+	cols?: 'auto' | number;
+	rows?: 'auto' | number;
+	gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+	colSpan?: number;
+	rowSpan?: number;
+	autoFit?: boolean;
+	autoFill?: boolean;
+	minColWidth?: string;
+	maxColWidth?: string;
+	responsive?: boolean;
+	breakpoints?: Record<string, any>;
+	align?: 'start' | 'end' | 'center' | 'stretch';
+	justify?: 'start' | 'end' | 'center' | 'stretch' | 'space-between' | 'space-around';
+	placeItems?: string;
+}
+
+// Legacy Glass Component Props
 export interface GlassComponentProps {
 	class?: string;
 	variant?: 'primary' | 'secondary' | 'accent' | 'ghost' | 'danger';
@@ -112,7 +275,7 @@ export interface TerminalCommand {
 	timestamp: number;
 }
 
-// Export utility types
-export type ComponentSize = 'sm' | 'md' | 'lg' | 'xl';
-export type ComponentVariant = 'primary' | 'secondary' | 'accent' | 'ghost' | 'danger';
+// Legacy utility types (keeping for backwards compatibility)
+export type LegacyComponentSize = 'sm' | 'md' | 'lg' | 'xl';
+export type LegacyComponentVariant = 'primary' | 'secondary' | 'accent' | 'ghost' | 'danger';
 export type LoadingState = 'idle' | 'loading' | 'success' | 'error';

@@ -129,7 +129,7 @@
 								<button 
 									class="ml-auto p-1 hover:bg-white/10 rounded transition-colors"
 									aria-label="Copy install command to clipboard"
-									on:click={() => copyCommand('npm install @tulio/liquid-glass-system')}
+									onclick={() => copyCommand('npm install @tulio/liquid-glass-system')}
 									title="Copy command"
 								>
 									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

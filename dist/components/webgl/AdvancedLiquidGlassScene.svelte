@@ -193,14 +193,14 @@
 		<T.PerspectiveCamera makeDefault position={[0, 0, 10]} fov={45} />
 		
 		<!-- Enhanced Lighting -->
-		<T.AmbientLight intensity={lighting.ambientIntensity} />
+		<T.AmbientLight intensity={lighting.ambientIntensity}></T.AmbientLight>
 		<T.DirectionalLight 
 			position={[10, 10, 5]} 
 			intensity={lighting.directionalIntensity}
 			castShadow
 			shadow.mapSize.width={settings.shadowMapSize}
 			shadow.mapSize.height={settings.shadowMapSize}
-		/>
+		></T.DirectionalLight>
 		
 		{#each lighting.pointLights as light}
 			<T.PointLight 
@@ -209,7 +209,7 @@
 				intensity={light.intensity}
 				decay={2}
 				distance={20}
-			/>
+			></T.PointLight>
 		{/each}
 
 		<!-- Environment -->

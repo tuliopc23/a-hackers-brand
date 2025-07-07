@@ -116,7 +116,7 @@
 	});
 </script>
 
-<svelte:window on:resize={handleResize} />
+<svelte:window onresize={handleResize} />
 
 <canvas
 	bind:this={canvasRef}

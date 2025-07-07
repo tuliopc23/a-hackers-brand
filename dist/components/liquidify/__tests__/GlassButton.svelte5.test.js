@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { createMockElement, createMockProps, simulateClassGeneration, simulateAnimation, simulateMouseEvent, simulateKeyboardEvent, expectClassesToContain, expectAttributesToBeSet, expectAriaAttributes, testAccessibilityCompliance, testEventCleanup, commonSizes } from '../__tests__/svelte5-test-utils';
+import { createMockElement, createMockProps, simulateClassGeneration, simulateAnimation, simulateMouseEvent, simulateKeyboardEvent, expectClassesToContain, expectAttributesToBeSet, expectAriaAttributes, testAccessibilityCompliance, testEventCleanup, commonSizes } from '../../__tests__/svelte5-test-utils';
 describe('GlassButton Component (Svelte 5)', () => {
     const glassButtonTestDefaults = {
         variant: 'glass',

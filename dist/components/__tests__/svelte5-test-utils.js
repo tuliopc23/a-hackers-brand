@@ -1,4 +1,4 @@
-import { vi } from 'vitest';
+import { vi, expect } from 'vitest';
 import { DURATIONS, EASINGS } from '../../motion/tokens';
 export function createMockElement(overrides = {}) {
     const mockStyle = {};
@@ -77,7 +77,7 @@ export function simulateClassGeneration(element, baseClass, variant, size, modif
     element.className = classes.join(' ');
     return element.className;
 }
-export function simulateAnimation(element, animated, duration = DURATIONS.fast, easing = EASINGS.spring) {
+export function simulateAnimation(element, animated, duration = DURATIONS.fast, easing = 'ease-out') {
     if (animated) {
         element.style.transition = `all ${duration}ms ${easing}`;
         element.classList.add('animated');

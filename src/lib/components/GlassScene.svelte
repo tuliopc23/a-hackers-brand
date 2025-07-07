@@ -153,16 +153,16 @@
 	<OrbitControls enableZoom={true} enablePan={true} enableRotate={true} autoRotate={true} autoRotateSpeed={0.5} />
 </T.PerspectiveCamera>
 
-<T.AmbientLight intensity={0.8} />
-<T.DirectionalLight position={[5, 10, 8]} intensity={1.5} castShadow />
+<T.AmbientLight intensity={0.8}></T.AmbientLight>
+<T.DirectionalLight position={[5, 10, 8]} intensity={1.5} castShadow></T.DirectionalLight>
 
 <!-- Environment and Lighting -->
 <Environment path="/" files="city.hdr" background={false} />
 
 <!-- Enhanced Lighting Setup -->
-<T.PointLight position={[10, 10, 10]} intensity={2} color={currentTheme.primaryColor} castShadow />
-<T.PointLight position={[-10, -10, 10]} intensity={1.5} color={currentTheme.secondaryColor} />
-<T.SpotLight position={[0, 15, 0]} intensity={3} angle={Math.PI / 6} penumbra={0.5} castShadow color="#ffffff" />
+<T.PointLight position={[10, 10, 10]} intensity={2} color={currentTheme.primaryColor} castShadow></T.PointLight>
+<T.PointLight position={[-10, -10, 10]} intensity={1.5} color={currentTheme.secondaryColor}></T.PointLight>
+<T.SpotLight position={[0, 15, 0]} intensity={3} angle={Math.PI / 6} penumbra={0.5} castShadow color="#ffffff"></T.SpotLight>
 
 <!-- Main Glass Formation -->
 <T.Group bind:ref={mainGroup}>

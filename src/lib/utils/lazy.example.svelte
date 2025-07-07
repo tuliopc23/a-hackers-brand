@@ -62,7 +62,7 @@
 <!-- Example 3: Feature flag based lazy loading -->
 <section>
 	<h2>Feature-based Lazy Loading</h2>
-	<button on:click={() => (showFeature = !showFeature)}> Toggle Feature </button>
+	<button onclick={() => (showFeature = !showFeature)}> Toggle Feature </button>
 
 	{#if showFeature}
 		{#if LazyFeatureComponent.loading}

@@ -33,7 +33,7 @@
 	size="lg"
 	glass={true}
 	animate={true}
-	on:click={handleClick}
+	onclick={handleClick}
 >
 	Deploy to Production
 </Button>`
@@ -160,7 +160,7 @@
 						? 'bg-blue-500/20 text-blue-300 border border-blue-400/30' 
 						: 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
 					}"
-					on:click={() => activeExample = exampleKey}
+					onclick={() => activeExample = exampleKey}
 				>
 					{exampleKey.charAt(0).toUpperCase() + exampleKey.slice(1)}
 				</button>

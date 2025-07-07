@@ -21,11 +21,11 @@
 		autoRotate = true
 	}: Props = $props();
 
-	let canvasContainer: HTMLDivElement;
-	let ThrelteComponent = $state<any>(null);
-	let loading = $state(true);
-	let error = $state<string | null>(null);
-	let isInViewport = $state(false);
+let canvasContainer = $state<HTMLDivElement>();
+let ThrelteComponent = $state<any>(null);
+let loading = $state(true);
+let error = $state<string | null>(null);
+let isInViewport = $state(false);
 
 	onMount(() => {
 		if (!enable3D) {

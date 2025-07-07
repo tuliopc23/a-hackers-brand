@@ -146,9 +146,10 @@ export function jellyHover(node: Element, config: JellyConfig = {}) {
 		const currentScale = 1 + (scale - 1) * progress * responsiveScale;
 		const currentRadius = parseFloat(borderRadius) * (1 + progress * 0.2);
 		
-		node.style.transform = `scale(${currentScale}) translateZ(0)`;
-		node.style.borderRadius = `${currentRadius}px`;
-		node.style.transition = `transform ${duration}ms ${EASING_CSS.jelly}, border-radius ${duration}ms ${EASING_CSS.jelly}`;
+		const element = node as HTMLElement;
+		element.style.transform = `scale(${currentScale}) translateZ(0)`;
+		element.style.borderRadius = `${currentRadius}px`;
+		element.style.transition = `transform ${duration}ms ${EASING_CSS.jelly}, border-radius ${duration}ms ${EASING_CSS.jelly}`;
 	}
 
 	function handleMouseEnter() {
@@ -179,20 +180,21 @@ export function jellyHover(node: Element, config: JellyConfig = {}) {
 		animationFrame = requestAnimationFrame(() => {
 			if (isHovering) {
 				const currentScale = 1 + (scale - 1) * responsiveScale;
-				node.style.transform = `scale(${currentScale}) skew(${skewX}deg, ${skewY}deg) translateZ(0)`;
+				const element = node as HTMLElement;
+				element.style.transform = `scale(${currentScale}) skew(${skewX}deg, ${skewY}deg) translateZ(0)`;
 			}
 		});
 	}
 
 	node.addEventListener('mouseenter', handleMouseEnter);
 	node.addEventListener('mouseleave', handleMouseLeave);
-	node.addEventListener('mousemove', handleMouseMove);
+	node.addEventListener('mousemove', handleMouseMove as EventListener);
 
 	return {
 		destroy() {
 			node.removeEventListener('mouseenter', handleMouseEnter);
 			node.removeEventListener('mouseleave', handleMouseLeave);
-			node.removeEventListener('mousemove', handleMouseMove);
+			node.removeEventListener('mousemove', handleMouseMove as EventListener);
 			cancelAnimationFrame(animationFrame);
 		}
 	};
@@ -244,9 +246,10 @@ export function liquidResponsive(node: Element, config: LiquidJellyConfig = {}) 
 		const radiusVariation = intensity * 10 * intensityMultiplier;
 		const newRadius = baseRadius + radiusVariation;
 		
-		node.style.transform = transform;
-		node.style.borderRadius = `${newRadius}px`;
-		node.style.transition = `transform ${duration}ms ${EASING_CSS.liquidJelly}, border-radius ${duration}ms ${EASING_CSS.liquidJelly}`;
+		const element = node as HTMLElement;
+		element.style.transform = transform;
+		element.style.borderRadius = `${newRadius}px`;
+		element.style.transition = `transform ${duration}ms ${EASING_CSS.liquidJelly}, border-radius ${duration}ms ${EASING_CSS.liquidJelly}`;
 	}
 
 	function handleMouseDown(event: MouseEvent) {
@@ -273,16 +276,16 @@ export function liquidResponsive(node: Element, config: LiquidJellyConfig = {}) 
 		morphElement(0);
 	}
 
-	node.addEventListener('mousedown', handleMouseDown);
+	node.addEventListener('mousedown', handleMouseDown as EventListener);
 	node.addEventListener('mouseup', handleMouseUp);
-	node.addEventListener('mousemove', handleMouseMove);
+	node.addEventListener('mousemove', handleMouseMove as EventListener);
 	node.addEventListener('mouseleave', handleMouseLeave);
 
 	return {
 		destroy() {
-			node.removeEventListener('mousedown', handleMouseDown);
+			node.removeEventListener('mousedown', handleMouseDown as EventListener);
 			node.removeEventListener('mouseup', handleMouseUp);
-			node.removeEventListener('mousemove', handleMouseMove);
+			node.removeEventListener('mousemove', handleMouseMove as EventListener);
 			node.removeEventListener('mouseleave', handleMouseLeave);
 			cancelAnimationFrame(animationFrame);
 		}
@@ -306,8 +309,9 @@ export function breathing(node: Element, config: { intensity?: number; speed?: n
 		const scale = 1 + breathe;
 		const radiusVariation = breathe * 5;
 		
-		node.style.transform = `scale(${scale}) translateZ(0)`;
-		node.style.borderRadius = `${8 + radiusVariation}px`;
+		const element = node as HTMLElement;
+		element.style.transform = `scale(${scale}) translateZ(0)`;
+		element.style.borderRadius = `${8 + radiusVariation}px`;
 		
 		animationId = requestAnimationFrame(animate);
 	}

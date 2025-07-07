@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { createMockElement, createMockProps, simulateClassGeneration, simulateAnimation, expectClassesToContain, expectAttributesToBeSet, expectAriaAttributes, testAccessibilityCompliance, testEventCleanup } from '../__tests__/svelte5-test-utils';
+import { createMockElement, createMockProps, simulateClassGeneration, simulateAnimation, expectClassesToContain, expectAttributesToBeSet, expectAriaAttributes, testAccessibilityCompliance, testEventCleanup } from '../../__tests__/svelte5-test-utils';
 describe('Grid Component (Svelte 5)', () => {
     const gridTestDefaults = {
         cols: 'auto',

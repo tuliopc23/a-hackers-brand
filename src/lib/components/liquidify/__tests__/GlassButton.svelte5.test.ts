@@ -12,7 +12,7 @@ import {
 	testAccessibilityCompliance,
 	testEventCleanup,
 	commonSizes
-} from '../__tests__/svelte5-test-utils';
+} from '../../__tests__/svelte5-test-utils';
 
 describe('GlassButton Component (Svelte 5)', () => {
 	const glassButtonTestDefaults = {

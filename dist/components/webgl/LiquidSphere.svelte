@@ -23,8 +23,8 @@
 		position = [0, 0, 0]
 	}: Props = $props();
 
-	let sphereRef: THREE.Mesh;
-	let material: THREE.ShaderMaterial;
+let sphereRef = $state<THREE.Mesh>();
+let material = $state<THREE.ShaderMaterial>();
 
 	const vertexShader = `
 		uniform float uTime;

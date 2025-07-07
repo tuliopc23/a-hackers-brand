@@ -95,7 +95,7 @@
 		<Environment preset={environmentPreset} />
 		
 		<!-- Ambient light for glass effects -->
-		<ambientLight intensity={0.3} />
+		<ambientLight intensity={0.3}></ambientLight>
 		
 		<!-- Point light for liquid highlights -->
 		<pointLight 
@@ -103,14 +103,14 @@
 			intensity={glowIntensity} 
 			color={colorPrimary}
 			castShadow
-		/>
+		></pointLight>
 		
 		<!-- Rim light for glass edges -->
 		<pointLight 
 			position={[-5, -5, 5]} 
 			intensity={glowIntensity * 0.7} 
 			color={colorSecondary}
-		/>
+		></pointLight>
 
 		<!-- Interactive camera controls -->
 		{#if interactive}

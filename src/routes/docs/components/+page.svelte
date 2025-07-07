@@ -162,7 +162,7 @@
 					<button 
 						class="px-6 py-3 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-300 {selectedTab === key ? 'bg-blue-500/20 border-blue-500/30' : ''}"
 						class:active={selectedTab === key}
-						on:click={() => selectedTab = key}
+						onclick={() => selectedTab = key}
 						data-magnetic
 					>
 						{category.title}
@@ -242,17 +242,17 @@
 													/>
 												{:else if component.name === 'GlassModal'}
 													<div class="space-y-4">
-														<GlassButton variant="primary" on:click={() => showModal = true}>
+														<GlassButton variant="primary" onclick={() => showModal = true}>
 															Open Modal
 														</GlassButton>
 														<GlassModal bind:show={showModal}>
 															<h3 class="text-xl font-bold mb-4">Confirm Deployment</h3>
 															<p class="text-white/80 mb-6">Are you sure you want to deploy to production?</p>
 															<div class="flex gap-3">
-																<GlassButton variant="primary" on:click={() => showModal = false}>
+																<GlassButton variant="primary" onclick={() => showModal = false}>
 																	Deploy
 																</GlassButton>
-																<GlassButton variant="ghost" on:click={() => showModal = false}>
+																<GlassButton variant="ghost" onclick={() => showModal = false}>
 																	Cancel
 																</GlassButton>
 															</div>
@@ -320,14 +320,14 @@
 													</div>
 												{:else if component.name === 'Toast'}
 													<div class="space-y-4">
-														<GlassButton variant="primary" on:click={() => showToast = true}>
+														<GlassButton variant="primary" onclick={() => showToast = true}>
 															Show Toast
 														</GlassButton>
 														{#if showToast}
 															<Toast 
 																type="success" 
 																message="Code copied to clipboard!"
-																on:close={() => showToast = false}
+																onclose={() => showToast = false}
 															/>
 														{/if}
 													</div>

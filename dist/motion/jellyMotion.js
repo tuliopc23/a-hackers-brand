@@ -88,9 +88,10 @@ export function jellyHover(node, config = {}) {
     function updateTransform(progress) {
         const currentScale = 1 + (scale - 1) * progress * responsiveScale;
         const currentRadius = parseFloat(borderRadius) * (1 + progress * 0.2);
-        node.style.transform = `scale(${currentScale}) translateZ(0)`;
-        node.style.borderRadius = `${currentRadius}px`;
-        node.style.transition = `transform ${duration}ms ${EASING_CSS.jelly}, border-radius ${duration}ms ${EASING_CSS.jelly}`;
+        const element = node;
+        element.style.transform = `scale(${currentScale}) translateZ(0)`;
+        element.style.borderRadius = `${currentRadius}px`;
+        element.style.transition = `transform ${duration}ms ${EASING_CSS.jelly}, border-radius ${duration}ms ${EASING_CSS.jelly}`;
     }
     function handleMouseEnter() {
         isHovering = true;
@@ -115,7 +116,8 @@ export function jellyHover(node, config = {}) {
         animationFrame = requestAnimationFrame(() => {
             if (isHovering) {
                 const currentScale = 1 + (scale - 1) * responsiveScale;
-                node.style.transform = `scale(${currentScale}) skew(${skewX}deg, ${skewY}deg) translateZ(0)`;
+                const element = node;
+                element.style.transform = `scale(${currentScale}) skew(${skewX}deg, ${skewY}deg) translateZ(0)`;
             }
         });
     }
@@ -162,9 +164,10 @@ export function liquidResponsive(node, config = {}) {
         const baseRadius = 8; // Default radius
         const radiusVariation = intensity * 10 * intensityMultiplier;
         const newRadius = baseRadius + radiusVariation;
-        node.style.transform = transform;
-        node.style.borderRadius = `${newRadius}px`;
-        node.style.transition = `transform ${duration}ms ${EASING_CSS.liquidJelly}, border-radius ${duration}ms ${EASING_CSS.liquidJelly}`;
+        const element = node;
+        element.style.transform = transform;
+        element.style.borderRadius = `${newRadius}px`;
+        element.style.transition = `transform ${duration}ms ${EASING_CSS.liquidJelly}, border-radius ${duration}ms ${EASING_CSS.liquidJelly}`;
     }
     function handleMouseDown(event) {
         isPressed = true;
@@ -213,8 +216,9 @@ export function breathing(node, config = {}) {
         const breathe = Math.sin(progress * Math.PI * 2) * intensity;
         const scale = 1 + breathe;
         const radiusVariation = breathe * 5;
-        node.style.transform = `scale(${scale}) translateZ(0)`;
-        node.style.borderRadius = `${8 + radiusVariation}px`;
+        const element = node;
+        element.style.transform = `scale(${scale}) translateZ(0)`;
+        element.style.borderRadius = `${8 + radiusVariation}px`;
         animationId = requestAnimationFrame(animate);
     }
     animate();

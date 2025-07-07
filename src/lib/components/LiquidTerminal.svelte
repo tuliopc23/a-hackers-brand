@@ -524,7 +524,7 @@ WARNING: SYSTEM INSTABILITY DETECTED`
 	const currentTheme = themeConfig[theme];
 </script>
 
-<svelte:window on:resize={resizeCanvases} />
+<svelte:window onresize={resizeCanvases} />
 
 <div 
 	class={cn(

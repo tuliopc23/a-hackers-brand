@@ -1,7 +1,7 @@
 import { type RenderResult } from '@testing-library/svelte';
 import type { ComponentType } from 'svelte';
 export declare const mockMatchMedia: (matches?: boolean) => void;
-export declare const renderComponent: (Component: ComponentType, props?: Record<string, any>) => RenderResult;
+export declare const renderComponent: <T extends Record<string, any>>(Component: ComponentType<T>, props?: Partial<T>) => RenderResult<T>;
 export declare const waitForAnimation: (duration?: number) => Promise<void>;
 export declare const mockIntersectionObserver: () => void;
 export declare const mockResizeObserver: () => void;

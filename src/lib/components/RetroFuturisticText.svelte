@@ -347,7 +347,7 @@
 		{/if}
 	</div>
 {:else}
-	<p 
+	<div 
 		class={containerClasses}
 		use:jellyHover={{ enabled: animated, duration: 300, scale: 1.02, borderRadius: '12px' }}
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
@@ -370,7 +370,7 @@
 		{#if variant === 'crt'}
 			<div class="crt-bezel"></div>
 		{/if}
-	</p>
+	</div>
 {/if}
 
 <style>

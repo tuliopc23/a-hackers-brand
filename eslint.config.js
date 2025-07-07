@@ -3,6 +3,7 @@ import ts from 'typescript-eslint';
 import svelte from 'eslint-plugin-svelte';
 import prettier from 'eslint-config-prettier';
 import globals from 'globals';
+import a11y from 'eslint-plugin-jsx-a11y';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -41,6 +42,27 @@ export default [
 			'no-undef': 'off', // TypeScript handles this
 			'prefer-const': 'error',
 			'no-var': 'error',
+		}
+	},
+	{
+		files: ['**/*.svelte'],
+		plugins: {
+			'jsx-a11y': a11y
+		},
+		rules: {
+			// Svelte-specific accessibility rules are handled by svelte plugin
+			// Additional accessibility rules
+			'jsx-a11y/alt-text': 'error',
+			'jsx-a11y/aria-props': 'error',
+			'jsx-a11y/aria-proptypes': 'error',
+			'jsx-a11y/aria-unsupported-elements': 'error',
+			'jsx-a11y/click-events-have-key-events': 'error',
+			'jsx-a11y/interactive-supports-focus': 'error',
+			'jsx-a11y/label-has-associated-control': 'error',
+			'jsx-a11y/no-noninteractive-element-interactions': 'error',
+			'jsx-a11y/no-noninteractive-tabindex': 'error',
+			'jsx-a11y/role-supports-aria-props': 'error',
+			'jsx-a11y/tabindex-no-positive': 'error'
 		}
 	},
 	{

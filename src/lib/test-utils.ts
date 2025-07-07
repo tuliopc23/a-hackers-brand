@@ -2,12 +2,12 @@
  * Test utilities for Svelte 5 components
  */
 import { render as svelteRender, type RenderOptions, type RenderResult } from '@testing-library/svelte';
-import type { ComponentProps, Component } from 'svelte';
+import type { ComponentProps, Component, ComponentType } from 'svelte';
 
 // Enhanced render function that handles Svelte 5 props correctly
-export function render<T extends Component>(
-  component: T,
-  options?: RenderOptions<ComponentProps<T>>
+export function render<T extends Record<string, any>>(
+  component: ComponentType<T>,
+  options?: RenderOptions<T>
 ): RenderResult<T> {
   // Handle children prop for Svelte 5 render functions
   if (options?.props && 'children' in options.props) {
@@ -18,7 +18,7 @@ export function render<T extends Component>(
       props: {
         ...otherProps,
         children: children
-      } as ComponentProps<T>
+      } as T
     });
   }
 

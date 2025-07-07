@@ -1,4 +1,4 @@
-import { vi } from 'vitest';
+import { vi, expect } from 'vitest';
 import { DURATIONS, EASINGS } from '../../motion/tokens';
 
 /**
@@ -42,12 +42,12 @@ export function createMockElement(overrides = {}): MockElement {
 			contains: vi.fn((className: string) => false),
 			toggle: vi.fn()
 		},
-		style: new Proxy(mockStyle, {
-			set(target, prop, value) {
+		style: new Proxy(mockStyle as Record<string, any>, {
+			set(target: Record<string, any>, prop: string | symbol, value: any) {
 				target[prop as string] = value;
 				return true;
 			},
-			get(target, prop) {
+			get(target: Record<string, any>, prop: string | symbol) {
 				return target[prop as string];
 			}
 		}),
@@ -133,7 +133,7 @@ export function simulateAnimation(
 	element: MockElement,
 	animated: boolean,
 	duration: number = DURATIONS.fast,
-	easing: string = EASINGS.spring
+	easing: string = 'ease-out'
 ) {
 	if (animated) {
 		element.style.transition = `all ${duration}ms ${easing}`;

@@ -9,7 +9,7 @@ import {
 	expectAriaAttributes,
 	testAccessibilityCompliance,
 	testEventCleanup
-} from '../__tests__/svelte5-test-utils';
+} from '../../__tests__/svelte5-test-utils';
 
 describe('Grid Component (Svelte 5)', () => {
 	const gridTestDefaults = {

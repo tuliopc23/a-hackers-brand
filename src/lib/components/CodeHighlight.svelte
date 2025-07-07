@@ -1,13 +1,22 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
+
+	interface Props {
+		code?: string;
+		language?: string;
+		showCopy?: boolean;
+		title?: string;
+	}
+
+	let {
+		code = '',
+		language = 'svelte',
+		showCopy = true,
+		title = ''
+	}: Props = $props();
 	
-	export let code = '';
-	export let language = 'svelte';
-	export let showCopy = true;
-	export let title = '';
-	
-	let copied = false;
-	let codeElement;
+	let copied = $state(false);
+	let codeElement = $state();
 	
 	// Simple syntax highlighting for common languages
 	const highlightSyntax = (code, lang) => {
@@ -105,7 +114,7 @@
 			.replace(/(#.*$)/gm, '<span class="text-gray-500">$1</span>');
 	};
 	
-	$: highlightedCode = highlightSyntax(code, language);
+	const highlightedCode = $derived(() => highlightSyntax(code, language));
 	
 	const copyToClipboard = async () => {
 		try {

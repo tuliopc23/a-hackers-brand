@@ -8,11 +8,9 @@ export * from './glassFade.js';
 export * from './springPop.js';
 export * from './magneticHover.js';
 export * from './jellyMotion.js';
-export * from './jellyMotion.js';
 export { liquidBlur as liquid } from './liquidBlur.js';
 export { glassFade as fade } from './glassFade.js';
 export { springPop as pop } from './springPop.js';
-export { magneticHover as magnetic } from './magneticHover.js';
 export { jelly, liquidJelly, jellyHover, liquidResponsive, breathing } from './jellyMotion.js';
 export declare const presets: {
     readonly fastLiquid: (node: Element) => {

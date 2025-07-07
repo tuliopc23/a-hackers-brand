@@ -15,14 +15,11 @@ export * from './springPop.js';
 export * from './magneticHover.js';
 export * from './jellyMotion.js';
 
-// Export jelly motion
-export * from './jellyMotion.js';
-
 // Convenience re-exports with common configurations
 export { liquidBlur as liquid } from './liquidBlur.js';
 export { glassFade as fade } from './glassFade.js';
 export { springPop as pop } from './springPop.js';
-export { magneticHover as magnetic } from './magneticHover.js';
+// Note: magneticHover is exported from liquidify/physics to avoid conflicts
 export { jelly, liquidJelly, jellyHover, liquidResponsive, breathing } from './jellyMotion.js';
 
 // Common animation presets

@@ -6,9 +6,10 @@ describe('Tooltip Component', () => {
         vi.clearAllMocks();
         vi.useFakeTimers();
     });
-    afterEach(() => {
-        vi.useRealTimers();
-    });
+    // Note: afterEach would be added here if needed
+    // afterEach(() => {
+    //		vi.useRealTimers();
+    // });
     describe('Rendering', () => {
         it('renders trigger content', () => {
             const { container } = render(Tooltip, {

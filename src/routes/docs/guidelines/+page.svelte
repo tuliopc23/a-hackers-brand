@@ -193,7 +193,7 @@
 				{#each Object.entries(sections) as [key, section]}
 					<button 
 						class="p-4 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-300 text-left {selectedSection === key ? 'bg-blue-500/20 border-blue-500/30' : ''}"
-						on:click={() => selectedSection = key}
+						onclick={() => selectedSection = key}
 						data-magnetic
 					>
 						<div class="text-2xl mb-2">{section.icon}</div>

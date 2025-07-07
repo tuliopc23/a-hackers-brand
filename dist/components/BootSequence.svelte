@@ -260,11 +260,6 @@
 </div>
 
 <!-- Expose start method -->
-<script module>
-	export interface BootSequenceAPI {
-		start: () => void;
-	}
-</script>
 
 <style>
 	/* CRT glow effect */

@@ -2,8 +2,8 @@
  * Test utilities for Svelte 5 components
  */
 import { type RenderOptions, type RenderResult } from '@testing-library/svelte';
-import type { ComponentProps, Component } from 'svelte';
-export declare function render<T extends Component>(component: T, options?: RenderOptions<ComponentProps<T>>): RenderResult<T>;
+import type { ComponentType } from 'svelte';
+export declare function render<T extends Record<string, any>>(component: ComponentType<T>, options?: RenderOptions<T>): RenderResult<T>;
 export * from '@testing-library/svelte';
 export { render as originalRender } from '@testing-library/svelte';
 export declare function hasClass(element: Element, className: string): boolean;

@@ -2,15 +2,26 @@
 	import { onMount } from 'svelte';
 	import { glassFade } from '../motion';
 
-	export let language = 'javascript';
-	export let code = '';
-	export let title = '';
-	export let showCopy = true;
-	export let showLineNumbers = false;
-	export let maxHeight = '';
+	interface Props {
+		language?: string;
+		code?: string;
+		title?: string;
+		showCopy?: boolean;
+		showLineNumbers?: boolean;
+		maxHeight?: string;
+	}
 
-	let mounted = false;
-	let copied = false;
+	let {
+		language = 'javascript',
+		code = '',
+		title = '',
+		showCopy = true,
+		showLineNumbers = false,
+		maxHeight = ''
+	}: Props = $props();
+
+	let mounted = $state(false);
+	let copied = $state(false);
 
 	onMount(() => {
 		mounted = true;
@@ -94,8 +105,8 @@
 		return code.split('\n');
 	}
 
-	$: highlightedCode = highlightCode(code, language);
-	$: codeLines = getCodeLines(highlightedCode);
+	const highlightedCode = $derived(() => highlightCode(code, language));
+	const codeLines = $derived(() => getCodeLines(highlightedCode));
 </script>
 
 <div 
@@ -123,7 +134,7 @@
 			{#if showCopy}
 				<button 
 					class="flex items-center space-x-2 px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100 {copied ? 'bg-green-500/20 text-green-400' : 'text-white/80'}"
-					on:click={copyCode}
+					onclick={copyCode}
 					aria-label="Copy code to clipboard"
 				>
 					{#if copied}

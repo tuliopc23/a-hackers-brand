@@ -1,5 +1,6 @@
 import { vi, beforeEach } from 'vitest';
 import '@testing-library/jest-dom';
+// Force Svelte 5 to run in browser mode - override SSR detection
 globalThis.window = globalThis.window || globalThis;
 globalThis.document = globalThis.document || {
     createElement: vi.fn(),
@@ -24,6 +25,15 @@ if (typeof process !== 'undefined') {
     process.env.BROWSER = 'true';
     process.env.VITEST = 'true';
 }
+// Force client-side environment for Svelte 5
+Object.defineProperty(globalThis, 'process', {
+    value: {
+        env: {
+            NODE_ENV: 'test',
+            VITE_SSR: 'false'
+        }
+    }
+});
 // Prevent Svelte from detecting server environment
 Object.defineProperty(globalThis, 'window', {
     value: globalThis,

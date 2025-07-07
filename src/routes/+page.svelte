@@ -285,7 +285,7 @@
 								<Mail class="w-4 h-4" />
 							{/snippet}
 						</Input>
-						<Button variant="glass" class="w-full" on:click={handleEmailSubmit} disabled={!emailValue}>
+						<Button variant="glass" class="w-full" onclick={handleEmailSubmit} disabled={!emailValue}>
 							{#snippet children()}Join the Future{/snippet}
 						</Button>
 					</div>

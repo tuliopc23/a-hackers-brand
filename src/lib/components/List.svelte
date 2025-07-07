@@ -292,8 +292,8 @@
 					)}
 					onclick={() => handleItemClick(item, index)}
 					onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && handleItemClick(item, index)}
-					role={selectable ? 'option' : 'listitem'}
-					tabindex={item.disabled ? -1 : 0}
+			role={selectable ? 'option' : 'listitem'}
+			{...selectable && !item.disabled ? { tabindex: 0 } : {}}
 					aria-selected={selectable ? isSelected : undefined}
 					aria-label={item.title}
 					aria-describedby={item.description ? `item-${item.id}-description` : undefined}

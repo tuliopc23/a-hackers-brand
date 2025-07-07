@@ -20,10 +20,10 @@ export const mockMatchMedia = (matches: boolean = false) => {
 };
 
 // Helper to render component with default props
-export const renderComponent = (
-	Component: ComponentType,
-	props: Record<string, any> = {}
-): RenderResult => {
+export const renderComponent = <T extends Record<string, any>>(
+	Component: ComponentType<T>,
+	props: Partial<T> = {} as Partial<T>
+): RenderResult<T> => {
 	return render(Component, { props });
 };
 

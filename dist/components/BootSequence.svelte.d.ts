@@ -1,6 +1,3 @@
-export interface BootSequenceAPI {
-    start: () => void;
-}
 import type { HTMLAttributes } from 'svelte/elements';
 interface BootMessage {
     text: string;

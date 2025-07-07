@@ -21,9 +21,9 @@
 		count = 1000
 	}: Props = $props();
 
-	let particlesRef: THREE.Points;
-	let material: THREE.ShaderMaterial;
-	let geometry: THREE.BufferGeometry;
+let particlesRef = $state<THREE.Points>();
+let material = $state<THREE.ShaderMaterial>();
+let geometry = $state<THREE.BufferGeometry>();
 
 	const vertexShader = `
 		uniform float uTime;

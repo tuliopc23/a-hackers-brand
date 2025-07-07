@@ -32,7 +32,7 @@
 		}
 	];
 	
-	$: currentPath = $page.url.pathname;
+	const currentPath = $derived(() => $page.url.pathname);
 </script>
 
 <nav class="relative z-10 p-6 backdrop-blur-sm bg-white/5 border-b border-white/10">

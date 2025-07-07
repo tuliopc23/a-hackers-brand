@@ -196,7 +196,7 @@
 	};
 </script>
 
-<svelte:window on:resize={resizeCanvas} />
+<svelte:window onresize={resizeCanvas} />
 
 <div class={cn(
 	'relative overflow-hidden rounded-xl backdrop-blur-md transition-all duration-300',
