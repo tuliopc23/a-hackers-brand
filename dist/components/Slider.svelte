@@ -107,16 +107,18 @@
 		variants[variant].fill
 	);
 
-	const thumbClasses = $derived(cn(
-		'absolute top-1/2 -translate-y-1/2 rounded-full cursor-pointer transition-all duration-200',
-		'focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:ring-offset-2',
-		'hover:scale-110 active:scale-95',
-		sizes[size].thumb,
-		variants[variant].thumb,
-		disabled && 'cursor-not-allowed hover:scale-100 active:scale-100',
-		isDragging && 'scale-110',
-		isFocused && 'ring-2 ring-blue-400/50'
-	));
+	const thumbClasses = $derived(
+		cn(
+			'absolute top-1/2 -translate-y-1/2 rounded-full cursor-pointer transition-all duration-200',
+			'focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:ring-offset-2',
+			'hover:scale-110 active:scale-95',
+			sizes[size].thumb,
+			variants[variant].thumb,
+			disabled && 'cursor-not-allowed hover:scale-100 active:scale-100',
+			isDragging && 'scale-110',
+			isFocused && 'ring-2 ring-blue-400/50'
+		)
+	);
 
 	function handleMouseDown(event: MouseEvent) {
 		if (disabled) return;
@@ -211,7 +213,12 @@
 
 <div class="w-full space-y-2">
 	{#if label}
-		<label id="slider-label-{sliderId}" for={sliderId} class="block text-sm font-medium text-white" class:opacity-50={disabled}>
+		<label
+			id="slider-label-{sliderId}"
+			for={sliderId}
+			class="block text-sm font-medium text-white"
+			class:opacity-50={disabled}
+		>
 			{label}
 			{#if showValue}
 				<span class="ml-2 text-white/70">({value})</span>

@@ -16,7 +16,14 @@ function createTestElement(): HTMLElement {
 		offsetWidth: 100,
 		offsetHeight: 100,
 		getBoundingClientRect: vi.fn(() => ({
-			width: 100, height: 100, top: 50, left: 50, right: 150, bottom: 150, x: 50, y: 50
+			width: 100,
+			height: 100,
+			top: 50,
+			left: 50,
+			right: 150,
+			bottom: 150,
+			x: 50,
+			y: 50
 		})),
 		addEventListener: vi.fn(),
 		removeEventListener: vi.fn()
@@ -44,9 +51,9 @@ describe('Motion System Performance Tests', () => {
 
 		it('should handle multiple blur levels efficiently', () => {
 			const blurLevels = ['sm', 'md', 'lg', 'xl', '2xl'] as const;
-			
+
 			const executionTime = measureTime(() => {
-				blurLevels.forEach(blur => {
+				blurLevels.forEach((blur) => {
 					liquidBlur(testElement, {
 						duration: 200,
 						blur
@@ -71,9 +78,9 @@ describe('Motion System Performance Tests', () => {
 
 		it('should handle all directions efficiently', () => {
 			const directions = ['up', 'down', 'left', 'right'] as const;
-			
+
 			const executionTime = measureTime(() => {
-				directions.forEach(direction => {
+				directions.forEach((direction) => {
 					glassFade(testElement, {
 						duration: 200,
 						direction
@@ -99,9 +106,9 @@ describe('Motion System Performance Tests', () => {
 
 		it('should handle bounce calculations efficiently', () => {
 			const scales = [1.05, 1.1, 1.15, 1.2];
-			
+
 			const executionTime = measureTime(() => {
-				scales.forEach(scale => {
+				scales.forEach((scale) => {
 					springPop(testElement, {
 						duration: 200,
 						scale
@@ -152,7 +159,7 @@ describe('Motion System Performance Tests', () => {
 	describe('Batch operations performance', () => {
 		it('should handle multiple simultaneous transitions efficiently', () => {
 			const elements = Array.from({ length: 10 }, () => createTestElement());
-			
+
 			const executionTime = measureTime(() => {
 				elements.forEach((element, index) => {
 					switch (index % 3) {
@@ -187,7 +194,7 @@ describe('Motion System Performance Tests', () => {
 	describe('Memory usage', () => {
 		it('should not cause memory leaks with repeated transitions', () => {
 			const initialMemory = performance.memory?.usedJSHeapSize || 0;
-			
+
 			// Create and dispose many transitions
 			for (let i = 0; i < 100; i++) {
 				const element = createTestElement();
@@ -210,18 +217,20 @@ describe('Motion System Performance Tests', () => {
 
 		it('should properly clean up action listeners', () => {
 			const actions = [];
-			
+
 			// Create multiple magnetic hover actions
 			for (let i = 0; i < 10; i++) {
 				const element = createTestElement();
-				actions.push(magneticHover(element, {
-					strength: 0.3,
-					distance: 50
-				}));
+				actions.push(
+					magneticHover(element, {
+						strength: 0.3,
+						distance: 50
+					})
+				);
 			}
 
 			// Clean up all actions
-			actions.forEach(action => action.destroy());
+			actions.forEach((action) => action.destroy());
 
 			// Verify event listeners were removed
 			actions.forEach((action, index) => {

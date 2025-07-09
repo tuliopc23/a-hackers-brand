@@ -39,10 +39,10 @@
 		hasError = true;
 		error = err;
 		errorInfo = info;
-		
+
 		// Call user-provided error handler
 		onError?.(err, info);
-		
+
 		// Log error for debugging
 		console.error('Component Error Boundary caught an error:', err);
 		if (info) {
@@ -74,11 +74,7 @@
 		minimal: 'bg-red-50 border border-red-200 text-red-900'
 	};
 
-	const containerClasses = cn(
-		'rounded-brand p-6 m-4',
-		variants[variant],
-		className
-	);
+	const containerClasses = cn('rounded-brand p-6 m-4', variants[variant], className);
 
 	// Set up global error handlers for child components
 	onMount(() => {
@@ -125,7 +121,7 @@
 </script>
 
 {#if hasError}
-	<div 
+	<div
 		class={containerClasses}
 		in:liquidBlur={animate ? { duration: 300, blur: 'sm' } : undefined}
 		role="alert"
@@ -139,16 +135,17 @@
 				<div class="flex items-center gap-3">
 					<div class="flex-shrink-0">
 						<svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+							></path>
 						</svg>
 					</div>
 					<div>
-						<h3 class="text-lg font-semibold text-red-600">
-							Something went wrong
-						</h3>
-						<p class="text-sm text-red-500/80">
-							A component error occurred and was caught by the error boundary
-						</p>
+						<h3 class="text-lg font-semibold text-red-600">Something went wrong</h3>
+						<p class="text-sm text-red-500/80">A component error occurred and was caught by the error boundary</p>
 					</div>
 				</div>
 
@@ -158,13 +155,13 @@
 						<p class="font-mono text-sm text-red-400">
 							{formatError(error)}
 						</p>
-						
+
 						{#if showDetails && showFullError}
 							<details class="mt-3">
-								<summary class="cursor-pointer text-xs text-red-400/70 hover:text-red-400">
-									Stack Trace
-								</summary>
-								<pre class="mt-2 text-xs text-red-400/60 whitespace-pre-wrap overflow-auto max-h-40">{getErrorStack(error)}</pre>
+								<summary class="cursor-pointer text-xs text-red-400/70 hover:text-red-400"> Stack Trace </summary>
+								<pre class="mt-2 text-xs text-red-400/60 whitespace-pre-wrap overflow-auto max-h-40">{getErrorStack(
+										error
+									)}</pre>
 							</details>
 						{/if}
 					</div>
@@ -180,8 +177,8 @@
 				<!-- Actions -->
 				<div class="flex flex-wrap gap-3">
 					{#if retryable && retryCount < maxRetries}
-						<Button 
-							variant="glass" 
+						<Button
+							variant="glass"
 							size="sm"
 							onclick={retry}
 							class="bg-red-500/20 border-red-500/40 hover:bg-red-500/30"
@@ -189,21 +186,21 @@
 							Try Again
 						</Button>
 					{/if}
-					
-					<Button 
-						variant="glass" 
+
+					<Button
+						variant="glass"
 						size="sm"
 						onclick={reset}
 						class="bg-blue-500/20 border-blue-500/40 hover:bg-blue-500/30"
 					>
 						Reset
 					</Button>
-					
+
 					{#if showDetails}
-						<Button 
-							variant="glass" 
+						<Button
+							variant="glass"
 							size="sm"
-							onclick={() => showFullError = !showFullError}
+							onclick={() => (showFullError = !showFullError)}
 							class="bg-gray-500/20 border-gray-500/40 hover:bg-gray-500/30"
 						>
 							{showFullError ? 'Hide' : 'Show'} Details
@@ -214,9 +211,7 @@
 				<!-- Development Info -->
 				{#if import.meta.env.DEV}
 					<div class="border-t border-red-500/20 pt-4 mt-4">
-						<p class="text-xs text-red-400/50">
-							🛠️ Development mode: Check console for detailed error information
-						</p>
+						<p class="text-xs text-red-400/50">🛠️ Development mode: Check console for detailed error information</p>
 					</div>
 				{/if}
 			</div>
@@ -239,14 +234,21 @@
 	}
 
 	/* Animation for error states */
-	div[role="alert"] {
+	div[role='alert'] {
 		animation: shake 0.5s ease-in-out;
 	}
 
 	@keyframes shake {
-		0%, 100% { transform: translateX(0); }
-		25% { transform: translateX(-5px); }
-		75% { transform: translateX(5px); }
+		0%,
+		100% {
+			transform: translateX(0);
+		}
+		25% {
+			transform: translateX(-5px);
+		}
+		75% {
+			transform: translateX(5px);
+		}
 	}
 
 	/* Dark mode improvements */

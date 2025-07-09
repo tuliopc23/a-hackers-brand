@@ -12,18 +12,11 @@
 		count?: number;
 	}
 
-	const {
-		time,
-		mouseX,
-		mouseY,
-		colorPrimary,
-		colorSecondary,
-		count = 1000
-	}: Props = $props();
+	const { time, mouseX, mouseY, colorPrimary, colorSecondary, count = 1000 }: Props = $props();
 
-let particlesRef = $state<THREE.Points>();
-let material = $state<THREE.ShaderMaterial>();
-let geometry = $state<THREE.BufferGeometry>();
+	let particlesRef = $state<THREE.Points>();
+	let material = $state<THREE.ShaderMaterial>();
+	let geometry = $state<THREE.BufferGeometry>();
 
 	const vertexShader = `
 		uniform float uTime;
@@ -98,32 +91,32 @@ let geometry = $state<THREE.BufferGeometry>();
 	onMount(() => {
 		// Create geometry
 		geometry = new THREE.BufferGeometry();
-		
+
 		const positions = new Float32Array(count * 3);
 		const scales = new Float32Array(count);
 		const randomness = new Float32Array(count * 3);
-		
+
 		for (let i = 0; i < count; i++) {
 			// Random spherical distribution
 			const radius = Math.random() * 3 + 1;
 			const theta = Math.random() * Math.PI * 2;
 			const phi = Math.acos(1 - 2 * Math.random());
-			
+
 			positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
 			positions[i * 3 + 1] = radius * Math.cos(phi);
 			positions[i * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
-			
+
 			scales[i] = Math.random() * 0.5 + 0.5;
-			
+
 			randomness[i * 3] = (Math.random() - 0.5) * 0.5;
 			randomness[i * 3 + 1] = (Math.random() - 0.5) * 0.5;
 			randomness[i * 3 + 2] = (Math.random() - 0.5) * 0.5;
 		}
-		
+
 		geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 		geometry.setAttribute('aScale', new THREE.BufferAttribute(scales, 1));
 		geometry.setAttribute('aRandomness', new THREE.BufferAttribute(randomness, 3));
-		
+
 		// Create material
 		material = new THREE.ShaderMaterial({
 			vertexShader,

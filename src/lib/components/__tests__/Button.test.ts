@@ -13,7 +13,7 @@ describe('Button Component', () => {
 			const { container } = render(Button, {
 				props: { children: 'Click me' }
 			});
-			
+
 			const button = screen.getByRole('button');
 			expect(button).toBeInTheDocument();
 			expect(button).toHaveTextContent('Click me');
@@ -25,7 +25,7 @@ describe('Button Component', () => {
 				const { container } = render(Button, {
 					props: { variant, children: 'Test' }
 				});
-				
+
 				const button = screen.getByRole('button');
 				expect(button).toHaveClass(`btn-${variant}`);
 			});
@@ -36,7 +36,7 @@ describe('Button Component', () => {
 				const { container } = render(Button, {
 					props: { size, children: 'Test' }
 				});
-				
+
 				const button = screen.getByRole('button');
 				expect(button).toHaveClass(`btn-${size}`);
 			});
@@ -46,7 +46,7 @@ describe('Button Component', () => {
 			const { container } = render(Button, {
 				props: { href: '/test', children: 'Link' }
 			});
-			
+
 			const link = container.querySelector('a');
 			expect(link).toBeInTheDocument();
 			expect(link).toHaveAttribute('href', '/test');
@@ -58,7 +58,7 @@ describe('Button Component', () => {
 			const { container } = render(Button, {
 				props: { disabled: true, children: 'Disabled' }
 			});
-			
+
 			const button = screen.getByRole('button');
 			expect(button).toBeDisabled();
 			expect(button).toHaveClass('opacity-50', 'cursor-not-allowed');
@@ -68,7 +68,7 @@ describe('Button Component', () => {
 			const { container } = render(Button, {
 				props: { loading: true, children: 'Loading' }
 			});
-			
+
 			const button = screen.getByRole('button');
 			expect(button).toBeDisabled();
 			expect(container.querySelector('.animate-spin')).toBeInTheDocument();
@@ -78,7 +78,7 @@ describe('Button Component', () => {
 			const { container } = render(Button, {
 				props: { glow: true, variant: 'neon', children: 'Glowing' }
 			});
-			
+
 			const button = screen.getByRole('button');
 			expect(button).toHaveClass('shadow-neon');
 		});
@@ -90,42 +90,42 @@ describe('Button Component', () => {
 			const { container } = render(Button, {
 				props: { onclick: handleClick, children: 'Click me' }
 			});
-			
+
 			const button = screen.getByRole('button');
 			await fireEvent.click(button);
-			
+
 			expect(handleClick).toHaveBeenCalledTimes(1);
 		});
 
 		it('prevents click when disabled', async () => {
 			const handleClick = vi.fn();
 			const { container } = render(Button, {
-				props: { 
-					onclick: handleClick, 
-					disabled: true, 
-					children: 'Disabled' 
+				props: {
+					onclick: handleClick,
+					disabled: true,
+					children: 'Disabled'
 				}
 			});
-			
+
 			const button = screen.getByRole('button');
 			await fireEvent.click(button);
-			
+
 			expect(handleClick).not.toHaveBeenCalled();
 		});
 
 		it('prevents click when loading', async () => {
 			const handleClick = vi.fn();
 			const { container } = render(Button, {
-				props: { 
-					onclick: handleClick, 
-					loading: true, 
-					children: 'Loading' 
+				props: {
+					onclick: handleClick,
+					loading: true,
+					children: 'Loading'
 				}
 			});
-			
+
 			const button = screen.getByRole('button');
 			await fireEvent.click(button);
-			
+
 			expect(handleClick).not.toHaveBeenCalled();
 		});
 	});
@@ -135,7 +135,7 @@ describe('Button Component', () => {
 			const { container } = render(Button, {
 				props: { animate: false, children: 'No animation' }
 			});
-			
+
 			const button = screen.getByRole('button');
 			expect(button).not.toHaveClass('transition-all');
 		});
@@ -144,7 +144,7 @@ describe('Button Component', () => {
 			const { container } = render(Button, {
 				props: { jelly: true, children: 'Jelly' }
 			});
-			
+
 			// Jelly effects are applied via use:jellyHover action
 			expect(container.querySelector('[data-jelly]')).toBeInTheDocument();
 		});
@@ -155,7 +155,7 @@ describe('Button Component', () => {
 			const { container } = render(Button, {
 				props: { children: 'Accessible' }
 			});
-			
+
 			await testAccessibility(container);
 		});
 
@@ -164,13 +164,13 @@ describe('Button Component', () => {
 			const { container } = render(Button, {
 				props: { onclick: handleClick, children: 'Keyboard' }
 			});
-			
+
 			const button = screen.getByRole('button');
-			
+
 			// Test Enter key
 			await fireEvent.keyDown(button, { key: 'Enter' });
 			expect(handleClick).toHaveBeenCalledTimes(1);
-			
+
 			// Test Space key
 			await fireEvent.keyDown(button, { key: ' ' });
 			expect(handleClick).toHaveBeenCalledTimes(2);
@@ -180,7 +180,7 @@ describe('Button Component', () => {
 			const { container } = render(Button, {
 				props: { loading: true, children: 'Loading' }
 			});
-			
+
 			const button = screen.getByRole('button');
 			expect(button).toHaveAttribute('aria-busy', 'true');
 		});
@@ -191,19 +191,19 @@ describe('Button Component', () => {
 			const { container } = render(Button, {
 				props: { class: 'custom-class', children: 'Custom' }
 			});
-			
+
 			const button = screen.getByRole('button');
 			expect(button).toHaveClass('custom-class');
 		});
 
 		it('passes through additional props', () => {
 			const { container } = render(Button, {
-				props: { 
+				props: {
 					'data-testid': 'custom-button',
-					children: 'Test' 
+					children: 'Test'
 				}
 			});
-			
+
 			const button = screen.getByRole('button');
 			expect(button).toHaveAttribute('data-testid', 'custom-button');
 		});

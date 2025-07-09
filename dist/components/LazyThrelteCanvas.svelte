@@ -21,11 +21,11 @@
 		autoRotate = true
 	}: Props = $props();
 
-let canvasContainer = $state<HTMLDivElement>();
-let ThrelteComponent = $state<any>(null);
-let loading = $state(true);
-let error = $state<string | null>(null);
-let isInViewport = $state(false);
+	let canvasContainer = $state<HTMLDivElement>();
+	let ThrelteComponent = $state<any>(null);
+	let loading = $state(true);
+	let error = $state<string | null>(null);
+	let isInViewport = $state(false);
 
 	onMount(() => {
 		if (!enable3D) {
@@ -132,7 +132,7 @@ let isInViewport = $state(false);
 		overflow: hidden;
 		background: rgba(0, 0, 0, 0.3);
 		-webkit-backdrop-filter: blur(10px);
-		        backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
 		border: 1px solid rgba(0, 212, 170, 0.2);
 	}
 
@@ -143,7 +143,7 @@ let isInViewport = $state(false);
 		border-radius: 12px;
 		background: rgba(0, 0, 0, 0.3);
 		-webkit-backdrop-filter: blur(10px);
-		        backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
 		border: 1px solid rgba(0, 212, 170, 0.2);
 		height: 100%;
 	}
@@ -155,7 +155,7 @@ let isInViewport = $state(false);
 		border-radius: 12px;
 		background: rgba(0, 0, 0, 0.2);
 		-webkit-backdrop-filter: blur(10px);
-		        backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		height: 100%;
 	}

@@ -67,7 +67,8 @@
 			glow: 'shadow-[0_0_15px_rgba(74,222,128,0.6)]'
 		},
 		liquid: {
-			trigger: 'bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-white/30 hover:from-blue-500/30 hover:to-purple-500/30 text-white',
+			trigger:
+				'bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-white/30 hover:from-blue-500/30 hover:to-purple-500/30 text-white',
 			menu: 'bg-gradient-to-br from-blue-900/90 to-purple-900/90 border-white/30',
 			item: 'hover:bg-white/10 text-white',
 			active: 'bg-white/20',
@@ -160,7 +161,7 @@
 	onMount(() => {
 		document.addEventListener('click', handleClickOutside);
 		document.addEventListener('keydown', handleKeyDown);
-		
+
 		return () => {
 			document.removeEventListener('click', handleClickOutside);
 			document.removeEventListener('keydown', handleKeyDown);
@@ -168,14 +169,10 @@
 	});
 
 	const currentVariant = variants[variant];
-	const selectedItem = items.find(item => item.value === value);
+	const selectedItem = items.find((item) => item.value === value);
 </script>
 
-<div
-	bind:this={dropdownRef}
-	class={cn('relative inline-block', className)}
-	{...restProps}
->
+<div bind:this={dropdownRef} class={cn('relative inline-block', className)} {...restProps}>
 	<button
 		onclick={toggleDropdown}
 		class={cn(
@@ -186,9 +183,9 @@
 			'focus:outline-none focus:ring-2 focus:ring-white/20',
 			triggerClass
 		)}
-		use:jellyHover={{ 
-			enabled: jelly, 
-			scale: 1.02, 
+		use:jellyHover={{
+			enabled: jelly,
+			scale: 1.02,
 			duration: 200,
 			borderRadius: '12px'
 		}}
@@ -196,13 +193,7 @@
 		aria-haspopup="true"
 	>
 		<span>{selectedItem?.label || trigger}</span>
-		<ChevronDown 
-			size={16} 
-			class={cn(
-				'transition-transform duration-200',
-				open && 'rotate-180'
-			)}
-		/>
+		<ChevronDown size={16} class={cn('transition-transform duration-200', open && 'rotate-180')} />
 	</button>
 
 	{#if open}

@@ -1,17 +1,35 @@
 <script>
 	import { onMount } from 'svelte';
 	import { GlassButton, GlassCard, GlassInput, GlassModal, GlassTabs } from '$lib/components/liquidify';
-	import { TerminalWindow, Badge, Button, Card, Input, Progress, Slider, Switch, Tabs, Textarea, Toast } from '$lib/components';
-	import { AdvancedLiquidGlassScene, LiquidBackground, LiquidGlassShader, LiquidParticleSystem } from '$lib/components/webgl';
-	import { GlitchText, MatrixRain } from '$lib/components/effects';
+	import {
+		TerminalWindow,
+		Badge,
+		Button,
+		Card,
+		Input,
+		Progress,
+		Slider,
+		Switch,
+		Tabs,
+		Textarea,
+		Toast
+	} from '$lib/components';
+	import {
+		AdvancedLiquidGlassScene,
+		LiquidBackground,
+		LiquidGlassShader,
+		LiquidParticleSystem
+	} from '$lib/components/webgl';
+	import { GlitchText } from '$lib/components/effects';
+	import { MatrixRain } from '$lib/components';
 	import CodeHighlight from '$lib/components/CodeHighlight.svelte';
-		import { magneticHover } from '$lib/motion';
+	import { magneticHover } from '$lib/motion';
 	import { lazy } from '$lib/utils/lazy.js';
-	
+
 	// Lazy load heavy WebGL components
 	const LazyLiquidBackground = lazy(() => import('$lib/components/webgl/LiquidBackground.svelte'));
 	const LazyAdvancedLiquidGlassScene = lazy(() => import('$lib/components/webgl/AdvancedLiquidGlassScene.svelte'));
-	
+
 	let mounted = false;
 	let showModal = false;
 	let showToast = false;
@@ -21,7 +39,7 @@
 	let switchValue = false;
 	let progressValue = 0;
 	let selectValue = 'option1';
-	
+
 	// Component categories
 	const componentCategories = {
 		liquidify: {
@@ -81,33 +99,33 @@
 			]
 		}
 	};
-	
+
 	onMount(() => {
 		mounted = true;
-		
+
 		// Apply magnetic hover effects
 		const magneticElements = document.querySelectorAll('[data-magnetic]');
-		magneticElements.forEach(el => magneticHover(el));
-		
+		magneticElements.forEach((el) => magneticHover(el));
+
 		// Animate progress bar
 		const progressInterval = setInterval(() => {
 			progressValue = (progressValue + 10) % 100;
 		}, 1000);
-		
+
 		return () => clearInterval(progressInterval);
 	});
-	
+
 	// Copy code snippet
 	const copyCode = async (code) => {
 		try {
 			await navigator.clipboard.writeText(code);
 			showToast = true;
-			setTimeout(() => showToast = false, 3000);
+			setTimeout(() => (showToast = false), 3000);
 		} catch (err) {
 			console.error('Failed to copy:', err);
 		}
 	};
-	
+
 	// Code examples
 	const codeExamples = {
 		GlassButton: `<GlassButton variant="primary" size="md" magnetic ripple>Deploy to Production</GlassButton>`,
@@ -121,17 +139,22 @@
 
 <svelte:head>
 	<title>Components - Liquid Glass Terminal Fusion</title>
-	<meta name="description" content="Interactive showcase of all liquid glass components with live demos and code examples." />
+	<meta
+		name="description"
+		content="Interactive showcase of all liquid glass components with live demos and code examples."
+	/>
 </svelte:head>
 
-<div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+<div
+	class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden"
+>
 	<!-- WebGL Background -->
 	{#if mounted && LazyLiquidBackground.component}
 		<div class="absolute inset-0 opacity-20">
 			<svelte:component this={LazyLiquidBackground.component} />
 		</div>
 	{/if}
-	
+
 	<!-- Navigation -->
 	<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -143,26 +166,31 @@
 			</div>
 		</div>
 	</nav>
-	
+
 	<!-- Header -->
 	<section class="relative z-10 py-16 px-6">
 		<div class="max-w-7xl mx-auto">
 			<div class="text-center mb-12">
-				<h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+				<h1
+					class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+				>
 					Component Library
 				</h1>
 				<p class="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
 					Interactive showcase of all liquid glass components with live demos, code examples, and usage guidelines.
 				</p>
 			</div>
-			
+
 			<!-- Category Navigation -->
 			<div class="flex flex-wrap justify-center gap-4 mb-12">
 				{#each Object.entries(componentCategories) as [key, category]}
-					<button 
-						class="px-6 py-3 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-300 {selectedTab === key ? 'bg-blue-500/20 border-blue-500/30' : ''}"
+					<button
+						class="px-6 py-3 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-300 {selectedTab ===
+						key
+							? 'bg-blue-500/20 border-blue-500/30'
+							: ''}"
 						class:active={selectedTab === key}
-						onclick={() => selectedTab = key}
+						onclick={() => (selectedTab = key)}
 						data-magnetic
 					>
 						{category.title}
@@ -171,7 +199,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- Component Showcase -->
 	<section class="relative z-10 py-8 px-6">
 		<div class="max-w-7xl mx-auto">
@@ -184,7 +212,7 @@
 								{category.description}
 							</p>
 						</div>
-						
+
 						<div class="space-y-12">
 							{#each category.components as component}
 								<GlassCard intensity="light" class="p-8">
@@ -197,20 +225,20 @@
 													{component.description}
 												</p>
 											</div>
-											
+
 											<!-- Code Example -->
 											{#if codeExamples[component.name]}
 												<div class="space-y-3">
 													<h4 class="text-lg font-semibold">Code Example</h4>
-													<CodeHighlight 
-														code={codeExamples[component.name]} 
-														language="svelte" 
+													<CodeHighlight
+														code={codeExamples[component.name]}
+														language="svelte"
 														title={`${component.name} Usage`}
 													/>
 												</div>
 											{/if}
 										</div>
-										
+
 										<!-- Live Demo -->
 										<div class="space-y-6">
 											<h4 class="text-lg font-semibold">Live Demo</h4>
@@ -230,31 +258,21 @@
 													<GlassCard intensity="medium" class="p-4">
 														<h5 class="font-semibold mb-2">Terminal Output</h5>
 														<div class="font-mono text-sm text-green-400">
-															$ npm run build<br>
+															$ npm run build<br />
 															✓ Build completed in 1.2s
 														</div>
 													</GlassCard>
 												{:else if component.name === 'GlassInput'}
-													<GlassInput 
-														placeholder="Enter command..." 
-														bind:value={inputValue}
-														ripple
-													/>
+													<GlassInput placeholder="Enter command..." bind:value={inputValue} ripple />
 												{:else if component.name === 'GlassModal'}
 													<div class="space-y-4">
-														<GlassButton variant="primary" onclick={() => showModal = true}>
-															Open Modal
-														</GlassButton>
+														<GlassButton variant="primary" onclick={() => (showModal = true)}>Open Modal</GlassButton>
 														<GlassModal bind:show={showModal}>
 															<h3 class="text-xl font-bold mb-4">Confirm Deployment</h3>
 															<p class="text-white/80 mb-6">Are you sure you want to deploy to production?</p>
 															<div class="flex gap-3">
-																<GlassButton variant="primary" onclick={() => showModal = false}>
-																	Deploy
-																</GlassButton>
-																<GlassButton variant="ghost" onclick={() => showModal = false}>
-																	Cancel
-																</GlassButton>
+																<GlassButton variant="primary" onclick={() => (showModal = false)}>Deploy</GlassButton>
+																<GlassButton variant="ghost" onclick={() => (showModal = false)}>Cancel</GlassButton>
 															</div>
 														</GlassModal>
 													</div>
@@ -271,12 +289,8 @@
 																<span class="text-green-400">$</span>
 																<span class="text-white">npm run dev</span>
 															</div>
-															<div class="text-blue-400">
-																> Ready in 2.3s
-															</div>
-															<div class="text-green-400">
-																✓ Local server running
-															</div>
+															<div class="text-blue-400">> Ready in 2.3s</div>
+															<div class="text-green-400">✓ Local server running</div>
 														</div>
 													</TerminalWindow>
 												{:else if component.name === 'Badge'}
@@ -294,7 +308,7 @@
 														<Progress value={30} max={100} color="red" />
 													</div>
 												{:else if component.name === 'Select'}
-													<Select 
+													<Select
 														bind:value={selectValue}
 														options={[
 															{ value: 'option1', label: 'Option 1' },
@@ -320,14 +334,12 @@
 													</div>
 												{:else if component.name === 'Toast'}
 													<div class="space-y-4">
-														<GlassButton variant="primary" onclick={() => showToast = true}>
-															Show Toast
-														</GlassButton>
+														<GlassButton variant="primary" onclick={() => (showToast = true)}>Show Toast</GlassButton>
 														{#if showToast}
-															<Toast 
-																type="success" 
+															<Toast
+																type="success"
 																message="Code copied to clipboard!"
-																onclose={() => showToast = false}
+																onclose={() => (showToast = false)}
 															/>
 														{/if}
 													</div>
@@ -348,7 +360,7 @@
 			{/each}
 		</div>
 	</section>
-	
+
 	<!-- WebGL Showcase -->
 	{#if selectedTab === 'webgl'}
 		<section class="relative z-10 py-16 px-6">
@@ -361,7 +373,9 @@
 						{:else}
 							<div class="flex items-center justify-center h-full">
 								<div class="text-center">
-									<div class="animate-spin w-8 h-8 border-2 border-white border-t-transparent rounded-full mx-auto mb-4"></div>
+									<div
+										class="animate-spin w-8 h-8 border-2 border-white border-t-transparent rounded-full mx-auto mb-4"
+									></div>
 									<div class="text-white/70">Loading WebGL scene...</div>
 								</div>
 							</div>
@@ -371,13 +385,11 @@
 			</div>
 		</section>
 	{/if}
-	
+
 	<!-- Footer -->
 	<footer class="relative z-10 py-8 px-6 mt-16 backdrop-blur-sm bg-white/5 border-t border-white/10">
 		<div class="max-w-7xl mx-auto text-center">
-			<p class="text-white/70">
-				Component library built with liquid glass design principles
-			</p>
+			<p class="text-white/70">Component library built with liquid glass design principles</p>
 		</div>
 	</footer>
 </div>
@@ -386,15 +398,15 @@
 	:global([data-magnetic]) {
 		transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 	}
-	
+
 	:global([data-magnetic]:hover) {
 		transform: translateY(-2px) scale(1.02);
 	}
-	
+
 	.animate-in {
 		animation: fadeIn 0.3s ease-out;
 	}
-	
+
 	@keyframes fadeIn {
 		from {
 			opacity: 0;

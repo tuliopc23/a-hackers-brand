@@ -53,7 +53,8 @@
 	};
 
 	const characterSets = {
-		matrix: 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+		matrix:
+			'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 		binary: '01',
 		hex: '0123456789ABCDEF',
 		code: '(){}<>[]|\\/-+=*&^%$#@!~`?:;.,\'"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
@@ -84,9 +85,9 @@
 
 		canvas.width = canvas.offsetWidth;
 		canvas.height = canvas.offsetHeight;
-		
+
 		columns = Math.floor(canvas.width / fontSize);
-		
+
 		// Reset drops array
 		drops = [];
 		for (let x = 0; x < columns; x++) {
@@ -119,7 +120,7 @@
 		for (let i = 0; i < drops.length; i++) {
 			// Random character
 			const char = currentCharacters[Math.floor(Math.random() * currentCharacters.length)];
-			
+
 			// Primary color for leading character
 			ctx.fillStyle = currentVariant.primary;
 			ctx.fillText(char, i * fontSize + fontSize / 2, drops[i]);
@@ -150,7 +151,7 @@
 
 	const startAnimation = () => {
 		if (!canvas) return;
-		
+
 		ctx = canvas.getContext('2d')!;
 		if (!ctx) return;
 
@@ -189,14 +190,7 @@
 	};
 </script>
 
-<canvas
-	bind:this={canvas}
-	class={cn(
-		'w-full h-full bg-black',
-		className
-	)}
-	{...restProps}
-></canvas>
+<canvas bind:this={canvas} class={cn('w-full h-full bg-black', className)} {...restProps}></canvas>
 
 <style>
 	canvas {

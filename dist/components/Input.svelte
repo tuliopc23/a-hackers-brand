@@ -41,7 +41,8 @@
 		default: 'bg-white/5 border border-white/20 focus:border-brand-primary',
 		glass: 'glass border-white/30 focus:border-terminal-green/50 focus:shadow-lg',
 		terminal: 'bg-terminal-bg border border-terminal-green/20 focus:border-terminal-green text-terminal-fg font-mono',
-		liquid: 'bg-gradient-to-r from-white/5 to-white/10 border border-white/20 focus:border-brand-primary focus:bg-gradient-to-r focus:from-white/10 focus:to-white/15'
+		liquid:
+			'bg-gradient-to-r from-white/5 to-white/10 border border-white/20 focus:border-brand-primary focus:bg-gradient-to-r focus:from-white/10 focus:to-white/15'
 	};
 
 	const sizes = {
@@ -139,10 +140,12 @@
 
 	input:global(.glass):focus {
 		-webkit-backdrop-filter: blur(16px) saturate(200%);
-		        backdrop-filter: blur(16px) saturate(200%);
+		backdrop-filter: blur(16px) saturate(200%);
 		transition: -webkit-backdrop-filter 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 		transition: backdrop-filter 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-		transition: backdrop-filter 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94), -webkit-backdrop-filter 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+		transition:
+			backdrop-filter 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+			-webkit-backdrop-filter 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	}
 
 	input:global(.terminal) {
@@ -156,7 +159,7 @@
 
 	input:global(.backdrop-blur-md):focus {
 		-webkit-backdrop-filter: blur(12px) saturate(150%);
-		        backdrop-filter: blur(12px) saturate(150%);
+		backdrop-filter: blur(12px) saturate(150%);
 		background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
 	}
 

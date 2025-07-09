@@ -36,13 +36,16 @@
 
 	// Group errors by field
 	const errorsByField = $derived(
-		errors.reduce((acc, error) => {
-			if (!acc[error.field]) {
-				acc[error.field] = [];
-			}
-			acc[error.field].push(error);
-			return acc;
-		}, {} as Record<string, ValidationError[]>)
+		errors.reduce(
+			(acc, error) => {
+				if (!acc[error.field]) {
+					acc[error.field] = [];
+				}
+				acc[error.field].push(error);
+				return acc;
+			},
+			{} as Record<string, ValidationError[]>
+		)
 	);
 
 	// Error boundary styles
@@ -52,11 +55,7 @@
 		minimal: 'bg-red-50 border border-red-200 text-red-900'
 	};
 
-	const containerClasses = cn(
-		'rounded-brand p-4 mb-4',
-		variants[variant],
-		className
-	);
+	const containerClasses = cn('rounded-brand p-4 mb-4', variants[variant], className);
 
 	function dismiss() {
 		dismissed = true;
@@ -68,7 +67,7 @@
 		return field
 			.replace(/([A-Z])/g, ' $1')
 			.replace(/_/g, ' ')
-			.replace(/^\w/, c => c.toUpperCase())
+			.replace(/^\w/, (c) => c.toUpperCase())
 			.trim();
 	}
 
@@ -87,7 +86,7 @@
 </script>
 
 {#if hasErrors && showSummary}
-	<div 
+	<div
 		class={containerClasses}
 		in:glassFade={animate ? { duration: 300, direction: 'down' } : undefined}
 		role="alert"
@@ -97,7 +96,12 @@
 			<!-- Error Icon -->
 			<div class="flex-shrink-0 mt-0.5">
 				<svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+					></path>
 				</svg>
 			</div>
 
@@ -159,7 +163,7 @@
 	{#each Object.entries(errorsByField) as [field, fieldErrors]}
 		<div class="mt-1" id="{field}-errors">
 			{#each fieldErrors as error}
-				<p 
+				<p
 					class="text-sm text-red-500 flex items-center gap-1"
 					in:glassFade={animate ? { duration: 200, direction: 'up', distance: 5 } : undefined}
 				>
@@ -181,7 +185,7 @@
 	}
 
 	/* Error animation */
-	div[role="alert"] {
+	div[role='alert'] {
 		animation: slideDown 0.3s ease-out;
 	}
 

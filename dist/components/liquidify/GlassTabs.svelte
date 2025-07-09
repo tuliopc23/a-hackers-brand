@@ -41,10 +41,10 @@
 	const tabButtonRefs: Record<string, HTMLButtonElement> = {};
 
 	const handleTabChange = (tabId: string) => {
-		if (tabs.find(t => t.id === tabId)?.disabled) return;
-		
+		if (tabs.find((t) => t.id === tabId)?.disabled) return;
+
 		activeTab = tabId;
-		dispatch('tabChange', { tabId, tab: tabs.find(t => t.id === tabId) });
+		dispatch('tabChange', { tabId, tab: tabs.find((t) => t.id === tabId) });
 		updateTabIndicator();
 	};
 
@@ -75,28 +75,26 @@
 		}
 	});
 
-	const activeTabData = $derived(tabs.find(t => t.id === activeTab));
+	const activeTabData = $derived(tabs.find((t) => t.id === activeTab));
 </script>
 
-<div class={cn(
-	'glass-tabs',
-	orientation === 'vertical' ? 'flex gap-6' : 'space-y-4',
-	className
-)}>
+<div class={cn('glass-tabs', orientation === 'vertical' ? 'flex gap-6' : 'space-y-4', className)}>
 	<!-- Tab List -->
-	<div class={cn(
-		'relative',
-		orientation === 'horizontal' 
-			? 'flex space-x-1 bg-white/5 p-1 rounded-lg backdrop-blur-sm border border-white/10' 
-			: 'flex flex-col space-y-1 w-48 bg-white/5 p-1 rounded-lg backdrop-blur-sm border border-white/10',
-		tabListClassName
-	)}>
+	<div
+		class={cn(
+			'relative',
+			orientation === 'horizontal'
+				? 'flex space-x-1 bg-white/5 p-1 rounded-lg backdrop-blur-sm border border-white/10'
+				: 'flex flex-col space-y-1 w-48 bg-white/5 p-1 rounded-lg backdrop-blur-sm border border-white/10',
+			tabListClassName
+		)}
+	>
 		<!-- Tab Indicator -->
 		<div
 			bind:this={tabIndicatorRef}
 			class="absolute bg-gradient-to-r from-blue-500 to-purple-500 rounded-sm transition-all duration-300 ease-out shadow-lg shadow-blue-500/30"
 		></div>
-		
+
 		<!-- Tab Buttons -->
 		{#each tabs as tab}
 			<button
@@ -106,15 +104,9 @@
 					'relative z-10 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 font-mono',
 					'hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50',
 					'disabled:opacity-50 disabled:cursor-not-allowed',
-					tab.id === activeTab 
-						? cn(
-							'text-white shadow-sm',
-							activeTabButtonClassName
-						)
-						: cn(
-							'text-white/70 hover:text-white/90',
-							inactiveTabButtonClassName
-						),
+					tab.id === activeTab
+						? cn('text-white shadow-sm', activeTabButtonClassName)
+						: cn('text-white/70 hover:text-white/90', inactiveTabButtonClassName),
 					tabButtonClassName
 				)}
 				disabled={tab.disabled}
@@ -124,12 +116,9 @@
 			</button>
 		{/each}
 	</div>
-	
+
 	<!-- Tab Panels -->
-	<div class={cn(
-		'tab-panel flex-1',
-		tabPanelClassName
-	)}>
+	<div class={cn('tab-panel flex-1', tabPanelClassName)}>
 		{#if activeTabData}
 			<div
 				class="glass-panel bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-6 min-h-[200px]"
@@ -152,9 +141,9 @@
 			transform: translateY(0);
 		}
 	}
-	
+
 	.glass-panel {
-		box-shadow: 
+		box-shadow:
 			0 4px 8px rgba(0, 0, 0, 0.12),
 			0 8px 16px rgba(0, 0, 0, 0.08),
 			0 0 0 1px rgba(255, 255, 255, 0.05) inset;

@@ -1,9 +1,9 @@
 <script>
 	import { page } from '$app/stores';
 	import { GlassButton } from './liquidify';
-	
+
 	export let currentSection = '';
-	
+
 	// Navigation items
 	const navItems = [
 		{
@@ -31,7 +31,7 @@
 			icon: '📐'
 		}
 	];
-	
+
 	const currentPath = $derived(() => $page.url.pathname);
 </script>
 
@@ -41,42 +41,40 @@
 		<div class="flex items-center justify-between mb-6">
 			<div class="flex items-center space-x-4">
 				<a href="/docs" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-					<div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-md flex items-center justify-center text-xs font-mono">
+					<div
+						class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-md flex items-center justify-center text-xs font-mono"
+					>
 						>_
 					</div>
-					<h1 class="text-xl font-semibold">
-						Liquid Glass Terminal Fusion
-					</h1>
+					<h1 class="text-xl font-semibold">Liquid Glass Terminal Fusion</h1>
 				</a>
 				{#if currentSection}
 					<span class="text-white/50">/</span>
 					<span class="text-blue-400">{currentSection}</span>
 				{/if}
 			</div>
-			
+
 			<div class="flex items-center space-x-4">
-				<GlassButton 
-					variant="ghost" 
+				<GlassButton
+					variant="ghost"
 					size="sm"
 					onclick={() => window.open('https://github.com/tulio/liquid-glass-system', '_blank')}
 				>
 					GitHub
 				</GlassButton>
-				<GlassButton 
-					variant="primary" 
-					size="sm"
-				>
-					Get Started
-				</GlassButton>
+				<GlassButton variant="primary" size="sm">Get Started</GlassButton>
 			</div>
 		</div>
-		
+
 		<!-- Navigation Links -->
 		<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
 			{#each navItems as item}
-				<a 
+				<a
 					href={item.href}
-					class="group p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-all duration-300 {currentPath === item.href ? 'bg-blue-500/10 border-blue-500/20' : ''}"
+					class="group p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-all duration-300 {currentPath ===
+					item.href
+						? 'bg-blue-500/10 border-blue-500/20'
+						: ''}"
 				>
 					<div class="flex items-center space-x-3 mb-2">
 						<span class="text-lg">{item.icon}</span>

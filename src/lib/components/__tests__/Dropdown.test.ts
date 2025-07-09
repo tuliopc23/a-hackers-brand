@@ -37,7 +37,7 @@ describe('Dropdown Component', () => {
 			const { container } = render(Dropdown, {
 				props: { items: mockItems }
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			expect(trigger).toBeInTheDocument();
 			expect(trigger).toHaveTextContent('Select');
@@ -46,24 +46,24 @@ describe('Dropdown Component', () => {
 
 		it('renders with custom trigger text', () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					trigger: 'Choose Option'
 				}
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			expect(trigger).toHaveTextContent('Choose Option');
 		});
 
 		it('shows selected value in trigger', () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					value: 'option2'
 				}
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			expect(trigger).toHaveTextContent('Option 2');
 		});
@@ -73,7 +73,7 @@ describe('Dropdown Component', () => {
 				const { container } = render(Dropdown, {
 					props: { variant, items: mockItems }
 				});
-				
+
 				const trigger = container.querySelector('button');
 				if (variant === 'glass') {
 					expect(trigger).toHaveClass('bg-white/10');
@@ -88,12 +88,10 @@ describe('Dropdown Component', () => {
 				const { container } = render(Dropdown, {
 					props: { size, items: mockItems }
 				});
-				
+
 				const trigger = container.querySelector('button');
 				expect(trigger).toHaveClass(
-					size === 'sm' ? 'px-3 py-1.5 text-sm' :
-					size === 'md' ? 'px-4 py-2 text-base' :
-					'px-5 py-2.5 text-lg'
+					size === 'sm' ? 'px-3 py-1.5 text-sm' : size === 'md' ? 'px-4 py-2 text-base' : 'px-5 py-2.5 text-lg'
 				);
 			});
 		});
@@ -104,12 +102,12 @@ describe('Dropdown Component', () => {
 			const { container } = render(Dropdown, {
 				props: { items: mockItems }
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			expect(screen.queryByText('Option 1')).not.toBeInTheDocument();
-			
+
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				expect(screen.getByText('Option 1')).toBeInTheDocument();
 				expect(trigger).toHaveAttribute('aria-expanded', 'true');
@@ -120,15 +118,15 @@ describe('Dropdown Component', () => {
 			const { container } = render(Dropdown, {
 				props: { items: mockItems }
 			});
-			
+
 			const trigger = screen.getByRole('button');
-			
+
 			// Open menu
 			await fireEvent.click(trigger);
 			await waitFor(() => {
 				expect(screen.getByText('Option 1')).toBeInTheDocument();
 			});
-			
+
 			// Close menu
 			await fireEvent.click(trigger);
 			await waitFor(() => {
@@ -141,18 +139,18 @@ describe('Dropdown Component', () => {
 			const { container } = render(Dropdown, {
 				props: { items: mockItems }
 			});
-			
+
 			const trigger = screen.getByRole('button');
-			
+
 			// Open menu
 			await fireEvent.click(trigger);
 			await waitFor(() => {
 				expect(screen.getByText('Option 1')).toBeInTheDocument();
 			});
-			
+
 			// Click outside
 			await fireEvent.click(document.body);
-			
+
 			await waitFor(() => {
 				expect(screen.queryByText('Option 1')).not.toBeInTheDocument();
 			});
@@ -162,18 +160,18 @@ describe('Dropdown Component', () => {
 			const { container } = render(Dropdown, {
 				props: { items: mockItems }
 			});
-			
+
 			const trigger = screen.getByRole('button');
-			
+
 			// Open menu
 			await fireEvent.click(trigger);
 			await waitFor(() => {
 				expect(screen.getByText('Option 1')).toBeInTheDocument();
 			});
-			
+
 			// Press Escape
 			await fireEvent.keyDown(document, { key: 'Escape' });
-			
+
 			await waitFor(() => {
 				expect(screen.queryByText('Option 1')).not.toBeInTheDocument();
 			});
@@ -184,24 +182,24 @@ describe('Dropdown Component', () => {
 		it('selects item when clicked', async () => {
 			const handleSelect = vi.fn();
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					onselect: handleSelect
 				}
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				expect(screen.getByText('Option 1')).toBeInTheDocument();
 			});
-			
+
 			const option1 = screen.getByText('Option 1');
 			await fireEvent.click(option1);
-			
+
 			expect(handleSelect).toHaveBeenCalledWith('option1');
-			
+
 			await waitFor(() => {
 				expect(screen.queryByText('Option 1')).not.toBeInTheDocument();
 			});
@@ -210,38 +208,38 @@ describe('Dropdown Component', () => {
 		it('does not select disabled items', async () => {
 			const handleSelect = vi.fn();
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					onselect: handleSelect
 				}
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				expect(screen.getByText('Option 3')).toBeInTheDocument();
 			});
-			
+
 			const disabledOption = screen.getByText('Option 3');
 			expect(disabledOption.closest('button')).toBeDisabled();
-			
+
 			await fireEvent.click(disabledOption);
-			
+
 			expect(handleSelect).not.toHaveBeenCalled();
 		});
 
 		it('shows selected item as active', async () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					value: 'option2'
 				}
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				const option2Button = screen.getByText('Option 2').closest('button');
 				expect(option2Button).toHaveClass('bg-white/20'); // active class for glass variant
@@ -252,15 +250,15 @@ describe('Dropdown Component', () => {
 	describe('Menu Positioning', () => {
 		it('positions menu correctly for bottom position', async () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					position: 'bottom'
 				}
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				const menu = container.querySelector('.absolute.z-50');
 				expect(menu).toHaveStyle({ top: '44px' }); // trigger height + 4px gap
@@ -269,15 +267,15 @@ describe('Dropdown Component', () => {
 
 		it('positions menu correctly for top position', async () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					position: 'top'
 				}
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				const menu = container.querySelector('.absolute.z-50');
 				// Should have negative top value for top positioning
@@ -289,19 +287,19 @@ describe('Dropdown Component', () => {
 	describe('Visual Effects', () => {
 		it('applies glow effect when enabled', async () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					glow: true,
 					variant: 'neon'
 				}
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				expect(trigger).toHaveClass('shadow-[0_0_20px_rgba(236,72,153,0.7)]');
-				
+
 				const menu = container.querySelector('.absolute.z-50');
 				expect(menu).toHaveClass('shadow-[0_0_20px_rgba(236,72,153,0.7)]');
 			});
@@ -309,12 +307,12 @@ describe('Dropdown Component', () => {
 
 		it('applies jelly hover effect', () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					jelly: true
 				}
 			});
-			
+
 			// Jelly effects are applied via use:jellyHover
 			const trigger = container.querySelector('button');
 			expect(trigger).toBeTruthy();
@@ -324,16 +322,16 @@ describe('Dropdown Component', () => {
 			const { container } = render(Dropdown, {
 				props: { items: mockItems }
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			const chevron = container.querySelector('svg');
-			
+
 			// Initially not rotated
 			expect(chevron).not.toHaveClass('rotate-180');
-			
+
 			// Open dropdown
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				expect(chevron).toHaveClass('rotate-180');
 			});
@@ -341,15 +339,15 @@ describe('Dropdown Component', () => {
 
 		it('applies animation when animated is true', async () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					animated: true
 				}
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				const menu = container.querySelector('.absolute.z-50');
 				expect(menu).toHaveClass('transform-gpu', 'will-change-transform');
@@ -358,15 +356,15 @@ describe('Dropdown Component', () => {
 
 		it('disables animation when animated is false', async () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					animated: false
 				}
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				// Duration should be 0 when animated is false
 				expect(container.innerHTML).toContain('duration: 0');
@@ -379,10 +377,10 @@ describe('Dropdown Component', () => {
 			const { container } = render(Dropdown, {
 				props: { items: mockItems }
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				const divider = container.querySelector('.h-px.bg-white\\/10');
 				expect(divider).toBeInTheDocument();
@@ -390,17 +388,15 @@ describe('Dropdown Component', () => {
 		});
 
 		it('renders icons when provided', async () => {
-			const itemsWithIcon = [
-				{ label: 'With Icon', value: 'icon', icon: () => 'Icon' }
-			];
-			
+			const itemsWithIcon = [{ label: 'With Icon', value: 'icon', icon: () => 'Icon' }];
+
 			const { container } = render(Dropdown, {
 				props: { items: itemsWithIcon }
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				// Icon component would be rendered
 				expect(screen.getByText('With Icon')).toBeInTheDocument();
@@ -413,7 +409,7 @@ describe('Dropdown Component', () => {
 			const { container } = render(Dropdown, {
 				props: { items: mockItems }
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			expect(trigger).toHaveAttribute('aria-expanded', 'false');
 			expect(trigger).toHaveAttribute('aria-haspopup', 'true');
@@ -423,11 +419,11 @@ describe('Dropdown Component', () => {
 			const { container } = render(Dropdown, {
 				props: { items: mockItems }
 			});
-			
+
 			const trigger = screen.getByRole('button');
-			
+
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				expect(trigger).toHaveAttribute('aria-expanded', 'true');
 			});
@@ -437,10 +433,10 @@ describe('Dropdown Component', () => {
 			const { container } = render(Dropdown, {
 				props: { items: mockItems }
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			trigger.focus();
-			
+
 			expect(document.activeElement).toBe(trigger);
 		});
 	});
@@ -448,39 +444,39 @@ describe('Dropdown Component', () => {
 	describe('Custom Props', () => {
 		it('applies custom className', () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					class: 'custom-dropdown'
 				}
 			});
-			
+
 			const wrapper = container.querySelector('.relative.inline-block');
 			expect(wrapper).toHaveClass('custom-dropdown');
 		});
 
 		it('applies custom trigger class', () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					triggerClass: 'custom-trigger'
 				}
 			});
-			
+
 			const trigger = container.querySelector('button');
 			expect(trigger).toHaveClass('custom-trigger');
 		});
 
 		it('applies custom menu class', async () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					menuClass: 'custom-menu'
 				}
 			});
-			
+
 			const trigger = screen.getByRole('button');
 			await fireEvent.click(trigger);
-			
+
 			await waitFor(() => {
 				const menu = container.querySelector('.absolute.z-50');
 				expect(menu).toHaveClass('custom-menu');
@@ -489,12 +485,12 @@ describe('Dropdown Component', () => {
 
 		it('passes through additional props', () => {
 			const { container } = render(Dropdown, {
-				props: { 
+				props: {
 					items: mockItems,
 					'data-testid': 'custom-dropdown'
 				}
 			});
-			
+
 			const wrapper = container.querySelector('[data-testid="custom-dropdown"]');
 			expect(wrapper).toBeInTheDocument();
 		});

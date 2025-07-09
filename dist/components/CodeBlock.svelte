@@ -32,7 +32,7 @@
 		try {
 			await navigator.clipboard.writeText(code);
 			copied = true;
-			setTimeout(() => copied = false, 2000);
+			setTimeout(() => (copied = false), 2000);
 		} catch (err) {
 			console.error('Failed to copy code:', err);
 		}
@@ -46,38 +46,45 @@
 			{ pattern: /(on:|bind:|use:|class:|style:)/g, class: 'text-blue-400' }, // Svelte attributes
 			{ pattern: /(<\/?\w+(?:\s+[^>]*)?\/?>)/g, class: 'text-red-400' }, // HTML tags
 			{ pattern: /(=["'][^"']*["'])/g, class: 'text-green-400' }, // Attribute values
-			{ pattern: /(\/\/.*$)/gm, class: 'text-gray-500' }, // Comments
+			{ pattern: /(\/\/.*$)/gm, class: 'text-gray-500' } // Comments
 		],
 		javascript: [
-			{ pattern: /(import|export|from|const|let|var|function|return|if|else|for|while|class|extends)/g, class: 'text-purple-400' }, // Keywords
+			{
+				pattern: /(import|export|from|const|let|var|function|return|if|else|for|while|class|extends)/g,
+				class: 'text-purple-400'
+			}, // Keywords
 			{ pattern: /(["'][^"']*["'])/g, class: 'text-green-400' }, // Strings
 			{ pattern: /(\/\/.*$)/gm, class: 'text-gray-500' }, // Comments
-			{ pattern: /(\d+)/g, class: 'text-yellow-400' }, // Numbers
+			{ pattern: /(\d+)/g, class: 'text-yellow-400' } // Numbers
 		],
 		typescript: [
-			{ pattern: /(import|export|from|const|let|var|function|return|if|else|for|while|class|extends|interface|type|enum)/g, class: 'text-purple-400' }, // Keywords
+			{
+				pattern:
+					/(import|export|from|const|let|var|function|return|if|else|for|while|class|extends|interface|type|enum)/g,
+				class: 'text-purple-400'
+			}, // Keywords
 			{ pattern: /(string|number|boolean|object|any|void|null|undefined)/g, class: 'text-blue-400' }, // Types
 			{ pattern: /(["'][^"']*["'])/g, class: 'text-green-400' }, // Strings
 			{ pattern: /(\/\/.*$)/gm, class: 'text-gray-500' }, // Comments
-			{ pattern: /(\d+)/g, class: 'text-yellow-400' }, // Numbers
+			{ pattern: /(\d+)/g, class: 'text-yellow-400' } // Numbers
 		],
 		css: [
 			{ pattern: /([.#]?[\w-]+)(?=\s*{)/g, class: 'text-red-400' }, // Selectors
 			{ pattern: /([\w-]+)(?=\s*:)/g, class: 'text-blue-400' }, // Properties
 			{ pattern: /(:\s*[^;]+)/g, class: 'text-green-400' }, // Values
-			{ pattern: /(\/\*.*?\*\/)/gs, class: 'text-gray-500' }, // Comments
+			{ pattern: /(\/\*.*?\*\/)/gs, class: 'text-gray-500' } // Comments
 		],
 		bash: [
 			{ pattern: /(npm|yarn|git|cd|ls|mkdir|rm|mv|cp|sudo|chmod|chown)/g, class: 'text-purple-400' }, // Commands
 			{ pattern: /(--?\w+)/g, class: 'text-blue-400' }, // Flags
 			{ pattern: /(["'][^"']*["'])/g, class: 'text-green-400' }, // Strings
-			{ pattern: /(#.*$)/gm, class: 'text-gray-500' }, // Comments
+			{ pattern: /(#.*$)/gm, class: 'text-gray-500' } // Comments
 		],
 		json: [
 			{ pattern: /(["'][^"']*["'])(?=\s*:)/g, class: 'text-blue-400' }, // Keys
 			{ pattern: /(:\s*["'][^"']*["'])/g, class: 'text-green-400' }, // String values
 			{ pattern: /(:\s*\d+)/g, class: 'text-yellow-400' }, // Number values
-			{ pattern: /(true|false|null)/g, class: 'text-purple-400' }, // Literals
+			{ pattern: /(true|false|null)/g, class: 'text-purple-400' } // Literals
 		]
 	};
 
@@ -87,10 +94,7 @@
 		let highlighted = code;
 
 		// Escape HTML
-		highlighted = highlighted
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;');
+		highlighted = highlighted.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 		// Apply syntax patterns
 		patterns.forEach(({ pattern, class: className }) => {
@@ -109,10 +113,7 @@
 	const codeLines = $derived(() => getCodeLines(highlightedCode));
 </script>
 
-<div 
-	class="relative group"
-	in:glassFade={{ duration: 300, direction: 'up', distance: 10 }}
->
+<div class="relative group" in:glassFade={{ duration: 300, direction: 'up', distance: 10 }}>
 	<!-- Header -->
 	{#if title || showCopy}
 		<div class="flex items-center justify-between bg-slate-800/80 backdrop-blur-sm px-4 py-3 border-b border-white/10">
@@ -132,8 +133,10 @@
 			{/if}
 
 			{#if showCopy}
-				<button 
-					class="flex items-center space-x-2 px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100 {copied ? 'bg-green-500/20 text-green-400' : 'text-white/80'}"
+				<button
+					class="flex items-center space-x-2 px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100 {copied
+						? 'bg-green-500/20 text-green-400'
+						: 'text-white/80'}"
 					onclick={copyCode}
 					aria-label="Copy code to clipboard"
 				>
@@ -144,7 +147,12 @@
 						<span class="text-sm">Copied!</span>
 					{:else}
 						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+							/>
 						</svg>
 						<span class="text-sm">Copy</span>
 					{/if}
@@ -155,18 +163,24 @@
 
 	<!-- Code Content -->
 	<div class="relative">
-		<pre 
-			class="p-4 bg-slate-900/90 backdrop-blur-sm text-sm font-mono overflow-x-auto {maxHeight ? `max-h-[${maxHeight}]` : ''} {title || showCopy ? '' : 'rounded-lg'} {title || showCopy ? 'rounded-b-lg' : ''}"
-		><code class="text-white/90">{#if showLineNumbers}
-{#each codeLines as line, index}
-<span class="text-white/40 select-none mr-4">{String(index + 1).padStart(2, ' ')}</span>{@html line}
-{/each}
-{:else}
-{@html highlightedCode}
-{/if}</code></pre>
+		<pre
+			class="p-4 bg-slate-900/90 backdrop-blur-sm text-sm font-mono overflow-x-auto {maxHeight
+				? `max-h-[${maxHeight}]`
+				: ''} {title || showCopy ? '' : 'rounded-lg'} {title || showCopy ? 'rounded-b-lg' : ''}"><code
+				class="text-white/90"
+				>{#if showLineNumbers}
+					{#each codeLines as line, index}
+						<span class="text-white/40 select-none mr-4">{String(index + 1).padStart(2, ' ')}</span>{@html line}
+					{/each}
+				{:else}
+					{@html highlightedCode}
+				{/if}</code
+			></pre>
 
 		<!-- Language Badge -->
-		<div class="absolute top-3 right-3 px-2 py-1 bg-black/50 text-xs font-medium text-white/60 rounded backdrop-blur-sm">
+		<div
+			class="absolute top-3 right-3 px-2 py-1 bg-black/50 text-xs font-medium text-white/60 rounded backdrop-blur-sm"
+		>
 			{language}
 		</div>
 	</div>
@@ -176,7 +190,7 @@
 	/* Ensure proper scrolling */
 	pre {
 		-o-tab-size: 2;
-		   tab-size: 2;
+		tab-size: 2;
 		-moz-tab-size: 2;
 	}
 

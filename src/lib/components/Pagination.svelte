@@ -103,10 +103,7 @@
 
 		if (shouldShowLeftDots && !shouldShowRightDots) {
 			const rightItemCount = 3 + 2 * siblingCount;
-			const rightRange = Array.from(
-				{ length: rightItemCount },
-				(_, i) => totalPages - rightItemCount + i + 1
-			);
+			const rightRange = Array.from({ length: rightItemCount }, (_, i) => totalPages - rightItemCount + i + 1);
 			return [1, '...', ...rightRange];
 		}
 
@@ -153,9 +150,9 @@
 				currentPage === 1 && currentVariant.disabled,
 				'focus:outline-none focus:ring-2 focus:ring-white/20'
 			)}
-			use:jellyHover={{ 
-				enabled: jelly && currentPage !== 1, 
-				scale: 1.05, 
+			use:jellyHover={{
+				enabled: jelly && currentPage !== 1,
+				scale: 1.05,
 				duration: 200,
 				borderRadius: '8px'
 			}}
@@ -175,9 +172,9 @@
 			currentPage === 1 && currentVariant.disabled,
 			'focus:outline-none focus:ring-2 focus:ring-white/20'
 		)}
-		use:jellyHover={{ 
-			enabled: jelly && currentPage !== 1, 
-			scale: 1.05, 
+		use:jellyHover={{
+			enabled: jelly && currentPage !== 1,
+			scale: 1.05,
 			duration: 200,
 			borderRadius: '8px'
 		}}
@@ -188,13 +185,7 @@
 
 	{#each pageNumbers as pageNumber}
 		{#if pageNumber === '...'}
-			<span class={cn(
-				'flex items-center justify-center',
-				currentSize.button,
-				'opacity-50'
-			)}>
-				...
-			</span>
+			<span class={cn('flex items-center justify-center', currentSize.button, 'opacity-50')}> ... </span>
 		{:else}
 			<button
 				onclick={() => handlePageChange(pageNumber)}
@@ -205,9 +196,9 @@
 					pageNumber === currentPage && glow && currentVariant.glow,
 					'focus:outline-none focus:ring-2 focus:ring-white/20'
 				)}
-				use:jellyHover={{ 
-					enabled: jelly && pageNumber !== currentPage, 
-					scale: 1.05, 
+				use:jellyHover={{
+					enabled: jelly && pageNumber !== currentPage,
+					scale: 1.05,
 					duration: 200,
 					borderRadius: '8px'
 				}}
@@ -229,9 +220,9 @@
 			currentPage === totalPages && currentVariant.disabled,
 			'focus:outline-none focus:ring-2 focus:ring-white/20'
 		)}
-		use:jellyHover={{ 
-			enabled: jelly && currentPage !== totalPages, 
-			scale: 1.05, 
+		use:jellyHover={{
+			enabled: jelly && currentPage !== totalPages,
+			scale: 1.05,
 			duration: 200,
 			borderRadius: '8px'
 		}}
@@ -251,9 +242,9 @@
 				currentPage === totalPages && currentVariant.disabled,
 				'focus:outline-none focus:ring-2 focus:ring-white/20'
 			)}
-			use:jellyHover={{ 
-				enabled: jelly && currentPage !== totalPages, 
-				scale: 1.05, 
+			use:jellyHover={{
+				enabled: jelly && currentPage !== totalPages,
+				scale: 1.05,
 				duration: 200,
 				borderRadius: '8px'
 			}}

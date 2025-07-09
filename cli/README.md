@@ -27,18 +27,21 @@ npx create-hackers-brand my-dashboard --template=dashboard --demo
 ## Templates
 
 ### Minimal
+
 - Basic SvelteKit setup
 - Core A Hacker's Brand components
 - Tailwind CSS configuration
 - TypeScript support
 
 ### Dashboard
+
 - Complete admin dashboard
 - Data visualization components
 - Navigation and layout
 - Form components
 
 ### Portfolio
+
 - Stunning portfolio site
 - 3D effects and animations
 - Hero sections

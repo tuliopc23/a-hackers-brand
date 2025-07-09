@@ -30,12 +30,12 @@ if (typeof process !== 'undefined') {
 
 // Force client-side environment for Svelte 5
 Object.defineProperty(globalThis, 'process', {
-  value: {
-    env: {
-      NODE_ENV: 'test',
-      VITE_SSR: 'false'
-    }
-  }
+	value: {
+		env: {
+			NODE_ENV: 'test',
+			VITE_SSR: 'false'
+		}
+	}
 });
 
 // Prevent Svelte from detecting server environment
@@ -48,7 +48,7 @@ Object.defineProperty(globalThis, 'window', {
 // Prevent any server-side imports by overriding require resolution
 const originalRequire = globalThis.require;
 if (originalRequire) {
-	globalThis.require = function(id: string) {
+	globalThis.require = function (id: string) {
 		// Block server-specific modules
 		if (id === 'svelte/server' || id === 'svelte/ssr' || id.includes('server-route')) {
 			return {
@@ -89,108 +89,109 @@ Object.defineProperty(window, 'getComputedStyle', {
 
 // Enhanced JSDOM setup for Svelte 5
 beforeEach(() => {
-  // Clear any previous DOM state
-  document.body.innerHTML = '';
-  document.head.innerHTML = '';
-  
-  // Ensure we're in a browser-like environment
-  Object.defineProperty(globalThis, 'window', {
-    value: global.window,
-    writable: true
-  });
-  
-  Object.defineProperty(globalThis, 'document', {
-    value: global.document,
-    writable: true
-  });
+	// Clear any previous DOM state
+	document.body.innerHTML = '';
+	document.head.innerHTML = '';
+
+	// Ensure we're in a browser-like environment
+	Object.defineProperty(globalThis, 'window', {
+		value: global.window,
+		writable: true
+	});
+
+	Object.defineProperty(globalThis, 'document', {
+		value: global.document,
+		writable: true
+	});
 });
 
 // Mock HTMLMediaElement
 if (typeof window !== 'undefined' && window.HTMLMediaElement) {
-  if (!window.HTMLMediaElement.prototype.play) {
-    window.HTMLMediaElement.prototype.play = vi.fn();
-  }
-  if (!window.HTMLMediaElement.prototype.pause) {
-    window.HTMLMediaElement.prototype.pause = vi.fn();
-  }
+	if (!window.HTMLMediaElement.prototype.play) {
+		window.HTMLMediaElement.prototype.play = vi.fn();
+	}
+	if (!window.HTMLMediaElement.prototype.pause) {
+		window.HTMLMediaElement.prototype.pause = vi.fn();
+	}
 }
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: vi.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(), // deprecated
-    removeListener: vi.fn(), // deprecated
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
+	writable: true,
+	value: vi.fn().mockImplementation((query) => ({
+		matches: false,
+		media: query,
+		onchange: null,
+		addListener: vi.fn(), // deprecated
+		removeListener: vi.fn(), // deprecated
+		addEventListener: vi.fn(),
+		removeEventListener: vi.fn(),
+		dispatchEvent: vi.fn()
+	}))
 });
 
 // Mock ResizeObserver
 global.ResizeObserver = vi.fn().mockImplementation(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
+	observe: vi.fn(),
+	unobserve: vi.fn(),
+	disconnect: vi.fn()
 }));
 
 // Mock IntersectionObserver
 global.IntersectionObserver = vi.fn().mockImplementation(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
+	observe: vi.fn(),
+	unobserve: vi.fn(),
+	disconnect: vi.fn()
 }));
 
 // Mock requestAnimationFrame and cancelAnimationFrame
 global.requestAnimationFrame = vi.fn((callback) => {
-  return setTimeout(callback, 16);
+	return setTimeout(callback, 16);
 });
 global.cancelAnimationFrame = vi.fn((id) => {
-  clearTimeout(id);
+	clearTimeout(id);
 });
 
 // Mock performance.now for animations
 Object.defineProperty(window, 'performance', {
-  writable: true,
-  value: {
-    now: vi.fn(() => Date.now()),
-  },
+	writable: true,
+	value: {
+		now: vi.fn(() => Date.now())
+	}
 });
 
 // Mock CSS.supports for feature detection
 Object.defineProperty(window, 'CSS', {
-  writable: true,
-  value: {
-    supports: vi.fn(() => true),
-  },
+	writable: true,
+	value: {
+		supports: vi.fn(() => true)
+	}
 });
 
 // Mock getComputedStyle for CSS property checks
 Object.defineProperty(window, 'getComputedStyle', {
-  writable: true,
-  value: vi.fn(() => ({
-    getPropertyValue: vi.fn(() => ''),
-    transform: 'none',
-    transition: 'none',
-    animation: 'none',
-  })),
+	writable: true,
+	value: vi.fn(() => ({
+		getPropertyValue: vi.fn(() => ''),
+		transform: 'none',
+		transition: 'none',
+		animation: 'none'
+	}))
 });
 
 // Suppress console warnings for tests
 const originalConsoleWarn = console.warn;
 console.warn = vi.fn((message, ...args) => {
-  // Suppress specific Svelte warnings that are expected in tests
-  if (typeof message === 'string' && (
-    message.includes('lifecycle_function_unavailable') ||
-    message.includes('element_invalid_self_closing_tag') ||
-    message.includes('a11y_no_static_element_interactions') ||
-    message.includes('a11y_click_events_have_key_events') ||
-    message.includes('css_unused_selector')
-  )) {
-    return;
-  }
-  originalConsoleWarn(message, ...args);
+	// Suppress specific Svelte warnings that are expected in tests
+	if (
+		typeof message === 'string' &&
+		(message.includes('lifecycle_function_unavailable') ||
+			message.includes('element_invalid_self_closing_tag') ||
+			message.includes('a11y_no_static_element_interactions') ||
+			message.includes('a11y_click_events_have_key_events') ||
+			message.includes('css_unused_selector'))
+	) {
+		return;
+	}
+	originalConsoleWarn(message, ...args);
 });

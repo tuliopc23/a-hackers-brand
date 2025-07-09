@@ -21,12 +21,18 @@
 		class: className = '',
 		commands = {
 			help: '╔═══════════════════════════════════════════════════════════════╗\n║  AVAILABLE COMMANDS                                           ║\n╠═══════════════════════════════════════════════════════════════╣\n║  whoami     │ Display system architect identity             ║\n║  skills     │ Show technology matrix                        ║\n║  projects   │ List active projects                          ║\n║  contact    │ Communication protocols                       ║\n║  matrix     │ Initialize matrix rain effect                 ║\n║  glitch     │ Toggle terminal glitch effects                ║\n║  scan       │ Activate system scanner                       ║\n║  clear      │ Clear terminal buffer                         ║\n╚═══════════════════════════════════════════════════════════════╝',
-			whoami: '┌─[SYSTEM_ARCHITECT@liquid-terminal]─[~/dev/brand-system]\n└─$ echo $USER_PROFILE\n\n█▀▀ █▀▀ █▀█ █▀▄ █▀▀   █▀▄ █▀▀ █ █ █▀▀ █   █▀█ █▀█ █▀▀ █▀█\n█▄▄ █▄█ █▄█ █▄▀ █▄▄   █▄▀ █▄▄ ▀▄▀ █▄▄ █▄▄ █▄█ █▀▀ █▄▄ █▀▄\n\n│ ROLE: Full Stack Developer & Design System Architect\n│ SPEC: Liquid Glass Terminal Fusion Systems\n│ STATUS: [████████████████████████████████] ONLINE\n│ CLEARANCE: ALPHA-7',
-			skills: '╔══════════════════════════════════════════════════════════════╗\n║                    TECHNOLOGY MATRIX                         ║\n╠══════════════════════════════════════════════════════════════╣\n║ FRONTEND    ■■■■■■■■■■ 100%  │ Svelte, TypeScript, WebGL     ║\n║ BACKEND     ■■■■■■■■■□  90%  │ Node.js, Rust, WebAssembly    ║\n║ 3D/GRAPHICS ■■■■■■■■■■ 100%  │ Three.js, Threlte, Shaders    ║\n║ DESIGN SYS  ■■■■■■■■■■ 100%  │ Liquid Glass, Glassmorphism   ║\n║ TERMINAL    ■■■■■■■■■■ 100%  │ CLI, Zsh, PowerShell          ║\n║ HACKING     ■■■■■■■■□□  80%  │ Pentesting, OSINT, CTF        ║\n╚══════════════════════════════════════════════════════════════╝',
-			projects: '┌─ ACTIVE PROJECTS ─────────────────────────────────────────┐\n│                                                           │\n│ ▸ LIQUIDIFY             │ React → Svelte UI Library     │\n│ ▸ GLASS_TERMINAL        │ Advanced Terminal Interface    │\n│ ▸ NEURAL_VIZ            │ AI Visualization Engine       │\n│ ▸ BRAND_SYSTEM          │ Corporate Identity Matrix      │\n│ ▸ PORTFOLIO_v3          │ Personal Hacker Portfolio      │\n│                                                           │\n└───────────────────────────────────────────────────────────┘',
-			contact: '╔══════════════════════════════════════════════════════════════╗\n║                  COMMUNICATION PROTOCOLS                    ║\n╠══════════════════════════════════════════════════════════════╣\n║ EMAIL    │ tulio@tuliocunha.dev                             ║\n║ GITHUB   │ https://github.com/tuliopc23                     ║\n║ LINKEDIN │ https://linkedin.com/in/tulio-cunha              ║\n║ DISCORD  │ tuliopc23#1337                                   ║\n║ TELEGRAM │ @tuliopc23                                       ║\n╚══════════════════════════════════════════════════════════════╝',
-			matrix: 'INITIALIZING MATRIX RAIN PROTOCOL...\n[████████████████████████████████] 100%\nMATRIX EFFECT: ACTIVE\nCODE RAIN: STREAMING\nREALITY.EXE HAS STOPPED WORKING',
-			glitch: 'G̴L̵I̴T̵C̶H̸ ̷E̵F̸F̵E̸C̷T̸ ̵T̶O̴G̸G̵L̸E̷D̵\n█▄█▄█▄█▄█▄█▄█▄█▄█▄█▄█▄█▄█\nS̷Y̸S̴T̵E̷M̶ ̸I̴N̵S̵T̸A̷B̸I̵L̴I̷T̸Y̵ ̶D̷E̸T̴E̸C̵T̷E̶D̸\n█▄█▄█▄█▄█▄█▄█▄█▄█▄█▄█▄█▄█',
+			whoami:
+				'┌─[SYSTEM_ARCHITECT@liquid-terminal]─[~/dev/brand-system]\n└─$ echo $USER_PROFILE\n\n█▀▀ █▀▀ █▀█ █▀▄ █▀▀   █▀▄ █▀▀ █ █ █▀▀ █   █▀█ █▀█ █▀▀ █▀█\n█▄▄ █▄█ █▄█ █▄▀ █▄▄   █▄▀ █▄▄ ▀▄▀ █▄▄ █▄▄ █▄█ █▀▀ █▄▄ █▀▄\n\n│ ROLE: Full Stack Developer & Design System Architect\n│ SPEC: Liquid Glass Terminal Fusion Systems\n│ STATUS: [████████████████████████████████] ONLINE\n│ CLEARANCE: ALPHA-7',
+			skills:
+				'╔══════════════════════════════════════════════════════════════╗\n║                    TECHNOLOGY MATRIX                         ║\n╠══════════════════════════════════════════════════════════════╣\n║ FRONTEND    ■■■■■■■■■■ 100%  │ Svelte, TypeScript, WebGL     ║\n║ BACKEND     ■■■■■■■■■□  90%  │ Node.js, Rust, WebAssembly    ║\n║ 3D/GRAPHICS ■■■■■■■■■■ 100%  │ Three.js, Threlte, Shaders    ║\n║ DESIGN SYS  ■■■■■■■■■■ 100%  │ Liquid Glass, Glassmorphism   ║\n║ TERMINAL    ■■■■■■■■■■ 100%  │ CLI, Zsh, PowerShell          ║\n║ HACKING     ■■■■■■■■□□  80%  │ Pentesting, OSINT, CTF        ║\n╚══════════════════════════════════════════════════════════════╝',
+			projects:
+				'┌─ ACTIVE PROJECTS ─────────────────────────────────────────┐\n│                                                           │\n│ ▸ LIQUIDIFY             │ React → Svelte UI Library     │\n│ ▸ GLASS_TERMINAL        │ Advanced Terminal Interface    │\n│ ▸ NEURAL_VIZ            │ AI Visualization Engine       │\n│ ▸ BRAND_SYSTEM          │ Corporate Identity Matrix      │\n│ ▸ PORTFOLIO_v3          │ Personal Hacker Portfolio      │\n│                                                           │\n└───────────────────────────────────────────────────────────┘',
+			contact:
+				'╔══════════════════════════════════════════════════════════════╗\n║                  COMMUNICATION PROTOCOLS                    ║\n╠══════════════════════════════════════════════════════════════╣\n║ EMAIL    │ tulio@tuliocunha.dev                             ║\n║ GITHUB   │ https://github.com/tuliopc23                     ║\n║ LINKEDIN │ https://linkedin.com/in/tulio-cunha              ║\n║ DISCORD  │ tuliopc23#1337                                   ║\n║ TELEGRAM │ @tuliopc23                                       ║\n╚══════════════════════════════════════════════════════════════╝',
+			matrix:
+				'INITIALIZING MATRIX RAIN PROTOCOL...\n[████████████████████████████████] 100%\nMATRIX EFFECT: ACTIVE\nCODE RAIN: STREAMING\nREALITY.EXE HAS STOPPED WORKING',
+			glitch:
+				'G̴L̵I̴T̵C̶H̸ ̷E̵F̸F̵E̸C̷T̸ ̵T̶O̴G̸G̵L̸E̷D̵\n█▄█▄█▄█▄█▄█▄█▄█▄█▄█▄█▄█▄█\nS̷Y̸S̴T̵E̷M̶ ̸I̴N̵S̵T̸A̷B̸I̵L̴I̷T̸Y̵ ̶D̷E̸T̴E̸C̵T̷E̶D̸\n█▄█▄█▄█▄█▄█▄█▄█▄█▄█▄█▄█▄█',
 			scan: '┌─ SYSTEM SCANNER ACTIVE ─┐\n│ Scanning ports...       │\n│ [###               ] 15%│\n│ Found: 3 open services  │\n│ SSH (22) - OPEN         │\n│ HTTP (80) - OPEN        │\n│ HTTPS (443) - OPEN      │\n└─────────────────────────┘',
 			clear: ''
 		},
@@ -52,7 +58,8 @@
 	const flickerActive = $state(enableFlicker);
 
 	// Matrix rain effect
-	const matrixChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+	const matrixChars =
+		'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
 	let matrixColumns: number[] = [];
 	let matrixAnimation: number;
 
@@ -89,7 +96,7 @@
 		];
 
 		inputValue = '';
-		
+
 		// Scroll to bottom with smooth animation
 		setTimeout(() => {
 			if (terminalRef) {
@@ -121,11 +128,11 @@
 	// Matrix rain animation
 	const startMatrixRain = () => {
 		if (!canvasRef) return;
-		
+
 		const ctx = canvasRef.getContext('2d')!;
 		const fontSize = 14;
 		const columns = Math.floor(canvasRef.width / fontSize);
-		
+
 		matrixColumns = Array(columns).fill(0);
 
 		const draw = () => {
@@ -170,7 +177,7 @@
 
 	onMount(() => {
 		resizeCanvas();
-		
+
 		if (matrixActive) {
 			startMatrixRain();
 		}
@@ -198,21 +205,20 @@
 
 <svelte:window onresize={resizeCanvas} />
 
-<div class={cn(
-	'relative overflow-hidden rounded-xl backdrop-blur-md transition-all duration-300',
-	'border shadow-2xl shadow-black/25 transform-gpu will-change-transform',
-	themeClasses[theme],
-	scanlineActive && 'terminal-scanlines',
-	flickerActive && 'terminal-flicker',
-	isGlitching && 'terminal-glitch',
-	className
-)}>
+<div
+	class={cn(
+		'relative overflow-hidden rounded-xl backdrop-blur-md transition-all duration-300',
+		'border shadow-2xl shadow-black/25 transform-gpu will-change-transform',
+		themeClasses[theme],
+		scanlineActive && 'terminal-scanlines',
+		flickerActive && 'terminal-flicker',
+		isGlitching && 'terminal-glitch',
+		className
+	)}
+>
 	<!-- Matrix Rain Canvas -->
 	{#if matrixActive}
-		<canvas
-			bind:this={canvasRef}
-			class="absolute inset-0 pointer-events-none z-0 opacity-30"
-		></canvas>
+		<canvas bind:this={canvasRef} class="absolute inset-0 pointer-events-none z-0 opacity-30"></canvas>
 	{/if}
 
 	<!-- Terminal Header -->
@@ -224,7 +230,7 @@
 				<div class="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400 cursor-pointer transition-colors"></div>
 				<div class="w-3 h-3 rounded-full bg-green-500 hover:bg-green-400 cursor-pointer transition-colors"></div>
 			</div>
-			
+
 			<!-- Title with glitch effect -->
 			<h3 class="text-sm font-mono font-semibold">
 				{#if isGlitching}
@@ -243,7 +249,7 @@
 	</div>
 
 	<!-- Terminal Body -->
-	<div 
+	<div
 		bind:this={terminalRef}
 		class="relative z-10 p-4 h-96 overflow-y-auto font-mono text-sm leading-relaxed terminal-scroll"
 		style="scrollbar-width: thin;"
@@ -331,35 +337,81 @@ Connection established. Type 'help' for available commands.</pre>
 	}
 
 	@keyframes glitch-anim {
-		0% { clip-path: inset(40% 0 61% 0); }
-		20% { clip-path: inset(92% 0 1% 0); }
-		40% { clip-path: inset(43% 0 1% 0); }
-		60% { clip-path: inset(25% 0 58% 0); }
-		80% { clip-path: inset(54% 0 7% 0); }
-		100% { clip-path: inset(58% 0 43% 0); }
+		0% {
+			clip-path: inset(40% 0 61% 0);
+		}
+		20% {
+			clip-path: inset(92% 0 1% 0);
+		}
+		40% {
+			clip-path: inset(43% 0 1% 0);
+		}
+		60% {
+			clip-path: inset(25% 0 58% 0);
+		}
+		80% {
+			clip-path: inset(54% 0 7% 0);
+		}
+		100% {
+			clip-path: inset(58% 0 43% 0);
+		}
 	}
 
 	@keyframes glitch-anim2 {
-		0% { clip-path: inset(25% 0 58% 0); }
-		20% { clip-path: inset(54% 0 7% 0); }
-		40% { clip-path: inset(58% 0 43% 0); }
-		60% { clip-path: inset(40% 0 61% 0); }
-		80% { clip-path: inset(92% 0 1% 0); }
-		100% { clip-path: inset(43% 0 1% 0); }
+		0% {
+			clip-path: inset(25% 0 58% 0);
+		}
+		20% {
+			clip-path: inset(54% 0 7% 0);
+		}
+		40% {
+			clip-path: inset(58% 0 43% 0);
+		}
+		60% {
+			clip-path: inset(40% 0 61% 0);
+		}
+		80% {
+			clip-path: inset(92% 0 1% 0);
+		}
+		100% {
+			clip-path: inset(43% 0 1% 0);
+		}
 	}
 
 	@keyframes glitch-skew {
-		0% { transform: skew(0deg); }
-		10% { transform: skew(-2deg); }
-		20% { transform: skew(2deg); }
-		30% { transform: skew(-1deg); }
-		40% { transform: skew(1deg); }
-		50% { transform: skew(0deg); }
-		60% { transform: skew(-1deg); }
-		70% { transform: skew(2deg); }
-		80% { transform: skew(-2deg); }
-		90% { transform: skew(1deg); }
-		100% { transform: skew(0deg); }
+		0% {
+			transform: skew(0deg);
+		}
+		10% {
+			transform: skew(-2deg);
+		}
+		20% {
+			transform: skew(2deg);
+		}
+		30% {
+			transform: skew(-1deg);
+		}
+		40% {
+			transform: skew(1deg);
+		}
+		50% {
+			transform: skew(0deg);
+		}
+		60% {
+			transform: skew(-1deg);
+		}
+		70% {
+			transform: skew(2deg);
+		}
+		80% {
+			transform: skew(-2deg);
+		}
+		90% {
+			transform: skew(1deg);
+		}
+		100% {
+			transform: skew(0deg);
+		}
 	}
 
 	/* Terminal Effects */
@@ -372,17 +424,18 @@ Connection established. Type 'help' for available commands.</pre>
 		bottom: 0;
 		pointer-events: none;
 		z-index: 1000;
-		background: linear-gradient(
-			transparent 98%,
-			rgba(0, 255, 136, 0.08) 100%
-		);
+		background: linear-gradient(transparent 98%, rgba(0, 255, 136, 0.08) 100%);
 		background-size: 100% 4px;
 		animation: scanlines 0.1s linear infinite;
 	}
 
 	@keyframes scanlines {
-		0% { transform: translateY(0); }
-		100% { transform: translateY(4px); }
+		0% {
+			transform: translateY(0);
+		}
+		100% {
+			transform: translateY(4px);
+		}
 	}
 
 	.terminal-flicker {
@@ -390,10 +443,18 @@ Connection established. Type 'help' for available commands.</pre>
 	}
 
 	@keyframes flicker {
-		0% { opacity: 1; }
-		98% { opacity: 1; }
-		99% { opacity: 0.98; }
-		100% { opacity: 1; }
+		0% {
+			opacity: 1;
+		}
+		98% {
+			opacity: 1;
+		}
+		99% {
+			opacity: 0.98;
+		}
+		100% {
+			opacity: 1;
+		}
 	}
 
 	.terminal-glitch {
@@ -401,11 +462,21 @@ Connection established. Type 'help' for available commands.</pre>
 	}
 
 	@keyframes terminal-shake {
-		0% { transform: translateX(0px); }
-		25% { transform: translateX(-2px); }
-		50% { transform: translateX(2px); }
-		75% { transform: translateX(-1px); }
-		100% { transform: translateX(1px); }
+		0% {
+			transform: translateX(0px);
+		}
+		25% {
+			transform: translateX(-2px);
+		}
+		50% {
+			transform: translateX(2px);
+		}
+		75% {
+			transform: translateX(-1px);
+		}
+		100% {
+			transform: translateX(1px);
+		}
 	}
 
 	/* Custom Scrollbar */

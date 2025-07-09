@@ -81,8 +81,8 @@
 	};
 
 	const placements = {
-		'top': 'top-4 left-1/2 -translate-x-1/2',
-		'bottom': 'bottom-4 left-1/2 -translate-x-1/2',
+		top: 'top-4 left-1/2 -translate-x-1/2',
+		bottom: 'bottom-4 left-1/2 -translate-x-1/2',
 		'top-right': 'top-4 right-4',
 		'top-left': 'top-4 left-4',
 		'bottom-right': 'bottom-4 right-4',
@@ -106,9 +106,9 @@
 			className
 		)}
 		transition:glassFade={{ duration: animated ? 300 : 0 }}
-		use:jellyHover={{ 
-			enabled: jelly, 
-			scale: 1.02, 
+		use:jellyHover={{
+			enabled: jelly,
+			scale: 1.02,
 			duration: 200,
 			borderRadius: '16px'
 		}}
@@ -116,35 +116,25 @@
 	>
 		<div class="flex items-start gap-3">
 			{#if icon}
-				<div class={cn(
-					'flex-shrink-0 mt-0.5',
-					currentVariant.text,
-					animated && 'animate-pulse'
-				)}>
+				<div class={cn('flex-shrink-0 mt-0.5', currentVariant.text, animated && 'animate-pulse')}>
 					<IconComponent size={20} />
 				</div>
 			{/if}
-			
+
 			<div class="flex-1 min-w-0">
 				{#if title}
-					<h3 class={cn(
-						'font-semibold text-base',
-						currentVariant.text
-					)}>
+					<h3 class={cn('font-semibold text-base', currentVariant.text)}>
 						{title}
 					</h3>
 				{/if}
-				
+
 				{#if description}
-					<p class={cn(
-						'text-sm mt-1 opacity-80',
-						currentVariant.text
-					)}>
+					<p class={cn('text-sm mt-1 opacity-80', currentVariant.text)}>
 						{description}
 					</p>
 				{/if}
 			</div>
-			
+
 			{#if closable}
 				<button
 					onclick={handleClose}
@@ -166,10 +156,16 @@
 <style>
 	/* Terminal cursor animation for terminal variant */
 	@keyframes terminal-blink {
-		0%, 50% { opacity: 1; }
-		51%, 100% { opacity: 0; }
+		0%,
+		50% {
+			opacity: 1;
+		}
+		51%,
+		100% {
+			opacity: 0;
+		}
 	}
-	
+
 	:global(.terminal-cursor) {
 		animation: terminal-blink 1s infinite;
 	}

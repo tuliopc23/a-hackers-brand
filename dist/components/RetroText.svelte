@@ -127,7 +127,7 @@
 		'retro-text inline-block relative',
 		{
 			'animate-flicker': flicker,
-			'scanlines': scanlines
+			scanlines: scanlines
 		},
 		className
 	);
@@ -135,10 +135,10 @@
 	// Typewriter effect
 	function startTypewriter() {
 		if (!typewriter || !text) return;
-		
+
 		displayText = '';
 		currentIndex = 0;
-		
+
 		const interval = setInterval(() => {
 			if (currentIndex < text.length) {
 				displayText += text[currentIndex];
@@ -163,7 +163,7 @@
 		if (containerRef) {
 			const fontConfig = bitmapFonts[variant];
 			const colorConfig = colors[color];
-			
+
 			containerRef.style.setProperty('--retro-font-family', fontConfig.fontFamily);
 			containerRef.style.setProperty('--retro-font-weight', fontConfig.fontWeight);
 			containerRef.style.setProperty('--retro-letter-spacing', fontConfig.letterSpacing);
@@ -181,13 +181,13 @@
 			// Simple bitmap-style character rendering
 			const bitmapChars: Record<string, string> = {
 				' ': '&nbsp;',
-				'A': '█▀█<br>█▀█<br>█&nbsp;█',
-				'E': '███<br>██&nbsp;<br>███',
-				'I': '███<br>&nbsp;█&nbsp;<br>███',
-				'O': '███<br>█&nbsp;█<br>███',
-				'U': '█&nbsp;█<br>█&nbsp;█<br>███'
+				A: '█▀█<br>█▀█<br>█&nbsp;█',
+				E: '███<br>██&nbsp;<br>███',
+				I: '███<br>&nbsp;█&nbsp;<br>███',
+				O: '███<br>█&nbsp;█<br>███',
+				U: '█&nbsp;█<br>█&nbsp;█<br>███'
 			};
-			
+
 			return bitmapChars[char.toUpperCase()] || char;
 		}
 		return char;
@@ -204,11 +204,7 @@
 	});
 </script>
 
-<span 
-	bind:this={containerRef}
-	class={containerClasses}
-	aria-label={text}
->
+<span bind:this={containerRef} class={containerClasses} aria-label={text}>
 	{#if children}
 		{@render children()}
 	{:else if variant === 'commodore' || variant === 'atari'}
@@ -247,7 +243,7 @@
 
 	/* Glow effect */
 	.retro-text {
-		text-shadow: 
+		text-shadow:
 			0 0 5px var(--retro-shadow-color),
 			0 0 10px var(--retro-shadow-color),
 			0 0 15px var(--retro-shadow-color);
@@ -261,10 +257,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(
-			transparent 50%, 
-			rgba(0, 0, 0, 0.1) 50%
-		);
+		background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.1) 50%);
 		background-size: 100% 2px;
 		pointer-events: none;
 		z-index: 1;
@@ -272,9 +265,16 @@
 
 	/* Flicker animation */
 	@keyframes flicker {
-		0%, 100% { opacity: 1; }
-		50% { opacity: 0.8; }
-		75% { opacity: 0.9; }
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.8;
+		}
+		75% {
+			opacity: 0.9;
+		}
 	}
 
 	.animate-flicker {
@@ -287,8 +287,14 @@
 	}
 
 	@keyframes blink {
-		0%, 50% { opacity: 1; }
-		51%, 100% { opacity: 0; }
+		0%,
+		50% {
+			opacity: 1;
+		}
+		51%,
+		100% {
+			opacity: 0;
+		}
 	}
 
 	/* Bitmap character styling */
@@ -304,28 +310,23 @@
 	/* Vintage CRT effects */
 	.retro-text {
 		/* Slight chromatic aberration */
-		filter: 
-			drop-shadow(1px 0 0 rgba(255, 0, 0, 0.1))
-			drop-shadow(-1px 0 0 rgba(0, 255, 255, 0.1));
+		filter: drop-shadow(1px 0 0 rgba(255, 0, 0, 0.1)) drop-shadow(-1px 0 0 rgba(0, 255, 255, 0.1));
 	}
 
 	/* Variant-specific enhancements */
-	:global(.retro-text[data-variant="commodore"]) {
-		background: linear-gradient(90deg, 
-			var(--retro-color) 0%, 
-			var(--retro-color) 100%
-		);
+	:global(.retro-text[data-variant='commodore']) {
+		background: linear-gradient(90deg, var(--retro-color) 0%, var(--retro-color) 100%);
 		-webkit-background-clip: text;
 		background-clip: text;
 	}
 
-	:global(.retro-text[data-variant="apple2"]) {
-		text-shadow: 
+	:global(.retro-text[data-variant='apple2']) {
+		text-shadow:
 			1px 1px 0 rgba(0, 0, 0, 0.5),
 			0 0 10px var(--retro-shadow-color);
 	}
 
-	:global(.retro-text[data-variant="atari"]) {
+	:global(.retro-text[data-variant='atari']) {
 		border: 1px solid var(--retro-color);
 		padding: 0.25em 0.5em;
 		background: rgba(0, 0, 0, 0.8);
@@ -351,10 +352,7 @@
 	/* Dark mode adjustments */
 	@media (prefers-color-scheme: dark) {
 		.retro-text.scanlines::before {
-			background: linear-gradient(
-				transparent 50%, 
-				rgba(255, 255, 255, 0.05) 50%
-			);
+			background: linear-gradient(transparent 50%, rgba(255, 255, 255, 0.05) 50%);
 		}
 	}
 </style>

@@ -22,11 +22,7 @@
 	const textClasses = $derived(textVariants({ size, weight, align, family, className }));
 </script>
 
-<svelte:element 
-	this={as} 
-	class={textClasses}
-	{...restProps}
->
+<svelte:element this={as} class={textClasses} {...restProps}>
 	{#if text}
 		{text}
 	{:else}

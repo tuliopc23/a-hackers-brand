@@ -62,7 +62,7 @@
 
 	const biosMessages = [
 		'LIQUID GLASS BIOS v4.2.0',
-		'Copyright (C) 2024 A Hacker\'s Brand Systems',
+		"Copyright (C) 2024 A Hacker's Brand Systems",
 		'',
 		'Detecting hardware...',
 		'CPU: Quantum Glass Processor @ 3.14 THz',
@@ -81,7 +81,7 @@
 
 	const bootMessages = [
 		'GRUB Liquid Glass v2.0',
-		'Loading A Hacker\'s Brand OS...',
+		"Loading A Hacker's Brand OS...",
 		'',
 		'[    0.000000] Initializing liquid kernel',
 		'[    0.012421] Glass morphism drivers loaded',
@@ -96,7 +96,7 @@
 		'[    0.103892] UI framework mounted',
 		'[    0.112433] Glass surface calibrated',
 		'[    0.125643] User interface ready',
-		'[    0.134521] Welcome to A Hacker\'s Brand'
+		"[    0.134521] Welcome to A Hacker's Brand"
 	];
 
 	const allMessages = showBIOS ? [...biosMessages, '', ...bootMessages] : bootMessages;
@@ -104,7 +104,7 @@
 
 	const startSequence = async () => {
 		if (isRunning) return;
-		
+
 		isRunning = true;
 		isComplete = false;
 		currentLine = 0;
@@ -113,7 +113,7 @@
 		for (let i = 0; i < allMessages.length; i++) {
 			currentLine = i;
 			progress = (i / allMessages.length) * 100;
-			
+
 			// Variable delay based on message type
 			let delay = displaySpeed;
 			if (allMessages[i].includes('PASS') || allMessages[i].includes('OK')) {
@@ -121,8 +121,8 @@
 			} else if (allMessages[i].includes('[')) {
 				delay = fastBoot ? 20 : 80;
 			}
-			
-			await new Promise(resolve => setTimeout(resolve, delay));
+
+			await new Promise((resolve) => setTimeout(resolve, delay));
 		}
 
 		isComplete = true;
@@ -162,7 +162,10 @@
 >
 	<!-- Scanlines effect -->
 	<div class="absolute inset-0 opacity-10 pointer-events-none">
-		<div class="w-full h-full" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, currentColor 2px, currentColor 4px);"></div>
+		<div
+			class="w-full h-full"
+			style="background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, currentColor 2px, currentColor 4px);"
+		></div>
 	</div>
 
 	<!-- CRT curve effect -->
@@ -171,7 +174,7 @@
 	<!-- Boot messages -->
 	<div class="relative z-10 space-y-1">
 		{#each allMessages.slice(0, currentLine + 1) as message, index}
-			<div 
+			<div
 				class={cn(
 					'whitespace-pre-wrap transition-all duration-200',
 					getMessageStyle(message),
@@ -207,7 +210,7 @@
 			<div class="flex items-center space-x-2 text-xs">
 				<span class={currentVariant.accent}>Loading:</span>
 				<div class="flex-1 h-1 bg-gray-800 rounded-full overflow-hidden">
-					<div 
+					<div
 						class={cn('h-full transition-all duration-300 rounded-full', currentVariant.success)}
 						style="width: {progress}%; background-color: currentColor;"
 					></div>
@@ -231,8 +234,13 @@
 
 	/* Vintage monitor flicker */
 	@keyframes flicker {
-		0%, 100% { opacity: 1; }
-		50% { opacity: 0.98; }
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.98;
+		}
 	}
 
 	.animate-flicker {

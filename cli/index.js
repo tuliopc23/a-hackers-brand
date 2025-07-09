@@ -11,19 +11,19 @@ const __dirname = dirname(__filename);
 
 // ANSI color codes for terminal output
 const colors = {
-  reset: '\x1b[0m',
-  bright: '\x1b[1m',
-  dim: '\x1b[2m',
-  red: '\x1b[31m',
-  green: '\x1b[32m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  magenta: '\x1b[35m',
-  cyan: '\x1b[36m',
-  white: '\x1b[37m',
-  bgRed: '\x1b[41m',
-  bgGreen: '\x1b[42m',
-  bgBlue: '\x1b[44m'
+	reset: '\x1b[0m',
+	bright: '\x1b[1m',
+	dim: '\x1b[2m',
+	red: '\x1b[31m',
+	green: '\x1b[32m',
+	yellow: '\x1b[33m',
+	blue: '\x1b[34m',
+	magenta: '\x1b[35m',
+	cyan: '\x1b[36m',
+	white: '\x1b[37m',
+	bgRed: '\x1b[41m',
+	bgGreen: '\x1b[42m',
+	bgBlue: '\x1b[44m'
 };
 
 // ASCII art banner
@@ -47,172 +47,179 @@ ${colors.dim}         Create stunning SvelteKit apps with retro-futuristic UI${c
 
 // Spinner animation
 class Spinner {
-  constructor(text = 'Loading...') {
-    this.text = text;
-    this.frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
-    this.current = 0;
-    this.interval = null;
-  }
+	constructor(text = 'Loading...') {
+		this.text = text;
+		this.frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+		this.current = 0;
+		this.interval = null;
+	}
 
-  start() {
-    this.interval = setInterval(() => {
-      process.stdout.write(`\r${colors.cyan}${this.frames[this.current]}${colors.reset} ${this.text}`);
-      this.current = (this.current + 1) % this.frames.length;
-    }, 80);
-  }
+	start() {
+		this.interval = setInterval(() => {
+			process.stdout.write(`\r${colors.cyan}${this.frames[this.current]}${colors.reset} ${this.text}`);
+			this.current = (this.current + 1) % this.frames.length;
+		}, 80);
+	}
 
-  stop(symbol = '✅', message = 'Done') {
-    if (this.interval) {
-      clearInterval(this.interval);
-      this.interval = null;
-    }
-    process.stdout.write(`\r${colors.green}${symbol}${colors.reset} ${message}\n`);
-  }
+	stop(symbol = '✅', message = 'Done') {
+		if (this.interval) {
+			clearInterval(this.interval);
+			this.interval = null;
+		}
+		process.stdout.write(`\r${colors.green}${symbol}${colors.reset} ${message}\n`);
+	}
 
-  fail(message = 'Failed') {
-    if (this.interval) {
-      clearInterval(this.interval);
-      this.interval = null;
-    }
-    process.stdout.write(`\r${colors.red}❌${colors.reset} ${message}\n`);
-  }
+	fail(message = 'Failed') {
+		if (this.interval) {
+			clearInterval(this.interval);
+			this.interval = null;
+		}
+		process.stdout.write(`\r${colors.red}❌${colors.reset} ${message}\n`);
+	}
 }
 
 // Utility functions
 function log(message, color = 'white') {
-  console.log(`${colors[color]}${message}${colors.reset}`);
+	console.log(`${colors[color]}${message}${colors.reset}`);
 }
 
 function error(message) {
-  console.error(`${colors.red}❌ ${message}${colors.reset}`);
+	console.error(`${colors.red}❌ ${message}${colors.reset}`);
 }
 
 function success(message) {
-  console.log(`${colors.green}✅ ${message}${colors.reset}`);
+	console.log(`${colors.green}✅ ${message}${colors.reset}`);
 }
 
 function info(message) {
-  console.log(`${colors.blue}ℹ️  ${message}${colors.reset}`);
+	console.log(`${colors.blue}ℹ️  ${message}${colors.reset}`);
 }
 
 function warn(message) {
-  console.log(`${colors.yellow}⚠️  ${message}${colors.reset}`);
+	console.log(`${colors.yellow}⚠️  ${message}${colors.reset}`);
 }
 
 // Command line argument parsing
 function parseArgs() {
-  const args = process.argv.slice(2);
-  if (args.length === 0) {
-    return { help: true };
-  }
+	const args = process.argv.slice(2);
+	if (args.length === 0) {
+		return { help: true };
+	}
 
-  const [projectName, ...flags] = args;
-  
-  if (projectName === '--help' || projectName === '-h') {
-    return { help: true };
-  }
+	const [projectName, ...flags] = args;
 
-  return {
-    projectName,
-    flags: flags.reduce((acc, flag) => {
-      if (flag.startsWith('--template=')) {
-        acc.template = flag.split('=')[1];
-      } else if (flag === '--typescript') {
-        acc.typescript = true;
-      } else if (flag === '--demo') {
-        acc.demo = true;
-      } else if (flag === '--verbose') {
-        acc.verbose = true;
-      } else if (flag === '--skip-install') {
-        acc.skipInstall = true;
-      }
-      return acc;
-    }, {})
-  };
+	if (projectName === '--help' || projectName === '-h') {
+		return { help: true };
+	}
+
+	return {
+		projectName,
+		flags: flags.reduce((acc, flag) => {
+			if (flag.startsWith('--template=')) {
+				acc.template = flag.split('=')[1];
+			} else if (flag === '--typescript') {
+				acc.typescript = true;
+			} else if (flag === '--demo') {
+				acc.demo = true;
+			} else if (flag === '--verbose') {
+				acc.verbose = true;
+			} else if (flag === '--skip-install') {
+				acc.skipInstall = true;
+			}
+			return acc;
+		}, {})
+	};
 }
 
 // User prompts
 async function prompt(question, defaultValue = '') {
-  const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
+	const rl = createInterface({
+		input: process.stdin,
+		output: process.stdout
+	});
 
-  return new Promise((resolve) => {
-    const defaultText = defaultValue ? ` ${colors.dim}(${defaultValue})${colors.reset}` : '';
-    rl.question(`${colors.cyan}?${colors.reset} ${question}${defaultText}: `, (answer) => {
-      rl.close();
-      resolve(answer.trim() || defaultValue);
-    });
-  });
+	return new Promise((resolve) => {
+		const defaultText = defaultValue ? ` ${colors.dim}(${defaultValue})${colors.reset}` : '';
+		rl.question(`${colors.cyan}?${colors.reset} ${question}${defaultText}: `, (answer) => {
+			rl.close();
+			resolve(answer.trim() || defaultValue);
+		});
+	});
 }
 
 async function confirm(question, defaultValue = true) {
-  const defaultText = defaultValue ? 'Y/n' : 'y/N';
-  const answer = await prompt(`${question} ${colors.dim}(${defaultText})${colors.reset}`);
-  
-  if (!answer) return defaultValue;
-  return answer.toLowerCase().startsWith('y');
+	const defaultText = defaultValue ? 'Y/n' : 'y/N';
+	const answer = await prompt(`${question} ${colors.dim}(${defaultText})${colors.reset}`);
+
+	if (!answer) return defaultValue;
+	return answer.toLowerCase().startsWith('y');
 }
 
 async function select(question, choices) {
-  console.log(`\n${colors.cyan}?${colors.reset} ${question}`);
-  choices.forEach((choice, index) => {
-    console.log(`  ${colors.dim}${index + 1}.${colors.reset} ${choice.name} ${colors.dim}- ${choice.description}${colors.reset}`);
-  });
-  
-  const answer = await prompt('Choose an option', '1');
-  const index = parseInt(answer) - 1;
-  
-  if (index >= 0 && index < choices.length) {
-    return choices[index];
-  }
-  
-  return choices[0];
+	console.log(`\n${colors.cyan}?${colors.reset} ${question}`);
+	choices.forEach((choice, index) => {
+		console.log(
+			`  ${colors.dim}${index + 1}.${colors.reset} ${choice.name} ${colors.dim}- ${choice.description}${colors.reset}`
+		);
+	});
+
+	const answer = await prompt('Choose an option', '1');
+	const index = parseInt(answer) - 1;
+
+	if (index >= 0 && index < choices.length) {
+		return choices[index];
+	}
+
+	return choices[0];
 }
 
 // Template definitions
 const templates = {
-  minimal: {
-    name: 'Minimal SvelteKit App',
-    description: 'Basic SvelteKit setup with A Hacker\'s Brand components',
-    files: {
-      'package.json': (projectName) => JSON.stringify({
-        name: projectName,
-        version: '0.0.1',
-        private: true,
-        scripts: {
-          dev: 'vite dev',
-          build: 'vite build',
-          preview: 'vite preview',
-          check: 'svelte-kit sync && svelte-check --tsconfig ./tsconfig.json',
-          'check:watch': 'svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch'
-        },
-        devDependencies: {
-          '@sveltejs/adapter-auto': '^3.0.0',
-          '@sveltejs/kit': '^2.0.0',
-          '@sveltejs/vite-plugin-svelte': '^4.0.0',
-          svelte: '^5.0.0',
-          'svelte-check': '^4.0.0',
-          typescript: '^5.0.0',
-          vite: '^6.0.0',
-          tailwindcss: '^4.0.0',
-          autoprefixer: '^10.4.0'
-        },
-        dependencies: {
-          'a-hackers-brand': '^0.2.0'
-        },
-        type: 'module'
-      }, null, 2),
-      
-      'vite.config.js': `import { sveltekit } from '@sveltejs/kit/vite';
+	minimal: {
+		name: 'Minimal SvelteKit App',
+		description: "Basic SvelteKit setup with A Hacker's Brand components",
+		files: {
+			'package.json': (projectName) =>
+				JSON.stringify(
+					{
+						name: projectName,
+						version: '0.0.1',
+						private: true,
+						scripts: {
+							dev: 'vite dev',
+							build: 'vite build',
+							preview: 'vite preview',
+							check: 'svelte-kit sync && svelte-check --tsconfig ./tsconfig.json',
+							'check:watch': 'svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch'
+						},
+						devDependencies: {
+							'@sveltejs/adapter-auto': '^3.0.0',
+							'@sveltejs/kit': '^2.0.0',
+							'@sveltejs/vite-plugin-svelte': '^4.0.0',
+							svelte: '^5.0.0',
+							'svelte-check': '^4.0.0',
+							typescript: '^5.0.0',
+							vite: '^6.0.0',
+							tailwindcss: '^4.0.0',
+							autoprefixer: '^10.4.0'
+						},
+						dependencies: {
+							'a-hackers-brand': '^0.2.0'
+						},
+						type: 'module'
+					},
+					null,
+					2
+				),
+
+			'vite.config.js': `import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [sveltekit()]
 });`,
 
-      'svelte.config.js': `import adapter from '@sveltejs/adapter-auto';
+			'svelte.config.js': `import adapter from '@sveltejs/adapter-auto';
 
 const config = {
   kit: {
@@ -222,14 +229,14 @@ const config = {
 
 export default config;`,
 
-      'tailwind.config.js': `import hackersConfig from 'a-hackers-brand/tailwind';
+			'tailwind.config.js': `import hackersConfig from 'a-hackers-brand/tailwind';
 
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   presets: [hackersConfig]
 };`,
 
-      'src/app.html': `<!doctype html>
+			'src/app.html': `<!doctype html>
 <html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
@@ -242,7 +249,7 @@ export default {
   </body>
 </html>`,
 
-      'src/app.css': `@import 'tailwindcss';
+			'src/app.css': `@import 'tailwindcss';
 @import 'a-hackers-brand/styles';
 
 :root {
@@ -255,7 +262,7 @@ body {
   min-height: 100vh;
 }`,
 
-      'src/routes/+layout.svelte': `<script>
+			'src/routes/+layout.svelte': `<script>
   import '../app.css';
 </script>
 
@@ -263,7 +270,7 @@ body {
   <slot />
 </main>`,
 
-      'src/routes/+page.svelte': `<script>
+			'src/routes/+page.svelte': `<script>
   import { Button, Card } from 'a-hackers-brand';
 </script>
 
@@ -298,29 +305,33 @@ body {
   </div>
 </div>`,
 
-      'tsconfig.json': JSON.stringify({
-        extends: './.svelte-kit/tsconfig.json',
-        compilerOptions: {
-          allowJs: true,
-          checkJs: true,
-          esModuleInterop: true,
-          forceConsistentCasingInFileNames: true,
-          resolveJsonModule: true,
-          skipLibCheck: true,
-          sourceMap: true,
-          strict: true,
-          moduleResolution: 'bundler'
-        }
-      }, null, 2)
-    }
-  },
+			'tsconfig.json': JSON.stringify(
+				{
+					extends: './.svelte-kit/tsconfig.json',
+					compilerOptions: {
+						allowJs: true,
+						checkJs: true,
+						esModuleInterop: true,
+						forceConsistentCasingInFileNames: true,
+						resolveJsonModule: true,
+						skipLibCheck: true,
+						sourceMap: true,
+						strict: true,
+						moduleResolution: 'bundler'
+					}
+				},
+				null,
+				2
+			)
+		}
+	},
 
-  dashboard: {
-    name: 'Dashboard Template',
-    description: 'Complete dashboard with navigation, data displays, and forms',
-    files: {
-      // Inherits from minimal + additional dashboard files
-      'src/lib/components/Dashboard.svelte': `<script>
+	dashboard: {
+		name: 'Dashboard Template',
+		description: 'Complete dashboard with navigation, data displays, and forms',
+		files: {
+			// Inherits from minimal + additional dashboard files
+			'src/lib/components/Dashboard.svelte': `<script>
   import { Card, Button, Input, Switch, Badge } from 'a-hackers-brand';
   
   let stats = [
@@ -358,15 +369,15 @@ body {
     {/each}
   </div>
 </div>`
-    }
-  },
+		}
+	},
 
-  portfolio: {
-    name: 'Portfolio Template',
-    description: 'Stunning portfolio site with 3D effects and animations',
-    files: {
-      // Inherits from minimal + portfolio-specific files
-      'src/lib/components/Hero.svelte': `<script>
+	portfolio: {
+		name: 'Portfolio Template',
+		description: 'Stunning portfolio site with 3D effects and animations',
+		files: {
+			// Inherits from minimal + portfolio-specific files
+			'src/lib/components/Hero.svelte': `<script>
   import { Button } from 'a-hackers-brand';
   import { onMount } from 'svelte';
   
@@ -410,87 +421,86 @@ body {
     height: 100%;
   }
 </style>`
-    }
-  }
+		}
+	}
 };
 
 // Project creation functions
 async function createProject(projectName, options = {}) {
-  const { template = 'minimal', typescript = true, demo = false, verbose = false } = options;
-  
-  if (existsSync(projectName)) {
-    error(`Directory "${projectName}" already exists!`);
-    process.exit(1);
-  }
+	const { template = 'minimal', typescript = true, demo = false, verbose = false } = options;
 
-  const spinner = new Spinner(`Creating project "${projectName}"...`);
-  spinner.start();
+	if (existsSync(projectName)) {
+		error(`Directory "${projectName}" already exists!`);
+		process.exit(1);
+	}
 
-  try {
-    // Create project directory
-    mkdirSync(projectName, { recursive: true });
+	const spinner = new Spinner(`Creating project "${projectName}"...`);
+	spinner.start();
 
-    // Get template
-    const templateConfig = templates[template];
-    if (!templateConfig) {
-      throw new Error(`Template "${template}" not found`);
-    }
+	try {
+		// Create project directory
+		mkdirSync(projectName, { recursive: true });
 
-    // Create files
-    for (const [filePath, content] of Object.entries(templateConfig.files)) {
-      const fullPath = join(projectName, filePath);
-      const dir = dirname(fullPath);
-      
-      if (!existsSync(dir)) {
-        mkdirSync(dir, { recursive: true });
-      }
+		// Get template
+		const templateConfig = templates[template];
+		if (!templateConfig) {
+			throw new Error(`Template "${template}" not found`);
+		}
 
-      const fileContent = typeof content === 'function' ? content(projectName) : content;
-      writeFileSync(fullPath, fileContent);
-    }
+		// Create files
+		for (const [filePath, content] of Object.entries(templateConfig.files)) {
+			const fullPath = join(projectName, filePath);
+			const dir = dirname(fullPath);
 
-    // Add demo components if requested
-    if (demo) {
-      await addDemoComponents(projectName);
-    }
+			if (!existsSync(dir)) {
+				mkdirSync(dir, { recursive: true });
+			}
 
-    spinner.stop('🎉', `Project "${projectName}" created successfully!`);
-    
-    // Post-creation instructions
-    console.log('\n' + '='.repeat(60));
-    success('Your A Hacker\'s Brand project is ready! 🚀');
-    console.log('='.repeat(60));
-    
-    info('Next steps:');
-    console.log(`  ${colors.dim}cd ${projectName}${colors.reset}`);
-    
-    if (!options.skipInstall) {
-      console.log(`  ${colors.dim}npm install${colors.reset}`);
-    }
-    
-    console.log(`  ${colors.dim}npm run dev${colors.reset}`);
-    console.log('');
-    
-    info('Available templates:');
-    Object.entries(templates).forEach(([key, config]) => {
-      console.log(`  ${colors.cyan}${key}${colors.reset} - ${config.description}`);
-    });
-    
-    console.log('');
-    info('Learn more:');
-    console.log('  📖 Documentation: https://github.com/your-org/a-hackers-brand');
-    console.log('  💬 Discord: https://discord.gg/hackers-brand');
-    console.log('  🐛 Issues: https://github.com/your-org/a-hackers-brand/issues');
-    
-  } catch (err) {
-    spinner.fail(`Failed to create project: ${err.message}`);
-    process.exit(1);
-  }
+			const fileContent = typeof content === 'function' ? content(projectName) : content;
+			writeFileSync(fullPath, fileContent);
+		}
+
+		// Add demo components if requested
+		if (demo) {
+			await addDemoComponents(projectName);
+		}
+
+		spinner.stop('🎉', `Project "${projectName}" created successfully!`);
+
+		// Post-creation instructions
+		console.log('\n' + '='.repeat(60));
+		success("Your A Hacker's Brand project is ready! 🚀");
+		console.log('='.repeat(60));
+
+		info('Next steps:');
+		console.log(`  ${colors.dim}cd ${projectName}${colors.reset}`);
+
+		if (!options.skipInstall) {
+			console.log(`  ${colors.dim}npm install${colors.reset}`);
+		}
+
+		console.log(`  ${colors.dim}npm run dev${colors.reset}`);
+		console.log('');
+
+		info('Available templates:');
+		Object.entries(templates).forEach(([key, config]) => {
+			console.log(`  ${colors.cyan}${key}${colors.reset} - ${config.description}`);
+		});
+
+		console.log('');
+		info('Learn more:');
+		console.log('  📖 Documentation: https://github.com/your-org/a-hackers-brand');
+		console.log('  💬 Discord: https://discord.gg/hackers-brand');
+		console.log('  🐛 Issues: https://github.com/your-org/a-hackers-brand/issues');
+	} catch (err) {
+		spinner.fail(`Failed to create project: ${err.message}`);
+		process.exit(1);
+	}
 }
 
 async function addDemoComponents(projectName) {
-  const demoComponents = {
-    'src/lib/components/AnimatedBackground.svelte': `<script>
+	const demoComponents = {
+		'src/lib/components/AnimatedBackground.svelte': `<script>
   import { onMount } from 'svelte';
   
   let canvas;
@@ -545,7 +555,7 @@ async function addDemoComponents(projectName) {
   class="absolute inset-0 w-full h-full opacity-30"
 ></canvas>`,
 
-    'src/lib/components/TerminalWindow.svelte': `<script>
+		'src/lib/components/TerminalWindow.svelte': `<script>
   import { onMount } from 'svelte';
   
   export let commands = [
@@ -587,24 +597,24 @@ async function addDemoComponents(projectName) {
     </div>
   {/each}
 </div>`
-  };
+	};
 
-  for (const [filePath, content] of Object.entries(demoComponents)) {
-    const fullPath = join(projectName, filePath);
-    const dir = dirname(fullPath);
-    
-    if (!existsSync(dir)) {
-      mkdirSync(dir, { recursive: true });
-    }
-    
-    writeFileSync(fullPath, content);
-  }
+	for (const [filePath, content] of Object.entries(demoComponents)) {
+		const fullPath = join(projectName, filePath);
+		const dir = dirname(fullPath);
+
+		if (!existsSync(dir)) {
+			mkdirSync(dir, { recursive: true });
+		}
+
+		writeFileSync(fullPath, content);
+	}
 }
 
 // Help text
 function showHelp() {
-  console.log(banner);
-  console.log(`
+	console.log(banner);
+	console.log(`
 ${colors.bright}USAGE${colors.reset}
   ${colors.green}npx create-hackers-brand${colors.reset} ${colors.cyan}<project-name>${colors.reset} ${colors.dim}[options]${colors.reset}
 
@@ -637,83 +647,83 @@ ${colors.dim}For more information, visit: https://github.com/your-org/a-hackers-
 
 // Interactive mode
 async function interactiveMode() {
-  console.log(banner);
-  
-  const projectName = await prompt('Project name', 'my-hackers-app');
-  
-  if (!projectName) {
-    error('Project name is required!');
-    process.exit(1);
-  }
+	console.log(banner);
 
-  const template = await select('Choose a template:', [
-    { name: 'minimal', description: 'Basic SvelteKit setup with core components' },
-    { name: 'dashboard', description: 'Complete dashboard with data visualization' },
-    { name: 'portfolio', description: 'Portfolio site with 3D effects and animations' }
-  ]);
+	const projectName = await prompt('Project name', 'my-hackers-app');
 
-  const includDemo = await confirm('Include demo components?', false);
-  const skipInstall = await confirm('Skip npm install?', false);
+	if (!projectName) {
+		error('Project name is required!');
+		process.exit(1);
+	}
 
-  console.log('\n' + '='.repeat(60));
-  info('Configuration:');
-  console.log(`  ${colors.dim}Project:${colors.reset} ${projectName}`);
-  console.log(`  ${colors.dim}Template:${colors.reset} ${template.name}`);
-  console.log(`  ${colors.dim}Demo components:${colors.reset} ${includDemo ? 'Yes' : 'No'}`);
-  console.log(`  ${colors.dim}Skip install:${colors.reset} ${skipInstall ? 'Yes' : 'No'}`);
-  console.log('='.repeat(60) + '\n');
+	const template = await select('Choose a template:', [
+		{ name: 'minimal', description: 'Basic SvelteKit setup with core components' },
+		{ name: 'dashboard', description: 'Complete dashboard with data visualization' },
+		{ name: 'portfolio', description: 'Portfolio site with 3D effects and animations' }
+	]);
 
-  const proceed = await confirm('Create project?', true);
-  
-  if (!proceed) {
-    warn('Project creation cancelled.');
-    process.exit(0);
-  }
+	const includDemo = await confirm('Include demo components?', false);
+	const skipInstall = await confirm('Skip npm install?', false);
 
-  await createProject(projectName, {
-    template: template.name,
-    demo: includDemo,
-    skipInstall
-  });
+	console.log('\n' + '='.repeat(60));
+	info('Configuration:');
+	console.log(`  ${colors.dim}Project:${colors.reset} ${projectName}`);
+	console.log(`  ${colors.dim}Template:${colors.reset} ${template.name}`);
+	console.log(`  ${colors.dim}Demo components:${colors.reset} ${includDemo ? 'Yes' : 'No'}`);
+	console.log(`  ${colors.dim}Skip install:${colors.reset} ${skipInstall ? 'Yes' : 'No'}`);
+	console.log('='.repeat(60) + '\n');
+
+	const proceed = await confirm('Create project?', true);
+
+	if (!proceed) {
+		warn('Project creation cancelled.');
+		process.exit(0);
+	}
+
+	await createProject(projectName, {
+		template: template.name,
+		demo: includDemo,
+		skipInstall
+	});
 }
 
 // Main execution
 async function main() {
-  const args = parseArgs();
+	const args = parseArgs();
 
-  if (args.help) {
-    showHelp();
-    return;
-  }
+	if (args.help) {
+		showHelp();
+		return;
+	}
 
-  if (!args.projectName) {
-    await interactiveMode();
-    return;
-  }
+	if (!args.projectName) {
+		await interactiveMode();
+		return;
+	}
 
-  await createProject(args.projectName, args.flags);
+	await createProject(args.projectName, args.flags);
 }
 
 // Error handling
 process.on('uncaughtException', (err) => {
-  error(`Unexpected error: ${err.message}`);
-  process.exit(1);
+	error(`Unexpected error: ${err.message}`);
+	process.exit(1);
 });
 
 process.on('unhandledRejection', (err) => {
-  error(`Unhandled promise rejection: ${err.message}`);
-  process.exit(1);
+	error(`Unhandled promise rejection: ${err.message}`);
+	process.exit(1);
 });
 
 // Handle Ctrl+C gracefully
 process.on('SIGINT', () => {
-  console.log('\n');
-  warn('Operation cancelled by user.');
-  process.exit(0);
+	console.log('\n');
+	warn('Operation cancelled by user.');
+	process.exit(0);
 });
 
 // Run the CLI
 main().catch((err) => {
-  error(`CLI error: ${err.message}`);
-  process.exit(1);
+	error(`CLI error: ${err.message}`);
+	process.exit(1);
 });

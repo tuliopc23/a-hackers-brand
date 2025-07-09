@@ -38,7 +38,7 @@
 	let showBootCursor = $state(true);
 
 	const defaultMessages: BootMessage[] = [
-		{ text: 'A HACKER\'S BRAND SYSTEM v2.0.0', delay: 100, type: 'system' },
+		{ text: "A HACKER'S BRAND SYSTEM v2.0.0", delay: 100, type: 'system' },
 		{ text: 'Copyright (C) 2024 Tulio Pinheiro Cunha', delay: 50, type: 'info' },
 		{ text: '', delay: 100 },
 		{ text: 'Initializing liquid glass morphism engine...', delay: 300, type: 'info' },
@@ -113,18 +113,18 @@
 
 	const typeMessage = async (message: string, delay: number = 50): Promise<void> => {
 		currentText = '';
-		
+
 		for (let i = 0; i <= message.length; i++) {
 			currentText = message.slice(0, i);
-			await new Promise(resolve => setTimeout(resolve, delay));
+			await new Promise((resolve) => setTimeout(resolve, delay));
 		}
-		
-		await new Promise(resolve => setTimeout(resolve, 100));
+
+		await new Promise((resolve) => setTimeout(resolve, 100));
 	};
 
 	const startBootSequence = async () => {
 		if (isBooting) return;
-		
+
 		isBooting = true;
 		isComplete = false;
 		currentMessageIndex = 0;
@@ -134,27 +134,30 @@
 		for (let i = 0; i < bootMessages.length; i++) {
 			const message = bootMessages[i];
 			currentMessageIndex = i;
-			
+
 			if (message.text) {
 				await typeMessage(message.text, typewriterSpeed);
-				displayedMessages = [...displayedMessages, { 
-					text: message.text, 
-					type: message.type 
-				}];
+				displayedMessages = [
+					...displayedMessages,
+					{
+						text: message.text,
+						type: message.type
+					}
+				];
 			} else {
 				// Empty line
 				displayedMessages = [...displayedMessages, { text: '', type: 'info' }];
 			}
-			
+
 			currentText = '';
-			
+
 			// Scroll to bottom
 			if (bootContainer) {
 				bootContainer.scrollTop = bootContainer.scrollHeight;
 			}
-			
+
 			// Wait for the specified delay
-			await new Promise(resolve => setTimeout(resolve, message.delay));
+			await new Promise((resolve) => setTimeout(resolve, message.delay));
 		}
 
 		isComplete = true;
@@ -171,7 +174,7 @@
 
 	onMount(() => {
 		startCursorBlink();
-		
+
 		if (autoStart) {
 			// Small delay to allow component to mount
 			setTimeout(startBootSequence, 200);
@@ -201,7 +204,9 @@
 >
 	<!-- Scan lines effect -->
 	<div class="absolute inset-0 pointer-events-none">
-		<div class="w-full h-full bg-gradient-to-b from-transparent via-current to-transparent opacity-[0.03] animate-pulse"></div>
+		<div
+			class="w-full h-full bg-gradient-to-b from-transparent via-current to-transparent opacity-[0.03] animate-pulse"
+		></div>
 	</div>
 
 	<!-- CRT curvature effect -->
@@ -210,7 +215,7 @@
 	<!-- Boot messages -->
 	<div class="relative z-10 space-y-1">
 		{#each displayedMessages as message, index}
-			<div 
+			<div
 				class={cn(
 					'whitespace-pre-wrap',
 					message.type && messageTypes[message.type] ? messageTypes[message.type] : currentVariant.text,
@@ -223,18 +228,17 @@
 
 		<!-- Current typing message -->
 		{#if isBooting && currentText}
-			<div class={cn(
-				'whitespace-pre-wrap',
-				bootMessages[currentMessageIndex]?.type && messageTypes[bootMessages[currentMessageIndex].type] 
-					? messageTypes[bootMessages[currentMessageIndex].type] 
-					: currentVariant.text
-			)}>
+			<div
+				class={cn(
+					'whitespace-pre-wrap',
+					bootMessages[currentMessageIndex]?.type && messageTypes[bootMessages[currentMessageIndex].type]
+						? messageTypes[bootMessages[currentMessageIndex].type]
+						: currentVariant.text
+				)}
+			>
 				{currentText}
 				{#if showBootCursor && showCursor}
-					<span class={cn(
-						'inline-block w-2 h-4 ml-1 border-r-2 animate-pulse',
-						currentVariant.cursor
-					)}></span>
+					<span class={cn('inline-block w-2 h-4 ml-1 border-r-2 animate-pulse', currentVariant.cursor)}></span>
 				{/if}
 			</div>
 		{/if}
@@ -243,12 +247,14 @@
 		{#if isComplete && showCursor}
 			<div class="mt-4">
 				<span class="text-white">$</span>
-				<span class={cn(
-					'inline-block w-2 h-4 ml-1 border-r-2',
-					showBootCursor ? 'opacity-100' : 'opacity-0',
-					currentVariant.cursor,
-					'transition-opacity duration-100'
-				)}></span>
+				<span
+					class={cn(
+						'inline-block w-2 h-4 ml-1 border-r-2',
+						showBootCursor ? 'opacity-100' : 'opacity-0',
+						currentVariant.cursor,
+						'transition-opacity duration-100'
+					)}
+				></span>
 			</div>
 		{/if}
 	</div>
@@ -264,11 +270,16 @@
 <style>
 	/* CRT glow effect */
 	@keyframes crt-glow {
-		0%, 100% {
-			text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+		0%,
+		100% {
+			text-shadow:
+				0 0 5px currentColor,
+				0 0 10px currentColor;
 		}
 		50% {
-			text-shadow: 0 0 2px currentColor, 0 0 5px currentColor;
+			text-shadow:
+				0 0 2px currentColor,
+				0 0 5px currentColor;
 		}
 	}
 

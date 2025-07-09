@@ -3,9 +3,9 @@
  */
 import { type Metric } from 'web-vitals';
 declare global {
-    interface Window {
-        __vitals: Metric[];
-    }
+	interface Window {
+		__vitals: Metric[];
+	}
 }
 /**
  * Initialize Core Web Vitals tracking
@@ -18,24 +18,30 @@ export declare function getVitals(): Metric[];
 /**
  * Get vitals summary with ratings
  */
-export declare function getVitalsSummary(): Record<string, {
-    value: number;
-    rating: string;
-    timestamp: number;
-}>;
+export declare function getVitalsSummary(): Record<
+	string,
+	{
+		value: number;
+		rating: string;
+		timestamp: number;
+	}
+>;
 /**
  * Export vitals data as JSON
  */
 export declare function exportVitals(): {
-    timestamp: string;
-    url: string;
-    userAgent: string;
-    vitals: Metric[];
-    summary: Record<string, {
-        value: number;
-        rating: string;
-        timestamp: number;
-    }>;
+	timestamp: string;
+	url: string;
+	userAgent: string;
+	vitals: Metric[];
+	summary: Record<
+		string,
+		{
+			value: number;
+			rating: string;
+			timestamp: number;
+		}
+	>;
 };
 /**
  * Clear stored vitals

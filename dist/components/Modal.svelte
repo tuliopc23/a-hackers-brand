@@ -199,31 +199,31 @@
 {#if open}
 	<div
 		class={overlayClasses}
-	role="dialog"
-	aria-modal="true"
-	aria-labelledby={ariaLabelledby}
-	aria-describedby={ariaDescribedby}
-	tabindex="0"
-	onclick={handleOverlayClick}
-	onkeydown={(e) => e.key === 'Escape' && handleClose()}
-	in:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 200 : 0 }}
-	out:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 150 : 0 }}
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby={ariaLabelledby}
+		aria-describedby={ariaDescribedby}
+		tabindex="0"
+		onclick={handleOverlayClick}
+		onkeydown={(e) => e.key === 'Escape' && handleClose()}
+		in:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 200 : 0 }}
+		out:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 150 : 0 }}
 	>
 		<div
 			bind:this={modalElement}
 			class={modalClasses}
 			in:springPop={{ scale: 0.8, duration: animate && !reduceMotion ? 400 : 0, delay: 100 }}
 			out:springPop={{ scale: 0.95, duration: animate && !reduceMotion ? 200 : 0 }}
-			use:jellyHover={{ 
-				enabled: jelly && animate && !reduceMotion, 
-				scale: 1.001, 
+			use:jellyHover={{
+				enabled: jelly && animate && !reduceMotion,
+				scale: 1.001,
 				duration: 300,
 				borderRadius: '16px'
 			}}
-			use:breathingMotion={{ 
-				enabled: breathing && animate && !reduceMotion, 
-				intensity: 0.01, 
-				speed: 4000 
+			use:breathingMotion={{
+				enabled: breathing && animate && !reduceMotion,
+				intensity: 0.01,
+				speed: 4000
 			}}
 			{...restProps}
 		>
@@ -237,7 +237,7 @@
 <style>
 	div[role='dialog'] {
 		-webkit-backdrop-filter: blur(8px);
-		        backdrop-filter: blur(8px);
+		backdrop-filter: blur(8px);
 	}
 
 	@media (prefers-reduced-motion: reduce) {

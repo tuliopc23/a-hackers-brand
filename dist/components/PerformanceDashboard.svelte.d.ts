@@ -1,6 +1,6 @@
 interface Props {
-    class?: string;
+	class?: string;
 }
-declare const PerformanceDashboard: import("svelte").Component<Props, {}, "">;
+declare const PerformanceDashboard: import('svelte').Component<Props, {}, ''>;
 type PerformanceDashboard = ReturnType<typeof PerformanceDashboard>;
 export default PerformanceDashboard;

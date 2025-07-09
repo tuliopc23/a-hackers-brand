@@ -122,15 +122,15 @@
 	const sortedData = $derived(() => {
 		if (!currentSortBy) return data;
 
-		const column = columns.find(col => col.key === currentSortBy);
+		const column = columns.find((col) => col.key === currentSortBy);
 		if (!column?.sortable) return data;
 
 		return [...data].sort((a, b) => {
 			const aVal = a[currentSortBy];
 			const bVal = b[currentSortBy];
-			
+
 			if (aVal === bVal) return 0;
-			
+
 			const isAsc = currentSortOrder === 'asc';
 			if (aVal < bVal) return isAsc ? -1 : 1;
 			return isAsc ? 1 : -1;
@@ -188,9 +188,7 @@
 		data.length > 0 && data.every((row, index) => currentSelectedRows.has(row.id ?? index))
 	);
 
-	const isIndeterminate = $derived(
-		currentSelectedRows.size > 0 && !isAllSelected
-	);
+	const isIndeterminate = $derived(currentSelectedRows.size > 0 && !isAllSelected);
 
 	const tableClasses = $derived(
 		cn(
@@ -203,11 +201,7 @@
 	);
 
 	const containerClasses = $derived(
-		cn(
-			'overflow-auto',
-			maxHeight && `max-h-[${maxHeight}]`,
-			stickyHeader && 'relative'
-		)
+		cn('overflow-auto', maxHeight && `max-h-[${maxHeight}]`, stickyHeader && 'relative')
 	);
 </script>
 
@@ -234,9 +228,9 @@
 						/>
 					</th>
 				{/if}
-				
+
 				{#each columns as column (column.key)}
-					<th 
+					<th
 						class={cn(
 							currentSize.header,
 							currentVariant.headerCell,
@@ -248,36 +242,40 @@
 						style={column.width ? `width: ${column.width}` : undefined}
 						onclick={() => column.sortable && handleSort(column)}
 						scope="col"
-						aria-sort={currentSortBy === column.key ? (currentSortOrder === 'asc' ? 'ascending' : 'descending') : 'none'}
+						aria-sort={currentSortBy === column.key
+							? currentSortOrder === 'asc'
+								? 'ascending'
+								: 'descending'
+							: 'none'}
 						use:magneticHover={{ enabled: column.sortable, strength: 0.05 }}
 					>
 						<div class="flex items-center gap-2">
 							<span>{column.label}</span>
 							{#if column.sortable}
 								<div class="flex flex-col">
-									<svg 
+									<svg
 										class={cn(
 											'w-3 h-3 transition-colors',
-											currentSortBy === column.key && currentSortOrder === 'asc' 
-												? 'text-blue-400' 
-												: 'text-gray-500'
+											currentSortBy === column.key && currentSortOrder === 'asc' ? 'text-blue-400' : 'text-gray-500'
 										)}
-										fill="currentColor" 
+										fill="currentColor"
 										viewBox="0 0 20 20"
 									>
-										<path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+										<path
+											d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+										/>
 									</svg>
-									<svg 
+									<svg
 										class={cn(
 											'w-3 h-3 -mt-1 transition-colors',
-											currentSortBy === column.key && currentSortOrder === 'desc' 
-												? 'text-blue-400' 
-												: 'text-gray-500'
+											currentSortBy === column.key && currentSortOrder === 'desc' ? 'text-blue-400' : 'text-gray-500'
 										)}
-										fill="currentColor" 
+										fill="currentColor"
 										viewBox="0 0 20 20"
 									>
-										<path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+										<path
+											d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+										/>
 									</svg>
 								</div>
 							{/if}
@@ -291,14 +289,18 @@
 		<tbody>
 			{#if loading}
 				<tr>
-					<td 
+					<td
 						colspan={columns.length + (selectable ? 1 : 0)}
 						class={cn(currentSize.cell, currentVariant.loading, 'text-center')}
 					>
 						<div class="flex items-center justify-center gap-3 py-8">
 							<svg class="animate-spin w-6 h-6" fill="none" viewBox="0 0 24 24">
 								<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-								<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+								<path
+									class="opacity-75"
+									fill="currentColor"
+									d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+								></path>
 							</svg>
 							<span>Loading...</span>
 						</div>
@@ -306,13 +308,18 @@
 				</tr>
 			{:else if sortedData.length === 0}
 				<tr>
-					<td 
+					<td
 						colspan={columns.length + (selectable ? 1 : 0)}
 						class={cn(currentSize.cell, currentVariant.cell, 'text-center text-gray-400')}
 					>
 						<div class="py-8">
 							<svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+								/>
 							</svg>
 							<p>{emptyMessage}</p>
 						</div>
@@ -322,7 +329,7 @@
 				{#each sortedData as row, index (row.id ?? index)}
 					{@const rowId = row.id ?? index}
 					{@const isSelected = currentSelectedRows.has(rowId)}
-					<tr 
+					<tr
 						class={cn(
 							currentVariant.row,
 							hover && currentVariant.rowHover,
@@ -347,9 +354,9 @@
 								/>
 							</td>
 						{/if}
-						
+
 						{#each columns as column (column.key)}
-							<td 
+							<td
 								class={cn(
 									currentSize.cell,
 									currentVariant.cell,
@@ -370,11 +377,13 @@
 <style>
 	/* Terminal glow effects */
 	:global(.terminal .table-row:hover) {
-		box-shadow: 0 0 0 1px var(--terminal-green), 0 0 10px var(--terminal-green-glow);
+		box-shadow:
+			0 0 0 1px var(--terminal-green),
+			0 0 10px var(--terminal-green-glow);
 	}
-	
+
 	/* Custom checkbox styling for dark themes */
-	input[type="checkbox"]:indeterminate {
+	input[type='checkbox']:indeterminate {
 		background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M4 8h8v1H4z'/%3e%3c/svg%3e");
 	}
 </style>

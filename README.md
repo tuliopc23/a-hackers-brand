@@ -59,22 +59,16 @@ Add to your app's main CSS file or `app.html`:
 
 ```svelte
 <script>
-  import { Button, Card, LiquidTerminal } from 'a-hackers-brand';
+	import { Button, Card, LiquidTerminal } from 'a-hackers-brand';
 </script>
 
 <Card variant="glass" jelly>
-  <h2>Welcome to the Matrix</h2>
-  <p>Experience the liquid glass revolution.</p>
-  <Button variant="liquid" glow>
-    Enter the System
-  </Button>
+	<h2>Welcome to the Matrix</h2>
+	<p>Experience the liquid glass revolution.</p>
+	<Button variant="liquid" glow>Enter the System</Button>
 </Card>
 
-<LiquidTerminal 
-  title="NEURAL_INTERFACE_v3.0"
-  theme="liquid"
-  enableLiquidFlow
-/>
+<LiquidTerminal title="NEURAL_INTERFACE_v3.0" theme="liquid" enableLiquidFlow />
 ```
 
 ### 3. Configure Tailwind (Optional)
@@ -86,14 +80,15 @@ If you want to use our design tokens with Tailwind:
 import hackersConfig from 'a-hackers-brand/tailwind';
 
 export default {
-  presets: [hackersConfig],
-  // your config...
+	presets: [hackersConfig]
+	// your config...
 };
 ```
 
 ## 🎨 Components
 
 ### Core Glass Components
+
 - **Button** - Liquid glass buttons with jelly effects
 - **Card** - Glass morphism cards with dynamic corners
 - **Input** - Terminal-styled inputs with liquid interactions
@@ -104,18 +99,21 @@ export default {
 - **Accordion** - Collapsible content with smooth transitions
 
 ### Terminal Components
+
 - **TerminalWindow** - Classic terminal emulator
 - **LiquidTerminal** - Advanced terminal with particle effects
 - **CommandBlock** - Code display with syntax highlighting
 - **RetroText** - 14 vintage computer text variants
 
 ### Advanced Components
+
 - **LiquidGlassScene** - WebGL-powered 3D scenes
 - **ParticleSystem** - Interactive particle effects
 - **VintageMacScreen** - Retro Macintosh UI
 - **DataGrid** - Advanced data tables
 
 ### Motion System
+
 - **liquidBlur** - Liquid morphing transitions
 - **glassFade** - Smooth glass fade effects
 - **jellyHover** - Organic hover interactions
@@ -125,6 +123,7 @@ export default {
 ## 🛠️ Development
 
 ### Prerequisites
+
 - Node.js 18+
 - pnpm 8+
 
@@ -158,6 +157,7 @@ pnpm docs:dev     # Start documentation
 Comprehensive documentation is available at [https://hackers-brand.dev](https://hackers-brand.dev) (coming soon).
 
 ### Key Sections
+
 - [Getting Started](./docs/getting-started.md)
 - [Component API](./docs/components/README.md)
 - [Theming Guide](./docs/theming.md)

@@ -12,7 +12,7 @@ export interface LiquidBlurOptions {
  * Liquid blur transition with smooth backdrop-filter animation
  * Mimics liquid glass morphing effect
  */
-export function liquidBlur(
+export function liquidBlurTransition(
 	node: Element,
 	{
 		duration = DURATIONS.moderate,
@@ -51,17 +51,69 @@ export function liquidBlur(
 }
 
 /**
+ * Liquid blur action for use with use: directive
+ * Applies persistent liquid blur effect
+ */
+export function liquidBlur(
+	node: Element,
+	{
+		duration = DURATIONS.moderate,
+		easing = EASINGS.liquid,
+		blur = 'md',
+		opacity = 'medium',
+		scale = 1.02,
+		intensity = 'medium'
+	}: LiquidBlurOptions & { intensity?: keyof typeof OPACITY_LEVELS } = {}
+) {
+	const htmlNode = node as HTMLElement;
+
+	function applyLiquidBlur() {
+		const effectiveOpacity = intensity || opacity;
+		const blurValue = BLUR_LEVELS[blur] || 8;
+		const opacityValue = OPACITY_LEVELS[effectiveOpacity] || 0.5;
+
+		htmlNode.style.backdropFilter = `blur(${blurValue}px) saturate(180%)`;
+		htmlNode.style.background = `rgba(255, 255, 255, ${opacityValue})`;
+		htmlNode.style.borderColor = `rgba(255, 255, 255, ${opacityValue * 2})`;
+		htmlNode.style.boxShadow = `
+			0 8px 32px rgba(0, 0, 0, 0.12),
+			0 0 32px rgba(255, 255, 255, ${opacityValue * 0.3})
+		`;
+		htmlNode.style.transition = `all ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+	}
+
+	// Apply effect immediately
+	applyLiquidBlur();
+
+	return {
+		update(newOptions: LiquidBlurOptions & { intensity?: keyof typeof OPACITY_LEVELS }) {
+			const updated = { duration, easing, blur, opacity, scale, intensity, ...newOptions };
+			({ duration, easing, blur, opacity, scale, intensity } = updated);
+			applyLiquidBlur();
+		},
+		destroy() {
+			// Reset styles
+			htmlNode.style.backdropFilter = '';
+			htmlNode.style.background = '';
+			htmlNode.style.borderColor = '';
+			htmlNode.style.boxShadow = '';
+			htmlNode.style.transition = '';
+		}
+	};
+}
+
+/**
  * Reverse liquid blur transition for out animations
  */
 export function liquidBlurOut(node: Element, options: LiquidBlurOptions = {}) {
-	const transition = liquidBlur(node, options);
+	const transition = liquidBlurTransition(node, options);
 
 	return {
 		...transition,
 		css: (t: number) => {
 			// Reverse the progress for out transition
 			const reverseT = 1 - t;
-			return transition.css(reverseT);
+			return transition.css?.(reverseT) || '';
 		}
 	};
 }

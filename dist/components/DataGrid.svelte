@@ -175,8 +175,8 @@
 		// Apply search
 		if (searchQuery.trim()) {
 			const query = searchQuery.toLowerCase();
-			result = result.filter(row =>
-				columns.some(col => {
+			result = result.filter((row) =>
+				columns.some((col) => {
 					const value = String(row[col.key] || '').toLowerCase();
 					return value.includes(query);
 				})
@@ -185,25 +185,34 @@
 
 		// Apply filters
 		for (const filter of currentFilters) {
-			result = result.filter(row => {
+			result = result.filter((row) => {
 				const value = row[filter.column];
 				switch (filter.operator) {
-					case 'equals': return value === filter.value;
-					case 'contains': return String(value).toLowerCase().includes(String(filter.value).toLowerCase());
-					case 'startsWith': return String(value).toLowerCase().startsWith(String(filter.value).toLowerCase());
-					case 'endsWith': return String(value).toLowerCase().endsWith(String(filter.value).toLowerCase());
-					case 'gt': return Number(value) > Number(filter.value);
-					case 'lt': return Number(value) < Number(filter.value);
-					case 'gte': return Number(value) >= Number(filter.value);
-					case 'lte': return Number(value) <= Number(filter.value);
-					default: return true;
+					case 'equals':
+						return value === filter.value;
+					case 'contains':
+						return String(value).toLowerCase().includes(String(filter.value).toLowerCase());
+					case 'startsWith':
+						return String(value).toLowerCase().startsWith(String(filter.value).toLowerCase());
+					case 'endsWith':
+						return String(value).toLowerCase().endsWith(String(filter.value).toLowerCase());
+					case 'gt':
+						return Number(value) > Number(filter.value);
+					case 'lt':
+						return Number(value) < Number(filter.value);
+					case 'gte':
+						return Number(value) >= Number(filter.value);
+					case 'lte':
+						return Number(value) <= Number(filter.value);
+					default:
+						return true;
 				}
 			});
 		}
 
 		// Apply sorting
 		if (currentSortBy) {
-			const column = columns.find(col => col.key === currentSortBy);
+			const column = columns.find((col) => col.key === currentSortBy);
 			if (column?.sortable) {
 				result.sort((a, b) => {
 					const aVal = a[currentSortBy];
@@ -264,7 +273,7 @@
 
 	function handleSelectAll(selected: boolean) {
 		if (selected) {
-			currentSelectedRows = new Set(paginatedData.map(row => row.id));
+			currentSelectedRows = new Set(paginatedData.map((row) => row.id));
 		} else {
 			currentSelectedRows = new Set();
 		}
@@ -279,11 +288,11 @@
 
 	function saveEdit() {
 		if (!editingCell) return;
-		
-		const row = paginatedData.find(r => r.id === editingCell!.rowId);
+
+		const row = paginatedData.find((r) => r.id === editingCell!.rowId);
 		if (!row) return;
 
-		const column = columns.find(c => c.key === editingCell!.column);
+		const column = columns.find((c) => c.key === editingCell!.column);
 		if (!column) return;
 
 		const oldValue = row[column.key];
@@ -328,7 +337,7 @@
 		if (column.formatter) {
 			return column.formatter(value, row);
 		}
-		
+
 		switch (column.type) {
 			case 'boolean':
 				return value ? '✓' : '✗';
@@ -342,15 +351,11 @@
 	}
 
 	const isAllSelected = $derived(
-		paginatedData.length > 0 && paginatedData.every(row => currentSelectedRows.has(row.id))
+		paginatedData.length > 0 && paginatedData.every((row) => currentSelectedRows.has(row.id))
 	);
 
 	const containerClasses = $derived(
-		cn(
-			'rounded-lg border overflow-hidden font-mono',
-			currentVariant.container,
-			className
-		)
+		cn('rounded-lg border overflow-hidden font-mono', currentVariant.container, className)
 	);
 </script>
 
@@ -389,16 +394,14 @@
 
 			<div class="flex items-center gap-2">
 				{#if exportable}
-					<Button size="sm" {variant} onclick={() => dispatch('export', { format: 'csv' })}>
-						📥 Export
-					</Button>
+					<Button size="sm" {variant} onclick={() => dispatch('export', { format: 'csv' })}>📥 Export</Button>
 				{/if}
 			</div>
 		</div>
 	{/if}
 
 	<!-- Table Container -->
-	<div 
+	<div
 		class="overflow-auto"
 		style={maxHeight ? `max-height: ${maxHeight}` : undefined}
 		use:liquidBlur={{ blur: 'sm', opacity: 'subtle' }}
@@ -438,29 +441,29 @@
 								<span>{column.label}</span>
 								{#if column.sortable}
 									<div class="flex flex-col">
-										<svg 
+										<svg
 											class={cn(
 												'w-3 h-3 transition-colors',
-												currentSortBy === column.key && currentSortOrder === 'asc' 
-													? 'text-blue-400' 
-													: 'text-gray-500'
+												currentSortBy === column.key && currentSortOrder === 'asc' ? 'text-blue-400' : 'text-gray-500'
 											)}
-											fill="currentColor" 
+											fill="currentColor"
 											viewBox="0 0 20 20"
 										>
-											<path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+											<path
+												d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+											/>
 										</svg>
-										<svg 
+										<svg
 											class={cn(
 												'w-3 h-3 -mt-1 transition-colors',
-												currentSortBy === column.key && currentSortOrder === 'desc' 
-													? 'text-blue-400' 
-													: 'text-gray-500'
+												currentSortBy === column.key && currentSortOrder === 'desc' ? 'text-blue-400' : 'text-gray-500'
 											)}
-											fill="currentColor" 
+											fill="currentColor"
 											viewBox="0 0 20 20"
 										>
-											<path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+											<path
+												d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+											/>
 										</svg>
 									</div>
 								{/if}
@@ -469,9 +472,7 @@
 					{/each}
 
 					{#if actions.length > 0}
-						<th class={cn(currentSize.header, currentVariant.headerCell, 'w-32')}>
-							Actions
-						</th>
+						<th class={cn(currentSize.header, currentVariant.headerCell, 'w-32')}> Actions </th>
 					{/if}
 				</tr>
 			</thead>
@@ -480,14 +481,18 @@
 			<tbody>
 				{#if loading}
 					<tr>
-						<td 
+						<td
 							colspan={columns.length + (selectable ? 1 : 0) + (actions.length > 0 ? 1 : 0)}
 							class={cn(currentSize.cell, currentVariant.cell, 'text-center')}
 						>
 							<div class="flex items-center justify-center gap-3 py-8">
 								<svg class="animate-spin w-6 h-6" fill="none" viewBox="0 0 24 24">
 									<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-									<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+									<path
+										class="opacity-75"
+										fill="currentColor"
+										d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+									></path>
 								</svg>
 								<span>Loading...</span>
 							</div>
@@ -495,13 +500,18 @@
 					</tr>
 				{:else if paginatedData.length === 0}
 					<tr>
-						<td 
+						<td
 							colspan={columns.length + (selectable ? 1 : 0) + (actions.length > 0 ? 1 : 0)}
 							class={cn(currentSize.cell, currentVariant.cell, 'text-center text-gray-400')}
 						>
 							<div class="py-8">
 								<svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+									/>
 								</svg>
 								<p>{emptyMessage}</p>
 							</div>
@@ -510,7 +520,7 @@
 				{:else}
 					{#each paginatedData as row, index (row.id)}
 						{@const isSelected = currentSelectedRows.has(row.id)}
-						<tr 
+						<tr
 							class={cn(
 								currentVariant.row,
 								currentVariant.rowHover,
@@ -536,12 +546,8 @@
 							{/if}
 
 							{#each columns as column (column.key)}
-								<td 
-									class={cn(
-										currentSize.cell,
-										currentVariant.cell,
-										column.align && `text-${column.align}`
-									)}
+								<td
+									class={cn(currentSize.cell, currentVariant.cell, column.align && `text-${column.align}`)}
 									ondblclick={() => editable && column.editable && startEdit(row, column)}
 								>
 									{#if editingCell?.rowId === row.id && editingCell?.column === column.key}
@@ -595,7 +601,10 @@
 		<div class={cn('px-4 py-3 border-t flex items-center justify-between', currentVariant.pagination)}>
 			<div class="flex items-center gap-3">
 				<span class="text-sm text-gray-400">
-					Showing {((currentPage - 1) * pageSize) + 1} to {Math.min(currentPage * pageSize, totalRows ?? filteredData.length)} of {totalRows ?? filteredData.length} entries
+					Showing {(currentPage - 1) * pageSize + 1} to {Math.min(
+						currentPage * pageSize,
+						totalRows ?? filteredData.length
+					)} of {totalRows ?? filteredData.length} entries
 				</span>
 			</div>
 
@@ -638,6 +647,8 @@
 <style>
 	/* Terminal glow effects */
 	:global(.terminal .data-grid:hover) {
-		box-shadow: 0 0 0 1px var(--terminal-green), 0 0 20px var(--terminal-green-glow);
+		box-shadow:
+			0 0 0 1px var(--terminal-green),
+			0 0 20px var(--terminal-green-glow);
 	}
 </style>

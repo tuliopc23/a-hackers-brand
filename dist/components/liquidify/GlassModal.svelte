@@ -55,7 +55,7 @@
 		};
 
 		document.addEventListener('keydown', handleGlobalKeydown);
-		
+
 		return () => {
 			document.removeEventListener('keydown', handleGlobalKeydown);
 		};
@@ -68,7 +68,7 @@
 		} else {
 			document.body.style.overflow = '';
 		}
-		
+
 		return () => {
 			document.body.style.overflow = '';
 		};
@@ -87,11 +87,8 @@
 		transition:fade={{ duration: 300 }}
 	>
 		<!-- Backdrop blur -->
-		<div 
-			class="absolute inset-0 bg-black/50 backdrop-blur-md"
-			transition:fade={{ duration: 300 }}
-		></div>
-		
+		<div class="absolute inset-0 bg-black/50 backdrop-blur-md" transition:fade={{ duration: 300 }}></div>
+
 		<!-- Modal container -->
 		<div
 			bind:this={modalRef}
@@ -111,22 +108,18 @@
 			onkeydown={(e) => e.key === 'Escape' && handleClose()}
 		>
 			<!-- Glass effect overlay -->
-			<div class="absolute inset-0 rounded-[inherit] bg-gradient-to-b from-white/10 to-transparent pointer-events-none"></div>
+			<div
+				class="absolute inset-0 rounded-[inherit] bg-gradient-to-b from-white/10 to-transparent pointer-events-none"
+			></div>
 			<div class="absolute inset-0 rounded-[inherit] shadow-inner shadow-white/10 pointer-events-none"></div>
-			
+
 			<!-- Header -->
 			{#if title}
 				<div class="relative z-10 flex items-center justify-between p-6 border-b border-white/10">
-					<h3 
-						id="modal-title"
-						class={cn(
-							'text-lg font-semibold text-white font-mono',
-							titleClassName
-						)}
-					>
+					<h3 id="modal-title" class={cn('text-lg font-semibold text-white font-mono', titleClassName)}>
 						{title}
 					</h3>
-					
+
 					<button
 						type="button"
 						class="text-white/60 hover:text-white/90 transition-colors duration-200 p-1 rounded-lg hover:bg-white/10"
@@ -139,13 +132,9 @@
 					</button>
 				</div>
 			{/if}
-			
+
 			<!-- Content -->
-			<div class={cn(
-				'relative z-10 p-6 overflow-y-auto',
-				!title && 'pt-8',
-				contentClassName
-			)}>
+			<div class={cn('relative z-10 p-6 overflow-y-auto', !title && 'pt-8', contentClassName)}>
 				{#if children}
 					{@render children()}
 				{/if}
@@ -159,17 +148,17 @@
 	div::-webkit-scrollbar {
 		width: 6px;
 	}
-	
+
 	div::-webkit-scrollbar-track {
 		background: rgba(255, 255, 255, 0.05);
 		border-radius: 3px;
 	}
-	
+
 	div::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0.2);
 		border-radius: 3px;
 	}
-	
+
 	div::-webkit-scrollbar-thumb:hover {
 		background: rgba(255, 255, 255, 0.3);
 	}

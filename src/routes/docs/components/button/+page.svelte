@@ -2,394 +2,345 @@
 	import { onMount } from 'svelte';
 	import Button from '$lib/components/Button.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import ComponentPlayground from '$lib/docs/ComponentPlayground.svelte';
+	import PropsTable from '$lib/docs/PropsTable.svelte';
+	import EventsTable from '$lib/docs/EventsTable.svelte';
+	import PlaygroundButton from '$lib/components/playground/PlaygroundButton.svelte';
 	import { glassFade } from '$lib/motion';
 
 	let mounted = false;
-	let activeExample = 'variants';
+	let activeExample = 'basic';
 
 	onMount(() => {
 		mounted = true;
 	});
 
-	// Code examples
-	const examples = {
-		basic: `<Button>Click me</Button>`,
-		variants: `<!-- Variant Examples -->
-<Button variant="primary">Primary</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="danger">Danger</Button>`,
-		sizes: `<!-- Size Examples -->
-<Button size="sm">Small</Button>
-<Button size="md">Medium</Button>
-<Button size="lg">Large</Button>`,
-		states: `<!-- State Examples -->
-<Button disabled>Disabled</Button>
-<Button loading>Loading</Button>
-<Button glass={true}>Glass Effect</Button>`,
-		advanced: `<!-- Advanced Usage -->
-<Button 
-	variant="primary" 
-	size="lg"
-	glass={true}
-	animate={true}
-	onclick={handleClick}
->
-	Deploy to Production
-</Button>`
+	// Component metadata
+	const componentMeta = {
+		description:
+			'Interactive button component with liquid glass morphism, magnetic hover effects, and terminal-inspired aesthetics. Built for accessibility and performance.',
+		category: 'Core',
+		complexity: 'Simple',
+		since: '0.1.0'
 	};
 
-	const propsTable = [
+	// Code examples (auto-synced with source)
+	const examples = {
+		basic: '<Button>\n  Content\n</Button>',
+		variants:
+			"<Button variant='default'>\n  Default\n</Button>\n<Button variant='secondary'>\n  Secondary\n</Button>\n<Button variant='outline'>\n  Outline\n</Button>\n<Button variant='ghost'>\n  Ghost\n</Button>\n<Button variant='glass'>\n  Glass\n</Button>\n<Button variant='glass-dark'>\n  Glass-dark\n</Button>\n<Button variant='terminal'>\n  Terminal\n</Button>\n<Button variant='liquid'>\n  Liquid\n</Button>",
+		advanced:
+			"<Button\n\tvariant={'default'}\n\tsize={'md'}\n\tloading={true}\n\ticon={true}\n>\n\tAdvanced Usage\n</Button>"
+	};
+
+	// Props table data (extracted from .d.ts)
+	const propsData = [
 		{
-			prop: 'variant',
-			type: "'primary' | 'secondary' | 'ghost' | 'danger'",
-			default: "'primary'",
-			description: 'Visual style variant of the button'
+			name: 'variant',
+			type: "'default' | 'secondary' | 'outline' | 'ghost' | 'glass' | 'glass-dark' | 'terminal' | 'liquid'",
+			optional: true,
+			default: "'default'",
+			description: 'Visual style variant of the component'
 		},
 		{
-			prop: 'size',
-			type: "'sm' | 'md' | 'lg'",
+			name: 'size',
+			type: "'sm' | 'md' | 'lg' | 'xl'",
+			optional: true,
 			default: "'md'",
-			description: 'Size of the button'
+			description: 'Size variant of the component'
 		},
 		{
-			prop: 'glass',
+			name: 'loading',
 			type: 'boolean',
-			default: 'true',
-			description: 'Enable liquid glass morphism effects'
-		},
-		{
-			prop: 'disabled',
-			type: 'boolean',
+			optional: true,
 			default: 'false',
-			description: 'Disable button interactions'
+			description: 'Show loading state'
 		},
 		{
-			prop: 'loading',
+			name: 'icon',
 			type: 'boolean',
+			optional: true,
 			default: 'false',
-			description: 'Show loading spinner'
+			description: 'icon property'
 		},
 		{
-			prop: 'animate',
+			name: 'animate',
 			type: 'boolean',
+			optional: true,
 			default: 'true',
 			description: 'Enable entry animations'
 		},
 		{
-			prop: 'href',
-			type: 'string',
-			default: 'undefined',
-			description: 'Render as link when provided'
+			name: 'jelly',
+			type: 'boolean',
+			optional: true,
+			default: 'false',
+			description: 'jelly property'
 		},
 		{
-			prop: 'class',
+			name: 'liquid',
+			type: 'boolean',
+			optional: true,
+			default: 'false',
+			description: 'liquid property'
+		},
+		{
+			name: 'aria-label',
 			type: 'string',
+			optional: true,
+			default: "''",
+			description: 'aria-label property'
+		},
+		{
+			name: 'aria-describedby',
+			type: 'string',
+			optional: true,
+			default: "''",
+			description: 'aria-describedby property'
+		},
+		{
+			name: 'class',
+			type: 'string',
+			optional: true,
 			default: "''",
 			description: 'Additional CSS classes'
+		},
+		{
+			name: 'children',
+			type: 'any',
+			optional: true,
+			default: 'undefined',
+			description: 'Component children/content'
 		}
 	];
 
-	const eventsTable = [
+	// Events table data
+	const eventsData = [
 		{
-			event: 'click',
+			name: 'click',
 			type: 'MouseEvent',
-			description: 'Fired when button is clicked'
+			description: 'Fired when component is clicked'
 		},
 		{
-			event: 'keydown',
-			type: 'KeyboardEvent',
-			description: 'Fired on keyboard interaction'
-		},
-		{
-			event: 'focus',
+			name: 'focus',
 			type: 'FocusEvent',
-			description: 'Fired when button receives focus'
+			description: 'Fired when component receives focus'
 		},
 		{
-			event: 'blur',
+			name: 'blur',
 			type: 'FocusEvent',
-			description: 'Fired when button loses focus'
+			description: 'Fired when component loses focus'
 		}
 	];
+
+	// Playground props configuration
+	const playgroundProps = {
+		variant: {
+			type: 'string',
+			default: 'default',
+			options: ['default', 'secondary', 'outline', 'ghost', 'glass', 'glass-dark', 'terminal', 'liquid']
+		},
+		size: {
+			type: 'string',
+			default: 'md',
+			options: ['sm', 'md', 'lg', 'xl']
+		},
+		loading: {
+			type: 'boolean',
+			default: false,
+			options: null
+		},
+		icon: {
+			type: 'boolean',
+			default: false,
+			options: null
+		},
+		animate: {
+			type: 'boolean',
+			default: true,
+			options: null
+		},
+		jelly: {
+			type: 'boolean',
+			default: false,
+			options: null
+		},
+		liquid: {
+			type: 'boolean',
+			default: false,
+			options: null
+		},
+		'aria-label': {
+			type: 'string',
+			default: '',
+			options: null
+		},
+		'aria-describedby': {
+			type: 'string',
+			default: '',
+			options: null
+		},
+		class: {
+			type: 'string',
+			default: '',
+			options: null
+		},
+		children: {
+			type: 'string',
+			default: undefined,
+			options: null
+		}
+	};
+
+	const exampleTabs = Object.keys(examples).map((key) => ({
+		id: key,
+		label: key.charAt(0).toUpperCase() + key.slice(1),
+		code: examples[key]
+	}));
 </script>
 
 <svelte:head>
-	<title>Button Component - Tulio Brand System</title>
-	<meta name="description" content="Interactive button component with liquid glass morphism and magnetic hover effects" />
+	<title>Button Component - A Hacker's Brand</title>
+	<meta
+		name="description"
+		content="Interactive button component with liquid glass morphism, magnetic hover effects, and terminal-inspired aesthetics. Built for accessibility and performance."
+	/>
 </svelte:head>
 
 <div class="docs-content">
-	<!-- Header -->
-	<div class="mb-12">
-		<h1>Button</h1>
-		<p class="text-xl lg:text-2xl text-white/70 mb-8">
-			Interactive button component with liquid glass morphism, magnetic hover effects, 
-			and terminal-inspired aesthetics. Built for accessibility and performance.
-		</p>
-
-		<!-- Quick Example -->
-		<div class="flex flex-wrap gap-4 p-6 bg-slate-900/50 backdrop-blur-sm rounded-xl border border-white/10">
-			<Button variant="primary">Primary</Button>
-			<Button variant="secondary">Secondary</Button>
-			<Button variant="ghost">Ghost</Button>
-			<Button variant="danger">Danger</Button>
+	<!-- Hero Section -->
+	<section class="mb-12">
+		<div class="flex items-start justify-between mb-6">
+			<div>
+				<h1 class="text-4xl lg:text-5xl font-bold mb-4">Button</h1>
+				<div class="flex gap-2 mb-4">
+					<span class="px-3 py-1 bg-terminal-blue/20 text-terminal-blue text-sm rounded-full">
+						{componentMeta.category}
+					</span>
+					<span class="px-3 py-1 bg-terminal-purple/20 text-terminal-purple text-sm rounded-full">
+						{componentMeta.complexity}
+					</span>
+					<span class="px-3 py-1 bg-terminal-green/20 text-terminal-green text-sm rounded-full">
+						v{componentMeta.since}
+					</span>
+				</div>
+			</div>
 		</div>
-	</div>
 
-	<!-- Interactive Playground -->
-	<section class="mb-16">
-		<h2>Interactive Playground</h2>
-		<p class="mb-8">
-			Experiment with different props and see the changes in real-time.
+		<p class="text-xl lg:text-2xl text-white/70 mb-8 max-w-4xl">
+			{componentMeta.description}
 		</p>
-		<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
-			<p class="text-white/70">Interactive playground coming soon...</p>
+
+		<!-- Quick Preview -->
+		<div class="p-8 bg-slate-900/50 backdrop-blur-sm rounded-xl border border-white/10">
+			<div class="flex flex-wrap gap-4 items-center justify-center">
+				<Button>Preview</Button>
+				<Button variant="secondary">Secondary</Button>
+				<Button variant="ghost">Ghost</Button>
+			</div>
 		</div>
 	</section>
 
-	<!-- Examples -->
+	<!-- Interactive Playground -->
 	<section class="mb-16">
-		<h2>Examples</h2>
-		
+		<h2 class="text-2xl lg:text-3xl font-bold mb-6">Interactive Playground</h2>
+		<p class="text-white/70 mb-8">Experiment with different props and see the changes in real-time.</p>
+		<ComponentPlayground component={Button} props={playgroundProps} componentName="Button" />
+	</section>
+
+	<!-- Code Examples -->
+	<section class="mb-16">
+		<h2 class="text-2xl lg:text-3xl font-bold mb-6">Examples</h2>
+
 		<!-- Example Navigation -->
 		<div class="flex flex-wrap gap-2 mb-8">
-			{#each Object.keys(examples) as exampleKey}
-				<button 
-					class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 {activeExample === exampleKey 
-						? 'bg-blue-500/20 text-blue-300 border border-blue-400/30' 
-						: 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'
-					}"
-					onclick={() => activeExample = exampleKey}
+			{#each exampleTabs as tab}
+				<button
+					class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 {activeExample === tab.id
+						? 'bg-terminal-blue/20 text-terminal-blue border border-terminal-blue/30'
+						: 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'}"
+					onclick={() => (activeExample = tab.id)}
 				>
-					{exampleKey.charAt(0).toUpperCase() + exampleKey.slice(1)}
+					{tab.label}
 				</button>
 			{/each}
 		</div>
 
 		<!-- Example Content -->
-		{#if activeExample === 'variants'}
-			<div class="space-y-8" in:glassFade>
-				<div>
-					<h3>Button Variants</h3>
-					<p class="text-white/70 mb-6">Different visual styles for various use cases.</p>
-					
-					<div class="grid md:grid-cols-2 gap-8">
-						<div class="space-y-4">
-							<h4 class="text-lg font-medium">Preview</h4>
-							<div class="flex flex-wrap gap-4 p-6 bg-slate-800/50 rounded-lg">
-								<Button variant="primary">Primary</Button>
-								<Button variant="secondary">Secondary</Button>
-								<Button variant="ghost">Ghost</Button>
-								<Button variant="danger">Danger</Button>
+		{#each exampleTabs as tab}
+			{#if activeExample === tab.id}
+				<div class="space-y-8" in:glassFade>
+					<div>
+						<h3 class="text-xl font-semibold mb-4">{tab.label} Usage</h3>
+
+						<div class="grid lg:grid-cols-2 gap-8">
+							<div class="space-y-4">
+								<h4 class="text-lg font-medium">Preview</h4>
+								<div class="p-6 bg-slate-800/50 rounded-lg border border-white/10">
+									<!-- Dynamic preview would go here -->
+									<Button>Example</Button>
+								</div>
 							</div>
-						</div>
-						<div class="space-y-4">
-							<h4 class="text-lg font-medium">Code</h4>
-							<CodeBlock language="svelte" code={examples.variants} />
+							<div class="space-y-4">
+								<div class="flex items-center justify-between mb-2">
+									<h4 class="text-lg font-medium">Code</h4>
+									<PlaygroundButton
+										code={`<script>
+	import { Button } from 'a-hackers-brand';
+</script>
+
+` + tab.code}
+										size="sm"
+									/>
+								</div>
+								<CodeBlock language="svelte" code={tab.code} />
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		{:else if activeExample === 'sizes'}
-			<div class="space-y-8" in:glassFade>
-				<div>
-					<h3>Button Sizes</h3>
-					<p class="text-white/70 mb-6">Three sizes to fit different interface contexts.</p>
-					
-					<div class="grid md:grid-cols-2 gap-8">
-						<div class="space-y-4">
-							<h4 class="text-lg font-medium">Preview</h4>
-							<div class="flex items-center gap-4 p-6 bg-slate-800/50 rounded-lg">
-								<Button size="sm">Small</Button>
-								<Button size="md">Medium</Button>
-								<Button size="lg">Large</Button>
-							</div>
-						</div>
-						<div class="space-y-4">
-							<h4 class="text-lg font-medium">Code</h4>
-							<CodeBlock language="svelte" code={examples.sizes} />
-						</div>
-					</div>
-				</div>
-			</div>
-		{:else if activeExample === 'states'}
-			<div class="space-y-8" in:glassFade>
-				<div>
-					<h3>Button States</h3>
-					<p class="text-white/70 mb-6">Different states and special effects.</p>
-					
-					<div class="grid md:grid-cols-2 gap-8">
-						<div class="space-y-4">
-							<h4 class="text-lg font-medium">Preview</h4>
-							<div class="flex flex-wrap gap-4 p-6 bg-slate-800/50 rounded-lg">
-								<Button disabled>Disabled</Button>
-								<Button loading>Loading</Button>
-								<Button glass={true}>Glass Effect</Button>
-							</div>
-						</div>
-						<div class="space-y-4">
-							<h4 class="text-lg font-medium">Code</h4>
-							<CodeBlock language="svelte" code={examples.states} />
-						</div>
-					</div>
-				</div>
-			</div>
-		{:else if activeExample === 'advanced'}
-			<div class="space-y-8" in:glassFade>
-				<div>
-					<h3>Advanced Usage</h3>
-					<p class="text-white/70 mb-6">Complex button with all features enabled.</p>
-					
-					<div class="grid md:grid-cols-2 gap-8">
-						<div class="space-y-4">
-							<h4 class="text-lg font-medium">Preview</h4>
-							<div class="flex justify-center p-6 bg-slate-800/50 rounded-lg">
-								<Button 
-									variant="primary" 
-									size="lg"
-									glass={true}
-									animate={true}
-								>
-									Deploy to Production
-								</Button>
-							</div>
-						</div>
-						<div class="space-y-4">
-							<h4 class="text-lg font-medium">Code</h4>
-							<CodeBlock language="svelte" code={examples.advanced} />
-						</div>
-					</div>
-				</div>
-			</div>
-		{:else}
-			<div class="space-y-8" in:glassFade>
-				<div>
-					<h3>Basic Usage</h3>
-					<p class="text-white/70 mb-6">Simple button with default styling.</p>
-					
-					<div class="grid md:grid-cols-2 gap-8">
-						<div class="space-y-4">
-							<h4 class="text-lg font-medium">Preview</h4>
-							<div class="flex justify-center p-6 bg-slate-800/50 rounded-lg">
-								<Button>Click me</Button>
-							</div>
-						</div>
-						<div class="space-y-4">
-							<h4 class="text-lg font-medium">Code</h4>
-							<CodeBlock language="svelte" code={examples.basic} />
-						</div>
-					</div>
-				</div>
-			</div>
-		{/if}
+			{/if}
+		{/each}
 	</section>
 
 	<!-- API Reference -->
 	<section class="mb-16">
-		<h2>API Reference</h2>
-		
+		<h2 class="text-2xl lg:text-3xl font-bold mb-6">API Reference</h2>
+
 		<!-- Props -->
 		<div class="mb-12">
-			<h3>Props</h3>
-			<div class="overflow-x-auto">
-				<table class="w-full bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10">
-					<thead>
-						<tr class="border-b border-white/10">
-							<th class="text-left p-4 font-medium text-white/90">Prop</th>
-							<th class="text-left p-4 font-medium text-white/90">Type</th>
-							<th class="text-left p-4 font-medium text-white/90">Default</th>
-							<th class="text-left p-4 font-medium text-white/90">Description</th>
-						</tr>
-					</thead>
-					<tbody>
-						{#each propsTable as row}
-							<tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-								<td class="p-4 font-mono text-blue-300">{row.prop}</td>
-								<td class="p-4 font-mono text-sm text-purple-300">{row.type}</td>
-								<td class="p-4 font-mono text-sm text-green-300">{row.default}</td>
-								<td class="p-4 text-white/80">{row.description}</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
+			<h3 class="text-xl font-semibold mb-6">Props</h3>
+			<PropsTable props={propsData} />
 		</div>
 
 		<!-- Events -->
 		<div class="mb-12">
-			<h3>Events</h3>
-			<div class="overflow-x-auto">
-				<table class="w-full bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10">
-					<thead>
-						<tr class="border-b border-white/10">
-							<th class="text-left p-4 font-medium text-white/90">Event</th>
-							<th class="text-left p-4 font-medium text-white/90">Type</th>
-							<th class="text-left p-4 font-medium text-white/90">Description</th>
-						</tr>
-					</thead>
-					<tbody>
-						{#each eventsTable as row}
-							<tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-								<td class="p-4 font-mono text-blue-300">{row.event}</td>
-								<td class="p-4 font-mono text-sm text-purple-300">{row.type}</td>
-								<td class="p-4 text-white/80">{row.description}</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
+			<h3 class="text-xl font-semibold mb-6">Events</h3>
+			<EventsTable events={eventsData} />
 		</div>
 	</section>
 
 	<!-- Accessibility -->
 	<section class="mb-16">
-		<h2>Accessibility</h2>
+		<h2 class="text-2xl lg:text-3xl font-bold mb-6">Accessibility</h2>
 		<div class="space-y-6">
-			<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
+			<div class="p-6 bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10">
 				<h3 class="text-lg font-medium mb-4">Built-in Features</h3>
 				<ul class="space-y-2 text-white/80">
 					<li class="flex items-start space-x-2">
-						<span class="text-green-400 mt-1">•</span>
-						<span>Keyboard navigation support (Enter and Space keys)</span>
+						<span class="text-terminal-green mt-1">•</span>
+						<span>Keyboard navigation support</span>
 					</li>
 					<li class="flex items-start space-x-2">
-						<span class="text-green-400 mt-1">•</span>
-						<span>Focus management with visible focus indicators</span>
+						<span class="text-terminal-green mt-1">•</span>
+						<span>Focus management with visible indicators</span>
 					</li>
 					<li class="flex items-start space-x-2">
-						<span class="text-green-400 mt-1">•</span>
-						<span>Screen reader compatible with proper ARIA attributes</span>
+						<span class="text-terminal-green mt-1">•</span>
+						<span>Screen reader compatible</span>
 					</li>
 					<li class="flex items-start space-x-2">
-						<span class="text-green-400 mt-1">•</span>
-						<span>Disabled state properly communicated to assistive technologies</span>
-					</li>
-					<li class="flex items-start space-x-2">
-						<span class="text-green-400 mt-1">•</span>
-						<span>Loading state with aria-busy and aria-label support</span>
-					</li>
-				</ul>
-			</div>
-			
-			<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
-				<h3 class="text-lg font-medium mb-4">Best Practices</h3>
-				<ul class="space-y-2 text-white/80">
-					<li class="flex items-start space-x-2">
-						<span class="text-blue-400 mt-1">•</span>
-						<span>Always provide meaningful button text or aria-label</span>
-					</li>
-					<li class="flex items-start space-x-2">
-						<span class="text-blue-400 mt-1">•</span>
-						<span>Use appropriate variant (danger for destructive actions)</span>
-					</li>
-					<li class="flex items-start space-x-2">
-						<span class="text-blue-400 mt-1">•</span>
-						<span>Consider loading states for async operations</span>
-					</li>
-					<li class="flex items-start space-x-2">
-						<span class="text-blue-400 mt-1">•</span>
-						<span>Ensure sufficient color contrast in custom themes</span>
+						<span class="text-terminal-green mt-1">•</span>
+						<span>ARIA attributes and roles</span>
 					</li>
 				</ul>
 			</div>
@@ -398,29 +349,36 @@
 
 	<!-- Related Components -->
 	<section>
-		<h2>Related Components</h2>
-		<div class="grid md:grid-cols-3 gap-6">
-			<a 
-				href="/docs/components/input" 
+		<h2 class="text-2xl lg:text-3xl font-bold mb-6">Related Components</h2>
+		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<!-- Dynamic related components would be generated here -->
+			<a
+				href="/docs/components/button"
 				class="block p-6 bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-slate-900/70 hover:scale-105 transition-all duration-300"
 			>
-				<h3 class="text-lg font-medium mb-2">Input</h3>
-				<p class="text-white/70 text-sm">Form input component with glass effects</p>
-			</a>
-			<a 
-				href="/docs/components/modal" 
-				class="block p-6 bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-slate-900/70 hover:scale-105 transition-all duration-300"
-			>
-				<h3 class="text-lg font-medium mb-2">Modal</h3>
-				<p class="text-white/70 text-sm">Dialog component for forms and confirmations</p>
-			</a>
-			<a 
-				href="/docs/components/badge" 
-				class="block p-6 bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-slate-900/70 hover:scale-105 transition-all duration-300"
-			>
-				<h3 class="text-lg font-medium mb-2">Badge</h3>
-				<p class="text-white/70 text-sm">Status indicators and labels</p>
+				<h3 class="text-lg font-medium mb-2">Button</h3>
+				<p class="text-white/70 text-sm">Interactive buttons with effects</p>
 			</a>
 		</div>
 	</section>
 </div>
+
+<style>
+	.docs-content {
+		@apply max-w-6xl mx-auto px-6 py-12;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		@apply text-white font-mono;
+	}
+
+	h1 {
+		background: linear-gradient(135deg, #00ff94, #0099ff, #9c40ff);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+</style>

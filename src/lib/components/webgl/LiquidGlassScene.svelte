@@ -55,7 +55,7 @@
 			};
 
 			canvasRef.addEventListener('mousemove', handleMouseMove);
-			
+
 			return () => {
 				canvasRef.removeEventListener('mousemove', handleMouseMove);
 			};
@@ -93,28 +93,19 @@
 	>
 		<!-- Environment and Lighting -->
 		<Environment preset={environmentPreset} />
-		
+
 		<!-- Ambient light for glass effects -->
 		<ambientLight intensity={0.3}></ambientLight>
-		
+
 		<!-- Point light for liquid highlights -->
-		<pointLight 
-			position={[5, 5, 5]} 
-			intensity={glowIntensity} 
-			color={colorPrimary}
-			castShadow
-		></pointLight>
-		
+		<pointLight position={[5, 5, 5]} intensity={glowIntensity} color={colorPrimary} castShadow></pointLight>
+
 		<!-- Rim light for glass edges -->
-		<pointLight 
-			position={[-5, -5, 5]} 
-			intensity={glowIntensity * 0.7} 
-			color={colorSecondary}
-		></pointLight>
+		<pointLight position={[-5, -5, 5]} intensity={glowIntensity * 0.7} color={colorSecondary}></pointLight>
 
 		<!-- Interactive camera controls -->
 		{#if interactive}
-			<OrbitControls 
+			<OrbitControls
 				enableDamping
 				dampingFactor={0.05}
 				enableZoom={true}
@@ -127,7 +118,7 @@
 
 		<!-- Liquid Glass Components -->
 		{#if variant === 'sphere' || variant === 'combined'}
-			<LiquidSphere 
+			<LiquidSphere
 				{time}
 				{mouseX}
 				{mouseY}
@@ -139,7 +130,7 @@
 		{/if}
 
 		{#if variant === 'plane' || variant === 'combined'}
-			<LiquidPlane 
+			<LiquidPlane
 				{time}
 				{mouseX}
 				{mouseY}
@@ -151,7 +142,7 @@
 		{/if}
 
 		{#if variant === 'particles' || variant === 'combined'}
-			<ParticleSystem 
+			<ParticleSystem
 				{time}
 				{mouseX}
 				{mouseY}
@@ -163,7 +154,9 @@
 	</Canvas>
 
 	<!-- HUD Overlay -->
-	<div class="hud-overlay" style="
+	<div
+		class="hud-overlay"
+		style="
 		position: absolute;
 		top: 20px;
 		left: 20px;
@@ -174,7 +167,8 @@
 		font-size: 12px;
 		text-shadow: 0 0 10px {colorPrimary};
 		z-index: 10;
-	">
+	"
+	>
 		<div style="display: flex; justify-content: space-between; align-items: flex-start;">
 			<div>
 				<div>LIQUID GLASS SYSTEM</div>
@@ -185,23 +179,23 @@
 					FPS: {Math.round(60 * liquidSpeed)}
 				</div>
 			</div>
-			
+
 			<div style="text-align: right;">
 				<div>WebGL Active</div>
 				<div style="opacity: 0.7; margin-top: 4px;">
 					Glow: {Math.round(glowIntensity * 100)}%
 				</div>
 				{#if interactive}
-					<div style="opacity: 0.7; margin-top: 2px;">
-						Interactive Mode
-					</div>
+					<div style="opacity: 0.7; margin-top: 2px;">Interactive Mode</div>
 				{/if}
 			</div>
 		</div>
 	</div>
 
 	<!-- Performance indicator -->
-	<div class="performance-indicator" style="
+	<div
+		class="performance-indicator"
+		style="
 		position: absolute;
 		bottom: 20px;
 		right: 20px;
@@ -213,17 +207,25 @@
 		animation: pulse 2s ease-in-out infinite;
 		pointer-events: none;
 		z-index: 10;
-	"></div>
+	"
+	></div>
 </div>
 
 <style>
 	@keyframes pulse {
-		0%, 100% { opacity: 1; transform: scale(1); }
-		50% { opacity: 0.6; transform: scale(1.2); }
+		0%,
+		100% {
+			opacity: 1;
+			transform: scale(1);
+		}
+		50% {
+			opacity: 0.6;
+			transform: scale(1.2);
+		}
 	}
 
 	.liquid-glass-scene {
-		box-shadow: 
+		box-shadow:
 			0 8px 32px rgba(0, 0, 0, 0.3),
 			inset 0 1px 0 rgba(255, 255, 255, 0.1);
 	}

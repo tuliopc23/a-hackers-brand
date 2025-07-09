@@ -66,9 +66,9 @@
 		const ripple = document.createElement('div');
 		ripple.className = 'absolute inset-0 rounded-[inherit] border-2 border-blue-400/50 scale-95 opacity-0';
 		ripple.style.animation = 'focus-ripple 0.3s ease-out forwards';
-		
+
 		rippleRef.appendChild(ripple);
-		
+
 		setTimeout(() => {
 			ripple.remove();
 		}, 300);
@@ -83,7 +83,7 @@
 
 <div class={cn('relative', className)}>
 	<!-- Input container -->
-	<div 
+	<div
 		class={cn(
 			'relative overflow-hidden rounded-lg backdrop-blur-md transition-all duration-300 ease-out',
 			'bg-white/10 border border-white/20',
@@ -95,16 +95,16 @@
 	>
 		<!-- Ripple container -->
 		<div bind:this={rippleRef} class="absolute inset-0 pointer-events-none"></div>
-		
+
 		<!-- Glass effect overlay -->
-		<div 
+		<div
 			class={cn(
 				'absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300',
 				'bg-gradient-to-r from-transparent via-white/5 to-transparent',
 				focused && 'opacity-100'
 			)}
 		></div>
-		
+
 		<!-- Input wrapper -->
 		<div class="relative flex items-center">
 			<!-- Left icon -->
@@ -113,16 +113,21 @@
 					{@render leftIcon()}
 				</div>
 			{/if}
-			
+
 			<!-- Search icon for search variant -->
 			{#if variant === 'search'}
 				<div class="absolute left-3 z-10 text-white/70">
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+						/>
 					</svg>
 				</div>
 			{/if}
-			
+
 			<!-- Input -->
 			<input
 				bind:this={inputRef}
@@ -143,7 +148,7 @@
 				onblur={handleBlur}
 				oninput={(e) => dispatch('input', e)}
 			/>
-			
+
 			<!-- Clear button -->
 			{#if clearable && value && !disabled}
 				<button
@@ -163,13 +168,10 @@
 			{/if}
 		</div>
 	</div>
-	
+
 	<!-- Helper text -->
 	{#if helperText}
-		<p class={cn(
-			'mt-2 text-xs transition-colors duration-200',
-			error ? 'text-red-400' : 'text-white/60'
-		)}>
+		<p class={cn('mt-2 text-xs transition-colors duration-200', error ? 'text-red-400' : 'text-white/60')}>
 			{helperText}
 		</p>
 	{/if}

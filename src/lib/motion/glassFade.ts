@@ -6,8 +6,9 @@ export interface GlassFadeOptions {
 	duration?: number;
 	easing?: (t: number) => number;
 	opacity?: keyof typeof OPACITY_LEVELS;
-	direction?: 'up' | 'down' | 'left' | 'right';
+	direction?: 'up' | 'down' | 'left' | 'right' | 'center';
 	distance?: number;
+	delay?: number;
 }
 
 /**
@@ -41,6 +42,8 @@ export function glassFade(
 				return `translateX(${moveDistance}px)`;
 			case 'right':
 				return `translateX(-${moveDistance}px)`;
+			case 'center':
+				return `scale(${0.8 + 0.2 * progress})`;
 			default:
 				return `translateY(${moveDistance}px)`;
 		}
@@ -83,12 +86,12 @@ export function glassFadeOut(node: Element, options: GlassFadeOptions = {}): Tra
 				...options,
 				direction:
 					options.direction === 'up'
-						? 'down' as const
+						? ('down' as const)
 						: options.direction === 'down'
-							? 'up' as const
+							? ('up' as const)
 							: options.direction === 'left'
-								? 'right' as const
-								: 'left' as const
+								? ('right' as const)
+								: ('left' as const)
 			};
 
 			const reverseTransition = glassFade(node, reverseOptions);

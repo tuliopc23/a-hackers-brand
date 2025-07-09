@@ -25,7 +25,17 @@ export const liquidGlassTokens = {
 	},
 	typography: {
 		fontFamily: {
-			sans: ['PP Supply Sans', 'SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+			sans: [
+				'PP Supply Sans',
+				'SF Pro Display',
+				'-apple-system',
+				'BlinkMacSystemFont',
+				'Segoe UI',
+				'Roboto',
+				'Helvetica Neue',
+				'Arial',
+				'sans-serif'
+			],
 			mono: ['PP Supply Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'monospace']
 		},
 		fontSize: {

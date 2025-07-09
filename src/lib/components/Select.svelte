@@ -275,13 +275,13 @@
 				aria-selected={value === option.value}
 				aria-disabled={option.disabled}
 				tabindex="-1"
-			onclick={() => selectOption(option)}
-			onkeydown={(e) => {
-				if (e.key === 'Enter' || e.key === ' ') {
-					e.preventDefault();
-					selectOption(option);
-				}
-			}}
+				onclick={() => selectOption(option)}
+				onkeydown={(e) => {
+					if (e.key === 'Enter' || e.key === ' ') {
+						e.preventDefault();
+						selectOption(option);
+					}
+				}}
 				onmouseenter={() => !option.disabled && (activeIndex = index)}
 			>
 				{option.label}

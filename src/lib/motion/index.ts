@@ -8,19 +8,28 @@ export * from './tokens.js';
 
 // Export transitions
 export * from './liquidBlur.js';
+export { liquidBlurTransition } from './liquidBlur.js';
 export * from './glassFade.js';
 export * from './springPop.js';
 
 // Export actions
 export * from './magneticHover.js';
 export * from './jellyMotion.js';
+export { springPopAction } from './springPop.js';
 
 // Convenience re-exports with common configurations
 export { liquidBlur as liquid } from './liquidBlur.js';
 export { glassFade as fade } from './glassFade.js';
 export { springPop as pop } from './springPop.js';
 // Note: magneticHover is exported from liquidify/physics to avoid conflicts
-export { jelly, liquidJelly, jellyHover, liquidResponsive, breathing } from './jellyMotion.js';
+export {
+	jelly,
+	liquidJelly,
+	jellyHover,
+	liquidResponsive,
+	breathing,
+	breathing as breathingMotion
+} from './jellyMotion.js';
 
 // Common animation presets
 import { liquidBlur } from './liquidBlur.js';

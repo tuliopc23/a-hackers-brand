@@ -20,7 +20,14 @@ describe('Motion System Integration Tests', () => {
 				offsetHeight: 100,
 				offsetWidth: 100,
 				getBoundingClientRect: vi.fn(() => ({
-					width: 100, height: 100, top: 0, left: 0, right: 100, bottom: 100, x: 0, y: 0
+					width: 100,
+					height: 100,
+					top: 0,
+					left: 0,
+					right: 100,
+					bottom: 100,
+					x: 0,
+					y: 0
 				}))
 			} as any;
 
@@ -65,7 +72,14 @@ describe('Motion System Integration Tests', () => {
 			const mockElement = {
 				style: {},
 				getBoundingClientRect: vi.fn(() => ({
-					width: 100, height: 100, top: 0, left: 0, right: 100, bottom: 100, x: 0, y: 0
+					width: 100,
+					height: 100,
+					top: 0,
+					left: 0,
+					right: 100,
+					bottom: 100,
+					x: 0,
+					y: 0
 				})),
 				addEventListener: vi.fn(),
 				removeEventListener: vi.fn()
@@ -113,14 +127,16 @@ describe('Motion System Integration Tests', () => {
 
 			// Create multiple simultaneous transitions
 			for (let i = 0; i < 10; i++) {
-				transitions.push(liquidBlur(mockElement, {
-					duration: DURATIONS.moderate,
-					blur: 'lg'
-				}));
+				transitions.push(
+					liquidBlur(mockElement, {
+						duration: DURATIONS.moderate,
+						blur: 'lg'
+					})
+				);
 			}
 
 			expect(transitions).toHaveLength(10);
-			transitions.forEach(transition => {
+			transitions.forEach((transition) => {
 				expect(transition.duration).toBe(DURATIONS.moderate);
 			});
 		});
@@ -129,7 +145,14 @@ describe('Motion System Integration Tests', () => {
 			const mockElement = {
 				style: {},
 				getBoundingClientRect: vi.fn(() => ({
-					width: 100, height: 100, top: 0, left: 0, right: 100, bottom: 100, x: 0, y: 0
+					width: 100,
+					height: 100,
+					top: 0,
+					left: 0,
+					right: 100,
+					bottom: 100,
+					x: 0,
+					y: 0
 				})),
 				addEventListener: vi.fn(),
 				removeEventListener: vi.fn()
@@ -139,14 +162,16 @@ describe('Motion System Integration Tests', () => {
 
 			// Create multiple actions
 			for (let i = 0; i < 5; i++) {
-				actions.push(magneticHover(mockElement, {
-					strength: 0.2,
-					distance: 30
-				}));
+				actions.push(
+					magneticHover(mockElement, {
+						strength: 0.2,
+						distance: 30
+					})
+				);
 			}
 
 			// Cleanup all actions
-			actions.forEach(action => action.destroy());
+			actions.forEach((action) => action.destroy());
 
 			// Verify cleanup was called
 			expect(mockElement.removeEventListener).toHaveBeenCalled();

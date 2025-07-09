@@ -21,10 +21,6 @@
 	const flexClasses = $derived(flexVariants({ direction, align, justify, wrap, gap, className }));
 </script>
 
-<svelte:element 
-	this={as} 
-	class={flexClasses}
-	{...restProps}
->
+<svelte:element this={as} class={flexClasses} {...restProps}>
 	{@render children?.()}
 </svelte:element>

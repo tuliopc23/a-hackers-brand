@@ -3,7 +3,7 @@ import { DURATIONS, EASINGS } from '../../motion/tokens';
 
 /**
  * Svelte 5 Test Utilities
- * 
+ *
  * Helper functions for testing Svelte 5 components without relying on
  * @testing-library/svelte which has compatibility issues.
  */
@@ -32,7 +32,7 @@ export interface MockElement {
 export function createMockElement(overrides = {}): MockElement {
 	const mockStyle = {};
 	const eventListeners = new Map<string, Function[]>();
-	
+
 	return {
 		textContent: '',
 		className: '',
@@ -71,22 +71,26 @@ export function createMockElement(overrides = {}): MockElement {
 		click: vi.fn(() => {
 			const clickHandlers = eventListeners.get('click');
 			if (clickHandlers) {
-				clickHandlers.forEach(handler => handler());
+				clickHandlers.forEach((handler) => handler());
 			}
 		}),
 		focus: vi.fn(),
 		blur: vi.fn(),
 		getBoundingClientRect: vi.fn(() => ({
-			width: 100, height: 40, top: 0, left: 0, right: 100, bottom: 40, x: 0, y: 0
+			width: 100,
+			height: 40,
+			top: 0,
+			left: 0,
+			right: 100,
+			bottom: 40,
+			x: 0,
+			y: 0
 		})),
 		...overrides
 	};
 }
 
-export function createMockProps<T extends Record<string, any>>(
-	defaults: T, 
-	overrides: Partial<T> = {}
-): T {
+export function createMockProps<T extends Record<string, any>>(defaults: T, overrides: Partial<T> = {}): T {
 	return { ...defaults, ...overrides };
 }
 
@@ -95,7 +99,7 @@ export function testVariants<T>(
 	propsFactory: (variant: string) => T,
 	testFn: (props: T, variant: string) => void
 ) {
-	variants.forEach(variant => {
+	variants.forEach((variant) => {
 		const props = propsFactory(variant);
 		testFn(props, variant);
 	});
@@ -106,7 +110,7 @@ export function testSizes<T>(
 	propsFactory: (size: string) => T,
 	testFn: (props: T, size: string) => void
 ) {
-	sizes.forEach(size => {
+	sizes.forEach((size) => {
 		const props = propsFactory(size);
 		testFn(props, size);
 	});
@@ -120,11 +124,11 @@ export function simulateClassGeneration(
 	modifiers: string[] = []
 ) {
 	const classes = [baseClass];
-	
+
 	if (variant) classes.push(`${baseClass}-${variant}`);
 	if (size) classes.push(`${baseClass}-${size}`);
 	classes.push(...modifiers);
-	
+
 	element.className = classes.join(' ');
 	return element.className;
 }
@@ -160,17 +164,13 @@ export function simulateMotionPreference(reducedMotion: boolean = false) {
 	});
 }
 
-export function simulateKeyboardEvent(
-	element: MockElement,
-	key: string,
-	callback?: () => void
-) {
+export function simulateKeyboardEvent(element: MockElement, key: string, callback?: () => void) {
 	const event = { key, preventDefault: vi.fn(), stopPropagation: vi.fn() };
-	
+
 	if (callback && (key === 'Enter' || key === ' ')) {
 		callback();
 	}
-	
+
 	return event;
 }
 
@@ -179,31 +179,28 @@ export function simulateMouseEvent(
 	eventType: 'click' | 'mouseenter' | 'mouseleave' | 'mousedown' | 'mouseup',
 	callback?: () => void
 ) {
-	const event = { 
+	const event = {
 		type: eventType,
-		preventDefault: vi.fn(), 
+		preventDefault: vi.fn(),
 		stopPropagation: vi.fn(),
 		clientX: 50,
 		clientY: 50
 	};
-	
+
 	if (callback) {
 		callback();
 	}
-	
+
 	return event;
 }
 
 export function expectClassesToContain(element: MockElement, expectedClasses: string[]) {
-	expectedClasses.forEach(className => {
+	expectedClasses.forEach((className) => {
 		expect(element.className).toContain(className);
 	});
 }
 
-export function expectAttributesToBeSet(
-	element: MockElement, 
-	attributes: Record<string, string>
-) {
+export function expectAttributesToBeSet(element: MockElement, attributes: Record<string, string>) {
 	Object.entries(attributes).forEach(([name, value]) => {
 		expect(element.setAttribute).toHaveBeenCalledWith(name, value);
 	});
@@ -224,11 +221,11 @@ export function testAccessibilityCompliance(element: MockElement, role: string =
 }
 
 export function testEventCleanup(element: MockElement, eventTypes: string[] = ['click']) {
-	eventTypes.forEach(eventType => {
+	eventTypes.forEach((eventType) => {
 		const handler = vi.fn();
 		element.addEventListener(eventType, handler);
 		element.removeEventListener(eventType, handler);
-		
+
 		expect(element.removeEventListener).toHaveBeenCalledWith(eventType, handler);
 	});
 }
@@ -237,7 +234,7 @@ export function testPerformanceThreshold(testFn: () => void, maxTime: number = 5
 	const start = performance.now();
 	testFn();
 	const duration = performance.now() - start;
-	
+
 	expect(duration).toBeLessThan(maxTime);
 }
 

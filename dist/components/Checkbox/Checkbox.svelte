@@ -113,8 +113,8 @@
 		indeterminate
 			? variants[variant].containerIndeterminate
 			: checked
-			? variants[variant].containerChecked
-			: variants[variant].container,
+				? variants[variant].containerChecked
+				: variants[variant].container,
 		variant === 'glass' && blurLevels[blur],
 		disabled && 'opacity-50 cursor-not-allowed',
 		!disabled && 'cursor-pointer hover:scale-105',
@@ -128,8 +128,8 @@
 		indeterminate
 			? variants[variant].iconIndeterminate
 			: checked
-			? variants[variant].iconChecked
-			: variants[variant].icon
+				? variants[variant].iconChecked
+				: variants[variant].icon
 	);
 
 	const labelClasses = cn(
@@ -139,11 +139,7 @@
 		error && 'text-red-300'
 	);
 
-	const descriptionClasses = cn(
-		'text-xs text-white/70 mt-1',
-		disabled && 'opacity-50',
-		error && 'text-red-300/70'
-	);
+	const descriptionClasses = cn('text-xs text-white/70 mt-1', disabled && 'opacity-50', error && 'text-red-300/70');
 
 	function handleChange(event: Event) {
 		if (disabled) return;
@@ -230,13 +226,13 @@
 	.glass-subtle {
 		background: rgba(255, 255, 255, 0.05);
 		-webkit-backdrop-filter: blur(10px);
-		        backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
 	}
 
 	.glass-medium {
 		background: rgba(255, 255, 255, 0.1);
 		-webkit-backdrop-filter: blur(15px);
-		        backdrop-filter: blur(15px);
+		backdrop-filter: blur(15px);
 	}
 
 	/* Hover effects */

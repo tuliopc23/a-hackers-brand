@@ -290,10 +290,10 @@
 	onMount(() => {
 		materialRef = createShaderMaterial();
 		startAnimation();
-		
+
 		// Dispatch ready event
 		dispatch('ready', { material: materialRef });
-		
+
 		// Cleanup on unmount
 		return () => {
 			if (animationId) {
@@ -318,8 +318,8 @@
 			uDistortion: { value: distortion },
 			uRefraction: { value: refraction }
 		}}
-		vertexShader={vertexShader}
-		fragmentShader={fragmentShader}
+		{vertexShader}
+		{fragmentShader}
 		transparent={true}
 		side={THREE.DoubleSide}
 		blending={THREE.AdditiveBlending}

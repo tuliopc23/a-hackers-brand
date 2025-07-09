@@ -43,7 +43,7 @@ export const mediaQueries = {
 	'max-md': `(max-width: ${breakpoints.md - 1}px)`,
 	'max-lg': `(max-width: ${breakpoints.lg - 1}px)`,
 	'max-xl': `(max-width: ${breakpoints.xl - 1}px)`,
-	'max-2xl': `(max-width: ${breakpoints['2xl'] - 1}px)`,
+	'max-2xl': `(max-width: ${breakpoints['2xl'] - 1}px)`
 } as const;
 
 // Container variants for different contexts
@@ -180,11 +180,11 @@ export const textVariants = tv({
 			'responsive-xl': 'text-xl sm:text-2xl lg:text-3xl',
 			'responsive-2xl': 'text-2xl sm:text-3xl lg:text-4xl',
 			// Brand-specific sizes
-			'hero': 'text-2xl sm:text-3xl lg:text-4xl xl:text-5xl',
-			'heading': 'text-xl sm:text-2xl lg:text-3xl',
-			'subheading': 'text-lg sm:text-xl',
-			'terminal': 'text-sm sm:text-base font-mono',
-			'code': 'text-xs sm:text-sm font-mono'
+			hero: 'text-2xl sm:text-3xl lg:text-4xl xl:text-5xl',
+			heading: 'text-xl sm:text-2xl lg:text-3xl',
+			subheading: 'text-lg sm:text-xl',
+			terminal: 'text-sm sm:text-base font-mono',
+			code: 'text-xs sm:text-sm font-mono'
 		},
 		weight: {
 			light: 'font-light',
@@ -275,7 +275,7 @@ export function useBreakpoint() {
 	if (typeof window === 'undefined') return 'lg'; // SSR fallback
 
 	const width = window.innerWidth;
-	
+
 	if (width >= breakpoints.ultrawide) return 'ultrawide';
 	if (width >= breakpoints.wide) return 'wide';
 	if (width >= breakpoints.desktop) return 'desktop';
@@ -287,7 +287,7 @@ export function useBreakpoint() {
 	if (width >= breakpoints.md) return 'md';
 	if (width >= breakpoints.sm) return 'sm';
 	if (width >= breakpoints.xs) return 'xs';
-	
+
 	return 'xs';
 }
 

@@ -228,11 +228,7 @@
 				<span class="text-left">{item.title}</span>
 
 				<svg
-					class={cn(
-						'transition-transform duration-200 flex-shrink-0 ml-2',
-						sizes[size].icon,
-						isOpen && 'rotate-180'
-					)}
+					class={cn('transition-transform duration-200 flex-shrink-0 ml-2', sizes[size].icon, isOpen && 'rotate-180')}
 					fill="none"
 					stroke="currentColor"
 					viewBox="0 0 24 24"

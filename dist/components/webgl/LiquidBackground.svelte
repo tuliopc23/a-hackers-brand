@@ -183,16 +183,16 @@
 	const createShader = (gl: WebGLRenderingContext, type: number, source: string): WebGLShader | null => {
 		const shader = gl.createShader(type);
 		if (!shader) return null;
-		
+
 		gl.shaderSource(shader, source);
 		gl.compileShader(shader);
-		
+
 		if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
 			console.error('Shader compilation error:', gl.getShaderInfoLog(shader));
 			gl.deleteShader(shader);
 			return null;
 		}
-		
+
 		return shader;
 	};
 
@@ -200,21 +200,21 @@
 	const createProgram = (gl: WebGLRenderingContext): WebGLProgram | null => {
 		const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
 		const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
-		
+
 		if (!vertexShader || !fragmentShader) return null;
-		
+
 		const program = gl.createProgram();
 		if (!program) return null;
-		
+
 		gl.attachShader(program, vertexShader);
 		gl.attachShader(program, fragmentShader);
 		gl.linkProgram(program);
-		
+
 		if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
 			console.error('Program linking error:', gl.getProgramInfoLog(program));
 			return null;
 		}
-		
+
 		return program;
 	};
 
@@ -225,26 +225,21 @@
 			console.error('WebGL not supported');
 			return false;
 		}
-		
+
 		program = createProgram(gl)!;
 		if (!program) return false;
-		
+
 		// Create geometry (screen quad)
-		const positions = new Float32Array([
-			-1, -1,
-			 1, -1,
-			-1,  1,
-			 1,  1
-		]);
-		
+		const positions = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]);
+
 		const positionBuffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 		gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
-		
+
 		const positionAttribute = gl.getAttribLocation(program, 'a_position');
 		gl.enableVertexAttribArray(positionAttribute);
 		gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
-		
+
 		return true;
 	};
 
@@ -259,27 +254,32 @@
 	// Get pattern value
 	const getPatternValue = () => {
 		switch (pattern) {
-			case 'waves': return 0.0;
-			case 'ripples': return 1.0;
-			case 'distortion': return 2.0;
-			case 'plasma': return 3.0;
-			default: return 0.0;
+			case 'waves':
+				return 0.0;
+			case 'ripples':
+				return 1.0;
+			case 'distortion':
+				return 2.0;
+			case 'plasma':
+				return 3.0;
+			default:
+				return 0.0;
 		}
 	};
 
 	// Render loop
 	const render = () => {
 		if (!gl || !program) return;
-		
+
 		time += 0.016; // Roughly 60fps
-		
+
 		// Set viewport
 		gl.viewport(0, 0, canvasRef.width, canvasRef.height);
 		gl.clear(gl.COLOR_BUFFER_BIT);
-		
+
 		// Use program
 		gl.useProgram(program);
-		
+
 		// Set uniforms
 		gl.uniform1f(gl.getUniformLocation(program, 'u_time'), time);
 		gl.uniform1f(gl.getUniformLocation(program, 'u_intensity'), intensity);
@@ -288,26 +288,26 @@
 		gl.uniform2f(gl.getUniformLocation(program, 'u_mouse'), mousePosition.x, mousePosition.y);
 		gl.uniform1f(gl.getUniformLocation(program, 'u_pattern'), getPatternValue());
 		gl.uniform1f(gl.getUniformLocation(program, 'u_interactive'), interactive ? 1.0 : 0.0);
-		
+
 		// Set color uniforms
 		const [r1, g1, b1] = hexToRgb(colors[0]);
 		const [r2, g2, b2] = hexToRgb(colors[1]);
 		const [r3, g3, b3] = hexToRgb(colors[2]);
-		
+
 		gl.uniform3f(gl.getUniformLocation(program, 'u_color1'), r1, g1, b1);
 		gl.uniform3f(gl.getUniformLocation(program, 'u_color2'), r2, g2, b2);
 		gl.uniform3f(gl.getUniformLocation(program, 'u_color3'), r3, g3, b3);
-		
+
 		// Draw
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-		
+
 		animationId = requestAnimationFrame(render);
 	};
 
 	// Handle mouse movement
 	const handleMouseMove = (event: MouseEvent) => {
 		if (!interactive) return;
-		
+
 		const rect = canvasRef.getBoundingClientRect();
 		mousePosition = {
 			x: (event.clientX - rect.left) / rect.width,
@@ -318,29 +318,29 @@
 	// Resize canvas
 	const resizeCanvas = () => {
 		if (!canvasRef) return;
-		
+
 		const { width, height } = canvasRef.getBoundingClientRect();
 		const pixelRatio = window.devicePixelRatio || 1;
-		
+
 		const qualityMultiplier = quality === 'low' ? 0.5 : quality === 'medium' ? 0.75 : 1.0;
-		
+
 		canvasRef.width = width * pixelRatio * qualityMultiplier;
 		canvasRef.height = height * pixelRatio * qualityMultiplier;
-		
+
 		canvasRef.style.width = `${width}px`;
 		canvasRef.style.height = `${height}px`;
 	};
 
 	onMount(() => {
 		resizeCanvas();
-		
+
 		if (setupWebGL()) {
 			render();
 			dispatch('ready', { gl, program });
 		}
-		
+
 		window.addEventListener('resize', resizeCanvas);
-		
+
 		return () => {
 			if (animationId) {
 				cancelAnimationFrame(animationId);

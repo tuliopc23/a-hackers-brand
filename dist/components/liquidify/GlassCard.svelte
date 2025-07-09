@@ -41,13 +41,13 @@
 	// Magnetic hover effect
 	const handleMouseMove = (e: MouseEvent) => {
 		if (!hover) return;
-		
+
 		const rect = cardRef.getBoundingClientRect();
 		const centerX = rect.left + rect.width / 2;
 		const centerY = rect.top + rect.height / 2;
 		const deltaX = (e.clientX - centerX) * 0.02;
 		const deltaY = (e.clientY - centerY) * 0.02;
-		
+
 		cardRef.style.transform = `translate(${deltaX}px, ${deltaY}px) rotateX(${deltaY * 0.1}deg) rotateY(${deltaX * 0.1}deg)`;
 	};
 
@@ -82,11 +82,11 @@
 	style="perspective: 1000px;"
 >
 	<!-- Glass shimmer effect -->
-	<div 
+	<div
 		class="absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-500 hover:opacity-100 pointer-events-none"
 		style="background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); background-size: 200% 200%; animation: shimmer 3s ease-in-out infinite;"
 	></div>
-	
+
 	<!-- Content -->
 	<div class="relative z-10">
 		{#if children}
@@ -97,22 +97,28 @@
 
 <style>
 	@keyframes shimmer {
-		0% { background-position: 0% 0%; }
-		50% { background-position: 100% 100%; }
-		100% { background-position: 0% 0%; }
+		0% {
+			background-position: 0% 0%;
+		}
+		50% {
+			background-position: 100% 100%;
+		}
+		100% {
+			background-position: 0% 0%;
+		}
 	}
-	
+
 	div {
-		box-shadow: 
+		box-shadow:
 			0 4px 8px rgba(0, 0, 0, 0.12),
 			0 8px 16px rgba(0, 0, 0, 0.08),
 			0 0 0 1px rgba(255, 255, 255, 0.08) inset;
 	}
-	
+
 	div:hover {
-		box-shadow: 
+		box-shadow:
 			0 8px 16px rgba(0, 0, 0, 0.15),
-			0 16px 32px rgba(0, 0, 0, 0.10),
+			0 16px 32px rgba(0, 0, 0, 0.1),
 			0 0 0 1px rgba(255, 255, 255, 0.12) inset;
 	}
 </style>

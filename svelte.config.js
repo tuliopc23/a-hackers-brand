@@ -25,11 +25,11 @@ const config = {
 
 		// Alias configuration for cleaner imports
 		alias: {
-			'$lib': './src/lib',
-			'$components': './src/lib/components',
-			'$utils': './src/lib/utils',
-			'$stores': './src/lib/stores',
-			'$motion': './src/lib/motion'
+			$lib: './src/lib',
+			$components: './src/lib/components',
+			$utils: './src/lib/utils',
+			$stores: './src/lib/stores',
+			$motion: './src/lib/motion'
 		}
 	}
 };

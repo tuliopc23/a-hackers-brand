@@ -22,6 +22,7 @@ vercel --prod
 ```
 
 **Custom Domain Setup:**
+
 1. Go to Vercel Dashboard → Project → Settings → Domains
 2. Add: `design-system.yourdomain.com`
 3. Update DNS: Add CNAME record pointing to `cname.vercel-dns.com`
@@ -82,6 +83,7 @@ jobs:
 ## 📦 **NPM PACKAGE DEPLOYMENT**
 
 ### **Public Package**
+
 ```bash
 # 1. Update package.json version
 npm version patch  # or minor/major
@@ -97,13 +99,14 @@ npm install tulio-brand-system
 ```
 
 ### **Private Package (GitHub)**
+
 ```json
 // package.json
 {
-  "name": "@yourusername/tulio-brand-system",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  }
+	"name": "@yourusername/tulio-brand-system",
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
+	}
 }
 ```
 
@@ -118,6 +121,7 @@ npm install @yourusername/tulio-brand-system
 ## 🛠️ **FIXING BUILD ERRORS**
 
 ### **Quick Fix for CSS Issues**
+
 Replace CSS-in-JS media queries with CSS classes:
 
 ```svelte
@@ -146,6 +150,7 @@ Replace CSS-in-JS media queries with CSS classes:
 ```
 
 ### **Quick Fix for Event Handlers**
+
 ```svelte
 <!-- Old Svelte 4 -->
 <button on:click={() => handleClick()}>
@@ -155,26 +160,29 @@ Replace CSS-in-JS media queries with CSS classes:
 ```
 
 ### **Disable Strict TypeScript (Temporary)**
+
 ```json
 // tsconfig.json
 {
-  "compilerOptions": {
-    "strict": false,
-    "noImplicitAny": false
-  }
+	"compilerOptions": {
+		"strict": false,
+		"noImplicitAny": false
+	}
 }
 ```
 
 ## 🌐 **RECOMMENDED DOMAINS**
 
 ### **Design System URLs**
+
 - `design.tuliodev.com`
-- `brand.tuliodesign.com` 
+- `brand.tuliodesign.com`
 - `system.tulio.design`
 - `styleguide.tuliocode.com`
 - `components.tuliodev.io`
 
 ### **Portfolio Integration**
+
 - Main Portfolio: `tulio.design`
 - Design System: `design.tulio.design`
 - Blog: `blog.tulio.design`
@@ -183,28 +191,30 @@ Replace CSS-in-JS media queries with CSS classes:
 ## 📊 **PERFORMANCE OPTIMIZATION**
 
 ### **Vercel Config**
+
 ```json
 // vercel.json
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "build",
-  "cleanUrls": true,
-  "framework": "sveltekit",
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    }
-  ]
+	"buildCommand": "npm run build",
+	"outputDirectory": "build",
+	"cleanUrls": true,
+	"framework": "sveltekit",
+	"headers": [
+		{
+			"source": "/(.*)",
+			"headers": [
+				{
+					"key": "Cache-Control",
+					"value": "public, max-age=31536000, immutable"
+				}
+			]
+		}
+	]
 }
 ```
 
 ### **Lighthouse Optimization**
+
 - ✅ Enable image optimization
 - ✅ Preload critical fonts
 - ✅ Minimize JavaScript bundles
@@ -214,6 +224,7 @@ Replace CSS-in-JS media queries with CSS classes:
 ## 🔄 **AUTOMATED DEPLOYMENT**
 
 ### **GitHub Actions**
+
 ```yaml
 # .github/workflows/ci.yml
 name: CI/CD
@@ -230,7 +241,7 @@ jobs:
       - run: npm run lint
       - run: npm run test
       - run: npm run build
-      
+
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: test

@@ -31,11 +31,13 @@
 	const dispatch = createEventDispatcher();
 
 	const variantClasses = {
-		primary: 'bg-gradient-to-r from-blue-600/80 to-blue-500/80 border-blue-400/30 text-white shadow-blue-500/25 hover:from-blue-500/90 hover:to-blue-400/90 hover:shadow-blue-400/40',
+		primary:
+			'bg-gradient-to-r from-blue-600/80 to-blue-500/80 border-blue-400/30 text-white shadow-blue-500/25 hover:from-blue-500/90 hover:to-blue-400/90 hover:shadow-blue-400/40',
 		secondary: 'bg-white/10 border-white/20 text-white hover:bg-white/15 hover:border-white/30',
 		tertiary: 'bg-white/5 border-white/10 text-white/90 hover:bg-white/10 hover:text-white',
 		ghost: 'bg-transparent border-transparent text-white/80 hover:bg-white/5 hover:text-white',
-		destructive: 'bg-gradient-to-r from-red-600/80 to-red-500/80 border-red-400/30 text-white shadow-red-500/25 hover:from-red-500/90 hover:to-red-400/90'
+		destructive:
+			'bg-gradient-to-r from-red-600/80 to-red-500/80 border-red-400/30 text-white shadow-red-500/25 hover:from-red-500/90 hover:to-red-400/90'
 	};
 
 	const sizeClasses = {
@@ -52,13 +54,13 @@
 	// Magnetic hover effect
 	const handleMouseMove = (e: MouseEvent) => {
 		if (disabled || loading) return;
-		
+
 		const rect = buttonRef.getBoundingClientRect();
 		const centerX = rect.left + rect.width / 2;
 		const centerY = rect.top + rect.height / 2;
 		const deltaX = (e.clientX - centerX) * 0.1;
 		const deltaY = (e.clientY - centerY) * 0.1;
-		
+
 		buttonRef.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(1.02)`;
 	};
 
@@ -70,11 +72,11 @@
 	// Glass ripple effect
 	const handleClick = (e: MouseEvent) => {
 		if (disabled || loading) return;
-		
+
 		const rect = buttonRef.getBoundingClientRect();
 		const x = e.clientX - rect.left;
 		const y = e.clientY - rect.top;
-		
+
 		const ripple = document.createElement('div');
 		ripple.className = 'absolute pointer-events-none rounded-full bg-white/30 transform scale-0 animate-ping';
 		ripple.style.left = `${x - 10}px`;
@@ -82,13 +84,13 @@
 		ripple.style.width = '20px';
 		ripple.style.height = '20px';
 		ripple.style.animation = 'glass-ripple 0.6s ease-out forwards';
-		
+
 		rippleRef.appendChild(ripple);
-		
+
 		setTimeout(() => {
 			ripple.remove();
 		}, 600);
-		
+
 		onclick?.();
 		dispatch('click', e);
 	};
@@ -121,7 +123,7 @@
 >
 	<!-- Ripple container -->
 	<div bind:this={rippleRef} class="absolute inset-0 rounded-[inherit] overflow-hidden"></div>
-	
+
 	<!-- Content -->
 	<div class="relative flex items-center gap-2">
 		{#if loading}
@@ -131,11 +133,11 @@
 				{@render leftIcon()}
 			</div>
 		{/if}
-		
+
 		{#if children}
 			{@render children()}
 		{/if}
-		
+
 		{#if rightIcon && !loading}
 			<div class="flex-shrink-0">
 				{@render rightIcon()}
@@ -151,18 +153,18 @@
 			opacity: 0;
 		}
 	}
-	
+
 	button {
-		box-shadow: 
+		box-shadow:
 			0 1px 3px rgba(0, 0, 0, 0.12),
 			0 4px 8px rgba(0, 0, 0, 0.08),
 			0 0 0 1px rgba(255, 255, 255, 0.05) inset;
 	}
-	
+
 	button:hover {
-		box-shadow: 
+		box-shadow:
 			0 4px 12px rgba(0, 0, 0, 0.15),
-			0 8px 20px rgba(0, 0, 0, 0.10),
+			0 8px 20px rgba(0, 0, 0, 0.1),
 			0 0 0 1px rgba(255, 255, 255, 0.1) inset;
 	}
 </style>

@@ -2,7 +2,7 @@
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { spacing } from '$lib/tokens';
-	
+
 	// Spacing scale examples
 	const spacingScale = [
 		{ name: 'xs', value: '4px', rem: '0.25rem', token: 'spacing[1]', use: 'Border radii, icon spacing' },
@@ -29,7 +29,13 @@
 	const breakpoints = [
 		{ name: 'Mobile', size: '0px', max: '639px', container: '100%', description: 'Single column, stacked layout' },
 		{ name: 'Tablet', size: '640px', max: '1023px', container: '640px', description: 'Two column, condensed spacing' },
-		{ name: 'Desktop', size: '1024px', max: '1279px', container: '1024px', description: 'Multi-column, standard spacing' },
+		{
+			name: 'Desktop',
+			size: '1024px',
+			max: '1279px',
+			container: '1024px',
+			description: 'Multi-column, standard spacing'
+		},
 		{ name: 'Wide', size: '1280px', max: '1535px', container: '1280px', description: 'Wide layouts, generous spacing' },
 		{ name: 'Ultra Wide', size: '1536px', max: '∞', container: '1536px', description: 'Maximum width, optimal reading' }
 	];
@@ -65,26 +71,27 @@
 
 <article class="docs-content">
 	<h1>Spacing & Layout</h1>
-	
+
 	<p class="lead">
-		Our spacing system is built on an 8-point grid that ensures consistent, harmonious layouts 
-		across all interfaces while maintaining the liquid glass aesthetic.
+		Our spacing system is built on an 8-point grid that ensures consistent, harmonious layouts across all interfaces
+		while maintaining the liquid glass aesthetic.
 	</p>
 
 	<!-- Spacing Philosophy -->
 	<section>
 		<h2>Spacing Philosophy</h2>
-		
+
 		<div class="glass-subtle p-8 rounded-2xl mb-8">
 			<p class="text-lg mb-6">
-				The Tulio spacing system creates rhythm and hierarchy through careful use of whitespace. 
-				Every measurement is based on multiples of 8px, creating a mathematical harmony that 
-				feels both technical and organic.
+				The Tulio spacing system creates rhythm and hierarchy through careful use of whitespace. Every measurement is
+				based on multiples of 8px, creating a mathematical harmony that feels both technical and organic.
 			</p>
-			
+
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 				<div class="text-center">
-					<div class="w-20 h-20 mx-auto mb-4 rounded-xl bg-gradient-to-br from-terminal-green/20 to-terminal-cyan/20 border border-terminal-green/30 flex items-center justify-center">
+					<div
+						class="w-20 h-20 mx-auto mb-4 rounded-xl bg-gradient-to-br from-terminal-green/20 to-terminal-cyan/20 border border-terminal-green/30 flex items-center justify-center"
+					>
 						<span class="text-2xl">8</span>
 					</div>
 					<h3 class="font-semibold mb-2">8-Point Grid</h3>
@@ -98,7 +105,9 @@
 					<p class="text-sm text-white/70">Consistent ratios across all components</p>
 				</div>
 				<div class="text-center">
-					<div class="w-20 h-20 mx-auto mb-4 rounded-xl bg-gradient-to-br from-terminal-purple/20 to-terminal-pink/20 border border-terminal-purple/30 flex items-center justify-center">
+					<div
+						class="w-20 h-20 mx-auto mb-4 rounded-xl bg-gradient-to-br from-terminal-purple/20 to-terminal-pink/20 border border-terminal-purple/30 flex items-center justify-center"
+					>
 						<span class="text-2xl">⚡</span>
 					</div>
 					<h3 class="font-semibold mb-2">Responsive</h3>
@@ -112,17 +121,17 @@
 	<section class="mt-16">
 		<h2>Spacing Scale</h2>
 		<p class="text-white/70 mb-8">
-			Our spacing scale provides a comprehensive range of sizes for all layout needs, from micro-spacing 
-			to major page sections.
+			Our spacing scale provides a comprehensive range of sizes for all layout needs, from micro-spacing to major page
+			sections.
 		</p>
-		
+
 		<div class="space-y-4">
 			{#each spacingScale as space}
 				<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 					<div class="flex items-center gap-6">
 						<div class="flex items-center min-w-0 flex-1">
 							<div class="w-20 font-mono text-terminal-cyan text-sm">{space.name}</div>
-							<div 
+							<div
 								class="h-8 bg-terminal-green/30 rounded-md mr-6 border border-terminal-green/50"
 								style="width: {space.value}"
 							></div>
@@ -142,10 +151,10 @@
 	<section class="mt-16">
 		<h2>Layout Grid System</h2>
 		<p class="text-white/70 mb-8">
-			Our responsive grid system adapts from single-column mobile layouts to complex multi-column 
-			desktop interfaces while maintaining visual harmony.
+			Our responsive grid system adapts from single-column mobile layouts to complex multi-column desktop interfaces
+			while maintaining visual harmony.
 		</p>
-		
+
 		<div class="glass-subtle p-8 rounded-xl mb-8">
 			<h3 class="mb-6">Grid Columns</h3>
 			<div class="space-y-6">
@@ -157,7 +166,9 @@
 						</div>
 						<div class="grid grid-cols-{grid.columns} gap-2 mb-3">
 							{#each Array(grid.columns) as _, i}
-								<div class="h-12 glass-subtle rounded border border-terminal-green/20 flex items-center justify-center text-xs">
+								<div
+									class="h-12 glass-subtle rounded border border-terminal-green/20 flex items-center justify-center text-xs"
+								>
 									{i + 1}
 								</div>
 							{/each}
@@ -173,10 +184,9 @@
 	<section class="mt-16">
 		<h2>Responsive Breakpoints</h2>
 		<p class="text-white/70 mb-8">
-			Our breakpoint system ensures optimal layouts across all device sizes, from mobile phones 
-			to ultra-wide monitors.
+			Our breakpoint system ensures optimal layouts across all device sizes, from mobile phones to ultra-wide monitors.
 		</p>
-		
+
 		<div class="space-y-4">
 			{#each breakpoints as bp}
 				<div class="glass-subtle p-6 rounded-xl">
@@ -204,7 +214,7 @@
 
 		<div class="glass-subtle p-6 rounded-xl mt-6">
 			<h3 class="mb-4">Breakpoint Usage</h3>
-			<CodeBlock 
+			<CodeBlock
 				code={`/* Responsive utility classes */
 @media (min-width: 640px) { /* sm: */ }
 @media (min-width: 768px) { /* md: */ }
@@ -227,7 +237,7 @@
 		<p class="text-white/70 mb-8">
 			Standard spacing patterns for common components ensure consistency across the design system.
 		</p>
-		
+
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 			{#each componentPatterns as pattern}
 				<div class="glass-subtle p-6 rounded-xl">
@@ -251,7 +261,7 @@
 	<!-- Layout Principles -->
 	<section class="mt-16">
 		<h2>Layout Principles</h2>
-		
+
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 			<div class="glass-subtle p-8 rounded-xl">
 				<h3 class="text-terminal-green mb-6">Do's ✓</h3>
@@ -282,7 +292,7 @@
 					</li>
 				</ul>
 			</div>
-			
+
 			<div class="glass-subtle p-8 rounded-xl">
 				<h3 class="text-terminal-pink mb-6">Don'ts ✗</h3>
 				<ul class="space-y-3 text-sm">
@@ -318,11 +328,11 @@
 	<!-- Container Layouts -->
 	<section class="mt-16">
 		<h2>Container Layouts</h2>
-		
+
 		<div class="space-y-6">
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="mb-4">Standard Containers</h3>
-				<CodeBlock 
+				<CodeBlock
 					code={`/* Full width container */
 .container-full {
   width: 100%;
@@ -345,10 +355,10 @@
 					language="css"
 				/>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="mb-4">Responsive Container Example</h3>
-				<CodeBlock 
+				<CodeBlock
 					code={`<div class="container mx-auto px-4 sm:px-6 lg:px-8">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <div class="glass-subtle p-6 rounded-xl">Card 1</div>
@@ -365,11 +375,11 @@
 	<!-- Implementation -->
 	<section class="mt-16">
 		<h2>Implementation</h2>
-		
+
 		<div class="space-y-6">
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="mb-4">Using Design Tokens</h3>
-				<CodeBlock 
+				<CodeBlock
 					code={`import { spacing } from 'tulio-brand-system/tokens';
 
 // Spacing values
@@ -386,10 +396,10 @@ const styles = {
 					language="javascript"
 				/>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="mb-4">Tailwind Classes</h3>
-				<CodeBlock 
+				<CodeBlock
 					code={`<!-- Spacing utilities -->
 <div class="p-6 m-4 space-y-8">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -420,11 +430,11 @@ const styles = {
 	.lead {
 		@apply text-xl text-white/80 mb-12 max-w-3xl;
 	}
-	
+
 	section {
 		@apply border-t border-white/10 pt-12;
 	}
-	
+
 	section:first-of-type {
 		@apply border-t-0 pt-0;
 	}

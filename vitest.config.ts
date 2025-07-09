@@ -13,12 +13,8 @@ export default defineConfig({
 	},
 	test: {
 		globals: true,
-<<<<<<< Updated upstream
-		environment: 'happy-dom',
-		setupFiles: ['./src/lib/motion/__tests__/setup-legacy.ts'],
-=======
 		environment: 'jsdom',
->>>>>>> Stashed changes
+		setupFiles: ['./src/lib/motion/__tests__/setup.ts'],
 		include: ['src/**/*.{test,spec}.{js,ts,svelte}'],
 		setupFiles: ['./src/lib/motion/__tests__/setup.ts'],
 		pool: 'forks',
@@ -27,26 +23,11 @@ export default defineConfig({
 				singleFork: true
 			}
 		},
-<<<<<<< Updated upstream
-		// Force browser environment for Svelte 5 mount
-		server: {
-			deps: {
-				inline: ['svelte', '@sveltejs/kit']
-			}
-		},
-		// Configure environment to prevent SSR detection
-		env: {
-			NODE_ENV: 'test',
-			VITEST: 'true',
-			BROWSER: 'true'
-		},
-=======
 		environmentOptions: {
 			jsdom: {
 				url: 'http://localhost:3000'
 			}
 		},
->>>>>>> Stashed changes
 		coverage: {
 			provider: 'v8',
 			reporter: ['text', 'json', 'html', 'lcov'],

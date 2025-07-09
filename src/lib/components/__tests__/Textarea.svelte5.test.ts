@@ -38,15 +38,15 @@ describe('Textarea Component (Svelte 5)', () => {
 	describe('Props and Variants', () => {
 		it('should handle variant props correctly', () => {
 			const variants = ['default', 'glass', 'terminal'];
-			
-			variants.forEach(variant => {
+
+			variants.forEach((variant) => {
 				const props = createMockProps(textareaTestDefaults, { variant });
 				expect(props.variant).toBe(variant);
 			});
 		});
 
 		it('should handle size props correctly', () => {
-			commonSizes.forEach(size => {
+			commonSizes.forEach((size) => {
 				const props = createMockProps(textareaTestDefaults, { size });
 				expect(props.size).toBe(size);
 			});
@@ -78,8 +78,8 @@ describe('Textarea Component (Svelte 5)', () => {
 
 		it('should handle resize options', () => {
 			const resizeOptions = ['none', 'both', 'horizontal', 'vertical'];
-			
-			resizeOptions.forEach(resize => {
+
+			resizeOptions.forEach((resize) => {
 				const props = createMockProps(textareaTestDefaults, { resize });
 				expect(props.resize).toBe(resize);
 			});
@@ -105,7 +105,7 @@ describe('Textarea Component (Svelte 5)', () => {
 			const textarea = createMockElement();
 			const variant = 'glass';
 			const size = 'md';
-			
+
 			simulateClassGeneration(textarea, 'w-full rounded-brand-md', variant, size, [
 				'glass-medium',
 				'border-white/20',
@@ -114,20 +114,14 @@ describe('Textarea Component (Svelte 5)', () => {
 				'py-3',
 				'text-sm'
 			]);
-			
-			expectClassesToContain(textarea, [
-				'w-full',
-				'rounded-brand-md',
-				'glass-medium',
-				'px-4',
-				'py-3'
-			]);
+
+			expectClassesToContain(textarea, ['w-full', 'rounded-brand-md', 'glass-medium', 'px-4', 'py-3']);
 		});
 
 		it('should apply resize styles', () => {
 			const textarea = createMockElement();
 			const resize = 'vertical';
-			
+
 			if (resize === 'none') {
 				textarea.style.resize = 'none';
 			} else if (resize === 'both') {
@@ -137,18 +131,18 @@ describe('Textarea Component (Svelte 5)', () => {
 			} else if (resize === 'vertical') {
 				textarea.style.resize = 'vertical';
 			}
-			
+
 			expect(textarea.style.resize).toBe('vertical');
 		});
 
 		it('should apply disabled styles', () => {
 			const textarea = createMockElement();
 			const disabled = true;
-			
+
 			if (disabled) {
 				textarea.classList.add('opacity-50', 'cursor-not-allowed');
 			}
-			
+
 			expect(textarea.classList.add).toHaveBeenCalledWith('opacity-50', 'cursor-not-allowed');
 		});
 
@@ -156,14 +150,14 @@ describe('Textarea Component (Svelte 5)', () => {
 			const textarea = createMockElement();
 			const isFocused = true;
 			const variant = 'glass';
-			
+
 			if (isFocused) {
 				textarea.classList.add('ring-2', 'ring-blue-400', 'ring-offset-2');
 				if (variant === 'glass') {
 					textarea.classList.add('glass-heavy');
 				}
 			}
-			
+
 			expect(textarea.classList.add).toHaveBeenCalledWith('ring-2', 'ring-blue-400', 'ring-offset-2');
 			expect(textarea.classList.add).toHaveBeenCalledWith('glass-heavy');
 		});
@@ -175,16 +169,16 @@ describe('Textarea Component (Svelte 5)', () => {
 			const autoResize = true;
 			const minHeight = 80;
 			const maxHeight = 300;
-			
+
 			// Mock scrollHeight
 			Object.defineProperty(textarea, 'scrollHeight', { value: 150, writable: true });
-			
+
 			if (autoResize) {
 				textarea.style.height = 'auto';
 				const newHeight = Math.max(minHeight, Math.min(textarea.scrollHeight, maxHeight));
 				textarea.style.height = `${newHeight}px`;
 			}
-			
+
 			expect(textarea.style.height).toBe('150px');
 		});
 
@@ -193,15 +187,15 @@ describe('Textarea Component (Svelte 5)', () => {
 			const autoResize = true;
 			const minHeight = 80;
 			const maxHeight = 300;
-			
+
 			// Mock small scrollHeight
 			Object.defineProperty(textarea, 'scrollHeight', { value: 50 });
-			
+
 			if (autoResize) {
 				const newHeight = Math.max(minHeight, Math.min(textarea.scrollHeight, maxHeight));
 				textarea.style.height = `${newHeight}px`;
 			}
-			
+
 			expect(textarea.style.height).toBe('80px');
 		});
 
@@ -210,15 +204,15 @@ describe('Textarea Component (Svelte 5)', () => {
 			const autoResize = true;
 			const minHeight = 80;
 			const maxHeight = 300;
-			
+
 			// Mock large scrollHeight
 			Object.defineProperty(textarea, 'scrollHeight', { value: 500 });
-			
+
 			if (autoResize) {
 				const newHeight = Math.max(minHeight, Math.min(textarea.scrollHeight, maxHeight));
 				textarea.style.height = `${newHeight}px`;
 			}
-			
+
 			expect(textarea.style.height).toBe('300px');
 		});
 
@@ -226,11 +220,11 @@ describe('Textarea Component (Svelte 5)', () => {
 			const textarea = createMockElement();
 			const scrollHeight = 500;
 			const maxHeight = 300;
-			
+
 			if (scrollHeight > maxHeight) {
 				textarea.style.overflowY = 'auto';
 			}
-			
+
 			expect(textarea.style.overflowY).toBe('auto');
 		});
 	});
@@ -240,14 +234,14 @@ describe('Textarea Component (Svelte 5)', () => {
 			const textarea = createMockElement();
 			const onInput = vi.fn();
 			const onValueChange = vi.fn();
-			
+
 			textarea.addEventListener('input', onInput);
-			
+
 			// Simulate input
 			const inputEvent = new Event('input');
 			Object.defineProperty(textarea, 'value', { value: 'New text' });
 			onInput(inputEvent);
-			
+
 			expect(textarea.addEventListener).toHaveBeenCalledWith('input', onInput);
 			expect(onInput).toHaveBeenCalledWith(inputEvent);
 		});
@@ -255,18 +249,18 @@ describe('Textarea Component (Svelte 5)', () => {
 		it('should handle focus events', () => {
 			const textarea = createMockElement();
 			let isFocused = false;
-			
+
 			textarea.addEventListener('focus', () => {
 				isFocused = true;
 			});
-			
+
 			textarea.addEventListener('blur', () => {
 				isFocused = false;
 			});
-			
+
 			textarea.focus();
 			expect(textarea.focus).toHaveBeenCalled();
-			
+
 			textarea.blur();
 			expect(textarea.blur).toHaveBeenCalled();
 		});
@@ -274,22 +268,22 @@ describe('Textarea Component (Svelte 5)', () => {
 		it('should call onValueChange callback', () => {
 			const onValueChange = vi.fn();
 			const newValue = 'Updated text content';
-			
+
 			onValueChange(newValue);
-			
+
 			expect(onValueChange).toHaveBeenCalledWith('Updated text content');
 		});
 
 		it('should handle keyboard shortcuts', () => {
 			const textarea = createMockElement();
 			const onKeyDown = vi.fn();
-			
+
 			textarea.addEventListener('keydown', onKeyDown);
-			
+
 			// Test Tab key
 			const tabEvent = simulateKeyboardEvent(textarea, 'Tab');
 			expect(tabEvent.key).toBe('Tab');
-			
+
 			// Test Escape key
 			const escapeEvent = simulateKeyboardEvent(textarea, 'Escape');
 			expect(escapeEvent.key).toBe('Escape');
@@ -301,11 +295,11 @@ describe('Textarea Component (Svelte 5)', () => {
 			const textarea = createMockElement();
 			const animate = true;
 			const reduceMotion = false;
-			
+
 			if (animate && !reduceMotion) {
 				simulateAnimation(textarea, true);
 			}
-			
+
 			expect(textarea.style.transition).toContain('all');
 		});
 
@@ -314,11 +308,11 @@ describe('Textarea Component (Svelte 5)', () => {
 			const animate = true;
 			const isFocused = true;
 			const blur = 'md';
-			
+
 			if (animate && isFocused) {
 				textarea.classList.add(`backdrop-blur-${blur}`);
 			}
-			
+
 			expect(textarea.classList.add).toHaveBeenCalledWith('backdrop-blur-md');
 		});
 
@@ -326,11 +320,11 @@ describe('Textarea Component (Svelte 5)', () => {
 			const textarea = createMockElement();
 			const autoResize = true;
 			const animate = true;
-			
+
 			if (autoResize && animate) {
 				textarea.style.transition = 'height 200ms ease-out';
 			}
-			
+
 			expect(textarea.style.transition).toContain('height');
 		});
 	});
@@ -338,23 +332,23 @@ describe('Textarea Component (Svelte 5)', () => {
 	describe('Accessibility', () => {
 		it('should have proper ARIA attributes', () => {
 			const textarea = createMockElement();
-			
+
 			expectAttributesToBeSet(textarea, {
 				role: 'textbox'
 			});
-			
+
 			expectAriaAttributes(textarea, {
-				'multiline': 'true',
-				'disabled': 'false'
+				multiline: 'true',
+				disabled: 'false'
 			});
 		});
 
 		it('should support aria-label', () => {
 			const textarea = createMockElement();
 			const label = 'Message input';
-			
+
 			expectAriaAttributes(textarea, {
-				'label': label
+				label: label
 			});
 		});
 
@@ -362,32 +356,32 @@ describe('Textarea Component (Svelte 5)', () => {
 			const textarea = createMockElement();
 			const maxLength = 500;
 			const currentLength = 100;
-			
+
 			expectAttributesToBeSet(textarea, {
 				maxlength: String(maxLength)
 			});
-			
+
 			expectAriaAttributes(textarea, {
-				'valuemax': String(maxLength),
-				'valuenow': String(currentLength)
+				valuemax: String(maxLength),
+				valuenow: String(currentLength)
 			});
 		});
 
 		it('should handle disabled state', () => {
 			const textarea = createMockElement();
 			const disabled = true;
-			
+
 			if (disabled) {
 				textarea.setAttribute('disabled', 'true');
 				textarea.setAttribute('aria-disabled', 'true');
 			}
-			
+
 			expectAttributesToBeSet(textarea, {
 				disabled: 'true'
 			});
-			
+
 			expectAriaAttributes(textarea, {
-				'disabled': 'true'
+				disabled: 'true'
 			});
 		});
 	});
@@ -396,27 +390,27 @@ describe('Textarea Component (Svelte 5)', () => {
 		it('should handle multi-line text', () => {
 			const textarea = createMockElement();
 			const multiLineText = 'Line 1\nLine 2\nLine 3';
-			
+
 			textarea.value = multiLineText;
-			
+
 			expect(textarea.value).toBe(multiLineText);
 		});
 
 		it('should preserve whitespace', () => {
 			const textarea = createMockElement();
 			const textWithSpaces = '  Indented text\n    More indentation';
-			
+
 			textarea.value = textWithSpaces;
-			
+
 			expect(textarea.value).toBe(textWithSpaces);
 		});
 
 		it('should handle emoji and special characters', () => {
 			const textarea = createMockElement();
 			const specialText = 'Hello 👋 World! 🌍 Special chars: @#$%^&*()';
-			
+
 			textarea.value = specialText;
-			
+
 			expect(textarea.value).toBe(specialText);
 		});
 	});
@@ -424,26 +418,26 @@ describe('Textarea Component (Svelte 5)', () => {
 	describe('Performance', () => {
 		it('should cleanup event listeners properly', () => {
 			const textarea = createMockElement();
-			
+
 			testEventCleanup(textarea, ['input', 'focus', 'blur', 'keydown']);
 		});
 
 		it('should debounce auto-resize calculations', () => {
 			const resizeHandler = vi.fn();
 			let timeoutId: number;
-			
+
 			const debouncedResize = (value: string) => {
 				clearTimeout(timeoutId);
 				timeoutId = window.setTimeout(() => {
 					resizeHandler(value);
 				}, 100);
 			};
-			
+
 			// Simulate rapid input
 			for (let i = 0; i < 10; i++) {
 				debouncedResize(`Text ${i}`);
 			}
-			
+
 			// Should only be called once after debounce
 			setTimeout(() => {
 				expect(resizeHandler).toHaveBeenCalledTimes(1);
@@ -453,9 +447,9 @@ describe('Textarea Component (Svelte 5)', () => {
 		it('should handle large text efficiently', () => {
 			const textarea = createMockElement();
 			const largeText = 'x'.repeat(10000);
-			
+
 			textarea.value = largeText;
-			
+
 			expect(textarea.value.length).toBe(10000);
 		});
 	});

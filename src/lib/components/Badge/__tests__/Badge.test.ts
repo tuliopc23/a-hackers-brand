@@ -42,7 +42,7 @@ describe('Badge Component', () => {
 		// For interactive badges, check if they're clickable
 		const badge = getByRole(container, 'button') || getByRole(container, 'status');
 		expect(badge).toBeTruthy();
-		
+
 		if (badge && badge.getAttribute('role') === 'button') {
 			expect(badge.getAttribute('tabindex')).toBe('0');
 			fireEvent(badge, 'click');

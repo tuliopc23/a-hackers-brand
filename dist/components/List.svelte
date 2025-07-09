@@ -139,7 +139,7 @@
 		if (selectable) {
 			handleItemSelect(item, !currentSelectedItems.has(item.id));
 		}
-		
+
 		dispatch('itemClick', { item, index });
 	}
 
@@ -159,7 +159,7 @@
 				currentSelectedItems = new Set();
 			}
 		}
-		
+
 		currentSelectedItems = new Set(currentSelectedItems);
 		dispatch('itemSelect', { item, selected });
 	}
@@ -171,7 +171,7 @@
 
 	function handleSelectAll(selected: boolean) {
 		if (selected) {
-			currentSelectedItems = new Set(items.filter(item => !item.disabled).map(item => item.id));
+			currentSelectedItems = new Set(items.filter((item) => !item.disabled).map((item) => item.id));
 		} else {
 			currentSelectedItems = new Set();
 		}
@@ -179,17 +179,11 @@
 	}
 
 	const isAllSelected = $derived(
-		items.length > 0 && 
-		items.filter(item => !item.disabled).every(item => currentSelectedItems.has(item.id))
+		items.length > 0 && items.filter((item) => !item.disabled).every((item) => currentSelectedItems.has(item.id))
 	);
 
 	const containerClasses = $derived(
-		cn(
-			'rounded-lg overflow-hidden font-mono',
-			currentVariant.container,
-			currentSize.container,
-			className
-		)
+		cn('rounded-lg overflow-hidden font-mono', currentVariant.container, currentSize.container, className)
 	);
 
 	function getActionButtonClasses(actionVariant: string = 'secondary') {
@@ -224,7 +218,7 @@
 					class="rounded bg-transparent border-current"
 				/>
 				<span class="text-sm font-medium">
-					{currentSelectedItems.size} of {items.filter(item => !item.disabled).length} selected
+					{currentSelectedItems.size} of {items.filter((item) => !item.disabled).length} selected
 				</span>
 			</label>
 		</div>
@@ -234,7 +228,7 @@
 		{#if loading}
 			<!-- Loading Skeletons -->
 			{#each skeletonItems as skeleton, index (skeleton.id)}
-				<div 
+				<div
 					class={cn(currentSize.item, currentVariant.item, 'animate-pulse')}
 					in:glassFade={{ direction: 'up', duration: 200, delay: index * 50 }}
 				>
@@ -292,8 +286,8 @@
 					)}
 					onclick={() => handleItemClick(item, index)}
 					onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && handleItemClick(item, index)}
-			role={selectable ? 'option' : 'listitem'}
-			{...selectable && !item.disabled ? { tabindex: 0 } : {}}
+					role={selectable ? 'option' : 'listitem'}
+					{...selectable && !item.disabled ? { tabindex: 0 } : {}}
 					aria-selected={selectable ? isSelected : undefined}
 					aria-label={item.title}
 					aria-describedby={item.description ? `item-${item.id}-description` : undefined}
@@ -319,11 +313,7 @@
 
 							<!-- Avatar or Icon -->
 							{#if item.avatar}
-								<img 
-									src={item.avatar} 
-									alt={item.title}
-									class={cn('rounded-full object-cover', currentSize.avatar)}
-								/>
+								<img src={item.avatar} alt={item.title} class={cn('rounded-full object-cover', currentSize.avatar)} />
 							{:else if item.icon}
 								<div class={cn('flex items-center justify-center', currentSize.icon)}>
 									<span class="text-2xl">{item.icon}</span>
@@ -387,11 +377,7 @@
 
 								<!-- Avatar or Icon -->
 								{#if item.avatar}
-									<img 
-										src={item.avatar} 
-										alt={item.title}
-										class={cn('rounded-full object-cover', currentSize.avatar)}
-									/>
+									<img src={item.avatar} alt={item.title} class={cn('rounded-full object-cover', currentSize.avatar)} />
 								{:else if item.icon}
 									<div class={cn('flex items-center justify-center', currentSize.icon)}>
 										<span class="text-2xl">{item.icon}</span>
@@ -410,7 +396,7 @@
 											</span>
 										{/if}
 									</div>
-									
+
 									{#if item.subtitle}
 										<p class={cn('text-sm mb-2', currentVariant.subtitle)}>
 											{item.subtitle}
@@ -473,11 +459,7 @@
 
 								<!-- Avatar or Icon -->
 								{#if item.avatar}
-									<img 
-										src={item.avatar} 
-										alt={item.title}
-										class={cn('rounded-full object-cover', currentSize.avatar)}
-									/>
+									<img src={item.avatar} alt={item.title} class={cn('rounded-full object-cover', currentSize.avatar)} />
 								{:else if item.icon}
 									<div class={cn('flex items-center justify-center', currentSize.icon)}>
 										<span class="text-3xl">{item.icon}</span>
@@ -530,7 +512,9 @@
 									{#if item.metadata}
 										<div class="flex flex-wrap gap-3">
 											{#each Object.entries(item.metadata) as [key, value]}
-												<span class={cn('text-xs px-2 py-1 rounded-full', currentVariant.skeleton, currentVariant.metadata)}>
+												<span
+													class={cn('text-xs px-2 py-1 rounded-full', currentVariant.skeleton, currentVariant.metadata)}
+												>
 													{key}: {value}
 												</span>
 											{/each}
@@ -549,6 +533,8 @@
 <style>
 	/* Terminal glow effects */
 	:global(.terminal .list-item:hover) {
-		box-shadow: 0 0 0 1px var(--terminal-green), 0 0 15px var(--terminal-green-glow);
+		box-shadow:
+			0 0 0 1px var(--terminal-green),
+			0 0 15px var(--terminal-green-glow);
 	}
 </style>

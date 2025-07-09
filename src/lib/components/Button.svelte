@@ -34,14 +34,20 @@
 	}: Props = $props();
 
 	const variants = {
-		default: 'bg-gradient-to-r from-terminal-blue to-terminal-cyan hover:from-terminal-blue/90 hover:to-terminal-cyan/90 text-white shadow-lg hover:shadow-xl border border-white/10',
-		secondary: 'bg-gradient-to-r from-terminal-purple to-terminal-pink hover:from-terminal-purple/90 hover:to-terminal-pink/90 text-white shadow-lg hover:shadow-xl border border-white/10',
-		outline: 'border-2 border-terminal-green text-terminal-green hover:bg-terminal-green/10 hover:border-terminal-green/80 backdrop-blur-sm',
+		default:
+			'bg-gradient-to-r from-terminal-blue to-terminal-cyan hover:from-terminal-blue/90 hover:to-terminal-cyan/90 text-white shadow-lg hover:shadow-xl border border-white/10',
+		secondary:
+			'bg-gradient-to-r from-terminal-purple to-terminal-pink hover:from-terminal-purple/90 hover:to-terminal-pink/90 text-white shadow-lg hover:shadow-xl border border-white/10',
+		outline:
+			'border-2 border-terminal-green text-terminal-green hover:bg-terminal-green/10 hover:border-terminal-green/80 backdrop-blur-sm',
 		ghost: 'hover:bg-terminal-green/10 text-terminal-green hover:text-terminal-green/90 backdrop-blur-sm',
 		glass: 'glass-medium glass-shimmer hover:glass-heavy text-white border border-white/20 shadow-2xl',
-		'glass-dark': 'glass-heavy border-terminal-green/30 hover:border-terminal-green/60 text-terminal-green shadow-2xl backdrop-blur-xl',
-		terminal: 'bg-terminal-bg border-2 border-terminal-green text-terminal-green font-mono hover:bg-terminal-green/5 hover:border-terminal-green/80 shadow-lg hover:shadow-terminal-green/20',
-		liquid: 'bg-gradient-to-br from-terminal-cyan/20 via-terminal-blue/20 to-terminal-purple/20 border border-white/30 text-white backdrop-blur-lg hover:from-terminal-cyan/30 hover:via-terminal-blue/30 hover:to-terminal-purple/30'
+		'glass-dark':
+			'glass-heavy border-terminal-green/30 hover:border-terminal-green/60 text-terminal-green shadow-2xl backdrop-blur-xl',
+		terminal:
+			'bg-terminal-bg border-2 border-terminal-green text-terminal-green font-mono hover:bg-terminal-green/5 hover:border-terminal-green/80 shadow-lg hover:shadow-terminal-green/20',
+		liquid:
+			'bg-gradient-to-br from-terminal-cyan/20 via-terminal-blue/20 to-terminal-purple/20 border border-white/30 text-white backdrop-blur-lg hover:from-terminal-cyan/30 hover:via-terminal-blue/30 hover:to-terminal-purple/30'
 	};
 
 	const sizes = {
@@ -73,27 +79,26 @@
 		aria-label={ariaLabel}
 		aria-describedby={ariaDescribedBy}
 		aria-busy={loading}
-		use:jellyHover={{ 
-			enabled: !disabled && !loading && jelly, 
+		use:jellyHover={{
+			enabled: !disabled && !loading && jelly,
 			duration: 200,
 			scale: variant === 'liquid' ? 1.08 : 1.05,
 			borderRadius: variant === 'liquid' ? '24px' : '16px',
-			responsiveness: 'medium'
+			responsiveness: 'strong'
 		}}
-		use:liquidResponsive={{ 
-			enabled: !disabled && !loading && liquid, 
+		use:liquidResponsive={{
+			enabled: !disabled && !loading && liquid,
 			liquidIntensity: 1.2,
-			morphStrength: 0.4
+			morphStrength: 0.4,
+			flowDirection: 'center'
 		}}
 		use:magneticHover={{ enabled: !disabled && !loading && !jelly && !liquid, strength: 0.15, scale: 1.02 }}
 		in:springPop={{ duration: 200, bounce: variant.includes('glass') || variant === 'liquid' }}
+		onclick={(e) => e.stopPropagation()}
 		{...restProps}
 	>
 		{#if loading}
-			<div
-				class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"
-				role="status"
-			>
+			<div class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" role="status">
 				<span class="sr-only">Loading...</span>
 			</div>
 		{/if}
@@ -109,26 +114,24 @@
 		aria-label={ariaLabel}
 		aria-describedby={ariaDescribedBy}
 		aria-busy={loading}
-		use:jellyHover={{ 
-			enabled: !disabled && !loading && jelly, 
+		use:jellyHover={{
+			enabled: !disabled && !loading && jelly,
 			duration: 200,
 			scale: variant === 'liquid' ? 1.08 : 1.05,
 			borderRadius: variant === 'liquid' ? '24px' : '16px',
-			responsiveness: 'medium'
+			responsiveness: 'strong'
 		}}
-		use:liquidResponsive={{ 
-			enabled: !disabled && !loading && liquid, 
+		use:liquidResponsive={{
+			enabled: !disabled && !loading && liquid,
 			liquidIntensity: 1.2,
-			morphStrength: 0.4
+			morphStrength: 0.4,
+			flowDirection: 'center'
 		}}
 		use:magneticHover={{ enabled: !disabled && !loading && !jelly && !liquid, strength: 0.15, scale: 1.02 }}
 		{...restProps}
 	>
 		{#if loading}
-			<div
-				class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"
-				role="status"
-			>
+			<div class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" role="status">
 				<span class="sr-only">Loading...</span>
 			</div>
 		{/if}
@@ -156,13 +159,7 @@
 		left: -100%;
 		width: 100%;
 		height: 100%;
-		background: linear-gradient(
-			90deg, 
-			transparent, 
-			rgba(255, 255, 255, 0.3), 
-			rgba(0, 255, 255, 0.2),
-			transparent
-		);
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), rgba(0, 255, 255, 0.2), transparent);
 		transition: left 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
 		pointer-events: none;
 		z-index: 1;
@@ -182,12 +179,13 @@
 	}
 
 	/* Liquid variant breathing animation */
-	button:global([class*="liquid"]) {
+	button:global([class*='liquid']) {
 		animation: liquid-breathe 4s ease-in-out infinite;
 	}
 
 	@keyframes liquid-breathe {
-		0%, 100% {
+		0%,
+		100% {
 			filter: blur(0px) saturate(1);
 			border-radius: inherit;
 		}
@@ -200,7 +198,7 @@
 	/* Dynamic focus states with Apple-style glow */
 	button:focus-visible {
 		outline: none;
-		box-shadow: 
+		box-shadow:
 			0 0 0 2px rgba(0, 255, 255, 0.6),
 			0 0 20px rgba(0, 255, 255, 0.3),
 			0 4px 12px rgba(0, 0, 0, 0.2);
@@ -208,14 +206,14 @@
 	}
 
 	/* Terminal variant special effects */
-	button:global([class*="terminal"]) {
+	button:global([class*='terminal']) {
 		text-shadow: 0 0 5px currentColor;
 		font-family: 'PP Supply Mono', monospace;
 	}
 
-	button:global([class*="terminal"]):hover {
+	button:global([class*='terminal']):hover {
 		text-shadow: 0 0 10px currentColor;
-		box-shadow: 
+		box-shadow:
 			0 0 20px rgba(48, 209, 88, 0.3),
 			inset 0 0 20px rgba(48, 209, 88, 0.1);
 	}

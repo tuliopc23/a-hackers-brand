@@ -5,208 +5,211 @@
 
 /* Design Tokens as CSS Custom Properties */
 :root {
-  /* Brand Colors */
-  --terminal-green: #00d4aa;
-  --terminal-cyan: #00aaff;
-  --terminal-blue: #0088ff;
-  --terminal-purple: #8844ff;
-  --terminal-matrix: #00ff88;
-  --terminal-neon: #ff0080;
-  
-  /* Glass Colors */
-  --glass-primary: rgba(0, 212, 170, 0.8);
-  --glass-secondary: rgba(0, 170, 255, 0.6);
-  --glass-accent: rgba(255, 255, 255, 0.1);
-  --glass-background: rgba(0, 0, 0, 0.3);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  
-  /* Semantic Colors */
-  --success: #00ff88;
-  --warning: #ffaa00;
-  --error: #ff4444;
-  --info: #00aaff;
-  
-  /* Typography */
-  --font-mono: 'PP Supply Mono', 'Consolas', 'Monaco', monospace;
-  --font-sans: 'PP Supply Sans', 'Inter', 'system-ui', sans-serif;
-  
-  /* Spacing Scale */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.25rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-20: 5rem;
-  --space-24: 6rem;
-  
-  /* Glass Effects */
-  --blur-sm: blur(4px);
-  --blur-md: blur(8px);
-  --blur-lg: blur(12px);
-  --blur-xl: blur(16px);
-  
-  /* Shadows */
-  --shadow-glass-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-glass-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
-  --shadow-glass-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
-  --shadow-glass-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
-  
-  /* Glow Effects */
-  --glow-terminal: 0 0 20px rgba(0, 212, 170, 0.5);
-  --glow-cyan: 0 0 20px rgba(0, 170, 255, 0.5);
-  --glow-purple: 0 0 20px rgba(136, 68, 255, 0.5);
-  --glow-danger: 0 0 20px rgba(255, 68, 68, 0.5);
-  
-  /* Animation Durations */
-  --duration-fast: 150ms;
-  --duration-normal: 300ms;
-  --duration-slow: 500ms;
-  --duration-slower: 750ms;
-  
-  /* Easing Functions */
-  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --ease-bouncy: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	/* Brand Colors */
+	--terminal-green: #00d4aa;
+	--terminal-cyan: #00aaff;
+	--terminal-blue: #0088ff;
+	--terminal-purple: #8844ff;
+	--terminal-matrix: #00ff88;
+	--terminal-neon: #ff0080;
+
+	/* Glass Colors */
+	--glass-primary: rgba(0, 212, 170, 0.8);
+	--glass-secondary: rgba(0, 170, 255, 0.6);
+	--glass-accent: rgba(255, 255, 255, 0.1);
+	--glass-background: rgba(0, 0, 0, 0.3);
+	--glass-border: rgba(255, 255, 255, 0.2);
+
+	/* Semantic Colors */
+	--success: #00ff88;
+	--warning: #ffaa00;
+	--error: #ff4444;
+	--info: #00aaff;
+
+	/* Typography */
+	--font-mono: 'PP Supply Mono', 'Consolas', 'Monaco', monospace;
+	--font-sans: 'PP Supply Sans', 'Inter', 'system-ui', sans-serif;
+
+	/* Spacing Scale */
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-5: 1.25rem;
+	--space-6: 1.5rem;
+	--space-8: 2rem;
+	--space-10: 2.5rem;
+	--space-12: 3rem;
+	--space-16: 4rem;
+	--space-20: 5rem;
+	--space-24: 6rem;
+
+	/* Glass Effects */
+	--blur-sm: blur(4px);
+	--blur-md: blur(8px);
+	--blur-lg: blur(12px);
+	--blur-xl: blur(16px);
+
+	/* Shadows */
+	--shadow-glass-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+	--shadow-glass-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+	--shadow-glass-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+	--shadow-glass-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+
+	/* Glow Effects */
+	--glow-terminal: 0 0 20px rgba(0, 212, 170, 0.5);
+	--glow-cyan: 0 0 20px rgba(0, 170, 255, 0.5);
+	--glow-purple: 0 0 20px rgba(136, 68, 255, 0.5);
+	--glow-danger: 0 0 20px rgba(255, 68, 68, 0.5);
+
+	/* Animation Durations */
+	--duration-fast: 150ms;
+	--duration-normal: 300ms;
+	--duration-slow: 500ms;
+	--duration-slower: 750ms;
+
+	/* Easing Functions */
+	--ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	--ease-bouncy: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 /* Glass Morphism Utility Classes */
 .glass {
-  background: var(--glass-background);
-  backdrop-filter: var(--blur-md);
-  border: 1px solid var(--glass-border);
+	background: var(--glass-background);
+	backdrop-filter: var(--blur-md);
+	border: 1px solid var(--glass-border);
 }
 
 .glass-light {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: var(--blur-sm);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: var(--blur-sm);
+	border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .glass-medium {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: var(--blur-md);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+	background: rgba(255, 255, 255, 0.15);
+	backdrop-filter: var(--blur-md);
+	border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .glass-heavy {
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: var(--blur-lg);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+	background: rgba(255, 255, 255, 0.25);
+	backdrop-filter: var(--blur-lg);
+	border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Terminal Glow Effects */
 .terminal-glow {
-  box-shadow: var(--glow-terminal);
+	box-shadow: var(--glow-terminal);
 }
 
 .cyan-glow {
-  box-shadow: var(--glow-cyan);
+	box-shadow: var(--glow-cyan);
 }
 
 .purple-glow {
-  box-shadow: var(--glow-purple);
+	box-shadow: var(--glow-purple);
 }
 
 .danger-glow {
-  box-shadow: var(--glow-danger);
+	box-shadow: var(--glow-danger);
 }
 
 /* Animation Utilities */
 .animate-glow {
-  animation: glow 2s ease-in-out infinite alternate;
+	animation: glow 2s ease-in-out infinite alternate;
 }
 
 @keyframes glow {
-  from {
-    box-shadow: 0 0 5px currentColor;
-  }
-  to {
-    box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
-  }
+	from {
+		box-shadow: 0 0 5px currentColor;
+	}
+	to {
+		box-shadow:
+			0 0 20px currentColor,
+			0 0 30px currentColor;
+	}
 }
 
 .animate-pulse-slow {
-  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+	animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .animate-float {
-  animation: float 6s ease-in-out infinite;
+	animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+	0%,
+	100% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
 }
 
 /* Magnetic Hover Effect */
 .magnetic {
-  transition: transform var(--duration-normal) var(--ease-spring);
+	transition: transform var(--duration-normal) var(--ease-spring);
 }
 
 .magnetic:hover {
-  transform: scale(1.02) translateZ(0);
+	transform: scale(1.02) translateZ(0);
 }
 
 /* Ripple Effect Container */
 .ripple-container {
-  position: relative;
-  overflow: hidden;
+	position: relative;
+	overflow: hidden;
 }
 
 .ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(0);
-  animation: ripple-animation 0.6s linear;
-  pointer-events: none;
+	position: absolute;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.3);
+	transform: scale(0);
+	animation: ripple-animation 0.6s linear;
+	pointer-events: none;
 }
 
 @keyframes ripple-animation {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
+	to {
+		transform: scale(4);
+		opacity: 0;
+	}
 }
 
 /* Focus States */
 .focus-terminal:focus-visible {
-  outline: 2px solid var(--terminal-green);
-  outline-offset: 2px;
+	outline: 2px solid var(--terminal-green);
+	outline-offset: 2px;
 }
 
 .focus-cyan:focus-visible {
-  outline: 2px solid var(--terminal-cyan);
-  outline-offset: 2px;
+	outline: 2px solid var(--terminal-cyan);
+	outline-offset: 2px;
 }
 
 .focus-purple:focus-visible {
-  outline: 2px solid var(--terminal-purple);
-  outline-offset: 2px;
+	outline: 2px solid var(--terminal-purple);
+	outline-offset: 2px;
 }
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  
-  .animate-glow,
-  .animate-pulse-slow,
-  .animate-float {
-    animation: none;
-  }
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+
+	.animate-glow,
+	.animate-pulse-slow,
+	.animate-float {
+		animation: none;
+	}
 }

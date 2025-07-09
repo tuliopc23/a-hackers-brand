@@ -10,14 +10,17 @@
 	<meta name="description" content="Advanced Liquid Glass Terminal Fusion Design System" />
 </svelte:head>
 
-<div class="showcase-page" style="
+<div
+	class="showcase-page"
+	style="
 	background: {brandColors.backgrounds.primary};
 	min-height: 100vh;
 	color: {brandColors.text.primary};
-">
+"
+>
 	{#if activeSection === 'showcase'}
 		<!-- Hero Section -->
-		<section 
+		<section
 			class="hero"
 			style="
 				text-align: center;
@@ -26,27 +29,16 @@
 			"
 		>
 			<div style="margin-bottom: 40px;">
-				<RetroText 
-					text="TULIO BRAND SYSTEM" 
-					variant="matrix" 
-					size="2xl" 
-					animated={true}
-					glow={true}
-				/>
+				<RetroText text="TULIO BRAND SYSTEM" variant="matrix" size="2xl" animated={true} glow={true} />
 			</div>
-			
+
 			<div style="margin-bottom: 60px;">
-				<RetroText 
-					text="Advanced Liquid Glass Terminal Fusion" 
-					variant="neon" 
-					size="lg" 
-					animated={true}
-				/>
+				<RetroText text="Advanced Liquid Glass Terminal Fusion" variant="neon" size="lg" animated={true} />
 			</div>
 
 			<div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 80px;">
 				<button
-					onclick={() => activeSection = 'styleguide'}
+					onclick={() => (activeSection = 'styleguide')}
 					style="
 						background: {brandColors.glass.primary};
 						border: 1px solid {brandColors.glass.border};
@@ -86,7 +78,7 @@
 						<div>$ echo "Welcome to the future"</div>
 						<div class="text-white">Welcome to the future</div>
 						<div>$ ls portfolio/</div>
-						<div class="text-blue-400">projects/  skills/  design-system/</div>
+						<div class="text-blue-400">projects/ skills/ design-system/</div>
 						<div>$ cat skills.txt</div>
 						<div class="text-yellow-400">• WebGL Development</div>
 						<div class="text-yellow-400">• Liquid Glass Design</div>
@@ -113,29 +105,32 @@
 		</section>
 
 		<!-- Portfolio Cards Section -->
-		<section class="portfolio-demo" style="
+		<section
+			class="portfolio-demo"
+			style="
 			padding: 100px 40px;
 			background: {brandColors.backgrounds.secondary};
-		">
+		"
+		>
 			<div style="text-align: center; margin-bottom: 60px;">
-				<RetroText 
-					text="PORTFOLIO COMPONENTS" 
-					variant="cyberpunk" 
-					size="xl" 
-					animated={true}
-				/>
+				<RetroText text="PORTFOLIO COMPONENTS" variant="cyberpunk" size="xl" animated={true} />
 			</div>
 
-			<div style="
+			<div
+				style="
 				display: grid;
 				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 				gap: 30px;
 				max-width: 1200px;
 				margin: 0 auto;
-			">
+			"
+			>
 				<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
 					<h3 class="text-xl font-bold mb-3">Neural Network Visualizer</h3>
-					<p class="text-white/70 mb-4">Interactive 3D visualization of neural networks with real-time training data. Built with WebGL shaders and liquid morphing effects.</p>
+					<p class="text-white/70 mb-4">
+						Interactive 3D visualization of neural networks with real-time training data. Built with WebGL shaders and
+						liquid morphing effects.
+					</p>
 					<div class="flex flex-wrap gap-2 mb-4">
 						{#each ['Three.js', 'WebGL', 'TypeScript', 'Svelte'] as tech}
 							<span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-sm">{tech}</span>
@@ -145,7 +140,9 @@
 
 				<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
 					<h3 class="text-xl font-bold mb-3">Cyberpunk Dashboard</h3>
-					<p class="text-white/70 mb-4">Retro-futuristic data dashboard with real-time metrics, holographic displays, and terminal interfaces.</p>
+					<p class="text-white/70 mb-4">
+						Retro-futuristic data dashboard with real-time metrics, holographic displays, and terminal interfaces.
+					</p>
 					<div class="flex flex-wrap gap-2 mb-4">
 						{#each ['D3.js', 'WebGL', 'Node.js', 'PostgreSQL'] as tech}
 							<span class="px-2 py-1 bg-purple-500/20 text-purple-300 rounded text-sm">{tech}</span>
@@ -155,7 +152,9 @@
 
 				<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
 					<h3 class="text-xl font-bold mb-3">Quantum Code Editor</h3>
-					<p class="text-white/70 mb-4">Next-generation code editor with AI assistance, liquid syntax highlighting, and holographic code completion.</p>
+					<p class="text-white/70 mb-4">
+						Next-generation code editor with AI assistance, liquid syntax highlighting, and holographic code completion.
+					</p>
 					<div class="flex flex-wrap gap-2 mb-4">
 						{#each ['Monaco', 'AI/ML', 'Rust', 'WASM'] as tech}
 							<span class="px-2 py-1 bg-green-500/20 text-green-300 rounded text-sm">{tech}</span>
@@ -166,27 +165,27 @@
 		</section>
 
 		<!-- Text Effects Showcase -->
-		<section class="text-effects" style="
+		<section
+			class="text-effects"
+			style="
 			padding: 100px 40px;
 			background: {brandColors.backgrounds.tertiary};
 			text-align: center;
-		">
+		"
+		>
 			<div style="margin-bottom: 60px;">
-				<RetroText 
-					text="TEXT EFFECTS SHOWCASE" 
-					variant="hologram" 
-					size="xl" 
-					animated={true}
-				/>
+				<RetroText text="TEXT EFFECTS SHOWCASE" variant="hologram" size="xl" animated={true} />
 			</div>
 
-			<div style="
+			<div
+				style="
 				display: grid;
 				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 				gap: 40px;
 				max-width: 1000px;
 				margin: 0 auto;
-			">
+			"
+			>
 				<div>
 					<div style="margin-bottom: 20px;">
 						<RetroText text="MATRIX MODE" variant="matrix" size="lg" animated={true} scanlines={true} />
@@ -214,23 +213,20 @@
 		</section>
 
 		<!-- Call to Action -->
-		<section class="cta" style="
+		<section
+			class="cta"
+			style="
 			padding: 100px 40px;
 			text-align: center;
 			background: {brandColors.gradients.cyberpunk};
-		">
+		"
+		>
 			<div style="margin-bottom: 40px;">
-				<RetroText 
-					text="READY TO BUILD THE FUTURE?" 
-					variant="neon" 
-					size="xl" 
-					animated={true}
-					glow={true}
-				/>
+				<RetroText text="READY TO BUILD THE FUTURE?" variant="neon" size="xl" animated={true} glow={true} />
 			</div>
 
 			<button
-				onclick={() => activeSection = 'styleguide'}
+				onclick={() => (activeSection = 'styleguide')}
 				style="
 					background: {brandColors.glass.primary};
 					border: 2px solid {brandColors.terminal.cyan};
@@ -272,10 +268,10 @@
 				<p class="text-white/70">Brand styleguide component coming soon...</p>
 			</div>
 		</div>
-		
+
 		<!-- Back button -->
 		<button
-			onclick={() => activeSection = 'showcase'}
+			onclick={() => (activeSection = 'showcase')}
 			style="
 				position: fixed;
 				top: 30px;
@@ -314,7 +310,7 @@
 		padding: 0;
 		overflow-x: hidden;
 	}
-	
+
 	.showcase-page {
 		font-family: 'PP Supply Sans', sans-serif;
 	}
@@ -360,5 +356,4 @@
 			grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
 		}
 	}
-
 </style>

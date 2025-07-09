@@ -244,7 +244,7 @@
 		max-height: 80vh;
 		background: rgba(0, 0, 0, 0.9);
 		-webkit-backdrop-filter: blur(10px);
-		        backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		border-radius: 12px;
 		color: white;

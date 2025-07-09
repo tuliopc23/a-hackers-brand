@@ -7,6 +7,7 @@ import { DURATIONS, EASINGS, EASING_CSS, TRANSFORMS } from './tokens.js';
 import type { TransitionConfig } from 'svelte/transition';
 
 export interface JellyConfig {
+	enabled?: boolean;
 	duration?: number;
 	easing?: keyof typeof EASINGS;
 	scale?: number;
@@ -14,9 +15,12 @@ export interface JellyConfig {
 	blur?: number;
 	elasticity?: number;
 	responsiveness?: 'subtle' | 'medium' | 'strong';
+	intensity?: number;
+	speed?: number;
 }
 
 export interface LiquidJellyConfig extends JellyConfig {
+	enabled?: boolean;
 	liquidIntensity?: number;
 	morphStrength?: number;
 	flowDirection?: 'up' | 'down' | 'left' | 'right' | 'center';
@@ -51,7 +55,7 @@ export function jelly(node: Element, config: JellyConfig = {}): TransitionConfig
 			const elasticScale = 1 + (scale - 1) * adjustedT * elasticity;
 			const morphRadius = parseFloat(borderRadius) * (1 + adjustedT * 0.3);
 			const blurAmount = blur * u;
-			
+
 			return `
 				transform: scale(${elasticScale}) translateZ(0);
 				border-radius: ${morphRadius}px;
@@ -79,7 +83,7 @@ export function liquidJelly(node: Element, config: LiquidJellyConfig = {}): Tran
 	} = config;
 
 	const easingFunc = EASINGS[easing];
-	
+
 	const flowTransforms = {
 		up: 'translateY(-10px)',
 		down: 'translateY(10px)',
@@ -93,23 +97,23 @@ export function liquidJelly(node: Element, config: LiquidJellyConfig = {}): Tran
 		easing: easingFunc,
 		css: (t, u) => {
 			const adjustedT = easingFunc(t);
-			
+
 			// Create liquid-like scaling with asymmetric growth
 			const scaleX = 1 + (scale - 1) * adjustedT * (1 + morphStrength * Math.sin(adjustedT * Math.PI));
 			const scaleY = 1 + (scale - 1) * adjustedT * (1 + morphStrength * Math.cos(adjustedT * Math.PI * 0.7));
-			
+
 			// Dynamic border radius that morphs organically
 			const baseRadius = parseFloat(borderRadius);
 			const radiusVariation = morphStrength * 20 * Math.sin(adjustedT * Math.PI * 2);
 			const morphedRadius = baseRadius + radiusVariation;
-			
+
 			// Liquid blur effect
 			const liquidBlur = blur * u * liquidIntensity;
-			
+
 			// Flow translation
 			const flowTransform = flowTransforms[flowDirection];
 			const flowIntensity = (1 - adjustedT) * 0.3;
-			
+
 			return `
 				transform: scale(${scaleX}, ${scaleY}) ${flowTransform} translateZ(0);
 				border-radius: ${Math.max(4, morphedRadius)}px;
@@ -126,6 +130,11 @@ export function liquidJelly(node: Element, config: LiquidJellyConfig = {}): Tran
  * Jelly hover action - adds dynamic jelly effects on hover
  */
 export function jellyHover(node: Element, config: JellyConfig = {}) {
+	if (config.enabled === false) {
+		return {
+			destroy() {}
+		};
+	}
 	const {
 		duration = DURATIONS.fast,
 		scale = TRANSFORMS.scale.jellyHover,
@@ -145,7 +154,7 @@ export function jellyHover(node: Element, config: JellyConfig = {}) {
 	function updateTransform(progress: number) {
 		const currentScale = 1 + (scale - 1) * progress * responsiveScale;
 		const currentRadius = parseFloat(borderRadius) * (1 + progress * 0.2);
-		
+
 		const element = node as HTMLElement;
 		element.style.transform = `scale(${currentScale}) translateZ(0)`;
 		element.style.borderRadius = `${currentRadius}px`;
@@ -164,18 +173,18 @@ export function jellyHover(node: Element, config: JellyConfig = {}) {
 
 	function handleMouseMove(event: MouseEvent) {
 		if (!isHovering) return;
-		
+
 		const rect = node.getBoundingClientRect();
 		const centerX = rect.left + rect.width / 2;
 		const centerY = rect.top + rect.height / 2;
-		
+
 		const deltaX = (event.clientX - centerX) / rect.width;
 		const deltaY = (event.clientY - centerY) / rect.height;
-		
+
 		// Create subtle skew based on mouse position
 		const skewX = deltaX * 2 * responsiveScale;
 		const skewY = deltaY * 2 * responsiveScale;
-		
+
 		cancelAnimationFrame(animationFrame);
 		animationFrame = requestAnimationFrame(() => {
 			if (isHovering) {
@@ -204,12 +213,12 @@ export function jellyHover(node: Element, config: JellyConfig = {}) {
  * Liquid responsiveness action - makes elements respond like liquid to interactions
  */
 export function liquidResponsive(node: Element, config: LiquidJellyConfig = {}) {
-	const {
-		duration = DURATIONS.fast,
-		liquidIntensity = 1.0,
-		morphStrength = 0.3,
-		responsiveness = 'medium'
-	} = config;
+	if (config.enabled === false) {
+		return {
+			destroy() {}
+		};
+	}
+	const { duration = DURATIONS.fast, liquidIntensity = 1.0, morphStrength = 0.3, responsiveness = 'medium' } = config;
 
 	const intensityMultiplier = {
 		subtle: 0.5,
@@ -222,30 +231,30 @@ export function liquidResponsive(node: Element, config: LiquidJellyConfig = {}) 
 
 	function morphElement(intensity: number, mouseX?: number, mouseY?: number) {
 		const rect = node.getBoundingClientRect();
-		
+
 		// Base liquid transformation
 		const scaleVariation = 1 + intensity * morphStrength * intensityMultiplier;
 		let transform = `scale(${scaleVariation}) translateZ(0)`;
-		
+
 		// Mouse-based morphing
 		if (mouseX !== undefined && mouseY !== undefined) {
 			const centerX = rect.left + rect.width / 2;
 			const centerY = rect.top + rect.height / 2;
-			
+
 			const deltaX = (mouseX - centerX) / rect.width;
 			const deltaY = (mouseY - centerY) / rect.height;
-			
+
 			const skewX = deltaX * intensity * 3 * intensityMultiplier;
 			const skewY = deltaY * intensity * 3 * intensityMultiplier;
-			
+
 			transform += ` skew(${skewX}deg, ${skewY}deg)`;
 		}
-		
+
 		// Dynamic border radius
 		const baseRadius = 8; // Default radius
 		const radiusVariation = intensity * 10 * intensityMultiplier;
 		const newRadius = baseRadius + radiusVariation;
-		
+
 		const element = node as HTMLElement;
 		element.style.transform = transform;
 		element.style.borderRadius = `${newRadius}px`;
@@ -264,7 +273,7 @@ export function liquidResponsive(node: Element, config: LiquidJellyConfig = {}) 
 
 	function handleMouseMove(event: MouseEvent) {
 		if (!isPressed) return;
-		
+
 		cancelAnimationFrame(animationFrame);
 		animationFrame = requestAnimationFrame(() => {
 			morphElement(liquidIntensity, event.clientX, event.clientY);
@@ -295,29 +304,34 @@ export function liquidResponsive(node: Element, config: LiquidJellyConfig = {}) 
 /**
  * Breathing animation - subtle liquid breathing effect
  */
-export function breathing(node: Element, config: { intensity?: number; speed?: number } = {}) {
+export function breathing(node: Element, config: { enabled?: boolean; intensity?: number; speed?: number } = {}) {
+	if (config.enabled === false) {
+		return {
+			destroy() {}
+		};
+	}
 	const { intensity = 0.02, speed = 3000 } = config;
-	
+
 	let animationId: number;
 	const startTime = Date.now();
-	
+
 	function animate() {
 		const elapsed = Date.now() - startTime;
 		const progress = (elapsed % speed) / speed;
 		const breathe = Math.sin(progress * Math.PI * 2) * intensity;
-		
+
 		const scale = 1 + breathe;
 		const radiusVariation = breathe * 5;
-		
+
 		const element = node as HTMLElement;
 		element.style.transform = `scale(${scale}) translateZ(0)`;
 		element.style.borderRadius = `${8 + radiusVariation}px`;
-		
+
 		animationId = requestAnimationFrame(animate);
 	}
-	
+
 	animate();
-	
+
 	return {
 		destroy() {
 			cancelAnimationFrame(animationId);

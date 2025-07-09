@@ -6,7 +6,21 @@
 
 	interface Props extends HTMLAttributes<HTMLElement> {
 		text: string;
-		variant?: 'macintosh' | 'dos' | 'amiga' | 'commodore' | 'atari' | 'crt' | 'phosphor' | 'matrix' | 'cyberpunk' | 'vaporwave' | 'neon' | 'hologram' | 'glitch' | 'terminal';
+		variant?:
+			| 'macintosh'
+			| 'dos'
+			| 'amiga'
+			| 'commodore'
+			| 'atari'
+			| 'crt'
+			| 'phosphor'
+			| 'matrix'
+			| 'cyberpunk'
+			| 'vaporwave'
+			| 'neon'
+			| 'hologram'
+			| 'glitch'
+			| 'terminal';
 		size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 		animated?: boolean;
 		typewriter?: boolean;
@@ -170,14 +184,17 @@
 	// Typewriter effect
 	onMount(() => {
 		if (typewriter) {
-			const typewriterInterval = setInterval(() => {
-				if (typewriterIndex < text.length) {
-					displayText = text.slice(0, typewriterIndex + 1);
-					typewriterIndex++;
-				} else {
-					clearInterval(typewriterInterval);
-				}
-			}, 50 + Math.random() * 100); // Variable typing speed
+			const typewriterInterval = setInterval(
+				() => {
+					if (typewriterIndex < text.length) {
+						displayText = text.slice(0, typewriterIndex + 1);
+						typewriterIndex++;
+					} else {
+						clearInterval(typewriterInterval);
+					}
+				},
+				50 + Math.random() * 100
+			); // Variable typing speed
 
 			// Cursor blink
 			const cursorInterval = setInterval(() => {
@@ -222,151 +239,133 @@
 </script>
 
 {#if element === 'h1'}
-	<h1 
+	<h1
 		class={containerClasses}
 		use:jellyHover={{ enabled: animated, duration: 300, scale: 1.02, borderRadius: '12px' }}
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
 		{...restProps}
 	>
-		<span 
-			class={combinedClasses}
-			style="filter: {currentVariant.filter}"
-		>
+		<span class={combinedClasses} style="filter: {currentVariant.filter}">
 			{typewriter ? displayText : text}
 			{#if typewriter && showCursor}
 				<span class="animate-pulse">|</span>
 			{/if}
 		</span>
-		
+
 		{#if scanlines}
 			<div class="retro-scanlines-overlay"></div>
 		{/if}
-		
+
 		{#if variant === 'crt'}
 			<div class="crt-bezel"></div>
 		{/if}
 	</h1>
 {:else if element === 'h2'}
-	<h2 
+	<h2
 		class={containerClasses}
 		use:jellyHover={{ enabled: animated, duration: 300, scale: 1.02, borderRadius: '12px' }}
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
 		{...restProps}
 	>
-		<span 
-			class={combinedClasses}
-			style="filter: {currentVariant.filter}"
-		>
+		<span class={combinedClasses} style="filter: {currentVariant.filter}">
 			{typewriter ? displayText : text}
 			{#if typewriter && showCursor}
 				<span class="animate-pulse">|</span>
 			{/if}
 		</span>
-		
+
 		{#if scanlines}
 			<div class="retro-scanlines-overlay"></div>
 		{/if}
-		
+
 		{#if variant === 'crt'}
 			<div class="crt-bezel"></div>
 		{/if}
 	</h2>
 {:else if element === 'h3'}
-	<h3 
+	<h3
 		class={containerClasses}
 		use:jellyHover={{ enabled: animated, duration: 300, scale: 1.02, borderRadius: '12px' }}
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
 		{...restProps}
 	>
-		<span 
-			class={combinedClasses}
-			style="filter: {currentVariant.filter}"
-		>
+		<span class={combinedClasses} style="filter: {currentVariant.filter}">
 			{typewriter ? displayText : text}
 			{#if typewriter && showCursor}
 				<span class="animate-pulse">|</span>
 			{/if}
 		</span>
-		
+
 		{#if scanlines}
 			<div class="retro-scanlines-overlay"></div>
 		{/if}
-		
+
 		{#if variant === 'crt'}
 			<div class="crt-bezel"></div>
 		{/if}
 	</h3>
 {:else if element === 'span'}
-	<span 
+	<span
 		class={containerClasses}
 		use:jellyHover={{ enabled: animated, duration: 300, scale: 1.02, borderRadius: '12px' }}
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
 		{...restProps}
 	>
-		<span 
-			class={combinedClasses}
-			style="filter: {currentVariant.filter}"
-		>
+		<span class={combinedClasses} style="filter: {currentVariant.filter}">
 			{typewriter ? displayText : text}
 			{#if typewriter && showCursor}
 				<span class="animate-pulse">|</span>
 			{/if}
 		</span>
-		
+
 		{#if scanlines}
 			<div class="retro-scanlines-overlay"></div>
 		{/if}
-		
+
 		{#if variant === 'crt'}
 			<div class="crt-bezel"></div>
 		{/if}
 	</span>
 {:else if element === 'div'}
-	<div 
+	<div
 		class={containerClasses}
 		use:jellyHover={{ enabled: animated, duration: 300, scale: 1.02, borderRadius: '12px' }}
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
 		{...restProps}
 	>
-		<span 
-			class={combinedClasses}
-			style="filter: {currentVariant.filter}"
-		>
+		<span class={combinedClasses} style="filter: {currentVariant.filter}">
 			{typewriter ? displayText : text}
 			{#if typewriter && showCursor}
 				<span class="animate-pulse">|</span>
 			{/if}
 		</span>
-		
+
 		{#if scanlines}
 			<div class="retro-scanlines-overlay"></div>
 		{/if}
-		
+
 		{#if variant === 'crt'}
 			<div class="crt-bezel"></div>
 		{/if}
 	</div>
 {:else}
-	<div 
+	<div
 		class={containerClasses}
 		use:jellyHover={{ enabled: animated, duration: 300, scale: 1.02, borderRadius: '12px' }}
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
 		{...restProps}
 	>
-		<span 
-			class={combinedClasses}
-			style="filter: {currentVariant.filter}"
-		>
+		<span class={combinedClasses} style="filter: {currentVariant.filter}">
 			{typewriter ? displayText : text}
 			{#if typewriter && showCursor}
 				<span class="animate-pulse">|</span>
 			{/if}
 		</span>
-		
+
 		{#if scanlines}
 			<div class="retro-scanlines-overlay"></div>
 		{/if}
-		
+
 		{#if variant === 'crt'}
 			<div class="crt-bezel"></div>
 		{/if}
@@ -382,17 +381,18 @@
 		right: 0;
 		bottom: 0;
 		pointer-events: none;
-		background: linear-gradient(
-			transparent 50%,
-			rgba(0, 0, 0, 0.03) 50%
-		);
+		background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.03) 50%);
 		background-size: 100% 4px;
 		animation: scanlines-move 0.1s linear infinite;
 	}
 
 	@keyframes scanlines-move {
-		0% { transform: translateY(0); }
-		100% { transform: translateY(4px); }
+		0% {
+			transform: translateY(0);
+		}
+		100% {
+			transform: translateY(4px);
+		}
 	}
 
 	/* CRT Monitor Bezel Effect */
@@ -402,7 +402,7 @@
 		border: 8px solid #2a2a2a;
 		border-radius: 20px;
 		pointer-events: none;
-		box-shadow: 
+		box-shadow:
 			inset 0 0 20px rgba(0, 0, 0, 0.8),
 			inset 0 0 40px rgba(0, 0, 0, 0.4),
 			0 0 30px rgba(0, 0, 0, 0.6);
@@ -417,7 +417,7 @@
 		bottom: -4px;
 		border: 2px solid #1a1a1a;
 		border-radius: 24px;
-		box-shadow: 
+		box-shadow:
 			0 0 20px rgba(0, 0, 0, 0.9),
 			inset 0 0 10px rgba(255, 255, 255, 0.1);
 	}
@@ -487,7 +487,7 @@
 	/* Vintage Macintosh styling */
 	:global(.bg-gray-200) {
 		background: linear-gradient(135deg, #f0f0f0 0%, #d0d0d0 100%);
-		box-shadow: 
+		box-shadow:
 			inset 2px 2px 4px rgba(255, 255, 255, 0.8),
 			inset -2px -2px 4px rgba(0, 0, 0, 0.2);
 	}
@@ -519,10 +519,16 @@
 
 	@keyframes matrix-glow {
 		0% {
-			text-shadow: 0 0 5px #22c55e, 0 0 10px #22c55e, 0 0 20px #22c55e;
+			text-shadow:
+				0 0 5px #22c55e,
+				0 0 10px #22c55e,
+				0 0 20px #22c55e;
 		}
 		100% {
-			text-shadow: 0 0 10px #22c55e, 0 0 20px #22c55e, 0 0 40px #22c55e;
+			text-shadow:
+				0 0 10px #22c55e,
+				0 0 20px #22c55e,
+				0 0 40px #22c55e;
 		}
 	}
 
@@ -532,15 +538,16 @@
 	}
 
 	@keyframes cyberpunk-flicker {
-		0%, 100% {
-			text-shadow: 
+		0%,
+		100% {
+			text-shadow:
 				0 0 5px #22d3ee,
 				0 0 10px #22d3ee,
 				0 0 20px #22d3ee,
 				0 0 40px #22d3ee;
 		}
 		50% {
-			text-shadow: 
+			text-shadow:
 				0 0 2px #22d3ee,
 				0 0 5px #22d3ee,
 				0 0 10px #22d3ee,
@@ -554,22 +561,23 @@
 	}
 
 	@keyframes vaporwave-shift {
-		0%, 100% {
-			text-shadow: 
+		0%,
+		100% {
+			text-shadow:
 				0 0 10px #f9a8d4,
 				0 0 20px #f9a8d4,
 				0 0 30px #f9a8d4;
 			filter: hue-rotate(0deg);
 		}
 		33% {
-			text-shadow: 
+			text-shadow:
 				0 0 10px #a78bfa,
 				0 0 20px #a78bfa,
 				0 0 30px #a78bfa;
 			filter: hue-rotate(60deg);
 		}
 		66% {
-			text-shadow: 
+			text-shadow:
 				0 0 10px #34d399,
 				0 0 20px #34d399,
 				0 0 30px #34d399;
@@ -582,17 +590,17 @@
 		.retro-scanlines-overlay {
 			background-size: 100% 2px;
 		}
-		
+
 		.crt-bezel {
 			border-width: 4px;
 			border-radius: 12px;
 		}
-		
+
 		.retro-chromatic::before,
 		.retro-chromatic::after {
 			transform: translateX(-1px);
 		}
-		
+
 		.retro-chromatic::after {
 			transform: translateX(1px);
 		}
@@ -601,10 +609,7 @@
 	/* High contrast mode support */
 	@media (prefers-contrast: high) {
 		.retro-scanlines-overlay {
-			background: linear-gradient(
-				transparent 50%,
-				rgba(0, 0, 0, 0.1) 50%
-			);
+			background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.1) 50%);
 		}
 	}
 

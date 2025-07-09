@@ -11,11 +11,11 @@ describe('Badge Component', () => {
 	describe('Rendering', () => {
 		it('renders with default props', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					children: () => 'Default badge'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toBeInTheDocument();
 			expect(badge).toHaveTextContent('Default badge');
@@ -24,17 +24,17 @@ describe('Badge Component', () => {
 
 		it('renders all variants correctly', async () => {
 			const variants = ['default', 'primary', 'secondary', 'accent', 'success', 'warning', 'error'];
-			
+
 			for (const variant of variants) {
 				const { container } = render(Badge, {
-					props: { 
+					props: {
 						variant,
 						children: () => `${variant} badge`
 					}
 				});
-				
+
 				const badge = container.querySelector('span');
-				
+
 				if (variant === 'default') {
 					expect(badge).toHaveClass('bg-white/10', 'text-white');
 				} else if (variant === 'primary') {
@@ -49,43 +49,41 @@ describe('Badge Component', () => {
 
 		it('renders all sizes correctly', () => {
 			const sizes = ['sm', 'md', 'lg'];
-			
-			sizes.forEach(size => {
+
+			sizes.forEach((size) => {
 				const { container } = render(Badge, {
-					props: { 
+					props: {
 						size,
 						children: () => `${size} badge`
 					}
 				});
-				
+
 				const badge = container.querySelector('span');
 				expect(badge).toHaveClass(
-					size === 'sm' ? 'px-2 py-1 text-xs' :
-					size === 'md' ? 'px-3 py-1.5 text-sm' :
-					'px-4 py-2 text-base'
+					size === 'sm' ? 'px-2 py-1 text-xs' : size === 'md' ? 'px-3 py-1.5 text-sm' : 'px-4 py-2 text-base'
 				);
 			});
 		});
 
 		it('applies glass effect by default', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					children: () => 'Glass badge'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toHaveClass('glass-subtle', 'backdrop-blur-md');
 		});
 
 		it('removes glass effect when glass is false', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					glass: false,
 					children: () => 'No glass'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).not.toHaveClass('glass-subtle');
 			expect(badge).not.toHaveClass('backdrop-blur-md');
@@ -95,15 +93,15 @@ describe('Badge Component', () => {
 	describe('Blur Levels', () => {
 		it('applies different blur levels', () => {
 			const blurLevels = ['sm', 'md', 'lg', 'xl'];
-			
-			blurLevels.forEach(blur => {
+
+			blurLevels.forEach((blur) => {
 				const { container } = render(Badge, {
-					props: { 
+					props: {
 						blur,
 						children: () => `${blur} blur`
 					}
 				});
-				
+
 				const badge = container.querySelector('span');
 				expect(badge).toHaveClass(`backdrop-blur-${blur}`);
 			});
@@ -111,13 +109,13 @@ describe('Badge Component', () => {
 
 		it('only applies blur when glass is enabled', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					glass: false,
 					blur: 'xl',
 					children: () => 'No blur'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).not.toHaveClass('backdrop-blur-xl');
 		});
@@ -126,12 +124,12 @@ describe('Badge Component', () => {
 	describe('Interactive Behavior', () => {
 		it('adds interactive classes when interactive is true', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					interactive: true,
 					children: () => 'Interactive badge'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toHaveClass('cursor-pointer', 'hover:scale-105');
 			expect(badge).toHaveAttribute('role', 'button');
@@ -140,12 +138,12 @@ describe('Badge Component', () => {
 
 		it('does not add interactive classes when interactive is false', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					interactive: false,
 					children: () => 'Static badge'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).not.toHaveClass('cursor-pointer');
 			expect(badge).toHaveAttribute('role', 'status');
@@ -155,35 +153,35 @@ describe('Badge Component', () => {
 		it('handles click events on interactive badges', async () => {
 			const handleClick = vi.fn();
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					interactive: true,
 					onclick: handleClick,
 					children: () => 'Clickable badge'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			await fireEvent.click(badge!);
-			
+
 			expect(handleClick).toHaveBeenCalledTimes(1);
 		});
 
 		it('handles keyboard events on interactive badges', async () => {
 			const handleClick = vi.fn();
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					interactive: true,
 					onclick: handleClick,
 					children: () => 'Keyboard badge'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
-			
+
 			// Test Enter key
 			await fireEvent.keyDown(badge!, { key: 'Enter' });
 			expect(handleClick).toHaveBeenCalledTimes(1);
-			
+
 			// Test Space key
 			await fireEvent.keyDown(badge!, { key: ' ' });
 			expect(handleClick).toHaveBeenCalledTimes(2);
@@ -192,16 +190,16 @@ describe('Badge Component', () => {
 		it('does not handle keyboard events on non-interactive badges', async () => {
 			const handleClick = vi.fn();
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					interactive: false,
 					onclick: handleClick,
 					children: () => 'Non-interactive'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			await fireEvent.keyDown(badge!, { key: 'Enter' });
-			
+
 			expect(handleClick).not.toHaveBeenCalled();
 		});
 	});
@@ -209,12 +207,12 @@ describe('Badge Component', () => {
 	describe('Animations', () => {
 		it('applies entrance animations when animate is true', async () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					animate: true,
 					children: () => 'Animated badge'
 				}
 			});
-			
+
 			// glassFade transition should be applied
 			await waitForAnimation(100);
 			const badge = container.querySelector('span');
@@ -223,12 +221,12 @@ describe('Badge Component', () => {
 
 		it('does not apply animations when animate is false', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					animate: false,
 					children: () => 'Static badge'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toBeInTheDocument();
 			// No transition attributes should be present
@@ -236,13 +234,13 @@ describe('Badge Component', () => {
 
 		it('respects reduced motion preference', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					animate: true,
 					reduceMotion: true,
 					children: () => 'Reduced motion'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toBeInTheDocument();
 			// Should render without animations
@@ -250,13 +248,13 @@ describe('Badge Component', () => {
 
 		it('applies different animation for interactive badges', async () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					animate: true,
 					interactive: true,
 					children: () => 'Interactive animated'
 				}
 			});
-			
+
 			// Interactive badges use liquidBlur, non-interactive use glassFade
 			await waitForAnimation(100);
 			const badge = container.querySelector('span');
@@ -267,32 +265,32 @@ describe('Badge Component', () => {
 	describe('Content Rendering', () => {
 		it('renders children content using render function', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					children: () => 'Badge content'
 				}
 			});
-			
+
 			expect(screen.getByText('Badge content')).toBeInTheDocument();
 		});
 
 		it('renders complex children content', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					children: () => '<strong>Bold</strong> text'
 				}
 			});
-			
+
 			expect(screen.getByText('Bold')).toBeInTheDocument();
 			expect(screen.getByText('text')).toBeInTheDocument();
 		});
 
 		it('handles empty children gracefully', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					children: () => ''
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toBeInTheDocument();
 			expect(badge).toHaveTextContent('');
@@ -300,7 +298,7 @@ describe('Badge Component', () => {
 
 		it('handles undefined children', () => {
 			const { container } = render(Badge);
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toBeInTheDocument();
 		});
@@ -309,86 +307,86 @@ describe('Badge Component', () => {
 	describe('Accessibility', () => {
 		it('has proper role for non-interactive badges', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					interactive: false,
 					children: () => 'Status badge'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toHaveAttribute('role', 'status');
 		});
 
 		it('has proper role for interactive badges', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					interactive: true,
 					children: () => 'Button badge'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toHaveAttribute('role', 'button');
 		});
 
 		it('generates default aria-label from variant', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					variant: 'success',
 					children: () => 'Success'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toHaveAttribute('aria-label', 'success badge');
 		});
 
 		it('uses custom aria-label when provided', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					'aria-label': 'Custom label',
 					children: () => 'Custom'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toHaveAttribute('aria-label', 'Custom label');
 		});
 
 		it('sets tabindex correctly for interactive badges', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					interactive: true,
 					children: () => 'Focusable'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toHaveAttribute('tabindex', '0');
 		});
 
 		it('allows keyboard focus on interactive badges', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					interactive: true,
 					children: () => 'Keyboard accessible'
 				}
 			});
-			
+
 			const badge = container.querySelector('span') as HTMLElement;
 			badge.focus();
-			
+
 			expect(document.activeElement).toBe(badge);
 		});
 
 		it('has focus styles for interactive badges', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					interactive: true,
 					children: () => 'Focus styles'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toHaveClass('focus:outline-none', 'focus:ring-2', 'focus:ring-white/30');
 		});
@@ -397,11 +395,11 @@ describe('Badge Component', () => {
 	describe('Styling', () => {
 		it('applies base classes correctly', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					children: () => 'Base classes'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toHaveClass(
 				'inline-flex',
@@ -416,7 +414,7 @@ describe('Badge Component', () => {
 
 		it('combines all classes correctly', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					variant: 'primary',
 					size: 'lg',
 					glass: true,
@@ -426,7 +424,7 @@ describe('Badge Component', () => {
 					children: () => 'All classes'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toHaveClass(
 				'inline-flex',
@@ -444,24 +442,24 @@ describe('Badge Component', () => {
 
 		it('applies custom className', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					class: 'custom-badge-class',
 					children: () => 'Custom badge'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toHaveClass('custom-badge-class');
 		});
 
 		it('applies will-change for interactive badges', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					interactive: true,
 					children: () => 'Transform badge'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
 			expect(badge).toHaveStyle({ willChange: 'transform' });
 		});
@@ -470,13 +468,13 @@ describe('Badge Component', () => {
 	describe('Custom Props', () => {
 		it('passes through additional HTML attributes', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					'data-testid': 'custom-badge',
 					title: 'Custom title',
 					children: () => 'Custom props'
 				}
 			});
-			
+
 			const badge = container.querySelector('[data-testid="custom-badge"]');
 			expect(badge).toBeInTheDocument();
 			expect(badge).toHaveAttribute('title', 'Custom title');
@@ -485,20 +483,20 @@ describe('Badge Component', () => {
 		it('handles custom event handlers', async () => {
 			const handleMouseEnter = vi.fn();
 			const handleMouseLeave = vi.fn();
-			
+
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					onmouseenter: handleMouseEnter,
 					onmouseleave: handleMouseLeave,
 					children: () => 'Event handlers'
 				}
 			});
-			
+
 			const badge = container.querySelector('span');
-			
+
 			await fireEvent.mouseEnter(badge!);
 			expect(handleMouseEnter).toHaveBeenCalledTimes(1);
-			
+
 			await fireEvent.mouseLeave(badge!);
 			expect(handleMouseLeave).toHaveBeenCalledTimes(1);
 		});
@@ -507,11 +505,11 @@ describe('Badge Component', () => {
 	describe('Bundle Size Tracking', () => {
 		it('tracks component bundle size', () => {
 			const { container } = render(Badge, {
-				props: { 
+				props: {
 					children: () => 'Size tracking'
 				}
 			});
-			
+
 			// Bundle size tracking is handled by $effect in the component
 			const badge = container.querySelector('span');
 			expect(badge).toBeInTheDocument();
@@ -522,17 +520,17 @@ describe('Badge Component', () => {
 		it('handles all variant and size combinations', () => {
 			const variants = ['default', 'primary', 'secondary', 'accent', 'success', 'warning', 'error'];
 			const sizes = ['sm', 'md', 'lg'];
-			
-			variants.forEach(variant => {
-				sizes.forEach(size => {
+
+			variants.forEach((variant) => {
+				sizes.forEach((size) => {
 					const { container } = render(Badge, {
-						props: { 
+						props: {
 							variant,
 							size,
 							children: () => `${variant}-${size}`
 						}
 					});
-					
+
 					const badge = container.querySelector('span');
 					expect(badge).toBeInTheDocument();
 					expect(badge).toHaveTextContent(`${variant}-${size}`);
@@ -547,19 +545,19 @@ describe('Badge Component', () => {
 				{ animate: false, interactive: true },
 				{ animate: false, interactive: false }
 			];
-			
+
 			combinations.forEach(({ animate, interactive }) => {
 				const { container } = render(Badge, {
-					props: { 
+					props: {
 						animate,
 						interactive,
 						children: () => `${animate ? 'animated' : 'static'}-${interactive ? 'interactive' : 'passive'}`
 					}
 				});
-				
+
 				const badge = container.querySelector('span');
 				expect(badge).toBeInTheDocument();
-				
+
 				if (interactive) {
 					expect(badge).toHaveAttribute('role', 'button');
 					expect(badge).toHaveClass('cursor-pointer');

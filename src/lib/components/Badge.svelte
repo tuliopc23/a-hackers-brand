@@ -99,32 +99,25 @@
 				{@render children()}
 			{/if}
 		</span>
-{/if}
-{:else}
-	{#if interactive}
-		<button
-			class={combinedClasses}
-			type="button"
-			aria-label={restProps['aria-label'] || `${variant} badge`}
-			onkeydown={handleKeydown}
-			{...restProps}
-		>
-			{#if children}
-				{@render children()}
-			{/if}
-		</button>
-	{:else}
-		<span
-			class={combinedClasses}
-			role="status"
-			aria-label={restProps['aria-label'] || `${variant} badge`}
-			{...restProps}
-		>
-			{#if children}
-				{@render children()}
-			{/if}
-		</span>
 	{/if}
+{:else if interactive}
+	<button
+		class={combinedClasses}
+		type="button"
+		aria-label={restProps['aria-label'] || `${variant} badge`}
+		onkeydown={handleKeydown}
+		{...restProps}
+	>
+		{#if children}
+			{@render children()}
+		{/if}
+	</button>
+{:else}
+	<span class={combinedClasses} role="status" aria-label={restProps['aria-label'] || `${variant} badge`} {...restProps}>
+		{#if children}
+			{@render children()}
+		{/if}
+	</span>
 {/if}
 
 <style>
@@ -133,7 +126,8 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		button, span {
+		button,
+		span {
 			transition: none;
 			animation: none;
 		}

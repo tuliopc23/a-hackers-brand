@@ -2,16 +2,16 @@
 	import { onMount } from 'svelte';
 	import { GlassCard, GlassButton } from '$lib/components/liquidify';
 	import { liquidGlassTokens, componentTokens, glassThemes } from '$lib/components/liquidify/tokens';
-		import { magneticHover } from '$lib/motion';
+	import { magneticHover } from '$lib/motion';
 	import { lazy } from '$lib/utils/lazy.js';
-	
+
 	// Lazy load WebGL background
 	const LazyLiquidBackground = lazy(() => import('$lib/components/webgl/LiquidBackground.svelte'));
-	
+
 	let mounted = $state(false);
 	let selectedTokenCategory = $state('colors');
 	let showToast = $state(false);
-	
+
 	// Token categories for navigation
 	const tokenCategories = {
 		colors: {
@@ -50,32 +50,32 @@
 			icon: '🧩'
 		}
 	};
-	
+
 	onMount(() => {
 		mounted = true;
-		
+
 		// Apply magnetic hover effects
 		const magneticElements = document.querySelectorAll('[data-magnetic]');
-		magneticElements.forEach(el => magneticHover(el));
+		magneticElements.forEach((el) => magneticHover(el));
 	});
-	
+
 	// Copy token value to clipboard
 	const copyToken = async (token, value) => {
 		try {
 			await navigator.clipboard.writeText(value);
 			showToast = true;
-			setTimeout(() => showToast = false, 2000);
+			setTimeout(() => (showToast = false), 2000);
 		} catch (err) {
 			console.error('Failed to copy:', err);
 		}
 	};
-	
+
 	// Color contrast calculation
 	const getContrastRatio = (color1, color2) => {
 		// Simplified contrast ratio calculation
 		return '4.5:1'; // This would be calculated properly in a real implementation
 	};
-	
+
 	// Format CSS custom property
 	const formatCSSVariable = (path, value) => {
 		const varName = path.split('.').join('-');
@@ -85,17 +85,22 @@
 
 <svelte:head>
 	<title>Design Tokens - Liquid Glass Terminal Fusion</title>
-	<meta name="description" content="Complete design system tokens including colors, typography, spacing, and component specifications." />
+	<meta
+		name="description"
+		content="Complete design system tokens including colors, typography, spacing, and component specifications."
+	/>
 </svelte:head>
 
-<div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+<div
+	class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden"
+>
 	<!-- WebGL Background -->
 	{#if mounted && LazyLiquidBackground.component}
 		<div class="absolute inset-0 opacity-15">
 			<LazyLiquidBackground.component />
 		</div>
 	{/if}
-	
+
 	<!-- Navigation -->
 	<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -107,25 +112,30 @@
 			</div>
 		</div>
 	</nav>
-	
+
 	<!-- Header -->
 	<section class="relative z-10 py-16 px-6">
 		<div class="max-w-7xl mx-auto">
 			<div class="text-center mb-12">
-				<h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+				<h1
+					class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+				>
 					Design Tokens
 				</h1>
 				<p class="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
 					The foundational design decisions that drive the entire liquid glass terminal fusion system.
 				</p>
 			</div>
-			
+
 			<!-- Category Navigation -->
 			<div class="flex flex-wrap justify-center gap-4 mb-12">
 				{#each Object.entries(tokenCategories) as [key, category]}
-					<button 
-						class="px-6 py-3 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-300 flex items-center space-x-2 {selectedTokenCategory === key ? 'bg-blue-500/20 border-blue-500/30' : ''}"
-						onclick={() => selectedTokenCategory = key}
+					<button
+						class="px-6 py-3 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-300 flex items-center space-x-2 {selectedTokenCategory ===
+						key
+							? 'bg-blue-500/20 border-blue-500/30'
+							: ''}"
+						onclick={() => (selectedTokenCategory = key)}
 						data-magnetic
 					>
 						<span class="text-lg">{category.icon}</span>
@@ -135,7 +145,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- Token Showcase -->
 	<section class="relative z-10 py-8 px-6">
 		<div class="max-w-7xl mx-auto">
@@ -151,7 +161,7 @@
 								{category.description}
 							</p>
 						</div>
-						
+
 						<!-- Colors -->
 						{#if selectedTokenCategory === 'colors'}
 							<div class="space-y-12">
@@ -167,8 +177,13 @@
 												aria-label={`Copy primary ${shade} color ${color}`}
 												tabindex="0"
 											>
-												<div class="h-16 rounded-lg mb-3 border border-white/10 relative overflow-hidden" style="background-color: {color};">
-													<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+												<div
+													class="h-16 rounded-lg mb-3 border border-white/10 relative overflow-hidden"
+													style="background-color: {color};"
+												>
+													<div
+														class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20"
+													>
 														<span class="text-xs font-mono bg-black/50 px-2 py-1 rounded">Click to copy</span>
 													</div>
 												</div>
@@ -178,7 +193,7 @@
 										{/each}
 									</div>
 								</GlassCard>
-								
+
 								<!-- Terminal Colors -->
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Terminal Colors</h3>
@@ -191,8 +206,13 @@
 												aria-label={`Copy terminal ${name} color ${color}`}
 												tabindex="0"
 											>
-												<div class="h-16 rounded-lg mb-3 border border-white/10 relative overflow-hidden" style="background-color: {color};">
-													<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+												<div
+													class="h-16 rounded-lg mb-3 border border-white/10 relative overflow-hidden"
+													style="background-color: {color};"
+												>
+													<div
+														class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20"
+													>
 														<span class="text-xs font-mono bg-black/50 px-2 py-1 rounded">Click to copy</span>
 													</div>
 												</div>
@@ -202,7 +222,7 @@
 										{/each}
 									</div>
 								</GlassCard>
-								
+
 								<!-- Glass Colors -->
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Glass Colors</h3>
@@ -215,12 +235,18 @@
 														<button
 															class="group cursor-pointer text-left w-full"
 															onclick={() => copyToken(`glass-${type}-${level}`, color)}
-															onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && copyToken(`glass-${type}-${level}`, color)}
+															onkeydown={(e) =>
+																(e.key === 'Enter' || e.key === ' ') && copyToken(`glass-${type}-${level}`, color)}
 															aria-label={`Copy glass ${type} ${level} color ${color}`}
 															tabindex="0"
 														>
-															<div class="h-12 rounded-lg mb-2 border border-white/10 relative overflow-hidden backdrop-blur-sm" style="background-color: {color};">
-																<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+															<div
+																class="h-12 rounded-lg mb-2 border border-white/10 relative overflow-hidden backdrop-blur-sm"
+																style="background-color: {color};"
+															>
+																<div
+																	class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20"
+																>
 																	<span class="text-xs font-mono bg-black/50 px-1 py-0.5 rounded">Copy</span>
 																</div>
 															</div>
@@ -244,7 +270,8 @@
 											<button
 												class="group cursor-pointer border border-white/10 rounded-lg p-6 hover:bg-white/5 transition-colors text-left w-full"
 												onclick={() => copyToken(`font-${name}`, family.join(', '))}
-												onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && copyToken(`font-${name}`, family.join(', '))}
+												onkeydown={(e) =>
+													(e.key === 'Enter' || e.key === ' ') && copyToken(`font-${name}`, family.join(', '))}
 												aria-label={`Copy font ${name}: ${family.join(', ')}`}
 												tabindex="0"
 											>
@@ -260,7 +287,7 @@
 										{/each}
 									</div>
 								</GlassCard>
-								
+
 								<!-- Font Sizes -->
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Font Sizes</h3>
@@ -276,9 +303,7 @@
 												<div class="flex items-center justify-between">
 													<div class="flex items-center space-x-6">
 														<div class="text-sm font-mono text-white/70 w-12">{size}</div>
-														<div style="font-size: {fontSize}; line-height: {properties.lineHeight};">
-															Sample Text
-														</div>
+														<div style="font-size: {fontSize}; line-height: {properties.lineHeight};">Sample Text</div>
 													</div>
 													<div class="text-xs text-white/60 font-mono">{fontSize}</div>
 												</div>
@@ -323,12 +348,18 @@
 											<button
 												class="group cursor-pointer text-left w-full"
 												onclick={() => copyToken(`shadow-glass-${level}`, shadow)}
-												onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && copyToken(`shadow-glass-${level}`, shadow)}
+												onkeydown={(e) =>
+													(e.key === 'Enter' || e.key === ' ') && copyToken(`shadow-glass-${level}`, shadow)}
 												aria-label={`Copy glass shadow ${level}`}
 												tabindex="0"
 											>
-												<div class="h-24 bg-white/10 rounded-lg mb-3 backdrop-blur-sm border border-white/10 relative" style="box-shadow: {shadow};">
-													<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+												<div
+													class="h-24 bg-white/10 rounded-lg mb-3 backdrop-blur-sm border border-white/10 relative"
+													style="box-shadow: {shadow};"
+												>
+													<div
+														class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+													>
 														<span class="text-xs font-mono bg-black/50 px-2 py-1 rounded">Click to copy</span>
 													</div>
 												</div>
@@ -338,7 +369,7 @@
 										{/each}
 									</div>
 								</GlassCard>
-								
+
 								<!-- Focus Shadows -->
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Focus Shadows</h3>
@@ -347,12 +378,18 @@
 											<button
 												class="group cursor-pointer text-left w-full"
 												onclick={() => copyToken(`shadow-focus-${level}`, shadow)}
-												onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && copyToken(`shadow-focus-${level}`, shadow)}
+												onkeydown={(e) =>
+													(e.key === 'Enter' || e.key === ' ') && copyToken(`shadow-focus-${level}`, shadow)}
 												aria-label={`Copy focus shadow ${level}`}
 												tabindex="0"
 											>
-												<div class="h-16 bg-white/10 rounded-lg mb-3 backdrop-blur-sm border border-white/10 relative" style="box-shadow: {shadow};">
-													<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+												<div
+													class="h-16 bg-white/10 rounded-lg mb-3 backdrop-blur-sm border border-white/10 relative"
+													style="box-shadow: {shadow};"
+												>
+													<div
+														class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+													>
 														<span class="text-xs font-mono bg-black/50 px-2 py-1 rounded">Click to copy</span>
 													</div>
 												</div>
@@ -373,7 +410,8 @@
 											<button
 												class="group cursor-pointer border border-white/10 rounded-lg p-4 hover:bg-white/5 transition-colors text-left w-full"
 												onclick={() => copyToken(`duration-${name}`, duration)}
-												onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && copyToken(`duration-${name}`, duration)}
+												onkeydown={(e) =>
+													(e.key === 'Enter' || e.key === ' ') && copyToken(`duration-${name}`, duration)}
 												aria-label={`Copy animation duration ${name}: ${duration}`}
 												tabindex="0"
 											>
@@ -381,7 +419,10 @@
 													<div class="flex items-center space-x-6">
 														<div class="text-sm font-mono text-white/70 w-16">{name}</div>
 														<div class="w-32 h-4 bg-white/10 rounded overflow-hidden">
-															<div class="h-full bg-blue-500 rounded animate-pulse" style="animation-duration: {duration};"></div>
+															<div
+																class="h-full bg-blue-500 rounded animate-pulse"
+																style="animation-duration: {duration};"
+															></div>
 														</div>
 														<div class="text-sm text-white/90">{duration}</div>
 													</div>
@@ -391,7 +432,7 @@
 										{/each}
 									</div>
 								</GlassCard>
-								
+
 								<!-- Easing -->
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Easing Functions</h3>
@@ -429,9 +470,16 @@
 												aria-label={`Copy blur level ${level}: ${blur}`}
 												tabindex="0"
 											>
-												<div class="h-24 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-lg mb-3 relative overflow-hidden">
-													<div class="absolute inset-0 backdrop-blur-sm border border-white/10 rounded-lg" style="backdrop-filter: blur({blur});">
-														<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+												<div
+													class="h-24 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-lg mb-3 relative overflow-hidden"
+												>
+													<div
+														class="absolute inset-0 backdrop-blur-sm border border-white/10 rounded-lg"
+														style="backdrop-filter: blur({blur});"
+													>
+														<div
+															class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+														>
 															<span class="text-xs font-mono bg-black/50 px-2 py-1 rounded">Click to copy</span>
 														</div>
 													</div>
@@ -457,7 +505,9 @@
 															<button
 																class="group cursor-pointer border border-white/10 rounded-lg p-4 hover:bg-white/5 transition-colors text-left w-full"
 																onclick={() => copyToken(`${componentName}-${property}-${size}`, value)}
-																onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && copyToken(`${componentName}-${property}-${size}`, value)}
+																onkeydown={(e) =>
+																	(e.key === 'Enter' || e.key === ' ') &&
+																	copyToken(`${componentName}-${property}-${size}`, value)}
 																aria-label={`Copy ${componentName} ${property} ${size}: ${value}`}
 																tabindex="0"
 															>
@@ -480,23 +530,23 @@
 			{/each}
 		</div>
 	</section>
-	
+
 	<!-- Toast Notification -->
 	{#if showToast}
-		<div class="fixed top-6 right-6 z-50 backdrop-blur-sm bg-green-500/20 border border-green-500/30 rounded-lg p-4 animate-in fade-in duration-200">
+		<div
+			class="fixed top-6 right-6 z-50 backdrop-blur-sm bg-green-500/20 border border-green-500/30 rounded-lg p-4 animate-in fade-in duration-200"
+		>
 			<div class="flex items-center space-x-2">
 				<div class="w-4 h-4 bg-green-500 rounded-full"></div>
 				<span class="text-sm font-medium">Token copied to clipboard!</span>
 			</div>
 		</div>
 	{/if}
-	
+
 	<!-- Footer -->
 	<footer class="relative z-10 py-8 px-6 mt-16 backdrop-blur-sm bg-white/5 border-t border-white/10">
 		<div class="max-w-7xl mx-auto text-center">
-			<p class="text-white/70">
-				Design tokens that define the liquid glass terminal fusion aesthetic
-			</p>
+			<p class="text-white/70">Design tokens that define the liquid glass terminal fusion aesthetic</p>
 		</div>
 	</footer>
 </div>
@@ -505,15 +555,15 @@
 	:global([data-magnetic]) {
 		transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 	}
-	
+
 	:global([data-magnetic]:hover) {
 		transform: translateY(-2px) scale(1.02);
 	}
-	
+
 	.animate-in {
 		animation: fadeIn 0.3s ease-out;
 	}
-	
+
 	@keyframes fadeIn {
 		from {
 			opacity: 0;

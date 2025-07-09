@@ -42,8 +42,8 @@ describe('Grid Component (Svelte 5)', () => {
 	describe('Props and Configuration', () => {
 		it('should handle cols props correctly', () => {
 			const colsOptions = ['auto', 1, 2, 3, 4, 5, 6, 12];
-			
-			colsOptions.forEach(cols => {
+
+			colsOptions.forEach((cols) => {
 				const props = createMockProps(gridTestDefaults, { cols });
 				expect(props.cols).toBe(cols);
 			});
@@ -51,8 +51,8 @@ describe('Grid Component (Svelte 5)', () => {
 
 		it('should handle rows props correctly', () => {
 			const rowsOptions = ['auto', 1, 2, 3, 4, 5, 6];
-			
-			rowsOptions.forEach(rows => {
+
+			rowsOptions.forEach((rows) => {
 				const props = createMockProps(gridTestDefaults, { rows });
 				expect(props.rows).toBe(rows);
 			});
@@ -60,8 +60,8 @@ describe('Grid Component (Svelte 5)', () => {
 
 		it('should handle gap props correctly', () => {
 			const gaps = ['none', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'];
-			
-			gaps.forEach(gap => {
+
+			gaps.forEach((gap) => {
 				const props = createMockProps(gridTestDefaults, { gap });
 				expect(props.gap).toBe(gap);
 			});
@@ -92,13 +92,13 @@ describe('Grid Component (Svelte 5)', () => {
 		it('should handle alignment props correctly', () => {
 			const alignOptions = ['start', 'end', 'center', 'stretch'];
 			const justifyOptions = ['start', 'end', 'center', 'stretch', 'space-between', 'space-around'];
-			
-			alignOptions.forEach(align => {
+
+			alignOptions.forEach((align) => {
 				const props = createMockProps(gridTestDefaults, { align });
 				expect(props.align).toBe(align);
 			});
-			
-			justifyOptions.forEach(justify => {
+
+			justifyOptions.forEach((justify) => {
 				const props = createMockProps(gridTestDefaults, { justify });
 				expect(props.justify).toBe(justify);
 			});
@@ -110,28 +110,21 @@ describe('Grid Component (Svelte 5)', () => {
 			const grid = createMockElement();
 			const cols = 3;
 			const gap = 'md';
-			
-			simulateClassGeneration(grid, 'grid', '', '', [
-				`grid-cols-${cols}`,
-				'gap-4'
-			]);
-			
-			expectClassesToContain(grid, [
-				'grid',
-				`grid-cols-${cols}`,
-				'gap-4'
-			]);
+
+			simulateClassGeneration(grid, 'grid', '', '', [`grid-cols-${cols}`, 'gap-4']);
+
+			expectClassesToContain(grid, ['grid', `grid-cols-${cols}`, 'gap-4']);
 		});
 
 		it('should handle auto-fit columns', () => {
 			const grid = createMockElement();
 			const autoFit = true;
 			const minColWidth = '200px';
-			
+
 			if (autoFit) {
 				grid.style.gridTemplateColumns = `repeat(auto-fit, minmax(${minColWidth}, 1fr))`;
 			}
-			
+
 			expect(grid.style.gridTemplateColumns).toBe('repeat(auto-fit, minmax(200px, 1fr))');
 		});
 
@@ -140,11 +133,11 @@ describe('Grid Component (Svelte 5)', () => {
 			const autoFill = true;
 			const minColWidth = '150px';
 			const maxColWidth = '1fr';
-			
+
 			if (autoFill) {
 				grid.style.gridTemplateColumns = `repeat(auto-fill, minmax(${minColWidth}, ${maxColWidth}))`;
 			}
-			
+
 			expect(grid.style.gridTemplateColumns).toBe('repeat(auto-fill, minmax(150px, 1fr))');
 		});
 
@@ -162,7 +155,7 @@ describe('Grid Component (Svelte 5)', () => {
 			Object.entries(gapMap).forEach(([gap, className]) => {
 				const grid = createMockElement();
 				grid.classList.add(className);
-				
+
 				expect(grid.classList.add).toHaveBeenCalledWith(className);
 			});
 		});
@@ -171,15 +164,15 @@ describe('Grid Component (Svelte 5)', () => {
 			const grid = createMockElement();
 			const align = 'center';
 			const justify = 'space-between';
-			
+
 			if (align) {
 				grid.classList.add(`items-${align}`);
 			}
-			
+
 			if (justify) {
 				grid.classList.add(`justify-${justify}`);
 			}
-			
+
 			expect(grid.classList.add).toHaveBeenCalledWith('items-center');
 			expect(grid.classList.add).toHaveBeenCalledWith('justify-space-between');
 		});
@@ -195,13 +188,13 @@ describe('Grid Component (Svelte 5)', () => {
 				lg: { cols: 3 },
 				xl: { cols: 4 }
 			};
-			
+
 			if (responsive) {
 				Object.entries(breakpoints).forEach(([breakpoint, config]) => {
 					grid.classList.add(`${breakpoint}:grid-cols-${config.cols}`);
 				});
 			}
-			
+
 			expect(grid.classList.add).toHaveBeenCalledWith('sm:grid-cols-1');
 			expect(grid.classList.add).toHaveBeenCalledWith('md:grid-cols-2');
 			expect(grid.classList.add).toHaveBeenCalledWith('lg:grid-cols-3');
@@ -214,14 +207,14 @@ describe('Grid Component (Svelte 5)', () => {
 				tablet: { cols: 2, gap: 'lg' },
 				desktop: { cols: 4, gap: 'xl' }
 			};
-			
+
 			Object.entries(customBreakpoints).forEach(([breakpoint, config]) => {
 				grid.classList.add(`${breakpoint}:grid-cols-${config.cols}`);
 				if (config.gap) {
 					grid.classList.add(`${breakpoint}:gap-${config.gap === 'lg' ? '6' : '8'}`);
 				}
 			});
-			
+
 			expect(grid.classList.add).toHaveBeenCalledWith('tablet:grid-cols-2');
 			expect(grid.classList.add).toHaveBeenCalledWith('desktop:grid-cols-4');
 		});
@@ -232,13 +225,13 @@ describe('Grid Component (Svelte 5)', () => {
 				addEventListener: vi.fn(),
 				removeEventListener: vi.fn()
 			}));
-			
+
 			Object.defineProperty(window, 'matchMedia', {
 				value: mockMatchMedia
 			});
-			
+
 			const mediaQuery = window.matchMedia('(min-width: 768px)');
-			
+
 			expect(mediaQuery.matches).toBe(true);
 			expect(mockMatchMedia).toHaveBeenCalledWith('(min-width: 768px)');
 		});
@@ -248,22 +241,22 @@ describe('Grid Component (Svelte 5)', () => {
 		it('should handle column span', () => {
 			const gridItem = createMockElement();
 			const colSpan = 2;
-			
+
 			if (colSpan) {
 				gridItem.classList.add(`col-span-${colSpan}`);
 			}
-			
+
 			expect(gridItem.classList.add).toHaveBeenCalledWith('col-span-2');
 		});
 
 		it('should handle row span', () => {
 			const gridItem = createMockElement();
 			const rowSpan = 3;
-			
+
 			if (rowSpan) {
 				gridItem.classList.add(`row-span-${rowSpan}`);
 			}
-			
+
 			expect(gridItem.classList.add).toHaveBeenCalledWith('row-span-3');
 		});
 
@@ -273,10 +266,10 @@ describe('Grid Component (Svelte 5)', () => {
 			const colEnd = 4;
 			const rowStart = 1;
 			const rowEnd = 3;
-			
+
 			gridItem.style.gridColumn = `${colStart} / ${colEnd}`;
 			gridItem.style.gridRow = `${rowStart} / ${rowEnd}`;
-			
+
 			expect(gridItem.style.gridColumn).toBe('2 / 4');
 			expect(gridItem.style.gridRow).toBe('1 / 3');
 		});
@@ -284,15 +277,11 @@ describe('Grid Component (Svelte 5)', () => {
 		it('should handle grid area names', () => {
 			const grid = createMockElement();
 			const gridItem = createMockElement();
-			const areas = [
-				'"header header header"',
-				'"sidebar main main"',
-				'"footer footer footer"'
-			];
-			
+			const areas = ['"header header header"', '"sidebar main main"', '"footer footer footer"'];
+
 			grid.style.gridTemplateAreas = areas.join(' ');
 			gridItem.style.gridArea = 'header';
-			
+
 			expect(grid.style.gridTemplateAreas).toContain('header header header');
 			expect(gridItem.style.gridArea).toBe('header');
 		});
@@ -302,11 +291,11 @@ describe('Grid Component (Svelte 5)', () => {
 		it('should handle dynamic column changes', () => {
 			const grid = createMockElement();
 			let cols = 2;
-			
+
 			// Initial state
 			grid.className = `grid grid-cols-${cols}`;
 			expect(grid.className).toContain('grid-cols-2');
-			
+
 			// Update columns
 			cols = 4;
 			grid.className = `grid grid-cols-${cols}`;
@@ -317,28 +306,28 @@ describe('Grid Component (Svelte 5)', () => {
 			const grid = createMockElement();
 			const itemCount = 3;
 			const items: any[] = [];
-			
+
 			// Add initial items
 			for (let i = 0; i < itemCount; i++) {
 				const item = createMockElement();
 				item.setAttribute('data-index', String(i));
 				items.push(item);
 			}
-			
+
 			expect(items).toHaveLength(3);
-			
+
 			// Add new item
 			const newItem = createMockElement();
 			newItem.setAttribute('data-index', String(itemCount));
 			items.push(newItem);
-			
+
 			expect(items).toHaveLength(4);
 		});
 
 		it('should recalculate layout on container resize', () => {
 			const grid = createMockElement();
 			const resizeObserver = vi.fn();
-			
+
 			// Mock ResizeObserver
 			Object.defineProperty(window, 'ResizeObserver', {
 				value: vi.fn().mockImplementation((callback) => ({
@@ -347,10 +336,10 @@ describe('Grid Component (Svelte 5)', () => {
 					disconnect: vi.fn()
 				}))
 			});
-			
+
 			const observer = new ResizeObserver(resizeObserver);
 			observer.observe(grid);
-			
+
 			expect(observer.observe).toHaveBeenCalledWith(grid);
 		});
 	});
@@ -358,9 +347,9 @@ describe('Grid Component (Svelte 5)', () => {
 	describe('Performance Optimizations', () => {
 		it('should use CSS Grid instead of flexbox for better performance', () => {
 			const grid = createMockElement();
-			
+
 			grid.style.display = 'grid';
-			
+
 			expect(grid.style.display).toBe('grid');
 		});
 
@@ -368,23 +357,23 @@ describe('Grid Component (Svelte 5)', () => {
 			const grid = createMockElement();
 			const itemCount = 1000;
 			const shouldVirtualize = itemCount > 100;
-			
+
 			if (shouldVirtualize) {
 				grid.style.contain = 'layout style paint';
 			}
-			
+
 			expect(grid.style.contain).toBe('layout style paint');
 		});
 
 		it('should use transform for animations', () => {
 			const gridItem = createMockElement();
 			const animate = true;
-			
+
 			if (animate) {
 				gridItem.style.transform = 'translateZ(0)';
 				gridItem.style.willChange = 'transform';
 			}
-			
+
 			expect(gridItem.style.transform).toBe('translateZ(0)');
 			expect(gridItem.style.willChange).toBe('transform');
 		});
@@ -393,27 +382,23 @@ describe('Grid Component (Svelte 5)', () => {
 	describe('Accessibility', () => {
 		it('should have proper ARIA attributes', () => {
 			const grid = createMockElement();
-			
+
 			expectAttributesToBeSet(grid, {
 				role: 'grid'
 			});
-			
+
 			expectAriaAttributes(grid, {
-				'label': 'Grid layout'
+				label: 'Grid layout'
 			});
 		});
 
 		it('should support keyboard navigation', () => {
 			const grid = createMockElement();
-			const items = [
-				createMockElement(),
-				createMockElement(),
-				createMockElement()
-			];
-			
+			const items = [createMockElement(), createMockElement(), createMockElement()];
+
 			let focusedIndex = 0;
 			const cols = 3;
-			
+
 			grid.addEventListener('keydown', (e: any) => {
 				switch (e.key) {
 					case 'ArrowRight':
@@ -431,7 +416,7 @@ describe('Grid Component (Svelte 5)', () => {
 				}
 				items[focusedIndex]?.focus();
 			});
-			
+
 			expect(grid.addEventListener).toHaveBeenCalledWith('keydown', expect.any(Function));
 		});
 
@@ -439,15 +424,15 @@ describe('Grid Component (Svelte 5)', () => {
 			const announcement = createMockElement();
 			const cols = 4;
 			const itemCount = 12;
-			
+
 			expectAttributesToBeSet(announcement, {
 				role: 'status'
 			});
-			
+
 			expectAriaAttributes(announcement, {
-				'live': 'polite'
+				live: 'polite'
 			});
-			
+
 			announcement.textContent = `Grid layout changed to ${cols} columns with ${itemCount} items`;
 			expect(announcement.textContent).toContain('4 columns');
 		});
@@ -457,12 +442,12 @@ describe('Grid Component (Svelte 5)', () => {
 		it('should handle empty grid', () => {
 			const grid = createMockElement();
 			const itemCount = 0;
-			
+
 			if (itemCount === 0) {
 				grid.style.minHeight = '100px';
 				grid.innerHTML = '<div class="empty-state">No items to display</div>';
 			}
-			
+
 			expect(grid.style.minHeight).toBe('100px');
 			expect(grid.innerHTML).toContain('No items to display');
 		});
@@ -471,11 +456,11 @@ describe('Grid Component (Svelte 5)', () => {
 			const grid = createMockElement();
 			const itemCount = 1;
 			const cols = 'auto';
-			
+
 			if (itemCount === 1 && cols === 'auto') {
 				grid.style.gridTemplateColumns = '1fr';
 			}
-			
+
 			expect(grid.style.gridTemplateColumns).toBe('1fr');
 		});
 
@@ -484,9 +469,9 @@ describe('Grid Component (Svelte 5)', () => {
 			const itemCount = 13;
 			const cols = 4;
 			const expectedRows = Math.ceil(itemCount / cols);
-			
+
 			grid.style.gridTemplateRows = `repeat(${expectedRows}, minmax(auto, 1fr))`;
-			
+
 			expect(grid.style.gridTemplateRows).toBe('repeat(4, minmax(auto, 1fr))');
 		});
 
@@ -497,12 +482,12 @@ describe('Grid Component (Svelte 5)', () => {
 				{ type: 'image', content: 'image.jpg' },
 				{ type: 'video', content: 'video.mp4' }
 			];
-			
+
 			items.forEach((item, index) => {
 				const gridItem = createMockElement();
 				gridItem.setAttribute('data-type', item.type);
 				gridItem.setAttribute('data-index', String(index));
-				
+
 				expectAttributesToBeSet(gridItem, {
 					'data-type': item.type
 				});
@@ -513,7 +498,7 @@ describe('Grid Component (Svelte 5)', () => {
 	describe('Performance', () => {
 		it('should cleanup event listeners properly', () => {
 			const grid = createMockElement();
-			
+
 			testEventCleanup(grid, ['keydown']);
 		});
 
@@ -524,9 +509,9 @@ describe('Grid Component (Svelte 5)', () => {
 				unobserve: vi.fn(),
 				disconnect: disconnectSpy
 			};
-			
+
 			mockObserver.disconnect();
-			
+
 			expect(disconnectSpy).toHaveBeenCalled();
 		});
 	});

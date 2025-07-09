@@ -24,13 +24,19 @@ export { default as Select } from './Select.svelte';
 export { default as DatePicker } from './DatePicker.svelte';
 export { default as MultiSelect } from './MultiSelect.svelte';
 export { default as FileUpload } from './FileUpload.svelte';
+export { default as SelectAdvanced } from './SelectAdvanced.svelte';
+// Form Validation
+export * from './FormValidation.js';
 // Navigation Components
 export { default as Navbar } from './Navbar.svelte';
 export { default as Breadcrumb } from './Breadcrumb.svelte';
+export { default as Menu } from './Menu.svelte';
 // Data Display Components
 export { default as Table } from './Table.svelte';
 export { default as List } from './List.svelte';
 export { default as DataGrid } from './DataGrid.svelte';
+export { default as DataTable } from './DataTable.svelte';
+export { default as MetricsCard } from './MetricsCard.svelte';
 // Terminal Components
 export { default as TerminalWindow } from './TerminalWindow.svelte';
 export { default as TerminalOrbit } from './TerminalOrbit.svelte';
@@ -67,6 +73,11 @@ export { default as CodeHighlight } from './CodeHighlight.svelte';
 // export { default as ResponsiveDemo } from './ResponsiveDemo.svelte';
 // Responsive Layout Components
 export * from './responsive';
+// Layout Components
+export { default as Sidebar } from './Sidebar.svelte';
+// Interactive Components
+export { default as Drawer } from './Drawer.svelte';
+export { default as Carousel } from './Carousel.svelte';
 // Liquidify Components (Glass UI Library)
 export * from './liquidify';
 // WebGL/3D Effects

@@ -34,7 +34,7 @@
 		if (!canvasRef) return;
 
 		ctx = canvasRef.getContext('2d')!;
-		
+
 		// Set canvas size
 		canvasRef.width = canvasRef.offsetWidth;
 		canvasRef.height = canvasRef.offsetHeight;
@@ -60,7 +60,7 @@
 		for (let i = 0; i < columns.length; i++) {
 			// Random character
 			const char = characters[Math.floor(Math.random() * characters.length)];
-			
+
 			// Apply glitch effect randomly
 			if (glitchEffect && Math.random() < 0.01) {
 				glitchColumns[i] = !glitchColumns[i];
@@ -118,8 +118,5 @@
 
 <svelte:window onresize={handleResize} />
 
-<canvas
-	bind:this={canvasRef}
-	class={cn('absolute inset-0 pointer-events-none', className)}
-	style="z-index: -1;"
+<canvas bind:this={canvasRef} class={cn('absolute inset-0 pointer-events-none', className)} style="z-index: -1;"
 ></canvas>

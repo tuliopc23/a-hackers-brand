@@ -49,6 +49,7 @@ The design system documentation site can be deployed to Vercel with the followin
    - Install Command: `npm install`
 
 3. **Environment Variables**
+
    ```
    NODE_ENV=production
    ```
@@ -109,24 +110,24 @@ name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build
-    - run: npm test
-    - run: npm run lint
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: npm run lint
 ```
 
 #### 2. Release Workflow (`.github/workflows/release.yml`)
@@ -143,17 +144,17 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        registry-url: 'https://registry.npmjs.org'
-    - run: npm ci
-    - run: npm run build:package
-    - run: npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm ci
+      - run: npm run build:package
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 ```
 
 #### 3. Bundle Size Monitor (`.github/workflows/bundle-size.yml`)
@@ -163,22 +164,22 @@ name: Bundle Size Monitor
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
 
 jobs:
   bundle-size:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run bundle:ci
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run bundle:ci
 ```
 
 ### Required Secrets
@@ -193,27 +194,30 @@ Add these secrets to your GitHub repository:
 The package is available via popular CDNs:
 
 ### jsDelivr
+
 ```html
 <script type="module">
-  import { Button } from 'https://cdn.jsdelivr.net/npm/a-hackers-brand@latest/dist/index.js';
+	import { Button } from 'https://cdn.jsdelivr.net/npm/a-hackers-brand@latest/dist/index.js';
 </script>
 ```
 
 ### unpkg
+
 ```html
 <script type="module">
-  import { Button } from 'https://unpkg.com/a-hackers-brand@latest/dist/index.js';
+	import { Button } from 'https://unpkg.com/a-hackers-brand@latest/dist/index.js';
 </script>
 ```
 
 ### Standalone CSS
+
 ```html
 <!-- Complete design system CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/a-hackers-brand@latest/dist/css/complete.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/a-hackers-brand@latest/dist/css/complete.min.css" />
 
 <!-- Or individual bundles -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/a-hackers-brand@latest/dist/css/core.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/a-hackers-brand@latest/dist/css/components.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/a-hackers-brand@latest/dist/css/core.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/a-hackers-brand@latest/dist/css/components.min.css" />
 ```
 
 ## 📊 Analytics & Monitoring
@@ -221,12 +225,14 @@ The package is available via popular CDNs:
 ### Package Analytics
 
 Monitor package usage at:
+
 - NPM: https://www.npmjs.com/package/a-hackers-brand
 - NPM Stats: https://npm-stat.com/charts.html?package=a-hackers-brand
 
 ### Site Analytics
 
 For the documentation site, consider adding:
+
 - **Vercel Analytics**: Built-in performance monitoring
 - **Google Analytics**: User behavior tracking
 - **Lighthouse CI**: Performance monitoring
@@ -318,4 +324,4 @@ npm publish
 
 ---
 
-*This deployment guide ensures reliable, scalable distribution of A Hacker's Brand design system across all platforms and environments.*
+_This deployment guide ensures reliable, scalable distribution of A Hacker's Brand design system across all platforms and environments._

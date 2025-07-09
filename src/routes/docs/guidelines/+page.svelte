@@ -3,16 +3,16 @@
 	import { GlassCard, GlassButton } from '$lib/components/liquidify';
 	import { TerminalWindow } from '$lib/components';
 	import CodeHighlight from '$lib/components/CodeHighlight.svelte';
-		import { magneticHover } from '$lib/motion';
+	import { magneticHover } from '$lib/motion';
 	import { lazy } from '$lib/utils/lazy.js';
-	
+
 	// Lazy load WebGL background
 	const LazyLiquidBackground = lazy(() => import('$lib/components/webgl/LiquidBackground.svelte'));
-	
+
 	let mounted = false;
 	let selectedSection = 'philosophy';
 	let showToast = false;
-	
+
 	// Brand guidelines sections
 	const sections = {
 		philosophy: {
@@ -56,7 +56,7 @@
 			icon: '♿'
 		}
 	};
-	
+
 	// Brand principles
 	const principles = [
 		{
@@ -85,7 +85,7 @@
 			example: 'WebGL effects that enhance, not distract from functionality'
 		}
 	];
-	
+
 	// Do's and Don'ts
 	const dos = [
 		'Use PP Supply Sans for all UI text',
@@ -97,7 +97,7 @@
 		'Use blur effects strategically',
 		'Respect user motion preferences'
 	];
-	
+
 	const donts = [
 		'Mix more than two typefaces',
 		'Overuse heavy glass effects',
@@ -108,7 +108,7 @@
 		'Use font weights below 300 or above 700',
 		'Neglect keyboard navigation'
 	];
-	
+
 	// Component usage examples
 	const usageExamples = [
 		{
@@ -130,21 +130,21 @@
 			reason: 'Use authentic terminal names for credibility'
 		}
 	];
-	
+
 	onMount(() => {
 		mounted = true;
-		
+
 		// Apply magnetic hover effects
 		const magneticElements = document.querySelectorAll('[data-magnetic]');
-		magneticElements.forEach(el => magneticHover(el));
+		magneticElements.forEach((el) => magneticHover(el));
 	});
-	
+
 	// Copy code snippet
 	const copyCode = async (code) => {
 		try {
 			await navigator.clipboard.writeText(code);
 			showToast = true;
-			setTimeout(() => showToast = false, 2000);
+			setTimeout(() => (showToast = false), 2000);
 		} catch (err) {
 			console.error('Failed to copy:', err);
 		}
@@ -153,17 +153,22 @@
 
 <svelte:head>
 	<title>Brand Guidelines - Liquid Glass Terminal Fusion</title>
-	<meta name="description" content="Comprehensive brand guidelines for the liquid glass terminal fusion design system including philosophy, usage rules, and implementation guidelines." />
+	<meta
+		name="description"
+		content="Comprehensive brand guidelines for the liquid glass terminal fusion design system including philosophy, usage rules, and implementation guidelines."
+	/>
 </svelte:head>
 
-<div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+<div
+	class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden"
+>
 	<!-- WebGL Background -->
 	{#if mounted && LazyLiquidBackground.component}
 		<div class="absolute inset-0 opacity-10">
 			<svelte:component this={LazyLiquidBackground.component} />
 		</div>
 	{/if}
-	
+
 	<!-- Navigation -->
 	<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -175,25 +180,31 @@
 			</div>
 		</div>
 	</nav>
-	
+
 	<!-- Header -->
 	<section class="relative z-10 py-16 px-6">
 		<div class="max-w-7xl mx-auto">
 			<div class="text-center mb-12">
-				<h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+				<h1
+					class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+				>
 					Brand Guidelines
 				</h1>
 				<p class="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-					The definitive guide to the liquid glass terminal fusion design system. Learn the principles, rules, and best practices.
+					The definitive guide to the liquid glass terminal fusion design system. Learn the principles, rules, and best
+					practices.
 				</p>
 			</div>
-			
+
 			<!-- Section Navigation -->
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
 				{#each Object.entries(sections) as [key, section]}
-					<button 
-						class="p-4 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-300 text-left {selectedSection === key ? 'bg-blue-500/20 border-blue-500/30' : ''}"
-						onclick={() => selectedSection = key}
+					<button
+						class="p-4 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-300 text-left {selectedSection ===
+						key
+							? 'bg-blue-500/20 border-blue-500/30'
+							: ''}"
+						onclick={() => (selectedSection = key)}
 						data-magnetic
 					>
 						<div class="text-2xl mb-2">{section.icon}</div>
@@ -203,7 +214,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- Content Sections -->
 	<section class="relative z-10 py-8 px-6">
 		<div class="max-w-7xl mx-auto">
@@ -219,7 +230,7 @@
 								{section.description}
 							</p>
 						</div>
-						
+
 						<!-- Philosophy Section -->
 						{#if selectedSection === 'philosophy'}
 							<div class="space-y-12">
@@ -237,7 +248,7 @@
 										{/each}
 									</div>
 								</GlassCard>
-								
+
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Brand Equation</h3>
 									<div class="text-center space-y-4">
@@ -299,7 +310,7 @@
 										</div>
 									</div>
 								</GlassCard>
-								
+
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Voice & Tone</h3>
 									<div class="grid md:grid-cols-3 gap-8">
@@ -359,7 +370,7 @@
 										<div class="text-sm text-white/60 font-mono">PP Supply Sans</div>
 									</div>
 								</GlassCard>
-								
+
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Secondary Typeface: PP Supply Mono</h3>
 									<div class="grid md:grid-cols-2 gap-8">
@@ -413,7 +424,7 @@
 										</div>
 									</div>
 								</GlassCard>
-								
+
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Accessibility Requirements</h3>
 									<div class="space-y-4">
@@ -459,18 +470,28 @@
 										</div>
 									</div>
 								</GlassCard>
-								
+
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Glass Intensity Levels</h3>
 									<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 										{#each ['subtle', 'medium', 'heavy'] as intensity}
 											<div class="text-center">
 												<div class="h-24 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-lg mb-4 relative">
-													<div class="absolute inset-0 backdrop-blur-sm bg-white/{intensity === 'subtle' ? '5' : intensity === 'medium' ? '15' : '25'} rounded-lg border border-white/10"></div>
+													<div
+														class="absolute inset-0 backdrop-blur-sm bg-white/{intensity === 'subtle'
+															? '5'
+															: intensity === 'medium'
+																? '15'
+																: '25'} rounded-lg border border-white/10"
+													></div>
 												</div>
 												<div class="font-semibold capitalize">{intensity}</div>
 												<div class="text-sm text-white/60">
-													{intensity === 'subtle' ? 'Minimal glass effect' : intensity === 'medium' ? 'Standard glass effect' : 'Strong glass effect'}
+													{intensity === 'subtle'
+														? 'Minimal glass effect'
+														: intensity === 'medium'
+															? 'Standard glass effect'
+															: 'Strong glass effect'}
 												</div>
 											</div>
 										{/each}
@@ -504,23 +525,23 @@
 										</div>
 									</div>
 								</GlassCard>
-								
+
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Signature Effects</h3>
 									<div class="space-y-6">
 										<div class="border border-white/10 rounded-lg p-6">
 											<h4 class="text-lg font-semibold mb-3">Magnetic Hover</h4>
 											<p class="text-white/80 mb-4">Elements subtly respond to cursor proximity</p>
-											<CodeHighlight 
+											<CodeHighlight
 												code="transform: translateY(-2px) scale(1.02); transition: transform 150ms cubic-bezier(0.68, -0.55, 0.265, 1.55);"
 												language="css"
 											/>
 										</div>
-										
+
 										<div class="border border-white/10 rounded-lg p-6">
 											<h4 class="text-lg font-semibold mb-3">Glass Ripple</h4>
 											<p class="text-white/80 mb-4">Click interactions create expanding glass ripples</p>
-											<CodeHighlight 
+											<CodeHighlight
 												code="transform: scale(4); opacity: 0; animation: glass-ripple 600ms ease-out;"
 												language="css"
 											/>
@@ -557,7 +578,7 @@
 										</div>
 									</div>
 								</GlassCard>
-								
+
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Usage Examples</h3>
 									<div class="space-y-8">
@@ -567,23 +588,16 @@
 												<div class="grid md:grid-cols-2 gap-6">
 													<div>
 														<h5 class="text-sm font-semibold text-green-400 mb-2">✅ Correct</h5>
-														<CodeHighlight 
-															code={example.correct}
-															language="svelte"
-															showCopy={false}
-														/>
+														<CodeHighlight code={example.correct} language="svelte" showCopy={false} />
 													</div>
 													<div>
 														<h5 class="text-sm font-semibold text-red-400 mb-2">❌ Incorrect</h5>
-														<CodeHighlight 
-															code={example.incorrect}
-															language="svelte"
-															showCopy={false}
-														/>
+														<CodeHighlight code={example.incorrect} language="svelte" showCopy={false} />
 													</div>
 												</div>
 												<div class="mt-4 text-sm text-white/70">
-													<strong>Why:</strong> {example.reason}
+													<strong>Why:</strong>
+													{example.reason}
 												</div>
 											</div>
 										{/each}
@@ -615,22 +629,22 @@
 										</div>
 									</div>
 								</GlassCard>
-								
+
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Implementation Guidelines</h3>
 									<div class="space-y-6">
 										<div class="border border-white/10 rounded-lg p-4">
 											<h4 class="font-semibold mb-2">Reduced Motion</h4>
-											<CodeHighlight 
+											<CodeHighlight
 												code={'@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }'}
 												language="css"
 												title="Respect user motion preferences"
 											/>
 										</div>
-										
+
 										<div class="border border-white/10 rounded-lg p-4">
 											<h4 class="font-semibold mb-2">Focus Management</h4>
-											<CodeHighlight 
+											<CodeHighlight
 												code={'.glass-button:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }'}
 												language="css"
 												title="Visible focus indicators"
@@ -645,23 +659,23 @@
 			{/each}
 		</div>
 	</section>
-	
+
 	<!-- Toast Notification -->
 	{#if showToast}
-		<div class="fixed top-6 right-6 z-50 backdrop-blur-sm bg-green-500/20 border border-green-500/30 rounded-lg p-4 animate-in fade-in duration-200">
+		<div
+			class="fixed top-6 right-6 z-50 backdrop-blur-sm bg-green-500/20 border border-green-500/30 rounded-lg p-4 animate-in fade-in duration-200"
+		>
 			<div class="flex items-center space-x-2">
 				<div class="w-4 h-4 bg-green-500 rounded-full"></div>
 				<span class="text-sm font-medium">Code copied to clipboard!</span>
 			</div>
 		</div>
 	{/if}
-	
+
 	<!-- Footer -->
 	<footer class="relative z-10 py-8 px-6 mt-16 backdrop-blur-sm bg-white/5 border-t border-white/10">
 		<div class="max-w-7xl mx-auto text-center">
-			<p class="text-white/70">
-				Follow these guidelines to maintain design system consistency and quality
-			</p>
+			<p class="text-white/70">Follow these guidelines to maintain design system consistency and quality</p>
 		</div>
 	</footer>
 </div>
@@ -670,15 +684,15 @@
 	:global([data-magnetic]) {
 		transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 	}
-	
+
 	:global([data-magnetic]:hover) {
 		transform: translateY(-2px) scale(1.02);
 	}
-	
+
 	.animate-in {
 		animation: fadeIn 0.3s ease-out;
 	}
-	
+
 	@keyframes fadeIn {
 		from {
 			opacity: 0;

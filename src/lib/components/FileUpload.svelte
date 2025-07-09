@@ -105,27 +105,28 @@
 		if (file.size > maxSize) {
 			return `File size exceeds ${formatFileSize(maxSize)}`;
 		}
-		
+
 		if (accept !== '*/*') {
-			const acceptedTypes = accept.split(',').map(type => type.trim());
+			const acceptedTypes = accept.split(',').map((type) => type.trim());
 			const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
-			const isAccepted = acceptedTypes.some(type => 
-				type === file.type || 
-				type === fileExtension ||
-				(type.endsWith('/*') && file.type.startsWith(type.slice(0, -1)))
+			const isAccepted = acceptedTypes.some(
+				(type) =>
+					type === file.type ||
+					type === fileExtension ||
+					(type.endsWith('/*') && file.type.startsWith(type.slice(0, -1)))
 			);
-			
+
 			if (!isAccepted) {
 				return `File type not accepted. Accepted types: ${accept}`;
 			}
 		}
-		
+
 		return null;
 	}
 
 	async function createPreview(file: File): Promise<string | undefined> {
 		if (!isImageFile(file) || !showPreview) return undefined;
-		
+
 		return new Promise((resolve) => {
 			const reader = new FileReader();
 			reader.onload = (e) => resolve(e.target?.result as string);
@@ -136,17 +137,17 @@
 
 	async function processFiles(fileList: FileList | File[]) {
 		if (disabled) return;
-		
+
 		const fileArray = Array.from(fileList);
 		const remainingSlots = maxFiles - files.length;
 		const filesToProcess = fileArray.slice(0, remainingSlots);
-		
+
 		const newFiles: FileWithPreview[] = [];
-		
+
 		for (const file of filesToProcess) {
 			const error = validateFile(file);
 			const preview = await createPreview(file);
-			
+
 			const fileWithPreview: FileWithPreview = {
 				...file,
 				id: generateFileId(),
@@ -155,15 +156,15 @@
 				error,
 				progress: 0
 			};
-			
+
 			newFiles.push(fileWithPreview);
 		}
-		
+
 		files = [...files, ...newFiles];
 		dispatch('filesAdded', newFiles);
-		
+
 		if (autoUpload && uploadUrl) {
-			newFiles.forEach(file => {
+			newFiles.forEach((file) => {
 				if (file.status === 'pending') {
 					uploadFile(file);
 				}
@@ -173,20 +174,20 @@
 
 	async function uploadFile(file: FileWithPreview) {
 		if (!uploadUrl) return;
-		
-		const fileIndex = files.findIndex(f => f.id === file.id);
+
+		const fileIndex = files.findIndex((f) => f.id === file.id);
 		if (fileIndex === -1) return;
-		
+
 		// Update file status
 		files[fileIndex] = { ...file, status: 'uploading', progress: 0 };
 		dispatch('uploadStart', files[fileIndex]);
-		
+
 		const formData = new FormData();
 		formData.append('file', file);
-		
+
 		try {
 			const xhr = new XMLHttpRequest();
-			
+
 			// Track upload progress
 			xhr.upload.onprogress = (event) => {
 				if (event.lengthComputable) {
@@ -195,64 +196,63 @@
 					dispatch('uploadProgress', { file: files[fileIndex], progress });
 				}
 			};
-			
+
 			// Handle completion
 			xhr.onload = () => {
 				if (xhr.status >= 200 && xhr.status < 300) {
-					files[fileIndex] = { 
-						...files[fileIndex], 
-						status: 'success', 
-						progress: 100 
+					files[fileIndex] = {
+						...files[fileIndex],
+						status: 'success',
+						progress: 100
 					};
-					dispatch('uploadSuccess', { 
-						file: files[fileIndex], 
-						response: xhr.response 
+					dispatch('uploadSuccess', {
+						file: files[fileIndex],
+						response: xhr.response
 					});
 				} else {
 					throw new Error(`Upload failed: ${xhr.statusText}`);
 				}
-				
+
 				// Check if all uploads are complete
-				if (files.every(f => f.status === 'success' || f.status === 'error')) {
+				if (files.every((f) => f.status === 'success' || f.status === 'error')) {
 					dispatch('allUploadsComplete', files);
 				}
 			};
-			
+
 			xhr.onerror = () => {
 				const error = 'Upload failed: Network error';
-				files[fileIndex] = { 
-					...files[fileIndex], 
-					status: 'error', 
-					error 
+				files[fileIndex] = {
+					...files[fileIndex],
+					status: 'error',
+					error
 				};
 				dispatch('uploadError', { file: files[fileIndex], error });
 			};
-			
+
 			xhr.open('POST', uploadUrl);
 			xhr.send(formData);
-			
 		} catch (error) {
 			const errorMessage = error instanceof Error ? error.message : 'Upload failed';
-			files[fileIndex] = { 
-				...files[fileIndex], 
-				status: 'error', 
-				error: errorMessage 
+			files[fileIndex] = {
+				...files[fileIndex],
+				status: 'error',
+				error: errorMessage
 			};
 			dispatch('uploadError', { file: files[fileIndex], error: errorMessage });
 		}
 	}
 
 	function removeFile(fileId: string) {
-		const fileIndex = files.findIndex(f => f.id === fileId);
+		const fileIndex = files.findIndex((f) => f.id === fileId);
 		if (fileIndex === -1) return;
-		
+
 		const removedFile = files[fileIndex];
-		files = files.filter(f => f.id !== fileId);
+		files = files.filter((f) => f.id !== fileId);
 		dispatch('fileRemoved', removedFile);
 	}
 
 	function retryUpload(fileId: string) {
-		const file = files.find(f => f.id === fileId);
+		const file = files.find((f) => f.id === fileId);
 		if (file && uploadUrl) {
 			uploadFile(file);
 		}
@@ -284,9 +284,9 @@
 	function handleDrop(event: DragEvent) {
 		event.preventDefault();
 		isDragOver = false;
-		
+
 		if (disabled) return;
-		
+
 		const files = event.dataTransfer?.files;
 		if (files) {
 			processFiles(files);
@@ -306,9 +306,7 @@
 			'relative w-full rounded-lg border-2 border-dashed transition-all duration-300',
 			'flex flex-col items-center justify-center p-8 min-h-32',
 			'cursor-pointer font-mono',
-			isDragOver 
-				? currentVariant.dropZoneActive 
-				: currentVariant.dropZone,
+			isDragOver ? currentVariant.dropZoneActive : currentVariant.dropZone,
 			disabled && 'opacity-50 cursor-not-allowed',
 			className
 		)
@@ -344,18 +342,26 @@
 	{#if isDragOver}
 		<div class="text-center" in:springPop={{ duration: 200 }}>
 			<svg class="w-12 h-12 mx-auto mb-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-				      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+				/>
 			</svg>
 			<p class="text-lg font-medium">Drop files here</p>
 		</div>
 	{:else}
 		<div class="text-center">
 			<svg class="w-12 h-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-				      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+				/>
 			</svg>
-			
+
 			<div class="mb-2">
 				<p class="text-lg font-medium">
 					{canAddMoreFiles ? 'Choose files or drag and drop' : 'Maximum files reached'}
@@ -369,11 +375,11 @@
 					</p>
 				{/if}
 			</div>
-			
+
 			{#if canAddMoreFiles}
 				<button
 					type="button"
-					class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 
+					class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700
 					       transition-colors text-sm font-medium"
 					use:magneticHover={{ strength: 0.15 }}
 				>
@@ -397,33 +403,35 @@
 					<!-- File preview or icon -->
 					<div class="flex-shrink-0">
 						{#if file.preview}
-							<img 
-								src={file.preview} 
-								alt={file.name}
-								class="w-12 h-12 object-cover rounded border"
-							/>
+							<img src={file.preview} alt={file.name} class="w-12 h-12 object-cover rounded border" />
 						{:else}
 							<div class="w-12 h-12 bg-gray-700 rounded flex items-center justify-center">
 								<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-									      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+									/>
 								</svg>
 							</div>
 						{/if}
 					</div>
-					
+
 					<!-- File info -->
 					<div class="flex-1 min-w-0">
 						<div class="flex items-center justify-between">
 							<h4 class="text-sm font-medium truncate pr-2">{file.name}</h4>
-							
+
 							<!-- Status icon and actions -->
 							<div class="flex items-center gap-2">
 								{#if file.status === 'success'}
 									<svg class="w-5 h-5 {currentVariant.successIcon}" fill="currentColor" viewBox="0 0 20 20">
-										<path fill-rule="evenodd" 
-										      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
-										      clip-rule="evenodd"/>
+										<path
+											fill-rule="evenodd"
+											d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+											clip-rule="evenodd"
+										/>
 									</svg>
 								{:else if file.status === 'error'}
 									<button
@@ -434,19 +442,25 @@
 										Retry
 									</button>
 									<svg class="w-5 h-5 {currentVariant.errorIcon}" fill="currentColor" viewBox="0 0 20 20">
-										<path fill-rule="evenodd" 
-										      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" 
-										      clip-rule="evenodd"/>
+										<path
+											fill-rule="evenodd"
+											d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+											clip-rule="evenodd"
+										/>
 									</svg>
 								{:else if file.status === 'uploading'}
 									<div class="w-5 h-5">
 										<svg class="animate-spin w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24">
 											<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-											<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+											<path
+												class="opacity-75"
+												fill="currentColor"
+												d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+											></path>
 										</svg>
 									</div>
 								{/if}
-								
+
 								<!-- Remove button -->
 								<button
 									onclick={() => removeFile(file.id)}
@@ -454,12 +468,12 @@
 									aria-label="Remove file"
 								>
 									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
 									</svg>
 								</button>
 							</div>
 						</div>
-						
+
 						<!-- File size and error -->
 						<div class="mt-1">
 							<p class="text-xs text-gray-400">{formatFileSize(file.size)}</p>
@@ -467,12 +481,12 @@
 								<p class="text-xs text-red-400 mt-1">{file.error}</p>
 							{/if}
 						</div>
-						
+
 						<!-- Progress bar -->
 						{#if file.status === 'uploading' && file.progress !== undefined}
 							<div class="mt-2">
 								<div class="w-full bg-gray-700 rounded-full h-2">
-									<div 
+									<div
 										class="h-2 rounded-full {currentVariant.progressBar} transition-all duration-300"
 										style="width: {file.progress}%"
 									></div>
@@ -490,6 +504,8 @@
 <style>
 	/* Terminal-specific glow effects */
 	:global(.terminal .file-upload:hover) {
-		box-shadow: 0 0 0 1px var(--terminal-green), 0 0 20px var(--terminal-green-glow);
+		box-shadow:
+			0 0 0 1px var(--terminal-green),
+			0 0 20px var(--terminal-green-glow);
 	}
 </style>

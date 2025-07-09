@@ -1,11 +1,14 @@
 /* SF Pro Display Font */
 @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* Import Liquid Glass System */
+@import './lib/styles/liquid-glass.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* PP Supply Sans & Mono Fonts */
+/* PP Supply Sans & Mono Fonts - Commented out until font files are added */
+/*
 @font-face {
 	font-family: 'PP Supply Sans';
 	src: url('/fonts/PPSupply-Sans.woff2') format('woff2'),
@@ -59,6 +62,7 @@
 	font-style: normal;
 	font-display: swap;
 }
+*/
 
 /* Custom Properties for Brand System */
 :root {
@@ -130,7 +134,6 @@
 
 html {
 	font-family:
-		'PP Supply Sans',
 		'SF Pro Display',
 		-apple-system,
 		BlinkMacSystemFont,
@@ -272,7 +275,8 @@ body {
 }
 
 @keyframes liquid-breathe {
-	0%, 100% {
+	0%,
+	100% {
 		filter: blur(0px) saturate(1);
 		border-radius: var(--radius, 16px);
 	}
@@ -294,11 +298,11 @@ body {
 	background: var(--brand-terminal);
 	border: 2px solid rgba(0, 212, 170, 0.3);
 	border-radius: 20px;
-	font-family: 'PP Supply Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+	font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', 'Consolas', monospace;
 	color: #f5f5f7;
 	transition: all var(--duration-moderate) var(--ease-liquid-jelly);
 	will-change: transform, border-radius, filter;
-	box-shadow: 
+	box-shadow:
 		0 8px 32px rgba(0, 0, 0, 0.3),
 		0 0 20px rgba(0, 212, 170, 0.1),
 		inset 0 0 20px rgba(0, 212, 170, 0.05);
@@ -308,7 +312,7 @@ body {
 	border-color: rgba(0, 212, 170, 0.5);
 	border-radius: 24px;
 	transform: translateY(-2px) scale(1.02);
-	box-shadow: 
+	box-shadow:
 		0 12px 40px rgba(0, 0, 0, 0.4),
 		0 0 30px rgba(0, 212, 170, 0.2),
 		inset 0 0 30px rgba(0, 212, 170, 0.1);

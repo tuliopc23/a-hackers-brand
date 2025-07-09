@@ -4,18 +4,18 @@
 export const brandColors = {
 	// Core Hacker Terminal Colors
 	terminal: {
-		green: '#00ff41',      // Classic Matrix green
-		cyan: '#00ffff',       // Electric cyan
-		blue: '#0080ff',       // Neon blue
-		purple: '#8a2be2',     // Deep purple
-		matrix: '#00ff88',     // Matrix accent green
-		neon: '#ff1493',       // Hot pink neon
-		amber: '#ffbf00',      // Retro amber
-		lime: '#32cd32',       // Lime green
-		magenta: '#ff00ff',    // Electric magenta
-		orange: '#ff4500'      // Cyber orange
+		green: '#00ff41', // Classic Matrix green
+		cyan: '#00ffff', // Electric cyan
+		blue: '#0080ff', // Neon blue
+		purple: '#8a2be2', // Deep purple
+		matrix: '#00ff88', // Matrix accent green
+		neon: '#ff1493', // Hot pink neon
+		amber: '#ffbf00', // Retro amber
+		lime: '#32cd32', // Lime green
+		magenta: '#ff00ff', // Electric magenta
+		orange: '#ff4500' // Cyber orange
 	},
-	
+
 	// Retro Futuristic Gradients
 	gradients: {
 		cyberpunk: 'linear-gradient(135deg, #ff1493 0%, #8a2be2 50%, #00ffff 100%)',
@@ -25,7 +25,7 @@ export const brandColors = {
 		terminal: 'linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%)',
 		hologram: 'linear-gradient(45deg, rgba(0,255,255,0.1) 0%, rgba(255,0,255,0.1) 50%, rgba(255,255,0,0.1) 100%)'
 	},
-	
+
 	// Glass Morphism System
 	glass: {
 		primary: 'rgba(0, 255, 65, 0.15)',
@@ -36,7 +36,7 @@ export const brandColors = {
 		glow: 'rgba(0, 255, 65, 0.5)',
 		shadow: 'rgba(0, 255, 65, 0.2)'
 	},
-	
+
 	// Semantic Colors with Hacker Aesthetic
 	semantic: {
 		success: '#00ff41',
@@ -45,7 +45,7 @@ export const brandColors = {
 		info: '#00ffff',
 		neutral: '#808080'
 	},
-	
+
 	// Background System
 	backgrounds: {
 		primary: '#0a0a0f',
@@ -55,7 +55,7 @@ export const brandColors = {
 		panel: 'rgba(255, 255, 255, 0.05)',
 		overlay: 'rgba(0, 0, 0, 0.8)'
 	},
-	
+
 	// Text Colors
 	text: {
 		primary: '#ffffff',

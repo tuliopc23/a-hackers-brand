@@ -1,44 +1,24 @@
-import { onMount } from 'svelte';
 import { browser } from '$app/environment';
 
 /**
  * Creates a lazy-loaded component that's safe for both SSR and client-side rendering.
- * The component will only load on the client side using onMount to avoid SSR issues.
+ * The component will only load on the client side to avoid SSR issues.
  *
  * @param loadFn - Function that returns a Promise resolving to a component module
- * @returns A Svelte component that can be used with svelte:component
+ * @returns A function that can be used to create a lazy component instance
  */
 export function lazy<T = any>(loadFn: () => Promise<{ default: T }>) {
-	let Component: T | null = $state(null);
-	let loading = $state(true);
-	let error = $state<string | null>(null);
-
-	// Only load on client side
-	onMount(async () => {
+	return async function loadComponent() {
 		if (!browser) {
-			loading = false;
-			return;
+			return null;
 		}
 
 		try {
 			const module = await loadFn();
-			Component = module.default;
-			loading = false;
+			return module.default;
 		} catch (err) {
-			error = err instanceof Error ? err.message : 'Failed to load component';
-			loading = false;
-		}
-	});
-
-	return {
-		get component() {
-			return Component;
-		},
-		get loading() {
-			return loading;
-		},
-		get error() {
-			return error;
+			console.error('Failed to load component:', err);
+			return null;
 		}
 	};
 }

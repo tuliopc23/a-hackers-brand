@@ -210,39 +210,39 @@
 	// Create particle geometry
 	const createParticleGeometry = () => {
 		const geometry = new THREE.BufferGeometry();
-		
+
 		const positions = new Float32Array(particleCount * 3);
 		const scales = new Float32Array(particleCount);
 		const phases = new Float32Array(particleCount);
 		const velocities = new Float32Array(particleCount * 3);
 		const lives = new Float32Array(particleCount);
-		
+
 		for (let i = 0; i < particleCount; i++) {
 			// Random sphere distribution
 			const radius = Math.random() * 2;
 			const theta = Math.random() * Math.PI * 2;
 			const phi = Math.acos(Math.random() * 2 - 1);
-			
+
 			positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
 			positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
 			positions[i * 3 + 2] = radius * Math.cos(phi);
-			
+
 			scales[i] = Math.random() * 0.5 + 0.5;
 			phases[i] = Math.random() * Math.PI * 2;
-			
+
 			velocities[i * 3] = (Math.random() - 0.5) * 0.02;
 			velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.02;
 			velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.02;
-			
+
 			lives[i] = Math.random();
 		}
-		
+
 		geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 		geometry.setAttribute('aScale', new THREE.BufferAttribute(scales, 1));
 		geometry.setAttribute('aPhase', new THREE.BufferAttribute(phases, 1));
 		geometry.setAttribute('aVelocity', new THREE.BufferAttribute(velocities, 3));
 		geometry.setAttribute('aLife', new THREE.BufferAttribute(lives, 1));
-		
+
 		return geometry;
 	};
 
@@ -269,26 +269,31 @@
 
 	const getFlowPatternValue = () => {
 		switch (flowPattern) {
-			case 'orbital': return 0.0;
-			case 'turbulent': return 1.0;
-			case 'wave': return 2.0;
-			case 'spiral': return 3.0;
-			default: return 1.0;
+			case 'orbital':
+				return 0.0;
+			case 'turbulent':
+				return 1.0;
+			case 'wave':
+				return 2.0;
+			case 'spiral':
+				return 3.0;
+			default:
+				return 1.0;
 		}
 	};
 
-// Handle mouse movement
-const handleMouseMove = (event: MouseEvent) => {
-	if (!interactive || !materialRef) return;
-	
-	// Try to get canvas element for mouse coordinates
-	const canvas = event.target as HTMLElement;
-	const rect = canvas.getBoundingClientRect();
-	const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-	const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-	
-	materialRef.uniforms.uMouse.value.set(x, y);
-};
+	// Handle mouse movement
+	const handleMouseMove = (event: MouseEvent) => {
+		if (!interactive || !materialRef) return;
+
+		// Try to get canvas element for mouse coordinates
+		const canvas = event.target as HTMLElement;
+		const rect = canvas.getBoundingClientRect();
+		const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+		const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+		materialRef.uniforms.uMouse.value.set(x, y);
+	};
 
 	// Animation loop (manual since useFrame is not available)
 	let animationId: number;
@@ -296,11 +301,11 @@ const handleMouseMove = (event: MouseEvent) => {
 		const animate = () => {
 			const delta = 0.016; // ~60fps
 			time += delta;
-			
+
 			if (materialRef) {
 				materialRef.uniforms.uTime.value = time;
 			}
-			
+
 			if (geometryRef) {
 				// Update particle life cycles
 				const lives = geometryRef.attributes.aLife.array as Float32Array;
@@ -312,7 +317,7 @@ const handleMouseMove = (event: MouseEvent) => {
 				}
 				geometryRef.attributes.aLife.needsUpdate = true;
 			}
-			
+
 			animationId = requestAnimationFrame(animate);
 		};
 		animate();
@@ -334,31 +339,31 @@ const handleMouseMove = (event: MouseEvent) => {
 		geometryRef = createParticleGeometry();
 		materialRef = createShaderMaterial();
 		startAnimation();
-		
-	// Add mouse listener for interactivity
-	if (interactive && typeof window !== 'undefined') {
-		const canvas = document.querySelector('canvas');
-		if (canvas) {
-			canvas.addEventListener('mousemove', handleMouseMove);
-		}
-	}
-		
-		dispatch('ready', { 
-			geometry: geometryRef, 
-			material: materialRef 
-		});
-		
-	return () => {
+
+		// Add mouse listener for interactivity
 		if (interactive && typeof window !== 'undefined') {
 			const canvas = document.querySelector('canvas');
 			if (canvas) {
-				canvas.removeEventListener('mousemove', handleMouseMove);
+				canvas.addEventListener('mousemove', handleMouseMove);
 			}
 		}
-		if (animationId) {
-			cancelAnimationFrame(animationId);
-		}
-	};
+
+		dispatch('ready', {
+			geometry: geometryRef,
+			material: materialRef
+		});
+
+		return () => {
+			if (interactive && typeof window !== 'undefined') {
+				const canvas = document.querySelector('canvas');
+				if (canvas) {
+					canvas.removeEventListener('mousemove', handleMouseMove);
+				}
+			}
+			if (animationId) {
+				cancelAnimationFrame(animationId);
+			}
+		};
 	});
 </script>
 
@@ -376,8 +381,8 @@ const handleMouseMove = (event: MouseEvent) => {
 			uInteractive: { value: interactive ? 1.0 : 0.0 },
 			uFlowPattern: { value: getFlowPatternValue() }
 		}}
-		vertexShader={vertexShader}
-		fragmentShader={fragmentShader}
+		{vertexShader}
+		{fragmentShader}
 		transparent={true}
 		blending={THREE.AdditiveBlending}
 		depthWrite={false}

@@ -93,7 +93,7 @@
 	// Date formatting functions
 	function formatDate(date: Date): string {
 		if (!date) return '';
-		
+
 		const day = date.getDate().toString().padStart(2, '0');
 		const month = (date.getMonth() + 1).toString().padStart(2, '0');
 		const year = date.getFullYear();
@@ -110,7 +110,7 @@
 
 	function parseDate(str: string): Date | null {
 		if (!str) return null;
-		
+
 		const parts = str.split(/[/-]/);
 		if (parts.length !== 3) return null;
 
@@ -184,7 +184,7 @@
 	function handleInputChange(event: Event) {
 		const target = event.target as HTMLInputElement;
 		inputValue = target.value;
-		
+
 		const parsed = parseDate(inputValue);
 		if (parsed) {
 			selectedDate = parsed;
@@ -196,11 +196,11 @@
 
 	function handleDateSelect(date: Date) {
 		if (!isValidDate(date)) return;
-		
+
 		selectedDate = date;
 		inputValue = formatDate(date);
 		dispatch('change', date);
-		
+
 		if (closeOnSelect) {
 			isOpen = false;
 			dispatch('close');
@@ -227,7 +227,7 @@
 
 	function handleKeydown(event: KeyboardEvent) {
 		if (!isOpen) return;
-		
+
 		switch (event.key) {
 			case 'Escape':
 				isOpen = false;
@@ -290,8 +290,13 @@
 	// Click outside to close
 	onMount(() => {
 		function handleClickOutside(event: MouseEvent) {
-			if (isOpen && calendarRef && !calendarRef.contains(event.target as Node) && 
-			    inputRef && !inputRef.contains(event.target as Node)) {
+			if (
+				isOpen &&
+				calendarRef &&
+				!calendarRef.contains(event.target as Node) &&
+				inputRef &&
+				!inputRef.contains(event.target as Node)
+			) {
 				isOpen = false;
 				dispatch('close');
 			}
@@ -302,8 +307,18 @@
 	});
 
 	const monthNames = [
-		'January', 'February', 'March', 'April', 'May', 'June',
-		'July', 'August', 'September', 'October', 'November', 'December'
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December'
 	];
 
 	const dayNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
@@ -339,7 +354,7 @@
 		aria-expanded={isOpen}
 		aria-controls="date-picker-calendar"
 		aria-label={placeholder}
-		aria-describedby={error ? "date-picker-error" : undefined}
+		aria-describedby={error ? 'date-picker-error' : undefined}
 		use:liquidBlur={{ blur: 'sm', opacity: 'light' }}
 		use:magneticHover={{ enabled: !disabled, strength: 0.1 }}
 		{...restProps}
@@ -348,8 +363,12 @@
 	<!-- Calendar Icon -->
 	<div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
 		<svg class="w-5 h-5 {currentVariant.header}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-			      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+			/>
 		</svg>
 	</div>
 
@@ -373,12 +392,13 @@
 					use:magneticHover={{ strength: 0.2 }}
 				>
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
 					</svg>
 				</button>
 
 				<h3 class="text-lg font-semibold {currentVariant.header} font-mono" aria-live="polite">
-					{monthNames[viewMonth]} {viewYear}
+					{monthNames[viewMonth]}
+					{viewYear}
 				</h3>
 
 				<button
@@ -388,7 +408,7 @@
 					use:magneticHover={{ strength: 0.2 }}
 				>
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
 					</svg>
 				</button>
 			</div>
@@ -409,16 +429,12 @@
 						{@const isSelected = isSameDate(day, selectedDate)}
 						{@const isTodayDay = isToday(day)}
 						{@const isValid = isValidDate(day)}
-						
+
 						<button
 							onclick={() => handleDateSelect(day)}
 							disabled={!isValid}
-							class="p-2 text-center text-sm rounded-md font-mono transition-all duration-200 
-							       {isSelected 
-							       	? currentVariant.selectedDay 
-							       	: isTodayDay 
-							       		? currentVariant.todayDay 
-							       		: currentVariant.dayButton}
+							class="p-2 text-center text-sm rounded-md font-mono transition-all duration-200
+							       {isSelected ? currentVariant.selectedDay : isTodayDay ? currentVariant.todayDay : currentVariant.dayButton}
 							       {!isValid ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'}"
 							role="gridcell"
 							aria-label={formatDate(day)}
@@ -451,7 +467,7 @@
 			{/if}
 		</div>
 	{/if}
-	
+
 	<!-- Live region for screen reader announcements -->
 	<div aria-live="polite" aria-atomic="true" class="sr-only">
 		{#if selectedDate}
@@ -463,9 +479,11 @@
 <style>
 	/* Additional terminal-specific glow effects */
 	:global(.terminal .date-picker-input:focus) {
-		box-shadow: 0 0 0 1px var(--terminal-green), 0 0 10px var(--terminal-green-glow);
+		box-shadow:
+			0 0 0 1px var(--terminal-green),
+			0 0 10px var(--terminal-green-glow);
 	}
-	
+
 	:global(.terminal .selected-day) {
 		text-shadow: 0 0 5px currentColor;
 	}

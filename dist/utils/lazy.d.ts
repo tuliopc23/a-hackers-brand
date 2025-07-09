@@ -5,10 +5,12 @@
  * @param loadFn - Function that returns a Promise resolving to a component module
  * @returns A Svelte component that can be used with svelte:component
  */
-export declare function lazy<T = any>(loadFn: () => Promise<{
-    default: T;
-}>): {
-    readonly component: T | null;
-    readonly loading: boolean;
-    readonly error: string | null;
+export declare function lazy<T = any>(
+	loadFn: () => Promise<{
+		default: T;
+	}>
+): {
+	readonly component: T | null;
+	readonly loading: boolean;
+	readonly error: string | null;
 };

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { glassFade, liquidBlur, magneticHover } from '$lib/motion';
+	import { glassFade, liquidBlur, magneticHover, jellyHover } from '$lib/motion';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	interface Props extends Omit<HTMLInputAttributes, 'size'> {
@@ -41,7 +41,8 @@
 		default: 'bg-white/5 border border-white/20 focus:border-brand-primary',
 		glass: 'glass border-white/30 focus:border-terminal-green/50 focus:shadow-lg',
 		terminal: 'bg-terminal-bg border border-terminal-green/20 focus:border-terminal-green text-terminal-fg font-mono',
-		liquid: 'bg-gradient-to-r from-white/5 to-white/10 border border-white/20 focus:border-brand-primary focus:bg-gradient-to-r focus:from-white/10 focus:to-white/15'
+		liquid:
+			'bg-gradient-to-r from-white/5 to-white/10 border border-white/20 focus:border-brand-primary focus:bg-gradient-to-r focus:from-white/10 focus:to-white/15'
 	};
 
 	const sizes = {
@@ -94,8 +95,8 @@
 				{id}
 				class={combinedClasses}
 				in:liquidBlur={{ duration: 300, blur: 'sm', scale: 0.98 }}
-				use:magneticHover={magnetic ? { strength: 0.1, distance: 50 } : undefined}
-				use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
+				use:magneticHover={magnetic ? { strength: 0.1 } : undefined}
+				use:jellyHover={jelly ? { enabled: true, intensity: 0.05, speed: 200 } : { enabled: false }}
 				{...restProps}
 			/>
 		{:else if animate}
@@ -106,8 +107,8 @@
 				aria-invalid={!!error}
 				aria-describedby={errorId}
 				in:glassFade={{ duration: 200, direction: 'up', distance: 5, opacity: 'light' }}
-				use:magneticHover={magnetic ? { strength: 0.1, distance: 50 } : undefined}
-				use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
+				use:magneticHover={magnetic ? { strength: 0.1 } : undefined}
+				use:jellyHover={jelly ? { enabled: true, intensity: 0.05, speed: 200 } : { enabled: false }}
 				{...restProps}
 			/>
 		{:else}
@@ -117,8 +118,8 @@
 				aria-label={ariaLabel}
 				aria-invalid={!!error}
 				aria-describedby={errorId}
-				use:magneticHover={magnetic ? { strength: 0.1, distance: 50 } : undefined}
-				use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
+				use:magneticHover={magnetic ? { strength: 0.1 } : undefined}
+				use:jellyHover={jelly ? { enabled: true, intensity: 0.05, speed: 200 } : { enabled: false }}
 				{...restProps}
 			/>
 		{/if}

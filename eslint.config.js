@@ -16,7 +16,7 @@ export default [
 		languageOptions: {
 			globals: {
 				...globals.browser,
-				...globals.node,
+				...globals.node
 			}
 		}
 	},
@@ -35,13 +35,13 @@ export default [
 			'@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
 			'@typescript-eslint/no-explicit-any': 'warn',
 			'@typescript-eslint/no-non-null-assertion': 'warn',
-			
+
 			// General JavaScript rules
 			'no-console': 'warn',
 			'no-debugger': 'warn',
 			'no-undef': 'off', // TypeScript handles this
 			'prefer-const': 'error',
-			'no-var': 'error',
+			'no-var': 'error'
 		}
 	},
 	{

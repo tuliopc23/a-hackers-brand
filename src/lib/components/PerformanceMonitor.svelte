@@ -116,30 +116,32 @@
 			for (const entry of list.getEntries()) {
 				switch (entry.entryType) {
 					case 'largest-contentful-paint':
-						webVitals.update(v => ({ ...v, lcp: Math.round(entry.startTime) }));
+						webVitals.update((v) => ({ ...v, lcp: Math.round(entry.startTime) }));
 						break;
 					case 'first-input':
-						webVitals.update(v => ({ ...v, fid: Math.round(entry.processingStart - entry.startTime) }));
+						webVitals.update((v) => ({ ...v, fid: Math.round(entry.processingStart - entry.startTime) }));
 						break;
 					case 'layout-shift':
 						if (!(entry as any).hadRecentInput) {
-							webVitals.update(v => ({ ...v, cls: v.cls + (entry as any).value }));
+							webVitals.update((v) => ({ ...v, cls: v.cls + (entry as any).value }));
 						}
 						break;
 					case 'paint':
 						if (entry.name === 'first-contentful-paint') {
-							webVitals.update(v => ({ ...v, fcp: Math.round(entry.startTime) }));
+							webVitals.update((v) => ({ ...v, fcp: Math.round(entry.startTime) }));
 						}
 						break;
 					case 'navigation':
-						webVitals.update(v => ({ ...v, ttfb: Math.round((entry as any).responseStart) }));
+						webVitals.update((v) => ({ ...v, ttfb: Math.round((entry as any).responseStart) }));
 						break;
 				}
 			}
 		});
 
 		try {
-			observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift', 'paint', 'navigation'] });
+			observer.observe({
+				entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift', 'paint', 'navigation']
+			});
 		} catch (e) {
 			console.warn('Some performance entries not supported:', e);
 		}
@@ -174,10 +176,14 @@
 	// Performance bar component
 	const getPerformanceColor = (status: string) => {
 		switch (status) {
-			case 'good': return 'bg-green-500';
-			case 'needs-improvement': return 'bg-yellow-500';
-			case 'poor': return 'bg-red-500';
-			default: return 'bg-gray-500';
+			case 'good':
+				return 'bg-green-500';
+			case 'needs-improvement':
+				return 'bg-yellow-500';
+			case 'poor':
+				return 'bg-red-500';
+			default:
+				return 'bg-gray-500';
 		}
 	};
 
@@ -200,7 +206,7 @@
 	});
 </script>
 
-<div 
+<div
 	class={cn(
 		'fixed z-50 p-4 rounded-lg backdrop-blur-md border font-mono text-sm',
 		'transform transition-all duration-300 hover:scale-105',
@@ -226,7 +232,7 @@
 				</span>
 			</div>
 			<div class="w-full bg-gray-700 rounded-full h-1.5">
-				<div 
+				<div
 					class={cn(
 						'h-1.5 rounded-full transition-all duration-300',
 						$fps >= 55 ? 'bg-green-400' : $fps >= 30 ? 'bg-yellow-400' : 'bg-red-400'
@@ -242,15 +248,17 @@
 		<div class="mb-3">
 			<div class={cn('flex items-center justify-between mb-1', currentTheme.text)}>
 				<span class="text-xs">MEMORY</span>
-				<span class={cn(
-					'font-bold text-xs',
-					$memory.percentage < 70 ? 'text-green-400' : $memory.percentage < 85 ? 'text-yellow-400' : 'text-red-400'
-				)}>
+				<span
+					class={cn(
+						'font-bold text-xs',
+						$memory.percentage < 70 ? 'text-green-400' : $memory.percentage < 85 ? 'text-yellow-400' : 'text-red-400'
+					)}
+				>
 					{$memory.used}MB
 				</span>
 			</div>
 			<div class="w-full bg-gray-700 rounded-full h-1.5">
-				<div 
+				<div
 					class={cn(
 						'h-1.5 rounded-full transition-all duration-300',
 						$memory.percentage < 70 ? 'bg-green-400' : $memory.percentage < 85 ? 'bg-yellow-400' : 'bg-red-400'
@@ -265,16 +273,18 @@
 	{#if showWebVitals}
 		<div class="space-y-2">
 			<div class={cn('text-xs font-bold mb-2', currentTheme.accent)}>WEB VITALS</div>
-			
+
 			{#if $webVitals.lcp > 0}
 				<div class="flex items-center justify-between">
 					<span class="text-xs">LCP</span>
 					<div class="flex items-center gap-2">
 						<span class="text-xs">{$webVitals.lcp}ms</span>
-						<div class={cn(
-							'w-2 h-2 rounded-full',
-							getPerformanceColor(getPerformanceStatus($webVitals.lcp, { good: 2500, needs: 4000 }))
-						)}></div>
+						<div
+							class={cn(
+								'w-2 h-2 rounded-full',
+								getPerformanceColor(getPerformanceStatus($webVitals.lcp, { good: 2500, needs: 4000 }))
+							)}
+						></div>
 					</div>
 				</div>
 			{/if}
@@ -284,10 +294,12 @@
 					<span class="text-xs">FID</span>
 					<div class="flex items-center gap-2">
 						<span class="text-xs">{$webVitals.fid}ms</span>
-						<div class={cn(
-							'w-2 h-2 rounded-full',
-							getPerformanceColor(getPerformanceStatus($webVitals.fid, { good: 100, needs: 300 }))
-						)}></div>
+						<div
+							class={cn(
+								'w-2 h-2 rounded-full',
+								getPerformanceColor(getPerformanceStatus($webVitals.fid, { good: 100, needs: 300 }))
+							)}
+						></div>
 					</div>
 				</div>
 			{/if}
@@ -297,10 +309,12 @@
 					<span class="text-xs">CLS</span>
 					<div class="flex items-center gap-2">
 						<span class="text-xs">{$webVitals.cls.toFixed(3)}</span>
-						<div class={cn(
-							'w-2 h-2 rounded-full',
-							getPerformanceColor(getPerformanceStatus($webVitals.cls, { good: 0.1, needs: 0.25 }))
-						)}></div>
+						<div
+							class={cn(
+								'w-2 h-2 rounded-full',
+								getPerformanceColor(getPerformanceStatus($webVitals.cls, { good: 0.1, needs: 0.25 }))
+							)}
+						></div>
 					</div>
 				</div>
 			{/if}
@@ -310,10 +324,12 @@
 					<span class="text-xs">FCP</span>
 					<div class="flex items-center gap-2">
 						<span class="text-xs">{$webVitals.fcp}ms</span>
-						<div class={cn(
-							'w-2 h-2 rounded-full',
-							getPerformanceColor(getPerformanceStatus($webVitals.fcp, { good: 1800, needs: 3000 }))
-						)}></div>
+						<div
+							class={cn(
+								'w-2 h-2 rounded-full',
+								getPerformanceColor(getPerformanceStatus($webVitals.fcp, { good: 1800, needs: 3000 }))
+							)}
+						></div>
 					</div>
 				</div>
 			{/if}
@@ -326,7 +342,7 @@
 	.terminal-glow {
 		animation: terminal-glow 2s ease-in-out infinite alternate;
 	}
-	
+
 	@keyframes terminal-glow {
 		from {
 			box-shadow: 0 0 5px rgba(0, 255, 136, 0.2);

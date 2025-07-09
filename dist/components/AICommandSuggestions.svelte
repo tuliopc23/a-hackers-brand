@@ -171,18 +171,19 @@
 	// AI thinking simulation
 	const simulateAIThinking = async (searchQuery: string): Promise<CommandSuggestion[]> => {
 		isThinking = true;
-		
+
 		// Simulate AI processing time
-		await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 400));
-		
+		await new Promise((resolve) => setTimeout(resolve, 800 + Math.random() * 400));
+
 		// Filter and score commands based on query
 		const filtered = defaultCommands
-			.filter(cmd => 
-				cmd.command.toLowerCase().includes(searchQuery.toLowerCase()) ||
-				cmd.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-				cmd.category.toLowerCase().includes(searchQuery.toLowerCase())
+			.filter(
+				(cmd) =>
+					cmd.command.toLowerCase().includes(searchQuery.toLowerCase()) ||
+					cmd.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+					cmd.category.toLowerCase().includes(searchQuery.toLowerCase())
 			)
-			.map(cmd => ({
+			.map((cmd) => ({
 				...cmd,
 				confidence: Math.min(0.98, cmd.confidence + Math.random() * 0.1)
 			}))
@@ -212,7 +213,7 @@
 	// Handle keyboard navigation
 	const handleKeydown = (event: KeyboardEvent) => {
 		const currentSuggestions = $aiSuggestions;
-		
+
 		switch (event.key) {
 			case 'ArrowDown':
 				event.preventDefault();
@@ -267,7 +268,7 @@
 	onMount(() => {
 		// Add keyboard event listener
 		window.addEventListener('keydown', handleKeydown);
-		
+
 		return () => {
 			window.removeEventListener('keydown', handleKeydown);
 		};
@@ -275,7 +276,7 @@
 </script>
 
 {#if query.trim() && ($aiSuggestions.length > 0 || isThinking)}
-	<div 
+	<div
 		class={cn(
 			'relative mt-2 p-4 rounded-lg border backdrop-blur-md',
 			'shadow-2xl transform-gpu',
@@ -313,7 +314,7 @@
 		{#if !isThinking && $aiSuggestions.length > 0}
 			<div class="space-y-2">
 				{#each $aiSuggestions as suggestion, index (suggestion.command)}
-					<div 
+					<div
 						class={cn(
 							'p-3 rounded-lg cursor-pointer transition-all duration-200',
 							'hover:scale-[1.02] transform-gpu border border-transparent',
@@ -344,15 +345,18 @@
 									{suggestion.command}
 								</span>
 							</div>
-							
+
 							{#if showConfidence}
 								<div class="flex items-center gap-2">
 									<span class={cn('text-xs font-bold', getConfidenceColor(suggestion.confidence))}>
 										{getConfidenceLabel(suggestion.confidence)}
 									</span>
 									<div class="w-12 h-1.5 bg-gray-700 rounded-full overflow-hidden">
-										<div 
-											class={cn('h-full rounded-full transition-all duration-300', getConfidenceColor(suggestion.confidence).replace('text-', 'bg-'))}
+										<div
+											class={cn(
+												'h-full rounded-full transition-all duration-300',
+												getConfidenceColor(suggestion.confidence).replace('text-', 'bg-')
+											)}
 											style="width: {suggestion.confidence * 100}%"
 										></div>
 									</div>

@@ -118,21 +118,22 @@
 	// Filtered options based on search
 	const filteredOptions = $derived(() => {
 		if (!searchTerm) return options;
-		return options.filter(option => 
-			option.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			option.value.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			option.description?.toLowerCase().includes(searchTerm.toLowerCase())
+		return options.filter(
+			(option) =>
+				option.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
+				option.value.toLowerCase().includes(searchTerm.toLowerCase()) ||
+				option.description?.toLowerCase().includes(searchTerm.toLowerCase())
 		);
 	});
 
 	// Available options (not selected)
 	const availableOptions = $derived(() => {
-		return filteredOptions.filter(option => !selectedValues.includes(option.value));
+		return filteredOptions.filter((option) => !selectedValues.includes(option.value));
 	});
 
 	// Selected option objects
 	const selectedOptions = $derived(() => {
-		return selectedValues.map(value => options.find(opt => opt.value === value)).filter(Boolean) as Option[];
+		return selectedValues.map((value) => options.find((opt) => opt.value === value)).filter(Boolean) as Option[];
 	});
 
 	// Check if max selections reached
@@ -142,7 +143,7 @@
 
 	function handleContainerClick() {
 		if (disabled) return;
-		
+
 		if (!isOpen) {
 			isOpen = true;
 			dispatch('open');
@@ -173,18 +174,18 @@
 
 	function addOption(value: string) {
 		if (isMaxReached) return;
-		
+
 		selectedValues = [...selectedValues, value];
 		dispatch('add', value);
 		dispatch('change', selectedValues);
-		
+
 		// Clear search after selection
 		searchTerm = '';
 		dispatch('search', searchTerm);
 	}
 
 	function removeOption(value: string) {
-		selectedValues = selectedValues.filter(v => v !== value);
+		selectedValues = selectedValues.filter((v) => v !== value);
 		dispatch('remove', value);
 		dispatch('change', selectedValues);
 	}
@@ -295,12 +296,12 @@
 				<span class="truncate max-w-32">{option.label}</span>
 				<button
 					onclick={(e) => handleChipRemove(option.value, e)}
-					class="flex-shrink-0 rounded-full {currentChipVariant.chipClose} hover:bg-black/20 
+					class="flex-shrink-0 rounded-full {currentChipVariant.chipClose} hover:bg-black/20
 					       transition-colors p-0.5"
 					aria-label="Remove {option.label}"
 				>
 					<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
 					</svg>
 				</button>
 			</div>
@@ -327,14 +328,14 @@
 
 	<!-- Dropdown Arrow -->
 	<div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-		<svg 
+		<svg
 			class="w-4 h-4 transition-transform duration-200 {isOpen ? 'rotate-180' : ''} 
 			       {currentVariant.option}"
-			fill="none" 
-			stroke="currentColor" 
+			fill="none"
+			stroke="currentColor"
 			viewBox="0 0 24 24"
 		>
-			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
 		</svg>
 	</div>
 
@@ -343,7 +344,7 @@
 		<div
 			bind:this={dropdownRef}
 			id="multiselect-listbox"
-			class="absolute top-full left-0 right-0 z-50 mt-2 max-h-60 overflow-auto rounded-lg border 
+			class="absolute top-full left-0 right-0 z-50 mt-2 max-h-60 overflow-auto rounded-lg border
 			       shadow-2xl {currentVariant.dropdown}"
 			in:glassFade={{ direction: 'up', duration: 200 }}
 			use:liquidBlur={{ blur: 'lg', opacity: 'medium' }}
@@ -359,7 +360,7 @@
 				{#each availableOptions as option, index (option.value)}
 					{@const isFocused = index === focusedIndex}
 					{@const isSelected = selectedValues.includes(option.value)}
-					
+
 					<div
 						onclick={() => handleOptionSelect(option)}
 						onkeydown={(e) => e.key === 'Enter' && handleOptionSelect(option)}
@@ -379,12 +380,14 @@
 									<div class="text-xs opacity-70 mt-0.5">{option.description}</div>
 								{/if}
 							</div>
-							
+
 							{#if isSelected}
 								<svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
-									<path fill-rule="evenodd" 
-									      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
-									      clip-rule="evenodd"/>
+									<path
+										fill-rule="evenodd"
+										d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+										clip-rule="evenodd"
+									/>
 								</svg>
 							{/if}
 						</div>
@@ -400,7 +403,7 @@
 			{/if}
 		</div>
 	{/if}
-	
+
 	<!-- Live region for screen reader announcements -->
 	<div id="multiselect-status" aria-live="polite" aria-atomic="true" class="sr-only">
 		{selectedValues.length} items selected
@@ -415,23 +418,25 @@
 	.overflow-auto::-webkit-scrollbar {
 		width: 8px;
 	}
-	
+
 	.overflow-auto::-webkit-scrollbar-track {
 		background: rgba(255, 255, 255, 0.05);
 		border-radius: 4px;
 	}
-	
+
 	.overflow-auto::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0.2);
 		border-radius: 4px;
 	}
-	
+
 	.overflow-auto::-webkit-scrollbar-thumb:hover {
 		background: rgba(255, 255, 255, 0.3);
 	}
 
 	/* Terminal-specific glow effects */
 	:global(.terminal .multi-select:focus-within) {
-		box-shadow: 0 0 0 1px var(--terminal-green), 0 0 10px var(--terminal-green-glow);
+		box-shadow:
+			0 0 0 1px var(--terminal-green),
+			0 0 10px var(--terminal-green-glow);
 	}
 </style>

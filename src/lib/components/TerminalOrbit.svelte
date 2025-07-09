@@ -11,11 +11,7 @@
 		interactive?: boolean;
 	}
 
-	const {
-		position = [0, 2, 0],
-		rotation = [0, 0, 0],
-		scale = 1.5,
-	}: Props = $props();
+	const { position = [0, 2, 0], rotation = [0, 0, 0], scale = 1.5 }: Props = $props();
 
 	let terminalRef: HTMLDivElement;
 	let inputValue = $state('');
@@ -33,7 +29,6 @@
 		ls: '📁 reality.exe  consciousness.dll  quantum_states/  void.txt',
 		clear: 'Terminal cleared'
 	};
-
 
 	const executeCommand = (command: string) => {
 		const trimmedCommand = command.trim().toLowerCase();
@@ -70,7 +65,6 @@
 			executeCommand(inputValue);
 		}
 	};
-
 
 	onMount(() => {
 		// Auto-execute help command for demo

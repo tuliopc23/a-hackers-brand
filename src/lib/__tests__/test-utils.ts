@@ -6,7 +6,7 @@ import type { ComponentType } from 'svelte';
 export const mockMatchMedia = (matches: boolean = false) => {
 	Object.defineProperty(window, 'matchMedia', {
 		writable: true,
-		value: vi.fn().mockImplementation(query => ({
+		value: vi.fn().mockImplementation((query) => ({
 			matches,
 			media: query,
 			onchange: null,
@@ -29,7 +29,7 @@ export const renderComponent = <T extends Record<string, any>>(
 
 // Wait for animations to complete
 export const waitForAnimation = (duration: number = 300): Promise<void> => {
-	return new Promise(resolve => setTimeout(resolve, duration));
+	return new Promise((resolve) => setTimeout(resolve, duration));
 };
 
 // Mock IntersectionObserver
@@ -78,13 +78,14 @@ export const testAllSizes = async (
 export const testAccessibility = async (container: HTMLElement) => {
 	// Check for ARIA attributes
 	const interactiveElements = container.querySelectorAll('button, a, input, select, textarea');
-	
-	interactiveElements.forEach(element => {
+
+	interactiveElements.forEach((element) => {
 		// Check for accessible labels
-		const hasLabel = element.hasAttribute('aria-label') || 
-						element.hasAttribute('aria-labelledby') ||
-						element.closest('label') !== null;
-		
+		const hasLabel =
+			element.hasAttribute('aria-label') ||
+			element.hasAttribute('aria-labelledby') ||
+			element.closest('label') !== null;
+
 		if (!hasLabel && element.textContent?.trim() === '') {
 			throw new Error(`Element ${element.tagName} missing accessible label`);
 		}
@@ -108,11 +109,7 @@ export const createMockEvent = (type: string, options: any = {}) => {
 };
 
 // Test keyboard navigation
-export const testKeyboardNavigation = async (
-	element: HTMLElement,
-	key: string,
-	expectedAction: () => void
-) => {
+export const testKeyboardNavigation = async (element: HTMLElement, key: string, expectedAction: () => void) => {
 	const event = new KeyboardEvent('keydown', { key, bubbles: true });
 	element.dispatchEvent(event);
 	expectedAction();

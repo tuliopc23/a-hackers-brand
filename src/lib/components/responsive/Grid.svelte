@@ -19,10 +19,6 @@
 	const gridClasses = $derived(gridVariants({ cols, gap, responsive, className }));
 </script>
 
-<svelte:element 
-	this={as} 
-	class={gridClasses}
-	{...restProps}
->
+<svelte:element this={as} class={gridClasses} {...restProps}>
 	{@render children?.()}
 </svelte:element>

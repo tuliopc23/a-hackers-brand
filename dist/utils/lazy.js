@@ -8,34 +8,33 @@ import { browser } from '$app/environment';
  * @returns A Svelte component that can be used with svelte:component
  */
 export function lazy(loadFn) {
-    let Component = $state(null);
-    let loading = $state(true);
-    let error = $state(null);
-    // Only load on client side
-    onMount(async () => {
-        if (!browser) {
-            loading = false;
-            return;
-        }
-        try {
-            const module = await loadFn();
-            Component = module.default;
-            loading = false;
-        }
-        catch (err) {
-            error = err instanceof Error ? err.message : 'Failed to load component';
-            loading = false;
-        }
-    });
-    return {
-        get component() {
-            return Component;
-        },
-        get loading() {
-            return loading;
-        },
-        get error() {
-            return error;
-        }
-    };
+	let Component = $state(null);
+	let loading = $state(true);
+	let error = $state(null);
+	// Only load on client side
+	onMount(async () => {
+		if (!browser) {
+			loading = false;
+			return;
+		}
+		try {
+			const module = await loadFn();
+			Component = module.default;
+			loading = false;
+		} catch (err) {
+			error = err instanceof Error ? err.message : 'Failed to load component';
+			loading = false;
+		}
+	});
+	return {
+		get component() {
+			return Component;
+		},
+		get loading() {
+			return loading;
+		},
+		get error() {
+			return error;
+		}
+	};
 }

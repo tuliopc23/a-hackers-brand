@@ -149,7 +149,7 @@
 	// Mouse interaction
 	const handleMouseMove = (event: MouseEvent) => {
 		if (!interactive) return;
-		
+
 		const rect = (event.target as HTMLElement).getBoundingClientRect();
 		mousePosition = {
 			x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
@@ -172,7 +172,7 @@
 	onMount(() => {
 		startAnimation();
 		dispatch('ready', { theme: currentTheme, settings });
-		
+
 		return () => {
 			if (animationId) {
 				cancelAnimationFrame(animationId);
@@ -181,7 +181,7 @@
 	});
 </script>
 
-<div 
+<div
 	class={className}
 	style="width: {width}px; height: {height}px;"
 	role="img"
@@ -191,35 +191,27 @@
 	<Canvas>
 		<!-- Scene Setup -->
 		<T.PerspectiveCamera makeDefault position={[0, 0, 10]} fov={45} />
-		
+
 		<!-- Enhanced Lighting -->
 		<T.AmbientLight intensity={lighting.ambientIntensity}></T.AmbientLight>
-		<T.DirectionalLight 
-			position={[10, 10, 5]} 
+		<T.DirectionalLight
+			position={[10, 10, 5]}
 			intensity={lighting.directionalIntensity}
 			castShadow
 			shadow.mapSize.width={settings.shadowMapSize}
 			shadow.mapSize.height={settings.shadowMapSize}
 		></T.DirectionalLight>
-		
+
 		{#each lighting.pointLights as light}
-			<T.PointLight 
-				position={light.position} 
-				color={light.color} 
-				intensity={light.intensity}
-				decay={2}
-				distance={20}
+			<T.PointLight position={light.position} color={light.color} intensity={light.intensity} decay={2} distance={20}
 			></T.PointLight>
 		{/each}
 
 		<!-- Environment -->
-		<Environment 
-			path="/textures/env/"
-			files={['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg']}
-		/>
+		<Environment path="/textures/env/" files={['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg']} />
 
 		<!-- Central Liquid Glass Sphere -->
-		<LiquidGlassShader 
+		<LiquidGlassShader
 			bind:ref={centralSphereRef}
 			intensity={currentTheme.intensity}
 			color={currentTheme.primaryColor}
@@ -232,7 +224,7 @@
 		<!-- Orbital Liquid Shapes -->
 		{#each Array(6) as _, i}
 			<T.Group bind:ref={orbitalShapesRefs[i]}>
-				<LiquidGlassShader 
+				<LiquidGlassShader
 					intensity={currentTheme.intensity * 0.7}
 					color={i % 2 === 0 ? currentTheme.primaryColor : currentTheme.secondaryColor}
 					distortion={settings.distortionLevel * 0.5}
@@ -245,20 +237,20 @@
 
 		<!-- Particle Systems -->
 		{#if enableParticles}
-			<LiquidParticleSystem 
+			<LiquidParticleSystem
 				particleCount={Math.min(settings.particleCount, currentTheme.particles)}
 				color={currentTheme.primaryColor}
 				flowPattern="turbulent"
-				interactive={interactive}
+				{interactive}
 				speed={1.0}
 				opacity={0.6}
 			/>
-			
-			<LiquidParticleSystem 
+
+			<LiquidParticleSystem
 				particleCount={Math.floor(settings.particleCount * 0.5)}
 				color={currentTheme.secondaryColor}
 				flowPattern="orbital"
-				interactive={interactive}
+				{interactive}
 				speed={0.5}
 				opacity={0.4}
 				size={0.015}
@@ -267,10 +259,10 @@
 
 		<!-- Controls -->
 		{#if interactive}
-			<OrbitControls 
-				enableDamping 
+			<OrbitControls
+				enableDamping
 				dampingFactor={0.05}
-				autoRotate={autoRotate}
+				{autoRotate}
 				autoRotateSpeed={2}
 				minDistance={5}
 				maxDistance={20}
@@ -312,7 +304,7 @@
 	:global(.threlte-canvas) {
 		background: linear-gradient(135deg, var(--bg-start), var(--bg-end)) !important;
 	}
-	
+
 	div {
 		--bg-start: v-bind(currentTheme.backgroundColor);
 		--bg-end: color-mix(in srgb, v-bind(currentTheme.backgroundColor) 80%, black);

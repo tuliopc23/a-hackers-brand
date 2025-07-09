@@ -220,7 +220,7 @@
 	});
 </script>
 
-<div 
+<div
 	bind:this={blockRef}
 	class={cn(
 		'relative p-4 rounded-lg border backdrop-blur-sm transition-all duration-300',
@@ -231,15 +231,17 @@
 		interactive && 'cursor-pointer hover:brightness-110',
 		className
 	)}
-	{...interactive ? {
-			role: 'button',
-			tabindex: 0,
-			'aria-label': `Execute command: ${command}`
-		} : {
-			role: 'article'
-		}}
-	onmouseenter={() => isHovered = true}
-	onmouseleave={() => isHovered = false}
+	{...interactive
+		? {
+				role: 'button',
+				tabindex: 0,
+				'aria-label': `Execute command: ${command}`
+			}
+		: {
+				role: 'article'
+			}}
+	onmouseenter={() => (isHovered = true)}
+	onmouseleave={() => (isHovered = false)}
 	onclick={executeCommand}
 	onkeydown={(e) => {
 		if (interactive && (e.key === 'Enter' || e.key === ' ')) {
@@ -250,18 +252,20 @@
 >
 	<!-- Status Indicator -->
 	<div class="absolute top-2 right-2 flex items-center gap-2">
-		<div class={cn(
-			'w-3 h-3 rounded-full flex items-center justify-center text-xs font-bold',
-			currentStatus.color,
-			status === 'running' && 'animate-pulse'
-		)}>
+		<div
+			class={cn(
+				'w-3 h-3 rounded-full flex items-center justify-center text-xs font-bold',
+				currentStatus.color,
+				status === 'running' && 'animate-pulse'
+			)}
+		>
 			{#if status === 'running'}
 				<div class="w-2 h-2 rounded-full bg-current animate-ping"></div>
 			{:else}
 				{currentStatus.icon}
 			{/if}
 		</div>
-		
+
 		{#if status === 'running' && executionTime > 0}
 			<span class={cn('text-xs font-mono', currentTheme.accent)}>
 				{formatExecutionTime(executionTime)}
@@ -276,14 +280,10 @@
 				{currentPrompt}
 			</span>
 		{/if}
-		
+
 		<div class="flex-1">
 			{#if enableGlitch && isGlitching}
-				<GlitchText 
-					text={command}
-					intensity="medium"
-					class={cn('font-mono', currentTheme.command)}
-				/>
+				<GlitchText text={command} intensity="medium" class={cn('font-mono', currentTheme.command)} />
 			{:else}
 				<span class={cn('font-mono', currentTheme.command)}>
 					{command}
@@ -294,7 +294,10 @@
 		<!-- Copy Button -->
 		{#if interactive}
 			<button
-				onclick={(e) => { e.stopPropagation(); copyCommand(); }}
+				onclick={(e) => {
+					e.stopPropagation();
+					copyCommand();
+				}}
 				class={cn(
 					'opacity-0 group-hover:opacity-100 p-1 rounded text-xs transition-opacity',
 					currentTheme.accent,
@@ -309,11 +312,13 @@
 
 	<!-- Output -->
 	{#if output}
-		<div class={cn(
-			'mt-3 p-3 rounded bg-black/20 border-l-2 font-mono text-sm whitespace-pre-wrap',
-			currentTheme.output,
-			currentStatus.borderColor
-		)}>
+		<div
+			class={cn(
+				'mt-3 p-3 rounded bg-black/20 border-l-2 font-mono text-sm whitespace-pre-wrap',
+				currentTheme.output,
+				currentStatus.borderColor
+			)}
+		>
 			{output}
 		</div>
 	{/if}
@@ -327,12 +332,17 @@
 
 	<!-- Interactive Hover Effect -->
 	{#if interactive && isHovered}
-		<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 pointer-events-none animate-pulse"></div>
+		<div
+			class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 pointer-events-none animate-pulse"
+		></div>
 	{/if}
 
 	<!-- Processing Animation -->
 	{#if status === 'running'}
-		<div class="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-yellow-400 to-orange-400 animate-pulse" style="width: {Math.min((executionTime / 5000) * 100, 100)}%"></div>
+		<div
+			class="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-yellow-400 to-orange-400 animate-pulse"
+			style="width: {Math.min((executionTime / 5000) * 100, 100)}%"
+		></div>
 	{/if}
 </div>
 
@@ -344,8 +354,12 @@
 
 	/* Processing bar animation */
 	@keyframes processing {
-		0% { width: 0%; }
-		100% { width: 100%; }
+		0% {
+			width: 0%;
+		}
+		100% {
+			width: 100%;
+		}
 	}
 
 	/* Glitch border effect */
@@ -354,9 +368,18 @@
 	}
 
 	@keyframes glitch-border {
-		0%, 100% { border-color: currentColor; }
-		25% { border-color: #ff0080; }
-		50% { border-color: #00ffff; }
-		75% { border-color: #ffff00; }
+		0%,
+		100% {
+			border-color: currentColor;
+		}
+		25% {
+			border-color: #ff0080;
+		}
+		50% {
+			border-color: #00ffff;
+		}
+		75% {
+			border-color: #ffff00;
+		}
 	}
 </style>

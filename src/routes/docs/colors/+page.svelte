@@ -2,16 +2,58 @@
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { brandColors } from '$lib/tokens';
-	
+
 	// Terminal color palette - Classic phosphor monitor meets modern Apple glass
 	const terminalPalette = [
-		{ name: 'Phosphor Green', key: 'green', value: '#00ff41', hex: '#00ff41', usage: 'Classic terminal text, command prompts, success states' },
-		{ name: 'Cyan Ice', key: 'cyan', value: '#00ffff', hex: '#00ffff', usage: 'System messages, info states, liquid glass accents' },
-		{ name: 'Electric Blue', key: 'blue', value: '#0080ff', hex: '#0080ff', usage: 'Hyperlinks, interactive elements, Apple-style CTAs' },
-		{ name: 'Violet Glow', key: 'purple', value: '#8a2be2', hex: '#8a2be2', usage: 'Root/admin indicators, special commands' },
-		{ name: 'Magenta Pulse', key: 'pink', value: '#ff1493', hex: '#ff1493', usage: 'Syntax highlighting, important alerts' },
-		{ name: 'Amber Warning', key: 'orange', value: '#ff6b35', hex: '#ff6b35', usage: 'Terminal warnings, caution states' },
-		{ name: 'Signal Yellow', key: 'yellow', value: '#ffff00', hex: '#ffff00', usage: 'Search highlights, active selections' },
+		{
+			name: 'Phosphor Green',
+			key: 'green',
+			value: '#00ff41',
+			hex: '#00ff41',
+			usage: 'Classic terminal text, command prompts, success states'
+		},
+		{
+			name: 'Cyan Ice',
+			key: 'cyan',
+			value: '#00ffff',
+			hex: '#00ffff',
+			usage: 'System messages, info states, liquid glass accents'
+		},
+		{
+			name: 'Electric Blue',
+			key: 'blue',
+			value: '#0080ff',
+			hex: '#0080ff',
+			usage: 'Hyperlinks, interactive elements, Apple-style CTAs'
+		},
+		{
+			name: 'Violet Glow',
+			key: 'purple',
+			value: '#8a2be2',
+			hex: '#8a2be2',
+			usage: 'Root/admin indicators, special commands'
+		},
+		{
+			name: 'Magenta Pulse',
+			key: 'pink',
+			value: '#ff1493',
+			hex: '#ff1493',
+			usage: 'Syntax highlighting, important alerts'
+		},
+		{
+			name: 'Amber Warning',
+			key: 'orange',
+			value: '#ff6b35',
+			hex: '#ff6b35',
+			usage: 'Terminal warnings, caution states'
+		},
+		{
+			name: 'Signal Yellow',
+			key: 'yellow',
+			value: '#ffff00',
+			hex: '#ffff00',
+			usage: 'Search highlights, active selections'
+		},
 		{ name: 'Error Red', key: 'red', value: '#ff0040', hex: '#ff0040', usage: 'Errors, failed commands, danger states' }
 	];
 
@@ -20,7 +62,12 @@
 		{ name: 'Frosted Terminal', value: 'rgba(0, 255, 65, 0.05)', opacity: '5%', usage: 'Terminal window backgrounds' },
 		{ name: 'Liquid Glass', value: 'rgba(255, 255, 255, 0.08)', opacity: '8%', usage: 'Primary UI surfaces, cards' },
 		{ name: 'Crystal Blur', value: 'rgba(255, 255, 255, 0.12)', opacity: '12%', usage: 'Elevated surfaces, modals' },
-		{ name: 'Ice Border', value: 'rgba(255, 255, 255, 0.18)', opacity: '18%', usage: 'Glass element borders, dividers' },
+		{
+			name: 'Ice Border',
+			value: 'rgba(255, 255, 255, 0.18)',
+			opacity: '18%',
+			usage: 'Glass element borders, dividers'
+		},
 		{ name: 'Glow State', value: 'rgba(0, 255, 255, 0.15)', opacity: '15%', usage: 'Hover states, active elements' }
 	];
 
@@ -34,19 +81,40 @@
 
 	// Dark terminal backgrounds - Space Gray meets terminal black
 	const backgroundColors = [
-		{ name: 'Terminal Black', value: '#0a0a0f', hex: '#0a0a0f', usage: 'Primary terminal background, inspired by CRT monitors' },
+		{
+			name: 'Terminal Black',
+			value: '#0a0a0f',
+			hex: '#0a0a0f',
+			usage: 'Primary terminal background, inspired by CRT monitors'
+		},
 		{ name: 'Space Gray', value: '#1a1a2e', hex: '#1a1a2e', usage: 'Apple-style cards and surfaces over terminal' },
 		{ name: 'Command Blue', value: '#16213e', hex: '#16213e', usage: 'Nested panels, terminal history' }
 	];
 
 	// Liquid terminal gradients - Phosphor meets glass
 	const gradients = [
-		{ name: 'Terminal Glow', value: 'linear-gradient(135deg, #00ff41, #00ffff)', usage: 'Command prompts, active terminals' },
+		{
+			name: 'Terminal Glow',
+			value: 'linear-gradient(135deg, #00ff41, #00ffff)',
+			usage: 'Command prompts, active terminals'
+		},
 		{ name: 'Matrix Flow', value: 'linear-gradient(180deg, #003300, #00ff41)', usage: 'Data streams, code execution' },
-		{ name: 'Glass Fusion', value: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,255,255,0.2))', usage: 'Liquid glass surfaces' },
-		{ name: 'Neon Circuit', value: 'linear-gradient(90deg, #8a2be2, #ff1493, #00ffff)', usage: 'Accent highlights, borders' },
+		{
+			name: 'Glass Fusion',
+			value: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,255,255,0.2))',
+			usage: 'Liquid glass surfaces'
+		},
+		{
+			name: 'Neon Circuit',
+			value: 'linear-gradient(90deg, #8a2be2, #ff1493, #00ffff)',
+			usage: 'Accent highlights, borders'
+		},
 		{ name: 'Phosphor Fade', value: 'linear-gradient(180deg, #00ff41, transparent)', usage: 'Terminal text effects' },
-		{ name: 'Cyber Ice', value: 'linear-gradient(45deg, rgba(255,255,255,0.05), rgba(0,255,255,0.1))', usage: 'Frosted glass overlays' }
+		{
+			name: 'Cyber Ice',
+			value: 'linear-gradient(45deg, rgba(255,255,255,0.05), rgba(0,255,255,0.1))',
+			usage: 'Frosted glass overlays'
+		}
 	];
 
 	// Contrast checker
@@ -58,32 +126,34 @@
 	// Color format converter
 	function hexToRgb(hex: string): { r: number; g: number; b: number } {
 		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-		return result ? {
-			r: parseInt(result[1], 16),
-			g: parseInt(result[2], 16),
-			b: parseInt(result[3], 16)
-		} : { r: 0, g: 0, b: 0 };
+		return result
+			? {
+					r: parseInt(result[1], 16),
+					g: parseInt(result[2], 16),
+					b: parseInt(result[3], 16)
+				}
+			: { r: 0, g: 0, b: 0 };
 	}
 </script>
 
 <article class="docs-content">
 	<h1>Color System</h1>
-	
+
 	<p class="lead">
-		Our color system combines cyberpunk terminal aesthetics with modern glass morphism, creating a unique 
-		visual language that's both futuristic and functional.
+		Our color system combines cyberpunk terminal aesthetics with modern glass morphism, creating a unique visual
+		language that's both futuristic and functional.
 	</p>
 
 	<!-- Color Philosophy -->
 	<section>
 		<h2>Color Philosophy</h2>
-		
+
 		<div class="glass-subtle p-8 rounded-2xl mb-8">
 			<p class="text-lg mb-6">
-				The Tulio color system is inspired by classic terminal interfaces, cyberpunk aesthetics, and modern 
-				glass design. Each color serves a specific purpose and creates a cohesive visual hierarchy.
+				The Tulio color system is inspired by classic terminal interfaces, cyberpunk aesthetics, and modern glass
+				design. Each color serves a specific purpose and creates a cohesive visual hierarchy.
 			</p>
-			
+
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 				<div class="text-center">
 					<div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-terminal-green to-terminal-cyan"></div>
@@ -96,7 +166,9 @@
 					<p class="text-sm text-white/70">Translucent layers create depth</p>
 				</div>
 				<div class="text-center">
-					<div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-terminal-purple to-terminal-pink"></div>
+					<div
+						class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-terminal-purple to-terminal-pink"
+					></div>
 					<h3 class="font-semibold mb-2">Neon Accents</h3>
 					<p class="text-sm text-white/70">Bold colors for emphasis and delight</p>
 				</div>
@@ -108,15 +180,15 @@
 	<section class="mt-16">
 		<h2>Terminal Palette</h2>
 		<p class="text-white/70 mb-8">
-			Our primary palette draws from classic terminal phosphors and cyberpunk neons, each color carefully 
-			chosen for optimal contrast and visual impact.
+			Our primary palette draws from classic terminal phosphors and cyberpunk neons, each color carefully chosen for
+			optimal contrast and visual impact.
 		</p>
-		
+
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 			{#each terminalPalette as color}
 				<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 					<div class="flex items-start gap-4">
-						<div 
+						<div
 							class="w-24 h-24 rounded-lg shrink-0 shadow-lg"
 							style="background-color: {color.value}; box-shadow: 0 0 20px {color.value}40"
 						></div>
@@ -138,13 +210,13 @@
 	<section class="mt-16">
 		<h2>Glass System</h2>
 		<p class="text-white/70 mb-8">
-			Our glass morphism system uses carefully calibrated opacity levels to create depth and hierarchy 
-			while maintaining readability.
+			Our glass morphism system uses carefully calibrated opacity levels to create depth and hierarchy while maintaining
+			readability.
 		</p>
-		
+
 		<div class="grid gap-4">
 			{#each glassPalette as glass}
-				<div 
+				<div
 					class="p-6 rounded-xl border border-white/20"
 					style="background-color: {glass.value}; backdrop-filter: blur(12px)"
 				>
@@ -161,10 +233,10 @@
 				</div>
 			{/each}
 		</div>
-		
+
 		<div class="glass-subtle p-6 rounded-xl mt-6">
 			<h3 class="mb-4">Glass Effect Implementation</h3>
-			<CodeBlock 
+			<CodeBlock
 				code={`.glass-primary {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
@@ -184,14 +256,11 @@
 		<p class="text-white/70 mb-8">
 			Dynamic gradients add energy and movement to the interface, reinforcing the liquid terminal aesthetic.
 		</p>
-		
+
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 			{#each gradients as gradient}
 				<div class="glass-subtle p-6 rounded-xl">
-					<div 
-						class="w-full h-32 rounded-lg mb-4"
-						style="background: {gradient.value}"
-					></div>
+					<div class="w-full h-32 rounded-lg mb-4" style="background: {gradient.value}"></div>
 					<h3 class="font-semibold mb-1">{gradient.name}</h3>
 					<p class="text-sm text-white/70 mb-2">{gradient.usage}</p>
 					<code class="text-xs font-mono text-white/60">brandColors.gradients.{gradient.name.toLowerCase()}</code>
@@ -206,15 +275,12 @@
 		<p class="text-white/70 mb-8">
 			Consistent semantic colors help users understand system states and actions at a glance.
 		</p>
-		
+
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 			{#each semanticColors as color}
 				<div class="glass-subtle p-6 rounded-xl">
 					<div class="flex items-center gap-4">
-						<div 
-							class="w-16 h-16 rounded-lg"
-							style="background-color: {color.value}"
-						></div>
+						<div class="w-16 h-16 rounded-lg" style="background-color: {color.value}"></div>
 						<div>
 							<h3 class="font-semibold mb-1">{color.name}</h3>
 							<p class="text-sm text-white/70">{color.usage}</p>
@@ -232,13 +298,10 @@
 		<p class="text-white/70 mb-8">
 			Our background colors create depth and hierarchy while maintaining the dark, sophisticated aesthetic.
 		</p>
-		
+
 		<div class="space-y-4">
 			{#each backgroundColors as bg}
-				<div 
-					class="p-8 rounded-xl border border-white/10"
-					style="background-color: {bg.value}"
-				>
+				<div class="p-8 rounded-xl border border-white/10" style="background-color: {bg.value}">
 					<div class="flex items-center justify-between">
 						<div>
 							<h3 class="font-semibold text-lg mb-1">{bg.name} Background</h3>
@@ -260,7 +323,7 @@
 		<p class="text-white/70 mb-8">
 			All color combinations meet WCAG AA standards for contrast ratios, ensuring readability for all users.
 		</p>
-		
+
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="mb-4">Contrast Requirements</h3>
@@ -279,7 +342,7 @@
 					</li>
 				</ul>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="mb-4">Testing Tools</h3>
 				<ul class="space-y-2 text-sm">
@@ -313,7 +376,7 @@
 	<!-- Usage Guidelines -->
 	<section class="mt-16">
 		<h2>Color Usage Guidelines</h2>
-		
+
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 			<div class="glass-subtle p-8 rounded-xl">
 				<h3 class="text-terminal-green mb-6">Do's ✓</h3>
@@ -340,7 +403,7 @@
 					</li>
 				</ul>
 			</div>
-			
+
 			<div class="glass-subtle p-8 rounded-xl">
 				<h3 class="text-terminal-pink mb-6">Don'ts ✗</h3>
 				<ul class="space-y-3 text-sm">
@@ -372,11 +435,11 @@
 	<!-- Implementation -->
 	<section class="mt-16">
 		<h2>Implementation</h2>
-		
+
 		<div class="space-y-6">
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="mb-4">Using Design Tokens</h3>
-				<CodeBlock 
+				<CodeBlock
 					code={`import { brandColors } from 'tulio-brand-system/tokens';
 
 // Terminal colors
@@ -392,10 +455,10 @@ const errorColor = brandColors.semantic.error;`}
 					language="javascript"
 				/>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="mb-4">Tailwind Classes</h3>
-				<CodeBlock 
+				<CodeBlock
 					code={`<!-- Terminal colors -->
 <div class="text-terminal-green bg-terminal-green/20">
   Success message
@@ -421,11 +484,11 @@ const errorColor = brandColors.semantic.error;`}
 	.lead {
 		@apply text-xl text-white/80 mb-12 max-w-3xl;
 	}
-	
+
 	section {
 		@apply border-t border-white/10 pt-12;
 	}
-	
+
 	section:first-of-type {
 		@apply border-t-0 pt-0;
 	}

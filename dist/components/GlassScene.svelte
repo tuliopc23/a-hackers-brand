@@ -15,8 +15,7 @@
 		theme?: 'terminal' | 'cyberpunk' | 'neural' | 'quantum';
 	}
 
-	const { 
- 
+	const {
 		quality = 'medium',
 		enableLiquidEffects = true,
 		enableParticles = true,
@@ -110,7 +109,7 @@
 		const animate = () => {
 			const delta = 0.016; // ~60fps
 			time += delta;
-			
+
 			// Animate floating groups
 			floatingGroups.forEach((group, index) => {
 				if (group) {
@@ -119,12 +118,12 @@
 					group.position.y = Math.sin(time + index) * 0.5;
 				}
 			});
-			
+
 			// Animate main group
 			if (mainGroup) {
 				mainGroup.rotation.y += delta * 0.1;
 			}
-			
+
 			animationId = requestAnimationFrame(animate);
 		};
 		animate();
@@ -132,7 +131,7 @@
 
 	onMount(() => {
 		startAnimation();
-		
+
 		// Performance optimizations
 		if (typeof window !== 'undefined') {
 			const canvas = document.querySelector('canvas');
@@ -140,7 +139,7 @@
 				canvas.style.willChange = 'transform';
 			}
 		}
-		
+
 		return () => {
 			if (animationId) {
 				cancelAnimationFrame(animationId);
@@ -162,13 +161,14 @@
 <!-- Enhanced Lighting Setup -->
 <T.PointLight position={[10, 10, 10]} intensity={2} color={currentTheme.primaryColor} castShadow></T.PointLight>
 <T.PointLight position={[-10, -10, 10]} intensity={1.5} color={currentTheme.secondaryColor}></T.PointLight>
-<T.SpotLight position={[0, 15, 0]} intensity={3} angle={Math.PI / 6} penumbra={0.5} castShadow color="#ffffff"></T.SpotLight>
+<T.SpotLight position={[0, 15, 0]} intensity={3} angle={Math.PI / 6} penumbra={0.5} castShadow color="#ffffff"
+></T.SpotLight>
 
 <!-- Main Glass Formation -->
 <T.Group bind:ref={mainGroup}>
 	{#if enableLiquidEffects}
 		<!-- Advanced Liquid Glass Core -->
-		<LiquidGlassShader 
+		<LiquidGlassShader
 			intensity={1.5}
 			color={currentTheme.primaryColor}
 			distortion={0.15}
@@ -176,15 +176,13 @@
 			amplitude={0.2}
 			speed={1.0}
 		/>
-		
+
 		<!-- Surrounding Liquid Shapes -->
 		{#each Array(4) as _, i}
-			<T.Group position={[
-				Math.cos(i * Math.PI / 2) * 5,
-				Math.sin(i * Math.PI / 4) * 2,
-				Math.sin(i * Math.PI / 2) * 5
-			]}>
-				<LiquidGlassShader 
+			<T.Group
+				position={[Math.cos((i * Math.PI) / 2) * 5, Math.sin((i * Math.PI) / 4) * 2, Math.sin((i * Math.PI) / 2) * 5]}
+			>
+				<LiquidGlassShader
 					intensity={1.0}
 					color={i % 2 === 0 ? currentTheme.primaryColor : currentTheme.secondaryColor}
 					distortion={0.1}
@@ -198,7 +196,12 @@
 		<!-- Fallback Standard Glass -->
 		<T.Mesh position={[0, 0, 0]} castShadow receiveShadow>
 			<T.BoxGeometry args={[6, 6, 6]} />
-			<T.MeshPhysicalMaterial {...glassMaterial} color={currentTheme.primaryColor} emissive={currentTheme.emissive} emissiveIntensity={0.1} />
+			<T.MeshPhysicalMaterial
+				{...glassMaterial}
+				color={currentTheme.primaryColor}
+				emissive={currentTheme.emissive}
+				emissiveIntensity={0.1}
+			/>
 			<Edges color={currentTheme.primaryColor} linewidth={2} threshold={15} />
 		</T.Mesh>
 
@@ -243,7 +246,7 @@
 
 <!-- Advanced Particle Systems -->
 {#if enableParticles}
-	<LiquidParticleSystem 
+	<LiquidParticleSystem
 		particleCount={settings.particleCount}
 		color={currentTheme.primaryColor}
 		flowPattern="turbulent"
@@ -251,8 +254,8 @@
 		speed={1.0}
 		opacity={0.6}
 	/>
-	
-	<LiquidParticleSystem 
+
+	<LiquidParticleSystem
 		particleCount={Math.floor(settings.particleCount * 0.5)}
 		color={currentTheme.secondaryColor}
 		flowPattern="orbital"

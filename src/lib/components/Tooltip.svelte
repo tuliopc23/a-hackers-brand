@@ -92,7 +92,7 @@
 
 		// Keep within viewport horizontally
 		x = Math.max(8, Math.min(x, viewportWidth - tooltipRect.width - 8));
-		
+
 		// Keep within viewport vertically
 		y = Math.max(8, Math.min(y, viewportHeight - tooltipRect.height - 8));
 
@@ -147,7 +147,7 @@
 	{#if children}
 		{@render children()}
 	{/if}
-	
+
 	{#if show}
 		<div
 			bind:this={tooltipRef}
@@ -162,7 +162,7 @@
 			role="tooltip"
 		>
 			{text}
-			
+
 			{#if arrow}
 				<div
 					class={cn(

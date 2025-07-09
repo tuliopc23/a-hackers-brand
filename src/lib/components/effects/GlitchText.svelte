@@ -57,9 +57,9 @@
 
 	const triggerGlitch = () => {
 		if (isGlitching) return;
-		
+
 		isGlitching = true;
-		
+
 		if (glitchRef) {
 			glitchRef.style.animation = `
 				glitch-skew ${config.duration}ms ease-in-out,
@@ -113,7 +113,7 @@
 	const getGlitchedText = (originalText: string, intensity: number) => {
 		return originalText
 			.split('')
-			.map(char => {
+			.map((char) => {
 				if (Math.random() < intensity / 100) {
 					return glitchChars[Math.floor(Math.random() * glitchChars.length)];
 				}
@@ -125,11 +125,7 @@
 
 <span
 	bind:this={glitchRef}
-	class={cn(
-		'relative inline-block font-mono',
-		isGlitching && 'glitching',
-		className
-	)}
+	class={cn('relative inline-block font-mono', isGlitching && 'glitching', className)}
 	data-text={text}
 	style="
 		--glitch-color-1: {colors[0] || '#ff0000'};
@@ -341,7 +337,8 @@
 	}
 
 	@keyframes glitch-color {
-		0%, 100% {
+		0%,
+		100% {
 			color: currentColor;
 		}
 		20% {

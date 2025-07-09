@@ -26,11 +26,12 @@ export const EASING_CSS = {
 
 // Easing functions for Svelte transitions
 export const EASINGS = {
-	glass: (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
-	liquid: (t: number) => 1 + (--t) * t * t * t * t,
-	spring: (t: number) => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1,
+	glass: (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
+	liquid: (t: number) => 1 + --t * t * t * t * t,
+	spring: (t: number) => (t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1),
 	terminal: (t: number) => t * t * (3 - 2 * t),
-	elastic: (t: number) => t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin((t - 0.1) * (2 * Math.PI) / 0.4) + 1,
+	elastic: (t: number) =>
+		t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin(((t - 0.1) * (2 * Math.PI)) / 0.4) + 1,
 	bounce: (t: number) => {
 		if (t < 1 / 2.75) {
 			return 7.5625 * t * t;

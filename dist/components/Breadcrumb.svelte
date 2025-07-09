@@ -81,7 +81,7 @@
 		// Show first item, ellipsis, and last few items
 		const firstItem = items[0];
 		const lastItems = items.slice(-(maxItems - 2));
-		
+
 		return [
 			firstItem,
 			{
@@ -95,7 +95,7 @@
 
 	function handleItemClick(item: BreadcrumbItem, index: number) {
 		if (item.disabled || item.id === 'ellipsis') return;
-		
+
 		dispatch('navigate', { item, index });
 	}
 
@@ -104,11 +104,7 @@
 	}
 
 	const combinedClasses = $derived(
-		cn(
-			'flex items-center space-x-2 text-sm font-mono',
-			currentVariant.container,
-			className
-		)
+		cn('flex items-center space-x-2 text-sm font-mono', currentVariant.container, className)
 	);
 </script>
 
@@ -129,7 +125,7 @@
 					{homeLabel}
 				</button>
 			</li>
-			
+
 			{#if displayItems.length > 0}
 				<li class={currentVariant.separator} aria-hidden="true">
 					{separators[separator]}
@@ -146,10 +142,7 @@
 					</span>
 				{:else if index === displayItems.length - 1}
 					<!-- Last item (current page) -->
-					<span 
-						class="flex items-center {currentVariant.activeItem} font-medium"
-						aria-current="page"
-					>
+					<span class="flex items-center {currentVariant.activeItem} font-medium" aria-current="page">
 						{#if item.icon}
 							<span class="mr-2 text-base">{item.icon}</span>
 						{/if}
@@ -160,7 +153,7 @@
 					{#if item.href}
 						<a
 							href={item.href}
-							onclick={(e) => { 
+							onclick={(e) => {
 								if (!item.disabled) {
 									handleItemClick(item, index);
 								} else {

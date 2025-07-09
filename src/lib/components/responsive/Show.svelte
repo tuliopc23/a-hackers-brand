@@ -9,41 +9,35 @@
 		class?: string;
 	}
 
-	const {
-		when,
-		above,
-		below,
-		only,
-		class: className = '',
-		children,
-		...restProps
-	}: Props = $props();
+	const { when, above, below, only, class: className = '', children, ...restProps }: Props = $props();
 
-	const visibilityClasses = $derived((() => {
-		let classes = '';
-		
-		if (when) {
-			classes += ` ${visibilityVariants({ show: when })}`;
-		}
-		
-		if (above) {
-			const breakpoints: Breakpoint[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
-			const index = breakpoints.indexOf(above);
-			if (index !== -1) {
-				classes += ` hidden ${above}:block`;
+	const visibilityClasses = $derived(
+		(() => {
+			let classes = '';
+
+			if (when) {
+				classes += ` ${visibilityVariants({ show: when })}`;
 			}
-		}
-		
-		if (below) {
-			classes += ` block ${below}:hidden`;
-		}
-		
-		if (only) {
-			classes += ` ${visibilityVariants({ show: only })}`;
-		}
-		
-		return `${classes} ${className}`.trim();
-	})());
+
+			if (above) {
+				const breakpoints: Breakpoint[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
+				const index = breakpoints.indexOf(above);
+				if (index !== -1) {
+					classes += ` hidden ${above}:block`;
+				}
+			}
+
+			if (below) {
+				classes += ` block ${below}:hidden`;
+			}
+
+			if (only) {
+				classes += ` ${visibilityVariants({ show: only })}`;
+			}
+
+			return `${classes} ${className}`.trim();
+		})()
+	);
 </script>
 
 {#if visibilityClasses}

@@ -72,18 +72,20 @@
 		vertical: 'resize-y'
 	};
 
-	const textareaClasses = $derived(cn(
-		'w-full rounded-brand-md transition-all duration-200',
-		'focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400/50',
-		'placeholder:transition-colors placeholder:duration-200',
-		sizes[size],
-		variants[variant],
-		variant === 'glass' && blurLevels[blur],
-		resizeClasses[resize],
-		disabled && 'opacity-50 cursor-not-allowed',
-		isFocused && variant === 'glass' && 'glass-medium',
-		className
-	));
+	const textareaClasses = $derived(
+		cn(
+			'w-full rounded-brand-md transition-all duration-200',
+			'focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400/50',
+			'placeholder:transition-colors placeholder:duration-200',
+			sizes[size],
+			variants[variant],
+			variant === 'glass' && blurLevels[blur],
+			resizeClasses[resize],
+			disabled && 'opacity-50 cursor-not-allowed',
+			isFocused && variant === 'glass' && 'glass-medium',
+			className
+		)
+	);
 
 	function handleInput(event: Event) {
 		const target = event.target as HTMLTextAreaElement;
@@ -129,7 +131,7 @@
 
 		// Allow Escape to blur the textarea
 		if (event.key === 'Escape') {
-			textareaElement.blur();
+			textareaElement?.blur();
 		}
 	}
 
@@ -158,8 +160,10 @@
 
 		// Restore cursor position
 		setTimeout(() => {
-			textareaElement.selectionStart = textareaElement.selectionEnd = start + text.length;
-			textareaElement.focus();
+			if (textareaElement) {
+				textareaElement.selectionStart = textareaElement.selectionEnd = start + text.length;
+				textareaElement.focus();
+			}
 		}, 0);
 	}
 

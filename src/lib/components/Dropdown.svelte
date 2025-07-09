@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { glassFade, magneticHover } from '$lib/motion';
+	import { glassFade, jellyHover } from '$lib/motion';
 	import { ChevronDown } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { onMount } from 'svelte';
@@ -30,7 +30,7 @@
 	}
 
 	const {
-		items,
+		items = [],
 		trigger = 'Select',
 		value,
 		variant = 'glass',
@@ -67,7 +67,8 @@
 			glow: 'shadow-[0_0_15px_rgba(74,222,128,0.6)]'
 		},
 		liquid: {
-			trigger: 'bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-white/30 hover:from-blue-500/30 hover:to-purple-500/30 text-white',
+			trigger:
+				'bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-white/30 hover:from-blue-500/30 hover:to-purple-500/30 text-white',
 			menu: 'bg-gradient-to-br from-blue-900/90 to-purple-900/90 border-white/30',
 			item: 'hover:bg-white/10 text-white',
 			active: 'bg-white/20',
@@ -160,7 +161,7 @@
 	onMount(() => {
 		document.addEventListener('click', handleClickOutside);
 		document.addEventListener('keydown', handleKeyDown);
-		
+
 		return () => {
 			document.removeEventListener('click', handleClickOutside);
 			document.removeEventListener('keydown', handleKeyDown);
@@ -168,15 +169,12 @@
 	});
 
 	const currentVariant = variants[variant];
-	const selectedItem = items.find(item => item.value === value);
+	const selectedItem = items?.find((item) => item.value === value);
 </script>
 
-<div
-	bind:this={dropdownRef}
-	class={cn('relative inline-block', className)}
-	{...restProps}
->
+<div bind:this={dropdownRef} class={cn('relative inline-block', className)} {...restProps}>
 	<button
+		type="button"
 		onclick={toggleDropdown}
 		class={cn(
 			'flex items-center justify-between gap-2 rounded-xl border backdrop-blur-xl transition-all duration-200',
@@ -186,9 +184,9 @@
 			'focus:outline-none focus:ring-2 focus:ring-white/20',
 			triggerClass
 		)}
-		use:jellyHover={{ 
-			enabled: jelly, 
-			scale: 1.02, 
+		use:jellyHover={{
+			enabled: jelly,
+			scale: 1.02,
 			duration: 200,
 			borderRadius: '12px'
 		}}
@@ -196,13 +194,7 @@
 		aria-haspopup="true"
 	>
 		<span>{selectedItem?.label || trigger}</span>
-		<ChevronDown 
-			size={16} 
-			class={cn(
-				'transition-transform duration-200',
-				open && 'rotate-180'
-			)}
-		/>
+		<ChevronDown size={16} class={cn('transition-transform duration-200', open && 'rotate-180')} />
 	</button>
 
 	{#if open}
@@ -219,11 +211,12 @@
 			transition:glassFade={{ duration: animated ? 200 : 0 }}
 		>
 			<div class="py-1">
-				{#each items as item}
+				{#each items || [] as item}
 					{#if item.divider}
 						<div class="h-px bg-white/10 my-1"></div>
 					{:else}
 						<button
+							type="button"
 							onclick={() => handleSelect(item)}
 							disabled={item.disabled}
 							class={cn(

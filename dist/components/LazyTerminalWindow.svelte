@@ -9,7 +9,13 @@
 		children?: any;
 	}
 
-	const { title = 'Liquid Terminal', class: className = '', commands = {}, autoPlay = false, children }: Props = $props();
+	const {
+		title = 'Liquid Terminal',
+		class: className = '',
+		commands = {},
+		autoPlay = false,
+		children
+	}: Props = $props();
 
 	let TerminalWindow = $state<any>(null);
 	let loading = $state(true);

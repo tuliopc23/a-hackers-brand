@@ -106,7 +106,7 @@
 			? Array.from({ length: lines }, (_, i) => {
 					if (i === lines - 1) return '60%'; // Last line shorter
 					return `${85 + Math.floor(Math.random() * 15)}%`;
-			  })
+				})
 			: []
 	);
 </script>
@@ -130,12 +130,7 @@
 			>
 				{#if animated}
 					<div
-						class={cn(
-							'absolute inset-0 bg-gradient-to-r',
-							currentVariant.shimmer,
-							shimmerSpeed,
-							'animate-shimmer'
-						)}
+						class={cn('absolute inset-0 bg-gradient-to-r', currentVariant.shimmer, shimmerSpeed, 'animate-shimmer')}
 					></div>
 				{/if}
 			</div>
@@ -154,20 +149,15 @@
 			animated && 'transform-gpu will-change-transform',
 			className
 		)}
-		style:width={width}
-		style:height={height}
+		style:width
+		style:height
 		use:breathing={{ enabled: animated && variant === 'liquid', intensity: 0.03, speed: 3000 }}
 		transition:glassFade={{ duration: 200 }}
 		{...restProps}
 	>
 		{#if animated}
 			<div
-				class={cn(
-					'absolute inset-0 bg-gradient-to-r',
-					currentVariant.shimmer,
-					shimmerSpeed,
-					'animate-shimmer'
-				)}
+				class={cn('absolute inset-0 bg-gradient-to-r', currentVariant.shimmer, shimmerSpeed, 'animate-shimmer')}
 			></div>
 		{/if}
 	</div>

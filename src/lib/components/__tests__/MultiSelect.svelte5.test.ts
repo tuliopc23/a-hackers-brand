@@ -47,8 +47,8 @@ describe('MultiSelect Component (Svelte 5)', () => {
 	describe('Props and Configuration', () => {
 		it('should handle variant props correctly', () => {
 			const variants = ['default', 'glass', 'terminal'];
-			
-			variants.forEach(variant => {
+
+			variants.forEach((variant) => {
 				const props = createMockProps(multiSelectTestDefaults, { variant });
 				expect(props.variant).toBe(variant);
 			});
@@ -56,8 +56,8 @@ describe('MultiSelect Component (Svelte 5)', () => {
 
 		it('should handle size props correctly', () => {
 			const sizes = ['sm', 'md', 'lg'];
-			
-			sizes.forEach(size => {
+
+			sizes.forEach((size) => {
 				const props = createMockProps(multiSelectTestDefaults, { size });
 				expect(props.size).toBe(size);
 			});
@@ -102,9 +102,9 @@ describe('MultiSelect Component (Svelte 5)', () => {
 		it('should select single option', () => {
 			const selectedValues = new Set<string>();
 			const optionValue = 'option1';
-			
+
 			selectedValues.add(optionValue);
-			
+
 			expect(selectedValues.has(optionValue)).toBe(true);
 			expect(selectedValues.size).toBe(1);
 		});
@@ -112,11 +112,11 @@ describe('MultiSelect Component (Svelte 5)', () => {
 		it('should select multiple options', () => {
 			const selectedValues = new Set<string>();
 			const optionValues = ['option1', 'option2', 'option4'];
-			
-			optionValues.forEach(value => {
+
+			optionValues.forEach((value) => {
 				selectedValues.add(value);
 			});
-			
+
 			expect(selectedValues.size).toBe(3);
 			expect(selectedValues.has('option1')).toBe(true);
 			expect(selectedValues.has('option2')).toBe(true);
@@ -126,11 +126,11 @@ describe('MultiSelect Component (Svelte 5)', () => {
 		it('should deselect option', () => {
 			const selectedValues = new Set(['option1', 'option2']);
 			const optionValue = 'option1';
-			
+
 			if (selectedValues.has(optionValue)) {
 				selectedValues.delete(optionValue);
 			}
-			
+
 			expect(selectedValues.has('option1')).toBe(false);
 			expect(selectedValues.has('option2')).toBe(true);
 			expect(selectedValues.size).toBe(1);
@@ -139,25 +139,25 @@ describe('MultiSelect Component (Svelte 5)', () => {
 		it('should not select disabled options', () => {
 			const selectedValues = new Set<string>();
 			const option = defaultOptions[2]; // disabled option
-			
+
 			if (!option.disabled) {
 				selectedValues.add(option.value);
 			}
-			
+
 			expect(selectedValues.has('option3')).toBe(false);
 		});
 
 		it('should handle select all functionality', () => {
 			const selectedValues = new Set<string>();
 			const selectAll = true;
-			const enabledOptions = defaultOptions.filter(opt => !opt.disabled);
-			
+			const enabledOptions = defaultOptions.filter((opt) => !opt.disabled);
+
 			if (selectAll) {
-				enabledOptions.forEach(option => {
+				enabledOptions.forEach((option) => {
 					selectedValues.add(option.value);
 				});
 			}
-			
+
 			expect(selectedValues.size).toBe(4); // 4 enabled options
 			expect(selectedValues.has('option3')).toBe(false); // disabled option not selected
 		});
@@ -165,11 +165,11 @@ describe('MultiSelect Component (Svelte 5)', () => {
 		it('should handle clear all functionality', () => {
 			const selectedValues = new Set(['option1', 'option2', 'option4']);
 			const clearAll = true;
-			
+
 			if (clearAll) {
 				selectedValues.clear();
 			}
-			
+
 			expect(selectedValues.size).toBe(0);
 		});
 	});
@@ -178,11 +178,11 @@ describe('MultiSelect Component (Svelte 5)', () => {
 		it('should filter options by search query', () => {
 			const options = defaultOptions;
 			const searchQuery = 'Option 2';
-			
-			const filteredOptions = options.filter(option =>
+
+			const filteredOptions = options.filter((option) =>
 				option.label.toLowerCase().includes(searchQuery.toLowerCase())
 			);
-			
+
 			expect(filteredOptions).toHaveLength(1);
 			expect(filteredOptions[0].value).toBe('option2');
 		});
@@ -190,34 +190,34 @@ describe('MultiSelect Component (Svelte 5)', () => {
 		it('should handle case-insensitive search', () => {
 			const options = defaultOptions;
 			const searchQuery = 'OPTION';
-			
-			const filteredOptions = options.filter(option =>
+
+			const filteredOptions = options.filter((option) =>
 				option.label.toLowerCase().includes(searchQuery.toLowerCase())
 			);
-			
+
 			expect(filteredOptions).toHaveLength(5);
 		});
 
 		it('should handle empty search results', () => {
 			const options = defaultOptions;
 			const searchQuery = 'NonExistent';
-			
-			const filteredOptions = options.filter(option =>
+
+			const filteredOptions = options.filter((option) =>
 				option.label.toLowerCase().includes(searchQuery.toLowerCase())
 			);
-			
+
 			expect(filteredOptions).toHaveLength(0);
 		});
 
 		it('should clear search on option select', () => {
 			let searchQuery = 'Option 2';
 			const clearOnSelect = true;
-			
+
 			// Simulate option selection
 			if (clearOnSelect) {
 				searchQuery = '';
 			}
-			
+
 			expect(searchQuery).toBe('');
 		});
 	});
@@ -227,9 +227,9 @@ describe('MultiSelect Component (Svelte 5)', () => {
 			const selectedValues = new Set(['option1', 'option2', 'option4']);
 			const options = defaultOptions;
 			const showTags = true;
-			
+
 			if (showTags) {
-				const selectedOptions = options.filter(opt => selectedValues.has(opt.value));
+				const selectedOptions = options.filter((opt) => selectedValues.has(opt.value));
 				expect(selectedOptions).toHaveLength(3);
 			}
 		});
@@ -238,11 +238,11 @@ describe('MultiSelect Component (Svelte 5)', () => {
 			const selectedValues = new Set(['option1', 'option2', 'option4', 'option5']);
 			const tagLimit = 2;
 			const options = defaultOptions;
-			
-			const selectedOptions = options.filter(opt => selectedValues.has(opt.value));
+
+			const selectedOptions = options.filter((opt) => selectedValues.has(opt.value));
 			const displayedTags = selectedOptions.slice(0, tagLimit);
 			const remainingCount = selectedOptions.length - tagLimit;
-			
+
 			expect(displayedTags).toHaveLength(2);
 			expect(remainingCount).toBe(2);
 		});
@@ -250,9 +250,9 @@ describe('MultiSelect Component (Svelte 5)', () => {
 		it('should handle tag removal', () => {
 			const selectedValues = new Set(['option1', 'option2', 'option4']);
 			const tagToRemove = 'option2';
-			
+
 			selectedValues.delete(tagToRemove);
-			
+
 			expect(selectedValues.has('option2')).toBe(false);
 			expect(selectedValues.size).toBe(2);
 		});
@@ -264,7 +264,7 @@ describe('MultiSelect Component (Svelte 5)', () => {
 			const variant = 'glass';
 			const size = 'md';
 			const isOpen = false;
-			
+
 			simulateClassGeneration(trigger, 'relative w-full cursor-pointer', variant, size, [
 				'glass-medium',
 				'border',
@@ -273,24 +273,19 @@ describe('MultiSelect Component (Svelte 5)', () => {
 				'px-4',
 				'py-3'
 			]);
-			
+
 			if (isOpen) {
 				trigger.classList.add('ring-2', 'ring-blue-400');
 			}
-			
-			expectClassesToContain(trigger, [
-				'relative',
-				'w-full',
-				'cursor-pointer',
-				'glass-medium'
-			]);
+
+			expectClassesToContain(trigger, ['relative', 'w-full', 'cursor-pointer', 'glass-medium']);
 		});
 
 		it('should generate correct dropdown classes', () => {
 			const dropdown = createMockElement();
 			const variant = 'glass';
 			const maxHeight = 300;
-			
+
 			simulateClassGeneration(dropdown, 'absolute w-full mt-2 z-50', variant, '', [
 				'glass-heavy',
 				'border',
@@ -298,22 +293,17 @@ describe('MultiSelect Component (Svelte 5)', () => {
 				'rounded-lg',
 				'shadow-2xl'
 			]);
-			
+
 			dropdown.style.maxHeight = `${maxHeight}px`;
-			
-			expectClassesToContain(dropdown, [
-				'absolute',
-				'w-full',
-				'mt-2',
-				'z-50'
-			]);
+
+			expectClassesToContain(dropdown, ['absolute', 'w-full', 'mt-2', 'z-50']);
 			expect(dropdown.style.maxHeight).toBe('300px');
 		});
 
 		it('should generate correct tag classes', () => {
 			const tag = createMockElement();
 			const variant = 'glass';
-			
+
 			simulateClassGeneration(tag, 'inline-flex items-center gap-1', variant, '', [
 				'glass-subtle',
 				'px-2',
@@ -322,23 +312,18 @@ describe('MultiSelect Component (Svelte 5)', () => {
 				'text-sm',
 				'text-white'
 			]);
-			
-			expectClassesToContain(tag, [
-				'inline-flex',
-				'items-center',
-				'gap-1',
-				'glass-subtle'
-			]);
+
+			expectClassesToContain(tag, ['inline-flex', 'items-center', 'gap-1', 'glass-subtle']);
 		});
 
 		it('should apply disabled styles', () => {
 			const trigger = createMockElement();
 			const disabled = true;
-			
+
 			if (disabled) {
 				trigger.classList.add('opacity-50', 'cursor-not-allowed');
 			}
-			
+
 			expect(trigger.classList.add).toHaveBeenCalledWith('opacity-50', 'cursor-not-allowed');
 		});
 	});
@@ -347,11 +332,11 @@ describe('MultiSelect Component (Svelte 5)', () => {
 		it('should toggle dropdown open state', () => {
 			let isOpen = false;
 			const disabled = false;
-			
+
 			if (!disabled) {
 				isOpen = !isOpen;
 			}
-			
+
 			expect(isOpen).toBe(true);
 		});
 
@@ -360,9 +345,9 @@ describe('MultiSelect Component (Svelte 5)', () => {
 			const handleOutsideClick = () => {
 				isOpen = false;
 			};
-			
+
 			handleOutsideClick();
-			
+
 			expect(isOpen).toBe(false);
 		});
 
@@ -371,7 +356,7 @@ describe('MultiSelect Component (Svelte 5)', () => {
 			const escapeEvent = simulateKeyboardEvent(createMockElement(), 'Escape', () => {
 				isOpen = false;
 			});
-			
+
 			expect(isOpen).toBe(false);
 		});
 	});
@@ -379,27 +364,27 @@ describe('MultiSelect Component (Svelte 5)', () => {
 	describe('Keyboard Navigation', () => {
 		it('should navigate options with arrow keys', () => {
 			let highlightedIndex = 0;
-			const options = defaultOptions.filter(opt => !opt.disabled);
-			
+			const options = defaultOptions.filter((opt) => !opt.disabled);
+
 			// Arrow Down
 			simulateKeyboardEvent(createMockElement(), 'ArrowDown', () => {
 				highlightedIndex = Math.min(highlightedIndex + 1, options.length - 1);
 			});
-			
+
 			expect(highlightedIndex).toBe(1);
-			
+
 			// Arrow Up
 			simulateKeyboardEvent(createMockElement(), 'ArrowUp', () => {
 				highlightedIndex = Math.max(highlightedIndex - 1, 0);
 			});
-			
+
 			expect(highlightedIndex).toBe(0);
 		});
 
 		it('should select option with Enter key', () => {
 			const selectedValues = new Set<string>();
 			const highlightedOption = 'option1';
-			
+
 			simulateKeyboardEvent(createMockElement(), 'Enter', () => {
 				if (selectedValues.has(highlightedOption)) {
 					selectedValues.delete(highlightedOption);
@@ -407,24 +392,24 @@ describe('MultiSelect Component (Svelte 5)', () => {
 					selectedValues.add(highlightedOption);
 				}
 			});
-			
+
 			expect(selectedValues.has('option1')).toBe(true);
 		});
 
 		it('should handle Home and End keys', () => {
 			let highlightedIndex = 2;
 			const options = defaultOptions;
-			
+
 			simulateKeyboardEvent(createMockElement(), 'Home', () => {
 				highlightedIndex = 0;
 			});
-			
+
 			expect(highlightedIndex).toBe(0);
-			
+
 			simulateKeyboardEvent(createMockElement(), 'End', () => {
 				highlightedIndex = options.length - 1;
 			});
-			
+
 			expect(highlightedIndex).toBe(4);
 		});
 	});
@@ -434,22 +419,22 @@ describe('MultiSelect Component (Svelte 5)', () => {
 			const dropdown = createMockElement();
 			const animate = true;
 			const isOpen = true;
-			
+
 			if (animate && isOpen) {
 				simulateAnimation(dropdown, true);
 			}
-			
+
 			expect(dropdown.style.transition).toContain('all');
 		});
 
 		it('should animate tag changes', () => {
 			const tag = createMockElement();
 			const animate = true;
-			
+
 			if (animate) {
 				tag.style.animation = 'slideInRight 0.2s ease-out';
 			}
-			
+
 			expect(tag.style.animation).toContain('slideInRight');
 		});
 
@@ -457,13 +442,13 @@ describe('MultiSelect Component (Svelte 5)', () => {
 			const dropdown = createMockElement();
 			const animate = true;
 			const reduceMotion = true;
-			
+
 			if (animate && !reduceMotion) {
 				simulateAnimation(dropdown, true);
 			} else {
 				dropdown.style.transition = 'none';
 			}
-			
+
 			expect(dropdown.style.transition).toBe('none');
 		});
 	});
@@ -473,27 +458,27 @@ describe('MultiSelect Component (Svelte 5)', () => {
 			const trigger = createMockElement();
 			const isOpen = false;
 			const selectedCount = 2;
-			
+
 			expectAttributesToBeSet(trigger, {
 				role: 'combobox'
 			});
-			
+
 			expectAriaAttributes(trigger, {
-				'expanded': String(isOpen),
-				'haspopup': 'listbox',
-				'label': `${selectedCount} options selected`
+				expanded: String(isOpen),
+				haspopup: 'listbox',
+				label: `${selectedCount} options selected`
 			});
 		});
 
 		it('should have proper ARIA attributes on listbox', () => {
 			const listbox = createMockElement();
-			
+
 			expectAttributesToBeSet(listbox, {
 				role: 'listbox'
 			});
-			
+
 			expectAriaAttributes(listbox, {
-				'multiselectable': 'true'
+				multiselectable: 'true'
 			});
 		});
 
@@ -501,29 +486,29 @@ describe('MultiSelect Component (Svelte 5)', () => {
 			const option = createMockElement();
 			const isSelected = true;
 			const isDisabled = false;
-			
+
 			expectAttributesToBeSet(option, {
 				role: 'option'
 			});
-			
+
 			expectAriaAttributes(option, {
-				'selected': String(isSelected),
-				'disabled': String(isDisabled)
+				selected: String(isSelected),
+				disabled: String(isDisabled)
 			});
 		});
 
 		it('should announce selection changes', () => {
 			const announcement = createMockElement();
 			const selectedCount = 3;
-			
+
 			expectAttributesToBeSet(announcement, {
 				role: 'status'
 			});
-			
+
 			expectAriaAttributes(announcement, {
-				'live': 'polite'
+				live: 'polite'
 			});
-			
+
 			announcement.textContent = `${selectedCount} options selected`;
 			expect(announcement.textContent).toBe('3 options selected');
 		});
@@ -533,7 +518,7 @@ describe('MultiSelect Component (Svelte 5)', () => {
 		it('should cleanup event listeners properly', () => {
 			const trigger = createMockElement();
 			const option = createMockElement();
-			
+
 			testEventCleanup(trigger, ['click', 'keydown', 'blur']);
 			testEventCleanup(option, ['click', 'mouseenter', 'mouseleave']);
 		});
@@ -544,32 +529,32 @@ describe('MultiSelect Component (Svelte 5)', () => {
 				label: `Option ${i}`,
 				disabled: i % 100 === 0
 			}));
-			
+
 			const props = createMockProps(multiSelectTestDefaults, {
 				options: largeOptions
 			});
-			
+
 			expect(props.options).toHaveLength(1000);
 		});
 
 		it('should debounce search input', () => {
 			const searchHandler = vi.fn();
 			let debounceTimeout: number;
-			
+
 			const debouncedSearch = (query: string) => {
 				clearTimeout(debounceTimeout);
 				debounceTimeout = window.setTimeout(() => {
 					searchHandler(query);
 				}, 300);
 			};
-			
+
 			// Simulate rapid typing
 			debouncedSearch('a');
 			debouncedSearch('ap');
 			debouncedSearch('app');
-			
+
 			vi.advanceTimersByTime(300);
-			
+
 			expect(searchHandler).toHaveBeenCalledTimes(1);
 			expect(searchHandler).toHaveBeenCalledWith('app');
 		});

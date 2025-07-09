@@ -202,9 +202,9 @@
 	<!-- Tab Content -->
 	<div
 		class={contentClasses}
-	role="tabpanel"
-	id={`${uniqueId}-tabpanel-${activeTab}`}
-	aria-labelledby={`${uniqueId}-tab-${activeTab}`}
+		role="tabpanel"
+		id={`${uniqueId}-tabpanel-${activeTab}`}
+		aria-labelledby={`${uniqueId}-tab-${activeTab}`}
 		tabindex="0"
 	>
 		{#if activeTabData?.content}

@@ -23,8 +23,8 @@ describe('Table Component (Svelte 5)', () => {
 	];
 
 	const defaultData = [
-		{ id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active', amount: 100.50 },
-		{ id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Inactive', amount: 250.00 },
+		{ id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active', amount: 100.5 },
+		{ id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Inactive', amount: 250.0 },
 		{ id: 3, name: 'Bob Johnson', email: 'bob@example.com', status: 'Active', amount: 75.25 }
 	];
 
@@ -52,15 +52,15 @@ describe('Table Component (Svelte 5)', () => {
 	describe('Props and Configuration', () => {
 		it('should handle variant props correctly', () => {
 			const variants = ['default', 'glass', 'terminal'];
-			
-			variants.forEach(variant => {
+
+			variants.forEach((variant) => {
 				const props = createMockProps(tableTestDefaults, { variant });
 				expect(props.variant).toBe(variant);
 			});
 		});
 
 		it('should handle size props correctly', () => {
-			commonSizes.forEach(size => {
+			commonSizes.forEach((size) => {
 				const props = createMockProps(tableTestDefaults, { size });
 				expect(props.size).toBe(size);
 			});
@@ -110,48 +110,39 @@ describe('Table Component (Svelte 5)', () => {
 			const wrapper = createMockElement();
 			const variant = 'glass';
 			const maxHeight = '400px';
-			
+
 			simulateClassGeneration(wrapper, 'relative w-full overflow-auto', variant, '', [
 				'glass-subtle',
 				'rounded-brand-lg',
 				'border',
 				'border-white/20'
 			]);
-			
+
 			if (maxHeight) {
 				wrapper.style.maxHeight = maxHeight;
 			}
-			
-			expectClassesToContain(wrapper, [
-				'relative',
-				'w-full',
-				'overflow-auto'
-			]);
+
+			expectClassesToContain(wrapper, ['relative', 'w-full', 'overflow-auto']);
 			expect(wrapper.style.maxHeight).toBe('400px');
 		});
 
 		it('should generate correct table classes', () => {
 			const table = createMockElement();
 			const size = 'md';
-			
-			simulateClassGeneration(table, 'w-full', '', size, [
-				'text-sm'
-			]);
-			
-			expectClassesToContain(table, [
-				'w-full',
-				'text-sm'
-			]);
+
+			simulateClassGeneration(table, 'w-full', '', size, ['text-sm']);
+
+			expectClassesToContain(table, ['w-full', 'text-sm']);
 		});
 
 		it('should apply sticky header classes', () => {
 			const thead = createMockElement();
 			const stickyHeader = true;
-			
+
 			if (stickyHeader) {
 				thead.classList.add('sticky', 'top-0', 'z-10', 'bg-inherit');
 			}
-			
+
 			expect(thead.classList.add).toHaveBeenCalledWith('sticky', 'top-0', 'z-10', 'bg-inherit');
 		});
 
@@ -159,11 +150,11 @@ describe('Table Component (Svelte 5)', () => {
 			const row = createMockElement();
 			const striped = true;
 			const isEven = true;
-			
+
 			if (striped && isEven) {
 				row.classList.add('bg-white/5');
 			}
-			
+
 			expect(row.classList.add).toHaveBeenCalledWith('bg-white/5');
 		});
 
@@ -171,14 +162,14 @@ describe('Table Component (Svelte 5)', () => {
 			const row = createMockElement();
 			const hover = true;
 			const variant = 'glass';
-			
+
 			if (hover) {
 				row.classList.add('transition-colors', 'hover:bg-white/10');
 				if (variant === 'glass') {
 					row.classList.add('hover:glass-light');
 				}
 			}
-			
+
 			expect(row.classList.add).toHaveBeenCalledWith('transition-colors', 'hover:bg-white/10');
 			expect(row.classList.add).toHaveBeenCalledWith('hover:glass-light');
 		});
@@ -195,7 +186,7 @@ describe('Table Component (Svelte 5)', () => {
 			Object.entries(alignments).forEach(([align, className]) => {
 				const cell = createMockElement();
 				cell.classList.add(className);
-				
+
 				expect(cell.classList.add).toHaveBeenCalledWith(className);
 			});
 		});
@@ -203,24 +194,24 @@ describe('Table Component (Svelte 5)', () => {
 		it('should apply column width', () => {
 			const th = createMockElement();
 			const column = { key: 'id', label: 'ID', width: '100px' };
-			
+
 			if (column.width) {
 				th.style.width = column.width;
 			}
-			
+
 			expect(th.style.width).toBe('100px');
 		});
 
 		it('should format cell values', () => {
-			const column = { 
-				key: 'amount', 
-				label: 'Amount', 
-				formatter: (v: number) => `$${v.toFixed(2)}` 
+			const column = {
+				key: 'amount',
+				label: 'Amount',
+				formatter: (v: number) => `$${v.toFixed(2)}`
 			};
 			const value = 100.5;
-			
+
 			const formatted = column.formatter ? column.formatter(value) : value;
-			
+
 			expect(formatted).toBe('$100.50');
 		});
 
@@ -231,9 +222,9 @@ describe('Table Component (Svelte 5)', () => {
 				render: (value: string) => `<span class="badge">${value}</span>`
 			};
 			const value = 'Active';
-			
+
 			const rendered = column.render ? column.render(value, {}) : value;
-			
+
 			expect(rendered).toContain('badge');
 			expect(rendered).toContain('Active');
 		});
@@ -246,12 +237,12 @@ describe('Table Component (Svelte 5)', () => {
 			const sortBy = 'name';
 			const columnKey = 'name';
 			const sortOrder = 'asc';
-			
+
 			if (sortable && sortBy === columnKey) {
 				const indicator = sortOrder === 'asc' ? '↑' : '↓';
 				th.textContent = `Name ${indicator}`;
 			}
-			
+
 			expect(th.textContent).toContain('↑');
 		});
 
@@ -259,12 +250,12 @@ describe('Table Component (Svelte 5)', () => {
 			const th = createMockElement();
 			const onSort = vi.fn();
 			const column = { key: 'name', label: 'Name', sortable: true };
-			
+
 			if (column.sortable) {
 				th.addEventListener('click', () => onSort(column.key));
 				th.click();
 			}
-			
+
 			expect(th.click).toHaveBeenCalled();
 		});
 
@@ -272,7 +263,7 @@ describe('Table Component (Svelte 5)', () => {
 			let sortBy = 'name';
 			let sortOrder: 'asc' | 'desc' = 'asc';
 			const columnKey = 'name';
-			
+
 			// Click on same column - toggle order
 			if (sortBy === columnKey) {
 				sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
@@ -280,7 +271,7 @@ describe('Table Component (Svelte 5)', () => {
 				sortBy = columnKey;
 				sortOrder = 'asc';
 			}
-			
+
 			expect(sortOrder).toBe('desc');
 		});
 
@@ -288,14 +279,14 @@ describe('Table Component (Svelte 5)', () => {
 			const data = [...defaultData];
 			const sortBy = 'name';
 			const sortOrder = 'asc';
-			
+
 			const sorted = data.sort((a, b) => {
 				const aVal = a[sortBy];
 				const bVal = b[sortBy];
 				const comparison = aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
 				return sortOrder === 'asc' ? comparison : -comparison;
 			});
-			
+
 			expect(sorted[0].name).toBe('Bob Johnson');
 			expect(sorted[2].name).toBe('John Doe');
 		});
@@ -305,11 +296,11 @@ describe('Table Component (Svelte 5)', () => {
 		it('should render selection checkboxes', () => {
 			const checkbox = createMockElement();
 			const selectable = true;
-			
+
 			if (selectable) {
 				checkbox.setAttribute('type', 'checkbox');
 			}
-			
+
 			expectAttributesToBeSet(checkbox, {
 				type: 'checkbox'
 			});
@@ -319,7 +310,7 @@ describe('Table Component (Svelte 5)', () => {
 			const checkbox = createMockElement();
 			const selectedRows = new Set<string | number>();
 			const rowId = 1;
-			
+
 			checkbox.addEventListener('change', () => {
 				if (selectedRows.has(rowId)) {
 					selectedRows.delete(rowId);
@@ -327,11 +318,11 @@ describe('Table Component (Svelte 5)', () => {
 					selectedRows.add(rowId);
 				}
 			});
-			
+
 			// Select row
 			checkbox.click();
 			selectedRows.add(rowId);
-			
+
 			expect(selectedRows.has(rowId)).toBe(true);
 		});
 
@@ -339,19 +330,19 @@ describe('Table Component (Svelte 5)', () => {
 			const selectAllCheckbox = createMockElement();
 			const selectedRows = new Set<string | number>();
 			const allIds = [1, 2, 3];
-			
+
 			selectAllCheckbox.addEventListener('change', () => {
 				if (selectedRows.size === allIds.length) {
 					selectedRows.clear();
 				} else {
-					allIds.forEach(id => selectedRows.add(id));
+					allIds.forEach((id) => selectedRows.add(id));
 				}
 			});
-			
+
 			// Select all
 			selectAllCheckbox.click();
-			allIds.forEach(id => selectedRows.add(id));
-			
+			allIds.forEach((id) => selectedRows.add(id));
+
 			expect(selectedRows.size).toBe(3);
 		});
 
@@ -359,13 +350,13 @@ describe('Table Component (Svelte 5)', () => {
 			const selectAllCheckbox = createMockElement();
 			const selectedRows = new Set([1, 2]);
 			const totalRows = 3;
-			
+
 			const isIndeterminate = selectedRows.size > 0 && selectedRows.size < totalRows;
-			
+
 			if (isIndeterminate) {
 				selectAllCheckbox.setAttribute('indeterminate', 'true');
 			}
-			
+
 			expectAttributesToBeSet(selectAllCheckbox, {
 				indeterminate: 'true'
 			});
@@ -376,11 +367,11 @@ describe('Table Component (Svelte 5)', () => {
 		it('should show loading indicator', () => {
 			const loadingContainer = createMockElement();
 			const loading = true;
-			
+
 			if (loading) {
 				loadingContainer.classList.add('animate-pulse', 'bg-white/10');
 			}
-			
+
 			expect(loadingContainer.classList.add).toHaveBeenCalledWith('animate-pulse', 'bg-white/10');
 		});
 
@@ -388,7 +379,7 @@ describe('Table Component (Svelte 5)', () => {
 			const skeletonRows = [];
 			const loading = true;
 			const skeletonCount = 5;
-			
+
 			if (loading) {
 				for (let i = 0; i < skeletonCount; i++) {
 					const row = createMockElement();
@@ -396,7 +387,7 @@ describe('Table Component (Svelte 5)', () => {
 					skeletonRows.push(row);
 				}
 			}
-			
+
 			expect(skeletonRows).toHaveLength(5);
 		});
 	});
@@ -406,12 +397,12 @@ describe('Table Component (Svelte 5)', () => {
 			const emptyCell = createMockElement();
 			const data: any[] = [];
 			const emptyMessage = 'No data available';
-			
+
 			if (data.length === 0) {
 				emptyCell.textContent = emptyMessage;
 				emptyCell.setAttribute('colspan', String(5));
 			}
-			
+
 			expect(emptyCell.textContent).toBe('No data available');
 			expectAttributesToBeSet(emptyCell, {
 				colspan: '5'
@@ -422,13 +413,13 @@ describe('Table Component (Svelte 5)', () => {
 	describe('Accessibility', () => {
 		it('should have proper table ARIA attributes', () => {
 			const table = createMockElement();
-			
+
 			expectAttributesToBeSet(table, {
 				role: 'table'
 			});
-			
+
 			expectAriaAttributes(table, {
-				'label': 'Data table'
+				label: 'Data table'
 			});
 		});
 
@@ -438,35 +429,35 @@ describe('Table Component (Svelte 5)', () => {
 			const sortBy = 'name';
 			const columnKey = 'name';
 			const sortOrder = 'asc';
-			
+
 			if (sortable) {
 				th.setAttribute('aria-sort', sortBy === columnKey ? sortOrder : 'none');
 			}
-			
+
 			expectAriaAttributes(th, {
-				'sort': 'asc'
+				sort: 'asc'
 			});
 		});
 
 		it('should label selection checkboxes', () => {
 			const checkbox = createMockElement();
 			const rowId = 1;
-			
+
 			expectAriaAttributes(checkbox, {
-				'label': `Select row ${rowId}`
+				label: `Select row ${rowId}`
 			});
 		});
 
 		it('should announce loading state', () => {
 			const table = createMockElement();
 			const loading = true;
-			
+
 			if (loading) {
 				table.setAttribute('aria-busy', 'true');
 			}
-			
+
 			expectAriaAttributes(table, {
-				'busy': 'true'
+				busy: 'true'
 			});
 		});
 	});
@@ -480,18 +471,18 @@ describe('Table Component (Svelte 5)', () => {
 				status: i % 2 === 0 ? 'Active' : 'Inactive',
 				amount: Math.random() * 1000
 			}));
-			
+
 			const props = createMockProps(tableTestDefaults, {
 				data: largeData
 			});
-			
+
 			expect(props.data).toHaveLength(1000);
 		});
 
 		it('should cleanup event listeners properly', () => {
 			const th = createMockElement();
 			const row = createMockElement();
-			
+
 			testEventCleanup(th, ['click']);
 			testEventCleanup(row, ['click', 'mouseenter', 'mouseleave']);
 		});
@@ -501,12 +492,12 @@ describe('Table Component (Svelte 5)', () => {
 			const virtualScrolling = true;
 			const rowHeight = 48;
 			const visibleRows = 10;
-			
+
 			if (virtualScrolling) {
 				wrapper.style.height = `${rowHeight * visibleRows}px`;
 				wrapper.style.overflowY = 'auto';
 			}
-			
+
 			expect(wrapper.style.height).toBe('480px');
 			expect(wrapper.style.overflowY).toBe('auto');
 		});

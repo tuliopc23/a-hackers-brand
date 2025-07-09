@@ -3,19 +3,48 @@
 	import { onMount } from 'svelte';
 	import { glassFade, magneticHover } from '$lib/motion';
 	import { lazy } from '$lib/utils/lazy.js';
+	import { Search } from 'lucide-svelte';
+	import SearchModal from '$lib/components/SearchModal.svelte';
+	import searchIndexData from '$lib/search/search-index.json';
 
 	// Lazy load WebGL components for performance
 	const LazyLiquidBackground = lazy(() => import('$lib/components/webgl/LiquidBackground.svelte'));
 
 	let mounted = false;
 	let sidebarOpen = false;
+	let searchModalOpen = $state(false);
+
+	// Transform search index data for SearchModal
+	const searchData = searchIndexData.documents.map((doc) => ({
+		id: doc.id,
+		title: doc.title === '+page' ? doc.headings[0]?.text || doc.url.split('/').pop() || doc.id : doc.title,
+		content: doc.content,
+		path: doc.url,
+		type: doc.category || doc.type || 'component',
+		keywords: doc.keywords || [],
+		score: 0
+	}));
 
 	onMount(() => {
 		mounted = true;
 
 		// Apply magnetic hover to navigation elements
 		const magneticElements = document.querySelectorAll('[data-magnetic]');
-		magneticElements.forEach(el => magneticHover(el));
+		magneticElements.forEach((el) => magneticHover(el));
+
+		// Global keyboard listener for search shortcut (Cmd/Ctrl + K)
+		const handleGlobalKeydown = (e: KeyboardEvent) => {
+			if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+				e.preventDefault();
+				openSearch();
+			}
+		};
+
+		document.addEventListener('keydown', handleGlobalKeydown);
+
+		return () => {
+			document.removeEventListener('keydown', handleGlobalKeydown);
+		};
 	});
 
 	// Documentation navigation structure
@@ -25,7 +54,8 @@
 			items: [
 				{ title: 'Overview', href: '/docs', exact: true },
 				{ title: 'Installation', href: '/docs/installation' },
-				{ title: 'Quick Start', href: '/docs/quick-start' }
+				{ title: 'Quick Start', href: '/docs/quick-start' },
+				{ title: 'Playground', href: '/docs/playground' }
 			]
 		},
 		{
@@ -62,6 +92,7 @@
 				{ title: 'Design Tokens', href: '/docs/tokens' },
 				{ title: 'Typography', href: '/docs/typography' },
 				{ title: 'Colors', href: '/docs/colors' },
+				{ title: 'Iconography', href: '/docs/iconography' },
 				{ title: 'Spacing', href: '/docs/spacing' },
 				{ title: 'Motion', href: '/docs/motion' }
 			]
@@ -85,15 +116,32 @@
 		return $page.url.pathname.startsWith(href);
 	}
 
+	// Search modal controls
+	function openSearch() {
+		searchModalOpen = true;
+	}
+
+	function closeSearch() {
+		searchModalOpen = false;
+	}
+
+	function handleSearchSelect(result: any) {
+		// Navigate to the selected documentation page
+		window.location.href = result.path;
+		closeSearch();
+	}
+
 	// Toggle mobile sidebar
 	function toggleSidebar() {
 		sidebarOpen = !sidebarOpen;
 	}
 
 	// Close sidebar when route changes
-	$: if ($page.url.pathname) {
-		sidebarOpen = false;
-	}
+	$effect(() => {
+		if ($page.url.pathname) {
+			sidebarOpen = false;
+		}
+	});
 </script>
 
 <svelte:head>
@@ -116,7 +164,56 @@
 				<div class="flex items-center">
 					<h1 class="text-xl font-bold text-white">A Hacker's Brand</h1>
 				</div>
-				<div class="text-sm text-white/70">Documentation</div>
+
+				<!-- Center: Search Button with glass morphism -->
+				<div class="flex-1 max-w-md mx-8 hidden md:block">
+					<button
+						type="button"
+						onclick={openSearch}
+						class="
+							w-full flex items-center gap-3 px-4 py-2.5 rounded-xl
+							bg-white/5 backdrop-blur-xl border border-white/10
+							hover:bg-white/10 hover:border-white/20 hover:shadow-lg hover:shadow-blue-500/10
+							transition-all duration-300 ease-out
+							group cursor-pointer
+						"
+						data-magnetic
+						use:magneticHover={{ enabled: true, strength: 0.1, scale: 1.02 }}
+						aria-label="Search documentation (Cmd+K)"
+					>
+						<Search class="w-4 h-4 text-white/50 group-hover:text-white/80 transition-colors" />
+						<span class="text-white/50 group-hover:text-white/80 text-sm font-mono flex-1 text-left transition-colors">
+							Search documentation...
+						</span>
+						<div class="flex items-center gap-1">
+							<kbd class="px-1.5 py-0.5 text-xs text-white/40 bg-white/10 border border-white/20 rounded font-mono">
+								⌘K
+							</kbd>
+						</div>
+					</button>
+				</div>
+
+				<!-- Right: Mobile Search + Documentation Label -->
+				<div class="flex items-center gap-3">
+					<!-- Mobile Search Button -->
+					<button
+						type="button"
+						onclick={openSearch}
+						class="
+							md:hidden p-2 rounded-lg
+							bg-white/5 backdrop-blur-xl border border-white/10
+							hover:bg-white/10 hover:border-white/20 hover:shadow-lg hover:shadow-blue-500/10
+							transition-all duration-300
+						"
+						data-magnetic
+						use:magneticHover={{ enabled: true, strength: 0.1, scale: 1.05 }}
+						aria-label="Search documentation"
+					>
+						<Search class="w-5 h-5 text-white/70" />
+					</button>
+
+					<div class="text-sm text-white/70 hidden sm:block">Documentation</div>
+				</div>
 			</div>
 		</div>
 	</nav>
@@ -124,7 +221,7 @@
 	<div class="flex relative z-10">
 		<!-- Mobile Sidebar Overlay -->
 		{#if sidebarOpen}
-			<div 
+			<div
 				class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
 				onclick={toggleSidebar}
 				onkeydown={(e) => {
@@ -139,16 +236,18 @@
 		{/if}
 
 		<!-- Sidebar -->
-		<aside class="
-			fixed lg:sticky top-0 left-0 h-screen w-80 
-			bg-slate-900/95 backdrop-blur-xl border-r border-white/10 
+		<aside
+			class="
+			fixed lg:sticky top-0 left-0 h-screen w-80
+			bg-slate-900/95 backdrop-blur-xl border-r border-white/10
 			transform transition-transform duration-300 z-50
 			{sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-		">
+		"
+		>
 			<div class="p-6 border-b border-white/10">
 				<div class="flex items-center justify-between">
 					<h2 class="text-lg font-semibold text-white">Documentation</h2>
-					<button 
+					<button
 						class="p-2 hover:bg-white/10 rounded-lg transition-colors lg:hidden"
 						onclick={toggleSidebar}
 						aria-label="Close sidebar"
@@ -169,14 +268,13 @@
 						<ul class="space-y-1">
 							{#each section.items as item}
 								<li>
-									<a 
+									<a
 										href={item.href}
 										class="
 											block px-3 py-2 rounded-lg text-sm transition-all duration-200
-											{isActive(item.href, item.exact) 
-												? 'bg-blue-500/20 text-blue-300 border-l-2 border-blue-400' 
-												: 'text-white/70 hover:text-white hover:bg-white/10'
-											}
+											{isActive(item.href, item.exact)
+											? 'bg-blue-500/20 text-blue-300 border-l-2 border-blue-400'
+											: 'text-white/70 hover:text-white hover:bg-white/10'}
 										"
 										data-magnetic
 									>
@@ -194,7 +292,7 @@
 		<main class="flex-1 lg:ml-0">
 			<!-- Mobile Menu Button -->
 			<div class="lg:hidden sticky top-0 z-30 bg-slate-900/95 backdrop-blur-xl border-b border-white/10 p-4">
-				<button 
+				<button
 					class="flex items-center space-x-2 p-2 hover:bg-white/10 rounded-lg transition-colors"
 					onclick={toggleSidebar}
 					aria-label="Open sidebar"
@@ -212,13 +310,26 @@
 			</div>
 		</main>
 	</div>
+
+	<!-- Search Modal -->
+	<SearchModal
+		bind:isOpen={searchModalOpen}
+		title="Search Documentation"
+		placeholder="Search components, guides, and examples..."
+		{searchData}
+		maxResults={10}
+		showType={true}
+		showIcons={true}
+		onClose={closeSearch}
+		onSelect={handleSearchSelect}
+	/>
 </div>
 
 <style>
 	:global(.docs-content) {
 		@apply max-w-4xl mx-auto px-6 py-8;
 	}
-	
+
 	@media (min-width: 1024px) {
 		:global(.docs-content) {
 			@apply px-8 py-12;
@@ -244,7 +355,7 @@
 	:global(.docs-content ul) {
 		@apply list-disc list-inside text-white/80 mb-4;
 	}
-	
+
 	:global(.docs-content ul li + li) {
 		margin-top: 0.5rem;
 	}

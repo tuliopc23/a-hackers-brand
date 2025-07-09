@@ -62,9 +62,9 @@ describe('Motion System Unit Tests', () => {
 		});
 
 		it('should create liquid blur transition', () => {
-			const transition = liquidBlur(mockElement, { 
-				duration: 300, 
-				blur: 'md' 
+			const transition = liquidBlur(mockElement, {
+				duration: 300,
+				blur: 'md'
 			});
 
 			expect(transition).toBeDefined();
@@ -73,8 +73,8 @@ describe('Motion System Unit Tests', () => {
 		});
 
 		it('should create glass fade transition', () => {
-			const transition = glassFade(mockElement, { 
-				duration: 400 
+			const transition = glassFade(mockElement, {
+				duration: 400
 			});
 
 			expect(transition).toBeDefined();
@@ -83,9 +83,9 @@ describe('Motion System Unit Tests', () => {
 		});
 
 		it('should create spring pop transition', () => {
-			const transition = springPop(mockElement, { 
+			const transition = springPop(mockElement, {
 				duration: 200,
-				scale: 1.05 
+				scale: 1.05
 			});
 
 			expect(transition).toBeDefined();
@@ -94,7 +94,7 @@ describe('Motion System Unit Tests', () => {
 		});
 
 		it('should handle transition with easing', () => {
-			const transition = liquidBlur(mockElement, { 
+			const transition = liquidBlur(mockElement, {
 				duration: 300,
 				easing: EASINGS.spring
 			});
@@ -106,7 +106,7 @@ describe('Motion System Unit Tests', () => {
 	describe('Motion Performance', () => {
 		it('should complete transitions within performance threshold', async () => {
 			const startTime = performance.now();
-			
+
 			const mockElement = {
 				style: {},
 				offsetHeight: 100,
@@ -114,7 +114,7 @@ describe('Motion System Unit Tests', () => {
 			} as HTMLElement;
 
 			const transition = liquidBlur(mockElement, { duration: 100 });
-			
+
 			// Simulate transition completion
 			if (transition.tick) {
 				transition.tick(0, 1);
@@ -134,12 +134,10 @@ describe('Motion System Unit Tests', () => {
 				offsetWidth: 100
 			})) as HTMLElement[];
 
-			const transitions = elements.map(element => 
-				liquidBlur(element, { duration: 200 })
-			);
+			const transitions = elements.map((element) => liquidBlur(element, { duration: 200 }));
 
 			expect(transitions).toHaveLength(5);
-			transitions.forEach(transition => {
+			transitions.forEach((transition) => {
 				expect(transition.duration).toBe(200);
 			});
 		});
@@ -149,7 +147,7 @@ describe('Motion System Unit Tests', () => {
 		it('should generate valid CSS for liquid blur', () => {
 			const mockElement = { style: {} } as HTMLElement;
 			const transition = liquidBlur(mockElement, { blur: 'lg' });
-			
+
 			if (transition.css) {
 				const css = transition.css(0.5, 1);
 				expect(css).toContain('filter');
@@ -160,7 +158,7 @@ describe('Motion System Unit Tests', () => {
 		it('should generate valid CSS for glass fade', () => {
 			const mockElement = { style: {} } as HTMLElement;
 			const transition = glassFade(mockElement, {});
-			
+
 			if (transition.css) {
 				const css = transition.css(0.5, 1);
 				expect(css).toContain('opacity');
@@ -170,7 +168,7 @@ describe('Motion System Unit Tests', () => {
 		it('should generate valid CSS for spring pop', () => {
 			const mockElement = { style: {} } as HTMLElement;
 			const transition = springPop(mockElement, { scale: 1.1 });
-			
+
 			if (transition.css) {
 				const css = transition.css(0.5, 1);
 				expect(css).toContain('transform');
@@ -190,9 +188,9 @@ describe('Motion System Unit Tests', () => {
 			});
 
 			const mockElement = { style: {} } as HTMLElement;
-			const transition = liquidBlur(mockElement, { 
+			const transition = liquidBlur(mockElement, {
 				duration: 300,
-				respectReducedMotion: true 
+				respectReducedMotion: true
 			});
 
 			// Should reduce or disable animation

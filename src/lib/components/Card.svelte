@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { magneticHover, liquidBlur, jellyHover, liquidResponsive, breathing as breathingMotion } from '$lib/motion';
+	import {
+		magneticHover,
+		liquidBlur,
+		liquidBlurTransition,
+		jellyHover,
+		liquidResponsive,
+		breathing as breathingMotion
+	} from '$lib/motion';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -33,8 +40,10 @@
 		glass: 'glass-medium border border-white/30 shadow-xl hover:shadow-2xl',
 		'glass-subtle': 'glass-subtle border border-white/10 shadow-md hover:shadow-lg',
 		'glass-heavy': 'glass-heavy border border-white/40 shadow-2xl hover:shadow-3xl',
-		terminal: 'bg-terminal-bg border-2 border-terminal-green/30 shadow-lg shadow-terminal-green/10 hover:border-terminal-green/50 hover:shadow-terminal-green/20',
-		liquid: 'glass-medium border border-terminal-cyan/30 shadow-2xl shadow-terminal-cyan/10 hover:border-terminal-cyan/50 backdrop-blur-xl',
+		terminal:
+			'bg-terminal-bg border-2 border-terminal-green/30 shadow-lg shadow-terminal-green/10 hover:border-terminal-green/50 hover:shadow-terminal-green/20',
+		liquid:
+			'glass-medium border border-terminal-cyan/30 shadow-2xl shadow-terminal-cyan/10 hover:border-terminal-cyan/50 backdrop-blur-xl',
 		jelly: 'glass-subtle border border-terminal-purple/20 shadow-lg hover:shadow-xl hover:border-terminal-purple/40'
 	};
 
@@ -63,27 +72,27 @@
 			class={combinedClasses}
 			role="button"
 			tabindex="0"
-		onkeydown={(e) => {
-			if (e.key === 'Enter' || e.key === ' ') {
-				e.preventDefault();
-				e.currentTarget.click();
-			}
-		}}
-		use:jellyHover={{ 
-			enabled: jelly, 
-			duration: 250,
-			scale: variant === 'liquid' ? 1.08 : variant === 'jelly' ? 1.06 : 1.03,
-			borderRadius: variant === 'liquid' ? '32px' : variant === 'jelly' ? '28px' : '20px',
-			responsiveness: 'medium'
-		}}
-		use:liquidResponsive={{ 
-			enabled: liquid, 
-			liquidIntensity: 1.0,
-			morphStrength: 0.3
-		}}
-		use:breathingMotion={{ enabled: breathing, intensity: 0.015, speed: 3500 }}
-		use:magneticHover={{ enabled: !jelly && !liquid, strength: 0.2, scale: 1.02 }}
-			in:liquidBlur={{ blur: blur, opacity: 'medium' }}
+			onkeydown={(e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					e.currentTarget.click();
+				}
+			}}
+			use:jellyHover={{
+				enabled: jelly,
+				duration: 250,
+				scale: variant === 'liquid' ? 1.08 : variant === 'jelly' ? 1.06 : 1.03,
+				borderRadius: variant === 'liquid' ? '32px' : variant === 'jelly' ? '28px' : '20px',
+				responsiveness: 'medium'
+			}}
+			use:liquidResponsive={{
+				enabled: liquid,
+				liquidIntensity: 1.0,
+				morphStrength: 0.3
+			}}
+			use:breathingMotion={{ enabled: breathing, intensity: 0.015, speed: 3500 }}
+			use:magneticHover={{ enabled: !jelly && !liquid, strength: 0.2, scale: 1.02 }}
+			in:liquidBlurTransition={{ blur: blur, opacity: 'medium' }}
 			{...restProps}
 		>
 			{#if children}
@@ -91,17 +100,17 @@
 			{/if}
 		</div>
 	{:else}
-		<div 
-			class={combinedClasses} 
-			use:jellyHover={{ 
-				enabled: jelly && interactive, 
+		<div
+			class={combinedClasses}
+			use:jellyHover={{
+				enabled: jelly && interactive,
 				duration: 300,
 				scale: 1.02,
 				borderRadius: '24px',
 				responsiveness: 'subtle'
 			}}
-		use:breathingMotion={{ enabled: breathing, intensity: 0.01, speed: 4000 }}
-			in:liquidBlur={{ blur: blur, opacity: 'subtle' }} 
+			use:breathingMotion={{ enabled: breathing, intensity: 0.01, speed: 4000 }}
+			in:liquidBlurTransition={{ blur: blur, opacity: 'subtle' }}
 			{...restProps}
 		>
 			{#if children}
@@ -120,15 +129,15 @@
 				e.currentTarget.click();
 			}
 		}}
-		use:jellyHover={{ 
-			enabled: jelly, 
+		use:jellyHover={{
+			enabled: jelly,
 			duration: 250,
 			scale: variant === 'liquid' ? 1.08 : variant === 'jelly' ? 1.06 : 1.03,
 			borderRadius: variant === 'liquid' ? '32px' : variant === 'jelly' ? '28px' : '20px',
 			responsiveness: 'medium'
 		}}
-		use:liquidResponsive={{ 
-			enabled: liquid, 
+		use:liquidResponsive={{
+			enabled: liquid,
 			liquidIntensity: 1.0,
 			morphStrength: 0.3
 		}}
@@ -141,8 +150,8 @@
 		{/if}
 	</div>
 {:else}
-	<div 
-		class={combinedClasses} 
+	<div
+		class={combinedClasses}
 		use:breathingMotion={{ enabled: breathing, intensity: 0.01, speed: 4000 }}
 		{...restProps}
 	>
@@ -165,23 +174,24 @@
 	}
 
 	/* Terminal variant glow effects */
-	div:global([class*="terminal"]) {
+	div:global([class*='terminal']) {
 		position: relative;
 	}
 
-	div:global([class*="terminal"]):hover {
-		box-shadow: 
+	div:global([class*='terminal']):hover {
+		box-shadow:
 			0 0 30px rgba(48, 209, 88, 0.2),
 			0 8px 32px rgba(0, 0, 0, 0.3);
 	}
 
 	/* Liquid variant breathing animation */
-	div:global([class*="liquid"]) {
+	div:global([class*='liquid']) {
 		animation: card-liquid-breathe 5s ease-in-out infinite;
 	}
 
 	@keyframes card-liquid-breathe {
-		0%, 100% {
+		0%,
+		100% {
 			filter: blur(0px) saturate(1) brightness(1);
 		}
 		50% {
@@ -190,12 +200,13 @@
 	}
 
 	/* Jelly variant subtle pulse */
-	div:global([class*="jelly"]) {
+	div:global([class*='jelly']) {
 		animation: card-jelly-pulse 3s ease-in-out infinite;
 	}
 
 	@keyframes card-jelly-pulse {
-		0%, 100% {
+		0%,
+		100% {
 			box-shadow: var(--shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
 		}
 		50% {
@@ -206,7 +217,7 @@
 	/* Enhanced focus states */
 	div[role='button']:focus-visible {
 		outline: none;
-		box-shadow: 
+		box-shadow:
 			0 0 0 2px rgba(0, 255, 255, 0.6),
 			0 0 20px rgba(0, 255, 255, 0.3),
 			0 8px 25px rgba(0, 0, 0, 0.2);

@@ -13,18 +13,10 @@
 		position?: [number, number, number];
 	}
 
-	const {
-		time,
-		mouseX,
-		mouseY,
-		colorPrimary,
-		colorSecondary,
-		glowIntensity,
-		position = [0, 0, 0]
-	}: Props = $props();
+	const { time, mouseX, mouseY, colorPrimary, colorSecondary, glowIntensity, position = [0, 0, 0] }: Props = $props();
 
-let planeRef = $state<THREE.Mesh>();
-let material = $state<THREE.ShaderMaterial>();
+	let planeRef = $state<THREE.Mesh>();
+	let material = $state<THREE.ShaderMaterial>();
 
 	const vertexShader = `
 		uniform float uTime;
@@ -196,7 +188,7 @@ let material = $state<THREE.ShaderMaterial>();
 	});
 </script>
 
-<T.Mesh bind:ref={planeRef} position={position} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+<T.Mesh bind:ref={planeRef} {position} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
 	<T.PlaneGeometry args={[4, 4, 128, 128]} />
 	{#if material}
 		<T is={material} />

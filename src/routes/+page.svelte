@@ -1,306 +1,406 @@
 <script lang="ts">
-	import { Button, Card, Input, LazyTerminalWindow, LazyThrelteCanvas, PerfOverlay } from '$lib';
-	import { Terminal, Zap, Sparkles, Github, Globe, Mail } from 'lucide-svelte';
 	import { onMount } from 'svelte';
-	import { mark, measure, trackComponentLoad } from '$lib/perf.js';
-	import { dev } from '$app/environment';
-	import { enabled3D, quality, autoRotate } from '$lib/stores/threlte.js';
+	import LiquidGlass from '$lib/components/LiquidGlass.svelte';
+	import LiquidTerminal from '$lib/components/LiquidTerminal.svelte';
 
 	let mounted = false;
-	let emailValue = '';
 
 	onMount(() => {
-		const stopTracking = trackComponentLoad('MainPage');
-		mark('page:mount:start');
-
 		mounted = true;
-
-		mark('page:mount:end');
-		measure('page:mount:duration', 'page:mount:start', 'page:mount:end');
-		stopTracking();
 	});
 
-	const handleEmailSubmit = () => {
-		if (emailValue) {
-			alert(`Thanks for your interest! We'll reach out to ${emailValue} soon.`);
-			emailValue = '';
-		}
-	};
+	function handleTerminalFocus() {
+		console.log('Terminal focused');
+	}
+
+	function handleCardClick() {
+		console.log('Card clicked');
+	}
 </script>
 
 <svelte:head>
-	<title>Tulio Brand System - Liquid Glass Terminal Fusion</title>
-	<meta name="description" content="A cutting-edge design system built with SvelteKit and Vite" />
+	<title>A Hacker's Brand - Liquid Glass Design System</title>
+	<meta
+		name="description"
+		content="A cutting-edge design system that fuses Apple's liquid glass aesthetics with terminal/CLI hacker themes."
+	/>
 </svelte:head>
 
-<main class="min-h-screen">
-	<!-- Animated Background -->
-	<div class="fixed inset-0 overflow-hidden pointer-events-none">
-		<div
-			class="absolute -top-40 -right-40 w-80 h-80 bg-terminal-green/10 rounded-full blur-3xl animate-brand-float"
-			style="animation-delay: 0s;"
-		></div>
-		<div
-			class="absolute -bottom-40 -left-40 w-80 h-80 bg-brand-primary/10 rounded-full blur-3xl animate-brand-float"
-			style="animation-delay: 2s;"
-		></div>
-		<div
-			class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-secondary/5 rounded-full blur-3xl animate-brand-float"
-			style="animation-delay: 4s;"
-		></div>
-	</div>
-
+<main class="main-container">
 	<!-- Hero Section -->
-	<section class="relative z-10 container mx-auto px-6 py-20">
-		<div class="text-center mb-16">
-			<div class="mb-8 flex justify-center">
-				<div class="p-4 rounded-full glass animate-liquid-glow">
-					<Terminal class="w-12 h-12 text-terminal-green" />
+	<section class="hero-section">
+		<LiquidGlass variant="heavy" effect="glow" customClass="hero-card">
+			<div class="hero-content">
+				<h1 class="hero-title">A Hacker's Brand</h1>
+				<p class="hero-subtitle">Liquid Glass meets Terminal Aesthetics</p>
+				<p class="hero-description">
+					Experience the fusion of Apple's WWDC 2025 liquid glass design language with cutting-edge hacker/CLI/terminal
+					retrofuturistic aesthetics.
+				</p>
+				<div class="hero-actions">
+					<LiquidGlass variant="medium" effect="jelly" customClass="action-button" on:click={handleCardClick}>
+						<span>Explore Components</span>
+					</LiquidGlass>
+					<LiquidGlass variant="subtle" effect="shimmer" customClass="action-button secondary">
+						<span>View Documentation</span>
+					</LiquidGlass>
 				</div>
 			</div>
+		</LiquidGlass>
+	</section>
 
-			<h1
-				class="text-display-large font-bold mb-6 bg-gradient-to-r from-terminal-green via-brand-primary to-terminal-cyan bg-clip-text text-transparent"
+	<!-- Features Grid -->
+	<section class="features-section">
+		<h2 class="section-title">Core Features</h2>
+		<div class="features-grid">
+			<LiquidGlass variant="medium" effect="jelly" customClass="feature-card">
+				<div class="feature-content">
+					<div class="feature-icon">🎨</div>
+					<h3 class="feature-title">Liquid Glass</h3>
+					<p class="feature-description">Beautiful glassmorphism with liquid animations and organic interactions</p>
+				</div>
+			</LiquidGlass>
+
+			<LiquidGlass variant="medium" effect="magnetic" customClass="feature-card">
+				<div class="feature-content">
+					<div class="feature-icon">💻</div>
+					<h3 class="feature-title">Terminal Theme</h3>
+					<p class="feature-description">Hacker aesthetics with CLI-inspired components and retrofuturistic design</p>
+				</div>
+			</LiquidGlass>
+
+			<LiquidGlass variant="medium" effect="shimmer" customClass="feature-card">
+				<div class="feature-content">
+					<div class="feature-icon">🌊</div>
+					<h3 class="feature-title">Jelly Motion</h3>
+					<p class="feature-description">Smooth, organic animations powered by GSAP with liquid-like interactions</p>
+				</div>
+			</LiquidGlass>
+
+			<LiquidGlass variant="medium" effect="glow" customClass="feature-card">
+				<div class="feature-content">
+					<div class="feature-icon">⚡</div>
+					<h3 class="feature-title">WebGL Effects</h3>
+					<p class="feature-description">Advanced visual effects with Three.js/Threlte for immersive experiences</p>
+				</div>
+			</LiquidGlass>
+		</div>
+	</section>
+
+	<!-- Terminal Demo -->
+	<section class="terminal-section">
+		<h2 class="section-title">Liquid Terminal Experience</h2>
+		<div class="terminal-demo">
+			<LiquidTerminal
+				title="HACKERS_BRAND_DEMO_v1.0"
+				theme="liquid"
+				enableLiquidFlow={true}
+				glowEffect={true}
+				expandable={true}
+				on:focus={handleTerminalFocus}
 			>
-				Liquid Glass Terminal Fusion
-			</h1>
-
-			<p class="text-body-large text-white/80 max-w-3xl mx-auto mb-8">
-				A cutting-edge design system that seamlessly blends liquid glass morphism aesthetics with terminal-inspired
-				functionality. Built with <strong>SvelteKit + Vite</strong> for ultimate performance.
-			</p>
-
-			<div class="flex flex-wrap gap-4 justify-center">
-				<Button variant="glass" size="lg">
-					{#snippet children()}
-						<Sparkles class="w-5 h-5" />
-						Explore Components
-					{/snippet}
-				</Button>
-				<Button variant="outline" size="lg">
-					{#snippet children()}
-						<Github class="w-5 h-5" />
-						View on GitHub
-					{/snippet}
-				</Button>
-			</div>
+				<div class="terminal-line">
+					<span class="terminal-prompt">user@hackers-brand:~$</span>
+					<span class="terminal-input">npm install a-hackers-brand</span>
+				</div>
+				<div class="terminal-line">
+					<span class="terminal-output">✓ Installing liquid glass components...</span>
+				</div>
+				<div class="terminal-line">
+					<span class="terminal-output">✓ Configuring hacker aesthetics...</span>
+				</div>
+				<div class="terminal-line">
+					<span class="terminal-output">✓ Initializing GSAP animations...</span>
+				</div>
+				<div class="terminal-line">
+					<span class="terminal-output">✓ Setting up WebGL effects...</span>
+				</div>
+				<div class="terminal-line">
+					<span class="terminal-success">🚀 Welcome to the liquid glass revolution!</span>
+				</div>
+				<div class="terminal-line">
+					<span class="terminal-prompt">user@hackers-brand:~$</span>
+					<span class="terminal-cursor">_</span>
+				</div>
+			</LiquidTerminal>
 		</div>
+	</section>
 
-		<!-- Performance Stats -->
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-			<Card variant="glass" class="text-center">
-				{#snippet children()}
-					<div class="text-2xl font-bold text-terminal-green mb-2">60% Smaller</div>
-					<div class="text-white/60">Bundle Size vs React</div>
-				{/snippet}
-			</Card>
-			<Card variant="glass" class="text-center">
-				{#snippet children()}
-					<div class="text-2xl font-bold text-brand-primary mb-2">&lt;100ms</div>
-					<div class="text-white/60">Hot Module Reload</div>
-				{/snippet}
-			</Card>
-			<Card variant="glass" class="text-center">
-				{#snippet children()}
-					<div class="text-2xl font-bold text-terminal-cyan mb-2">95+</div>
-					<div class="text-white/60">Lighthouse Score</div>
-				{/snippet}
-			</Card>
-		</div>
+	<!-- Quick Links -->
+	<section class="links-section">
+		<div class="links-grid">
+			<LiquidGlass variant="subtle" effect="ripple" customClass="link-card">
+				<a href="/liquid-glass" class="link-content">
+					<h3>Liquid Glass Showcase</h3>
+					<p>Explore all glass variants and effects</p>
+				</a>
+			</LiquidGlass>
 
-		<!-- Interactive Terminal Demo -->
-		<div class="mb-20">
-			<h2 class="text-heading-1 font-bold text-center mb-8 text-white">Interactive Terminal Experience</h2>
-			<LazyTerminalWindow title="tulio@brand-system:~" autoPlay={mounted} class="animate-fade-in" />
-		</div>
+			<LiquidGlass variant="subtle" effect="jelly" customClass="link-card">
+				<a href="/components" class="link-content">
+					<h3>Component Library</h3>
+					<p>Browse 53+ components</p>
+				</a>
+			</LiquidGlass>
 
-		<!-- 3D Canvas Showcase -->
-		<div class="mb-20">
-			<h2 class="text-heading-1 font-bold text-center mb-8 text-white">Interactive 3D Experience</h2>
-			<p class="text-center text-white/70 mb-12 max-w-2xl mx-auto">
-				Experience cutting-edge WebGL rendering with Threlte and Three.js. Toggle between scenes, adjust quality
-				settings, and monitor performance in real-time.
-			</p>
-
-			<!-- 3D Scene Grid -->
-			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-				<!-- Glass Scene -->
-				<Card variant="glass" class="p-6">
-					{#snippet children()}
-						<h3 class="text-heading-3 font-semibold mb-4 text-white flex items-center">
-							<Sparkles class="w-6 h-6 mr-2 text-terminal-green" />
-							Glass Morphism Scene
-						</h3>
-						<div class="h-80 mb-4">
-							<LazyThrelteCanvas
-								class="w-full h-full"
-								scene="glass"
-								enable3D={$enabled3D}
-								quality={$quality}
-								autoRotate={$autoRotate}
-							/>
-						</div>
-						<p class="text-white/60 text-sm">
-							Advanced glass materials with realistic refraction, transmission, and lighting effects.
-						</p>
-					{/snippet}
-				</Card>
-
-				<!-- Terminal Scene -->
-				<Card variant="glass" class="p-6">
-					{#snippet children()}
-						<h3 class="text-heading-3 font-semibold mb-4 text-white flex items-center">
-							<Terminal class="w-6 h-6 mr-2 text-brand-primary" />
-							Floating Terminal
-						</h3>
-						<div class="h-80 mb-4">
-							<LazyThrelteCanvas
-								class="w-full h-full"
-								scene="terminal"
-								enable3D={$enabled3D}
-								quality={$quality}
-								autoRotate={$autoRotate}
-							/>
-						</div>
-						<p class="text-white/60 text-sm">
-							Interactive 3D terminal with real command execution and dynamic glass elements.
-						</p>
-					{/snippet}
-				</Card>
-			</div>
-
-			<!-- 3D Features Grid -->
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-4xl mx-auto">
-				<Card variant="glass-heavy" class="p-6 text-center">
-					{#snippet children()}
-						<div class="w-12 h-12 bg-terminal-green/10 rounded-full flex items-center justify-center mx-auto mb-4">
-							<Zap class="w-6 h-6 text-terminal-green" />
-						</div>
-						<h4 class="text-lg font-semibold text-white mb-2">Real-time Rendering</h4>
-						<p class="text-white/60 text-sm">60fps smooth animations with optimized WebGL shaders</p>
-					{/snippet}
-				</Card>
-
-				<Card variant="glass-heavy" class="p-6 text-center">
-					{#snippet children()}
-						<div class="w-12 h-12 bg-brand-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-							<Globe class="w-6 h-6 text-brand-primary" />
-						</div>
-						<h4 class="text-lg font-semibold text-white mb-2">Intersection Observer</h4>
-						<p class="text-white/60 text-sm">Lazy loading for optimal performance and bundle size</p>
-					{/snippet}
-				</Card>
-
-				<Card variant="glass-heavy" class="p-6 text-center">
-					{#snippet children()}
-						<div class="w-12 h-12 bg-terminal-cyan/10 rounded-full flex items-center justify-center mx-auto mb-4">
-							<Sparkles class="w-6 h-6 text-terminal-cyan" />
-						</div>
-						<h4 class="text-lg font-semibold text-white mb-2">Quality Control</h4>
-						<p class="text-white/60 text-sm">Adaptive quality settings for different device capabilities</p>
-					{/snippet}
-				</Card>
-			</div>
-		</div>
-
-		<!-- Component Showcase -->
-		<div class="mb-20">
-			<h2 class="text-heading-1 font-bold text-center mb-12 text-white">Glass UI Components</h2>
-
-			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-				<!-- Buttons Showcase -->
-				<Card variant="glass" class="p-8">
-					{#snippet children()}
-						<h3 class="text-heading-3 font-semibold mb-6 text-white">
-							<Zap class="w-6 h-6 inline mr-2 text-terminal-green" />
-							Liquid Glass Buttons
-						</h3>
-						<div class="space-y-4">
-							<div class="flex flex-wrap gap-3">
-								<Button variant="glass">
-									{#snippet children()}Glass Effect{/snippet}
-								</Button>
-								<Button variant="glass-dark">
-									{#snippet children()}Terminal Style{/snippet}
-								</Button>
-								<Button variant="outline">
-									{#snippet children()}Outlined{/snippet}
-								</Button>
-							</div>
-							<div class="flex flex-wrap gap-3">
-								<Button variant="glass" size="sm">
-									{#snippet children()}Small{/snippet}
-								</Button>
-								<Button variant="glass" size="md">
-									{#snippet children()}Medium{/snippet}
-								</Button>
-								<Button variant="glass" size="lg">
-									{#snippet children()}Large{/snippet}
-								</Button>
-							</div>
-							<div class="flex gap-3">
-								<Button variant="glass" loading>
-									{#snippet children()}Loading...{/snippet}
-								</Button>
-								<Button variant="glass-dark" icon>
-									{#snippet children()}
-										<Terminal class="w-4 h-4" />
-									{/snippet}
-								</Button>
-							</div>
-						</div>
-					{/snippet}
-				</Card>
-
-				<!-- Inputs Showcase -->
-				<Card variant="glass" class="p-8">
-					{#snippet children()}
-						<h3 class="text-heading-3 font-semibold mb-6 text-white">
-							<Sparkles class="w-6 h-6 inline mr-2 text-brand-primary" />
-							Intelligent Inputs
-						</h3>
-						<div class="space-y-4">
-							<Input variant="glass" placeholder="Glass morphism input..." label="Glass Input" />
-							<Input variant="terminal" placeholder="$ enter command..." label="Terminal Input" />
-							<Input variant="glass" placeholder="Search components...">
-								{#snippet icon()}
-									<Globe class="w-4 h-4" />
-								{/snippet}
-							</Input>
-						</div>
-					{/snippet}
-				</Card>
-			</div>
-		</div>
-
-		<!-- Newsletter Signup -->
-		<div class="text-center">
-			<Card variant="glass-heavy" class="max-w-md mx-auto p-8">
-				{#snippet children()}
-					<h3 class="text-heading-3 font-semibold mb-4 text-white">Stay Updated</h3>
-					<p class="text-white/70 mb-6">Get notified about new components and features</p>
-					<div class="space-y-4">
-						<Input bind:value={emailValue} variant="glass" placeholder="your@email.com" type="email">
-							{#snippet icon()}
-								<Mail class="w-4 h-4" />
-							{/snippet}
-						</Input>
-						<Button variant="glass" class="w-full" onclick={handleEmailSubmit} disabled={!emailValue}>
-							{#snippet children()}Join the Future{/snippet}
-						</Button>
-					</div>
-				{/snippet}
-			</Card>
+			<LiquidGlass variant="subtle" effect="magnetic" customClass="link-card">
+				<a href="/docs" class="link-content">
+					<h3>Documentation</h3>
+					<p>Learn how to use the system</p>
+				</a>
+			</LiquidGlass>
 		</div>
 	</section>
 </main>
 
-<!-- Performance Overlay -->
-<PerfOverlay />
-
 <style>
-	:global(body) {
+	.main-container {
+		min-height: 100vh;
 		background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
-		background-attachment: fixed;
+		background-image:
+			radial-gradient(circle at 20% 50%, rgba(0, 212, 170, 0.1) 0%, transparent 50%),
+			radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.08) 0%, transparent 50%),
+			radial-gradient(circle at 40% 80%, rgba(48, 209, 88, 0.06) 0%, transparent 50%);
+		padding: 2rem;
+		color: #f5f5f7;
+	}
+
+	.hero-section {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 4rem;
+	}
+
+	:global(.hero-card) {
+		padding: 3rem;
+		max-width: 800px;
+		text-align: center;
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 3;
+	}
+
+	.hero-title {
+		font-size: 4rem;
+		font-weight: 700;
+		margin: 0 0 1rem 0;
+		background: linear-gradient(135deg, #00d4aa, #00ffff, #30d158);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		line-height: 1.1;
+	}
+
+	.hero-subtitle {
+		font-size: 1.5rem;
+		color: rgba(255, 255, 255, 0.9);
+		margin: 0 0 1.5rem 0;
+		font-weight: 500;
+	}
+
+	.hero-description {
+		font-size: 1.1rem;
+		color: rgba(255, 255, 255, 0.7);
+		margin: 0 0 2rem 0;
+		line-height: 1.6;
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.hero-actions {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	:global(.action-button) {
+		padding: 1rem 2rem;
+		cursor: pointer;
+		font-weight: 500;
+		transition: all 0.3s ease;
+	}
+
+	:global(.action-button.secondary) {
+		background: rgba(255, 255, 255, 0.05);
+	}
+
+	.section-title {
+		font-size: 2.5rem;
+		font-weight: 600;
+		text-align: center;
+		margin-bottom: 3rem;
+		color: #f5f5f7;
+	}
+
+	.features-section {
+		margin-bottom: 4rem;
+	}
+
+	.features-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2rem;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	:global(.feature-card) {
+		padding: 2rem;
+		text-align: center;
+		cursor: pointer;
+	}
+
+	.feature-content {
+		position: relative;
+		z-index: 3;
+	}
+
+	.feature-icon {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+	}
+
+	.feature-title {
+		font-size: 1.5rem;
+		font-weight: 600;
+		margin: 0 0 1rem 0;
+		color: #f5f5f7;
+	}
+
+	.feature-description {
+		color: rgba(255, 255, 255, 0.7);
+		line-height: 1.5;
+		margin: 0;
+	}
+
+	.terminal-section {
+		margin-bottom: 4rem;
+	}
+
+	.terminal-demo {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.terminal-line {
+		display: flex;
+		align-items: center;
+		margin-bottom: 8px;
+		line-height: 1.4;
+	}
+
+	.terminal-prompt {
+		color: var(--terminal-green);
+		user-select: none;
+		margin-right: 8px;
+	}
+
+	.terminal-input {
+		color: #f5f5f7;
+	}
+
+	.terminal-output {
+		color: var(--terminal-blue);
+	}
+
+	.terminal-success {
+		color: var(--terminal-green);
+	}
+
+	.terminal-cursor {
+		color: var(--terminal-green);
+		animation: blink 1s step-end infinite;
+	}
+
+	.links-section {
+		margin-bottom: 2rem;
+	}
+
+	.links-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 1.5rem;
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	:global(.link-card) {
+		padding: 1.5rem;
+		cursor: pointer;
+	}
+
+	.link-content {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+		position: relative;
+		z-index: 3;
+	}
+
+	.link-content h3 {
+		font-size: 1.25rem;
+		font-weight: 600;
+		margin: 0 0 0.5rem 0;
+		color: #f5f5f7;
+	}
+
+	.link-content p {
+		color: rgba(255, 255, 255, 0.7);
+		margin: 0;
+		font-size: 0.9rem;
+	}
+
+	@keyframes blink {
+		0%,
+		50% {
+			opacity: 1;
+		}
+		51%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+	/* Responsive */
+	@media (max-width: 768px) {
+		.main-container {
+			padding: 1rem;
+		}
+
+		.hero-title {
+			font-size: 2.5rem;
+		}
+
+		.hero-subtitle {
+			font-size: 1.2rem;
+		}
+
+		:global(.hero-card) {
+			padding: 2rem;
+		}
+
+		.features-grid {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+
+		.links-grid {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+
+		.hero-actions {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		:global(.action-button) {
+			width: 100%;
+			max-width: 300px;
+		}
 	}
 </style>

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - Comprehensive README.md with installation and usage instructions
 - MIT LICENSE file
 - GitHub Actions CI/CD workflows for automated testing and releases
@@ -24,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tree-shaking optimization
 
 ### Changed
+
 - Migrated to Svelte 5 with runes syntax
 - Updated all components with liquid jelly motion effects
 - Enhanced Modal with liquid entrance/exit animations
@@ -31,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated documentation structure
 
 ### Fixed
+
 - TailwindCSS v4 compatibility issues
 - TypeScript strict mode compliance
 - Motion system type conflicts with Svelte 5
@@ -39,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0] - 2024-01-15
 
 ### Added
+
 - Liquid jelly motion system with dynamic responsiveness
 - Retro-futuristic text rendering with 14 vintage computer variants
 - Complete responsive design system (Container, Flex, Grid, Show)
@@ -49,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Component playground for testing
 
 ### Changed
+
 - Rebranded from "Tulio Brand System" to "A Hacker's Brand"
 - Updated Button component with liquid jelly effects
 - Enhanced Card components with dynamic rounded corners
@@ -57,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2024-01-01
 
 ### Added
+
 - Initial release with core glass components
 - Basic terminal components
 - Motion system foundation

@@ -10,8 +10,8 @@
 	const tokens = tailwindConfig.theme?.extend || {};
 
 	// Function to display color swatches
-	function getColorValues(colorObj: any, prefix: string = ''): Array<{name: string, value: string}> {
-		const colors: Array<{name: string, value: string}> = [];
+	function getColorValues(colorObj: any, prefix: string = ''): Array<{ name: string; value: string }> {
+		const colors: Array<{ name: string; value: string }> = [];
 
 		if (typeof colorObj === 'string') {
 			return [{ name: prefix, value: colorObj }];
@@ -32,9 +32,10 @@
 	}
 
 	// Extract colors safely from config
-	const configColors = (tokens.colors && typeof tokens.colors === 'object' && !Array.isArray(tokens.colors)) 
-		? tokens.colors as Record<string, any>
-		: {};
+	const configColors =
+		tokens.colors && typeof tokens.colors === 'object' && !Array.isArray(tokens.colors)
+			? (tokens.colors as Record<string, any>)
+			: {};
 
 	const brandColors = getColorValues(configColors.brand || {}, 'brand');
 	const terminalColors = getColorValues(configColors.terminal || {}, 'terminal');

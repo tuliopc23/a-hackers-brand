@@ -51,8 +51,7 @@ export class SpringPhysics {
 	}
 
 	isSettled(target: number): boolean {
-		return Math.abs(this.position - target) < this.precision && 
-			   Math.abs(this.velocity) < this.precision;
+		return Math.abs(this.position - target) < this.precision && Math.abs(this.velocity) < this.precision;
 	}
 }
 

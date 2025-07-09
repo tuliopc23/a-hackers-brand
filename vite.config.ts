@@ -44,7 +44,7 @@ export default defineConfig({
 	// Dependency optimization
 	optimizeDeps: {
 		include: ['lucide-svelte', 'clsx', 'tailwind-merge'],
-		exclude: ['@threlte/core', '@threlte/extras']
+		exclude: ['@threlte/core', '@threlte/extras', 'monaco-editor']
 	},
 
 	// CSS optimizations

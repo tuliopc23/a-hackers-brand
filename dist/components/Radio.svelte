@@ -119,9 +119,9 @@
 				currentSize.gap,
 				option.disabled && 'opacity-50 cursor-not-allowed'
 			)}
-			use:jellyHover={{ 
-				enabled: jelly && !option.disabled, 
-				scale: 1.02, 
+			use:jellyHover={{
+				enabled: jelly && !option.disabled,
+				scale: 1.02,
 				duration: 200,
 				borderRadius: '16px'
 			}}
@@ -135,7 +135,7 @@
 				onchange={() => !option.disabled && handleChange(option.value)}
 				class="sr-only"
 			/>
-			
+
 			<div
 				class={cn(
 					'relative rounded-full border-2 transition-all duration-300 flex items-center justify-center',
@@ -146,10 +146,10 @@
 					animated && 'transform-gpu will-change-transform',
 					!option.disabled && 'group-hover:scale-110'
 				)}
-				use:breathing={{ 
-					enabled: animated && value === option.value, 
-					intensity: 0.05, 
-					speed: 2000 
+				use:breathing={{
+					enabled: animated && value === option.value,
+					intensity: 0.05,
+					speed: 2000
 				}}
 			>
 				{#if value === option.value}
@@ -162,28 +162,27 @@
 					></div>
 				{/if}
 			</div>
-			
+
 			<div class="flex flex-col">
-				<span class={cn(
-					'font-medium transition-colors duration-200',
-					currentSize.label,
-					currentVariant.label,
-					!option.disabled && 'group-hover:text-white'
-				)}>
+				<span
+					class={cn(
+						'font-medium transition-colors duration-200',
+						currentSize.label,
+						currentVariant.label,
+						!option.disabled && 'group-hover:text-white'
+					)}
+				>
 					{option.label}
 				</span>
 				{#if option.description}
-					<span class={cn(
-						'text-xs opacity-60 mt-0.5',
-						currentVariant.label
-					)}>
+					<span class={cn('text-xs opacity-60 mt-0.5', currentVariant.label)}>
 						{option.description}
 					</span>
 				{/if}
 			</div>
 		</label>
 	{/each}
-	
+
 	{#if error}
 		<p class="text-red-400 text-sm mt-2 animate-pulse">{error}</p>
 	{/if}
@@ -192,11 +191,14 @@
 <style>
 	/* Radio button glow animation */
 	@keyframes radio-glow {
-		0%, 100% {
+		0%,
+		100% {
 			box-shadow: 0 0 20px currentColor;
 		}
 		50% {
-			box-shadow: 0 0 30px currentColor, 0 0 40px currentColor;
+			box-shadow:
+				0 0 30px currentColor,
+				0 0 40px currentColor;
 		}
 	}
 </style>

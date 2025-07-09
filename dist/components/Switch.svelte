@@ -205,7 +205,7 @@
 	/* Enhanced liquid variant styling */
 	button:global(.backdrop-blur-md):hover {
 		-webkit-backdrop-filter: blur(16px) saturate(150%);
-		        backdrop-filter: blur(16px) saturate(150%);
+		backdrop-filter: blur(16px) saturate(150%);
 	}
 
 	/* Jelly physics */

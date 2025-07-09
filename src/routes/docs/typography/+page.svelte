@@ -5,7 +5,7 @@
 
 	const { fontFamily: fontFamilies, fontSize: fontSizes, lineHeight: lineHeights } = typography;
 	const fontWeights = { normal: '400', medium: '500', semibold: '600', bold: '700' };
-	
+
 	// Font combinations
 	const fontCombinations = [
 		{
@@ -26,23 +26,24 @@
 	];
 
 	// Sample text for demonstrations
-	const pangram = "The quick brown fox jumps over the lazy dog";
-	const terminalText = "$ npm install tulio-brand-system --save";
-	const paragraph = "Our design system combines the elegance of liquid glass with the power of terminal aesthetics, creating interfaces that are both beautiful and functional.";
+	const pangram = 'The quick brown fox jumps over the lazy dog';
+	const terminalText = '$ npm install tulio-brand-system --save';
+	const paragraph =
+		'Our design system combines the elegance of liquid glass with the power of terminal aesthetics, creating interfaces that are both beautiful and functional.';
 </script>
 
 <article class="docs-content">
 	<h1>Typography</h1>
-	
+
 	<p class="lead">
-		Typography is the foundation of our design language. The PP Supply font family provides the perfect 
-		balance of technical precision and visual elegance.
+		Typography is the foundation of our design language. The PP Supply font family provides the perfect balance of
+		technical precision and visual elegance.
 	</p>
 
 	<!-- Font Families -->
 	<section>
 		<h2>Font Families</h2>
-		
+
 		<div class="grid gap-8">
 			<!-- PP Supply Sans -->
 			<div class="glass-subtle p-8 rounded-2xl">
@@ -51,18 +52,16 @@
 						<h3 class="text-2xl mb-2">PP Supply Sans</h3>
 						<p class="text-white/70">Primary typeface for UI and marketing</p>
 					</div>
-					<Button size="sm" variant="ghost">
-						Download Font
-					</Button>
+					<Button size="sm" variant="ghost">Download Font</Button>
 				</div>
-				
+
 				<div class="space-y-4 mb-6">
 					<div class="font-sans text-5xl font-bold">{pangram}</div>
 					<div class="font-sans text-3xl font-semibold">{pangram}</div>
 					<div class="font-sans text-xl font-medium">{pangram}</div>
 					<div class="font-sans text-base font-normal">{pangram}</div>
 				</div>
-				
+
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 					<div>
 						<h4 class="text-sm font-semibold text-terminal-cyan mb-3">Weights Available</h4>
@@ -85,7 +84,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div>
 						<h4 class="text-sm font-semibold text-terminal-cyan mb-3">Best Used For</h4>
 						<ul class="space-y-1 text-sm text-white/70">
@@ -106,18 +105,16 @@
 						<h3 class="text-2xl mb-2 font-mono">PP Supply Mono</h3>
 						<p class="text-white/70">Monospace for code and terminal interfaces</p>
 					</div>
-					<Button size="sm" variant="ghost">
-						Download Font
-					</Button>
+					<Button size="sm" variant="ghost">Download Font</Button>
 				</div>
-				
+
 				<div class="space-y-4 mb-6">
 					<div class="font-mono text-2xl font-bold">{terminalText}</div>
 					<div class="font-mono text-xl font-medium">{terminalText}</div>
 					<div class="font-mono text-base font-normal">{terminalText}</div>
 					<div class="font-mono text-sm font-normal">{terminalText}</div>
 				</div>
-				
+
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 					<div>
 						<h4 class="text-sm font-semibold text-terminal-green mb-3">Weights Available</h4>
@@ -136,7 +133,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div>
 						<h4 class="text-sm font-semibold text-terminal-green mb-3">Best Used For</h4>
 						<ul class="space-y-1 text-sm text-white/70">
@@ -158,7 +155,7 @@
 		<p class="text-white/70 mb-8">
 			Our type scale follows a harmonious progression, ensuring clear hierarchy and readability across all screen sizes.
 		</p>
-		
+
 		<div class="space-y-4">
 			<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 				<div class="flex items-baseline justify-between mb-2">
@@ -167,7 +164,7 @@
 				</div>
 				<p class="text-sm text-white/60">3rem / 48px • Line height: 1</p>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 				<div class="flex items-baseline justify-between mb-2">
 					<span class="text-4xl font-bold">Display</span>
@@ -175,7 +172,7 @@
 				</div>
 				<p class="text-sm text-white/60">2.25rem / 36px • Line height: 1.25</p>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 				<div class="flex items-baseline justify-between mb-2">
 					<span class="text-3xl font-bold">Heading 1</span>
@@ -183,7 +180,7 @@
 				</div>
 				<p class="text-sm text-white/60">1.875rem / 30px • Line height: 1.25</p>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 				<div class="flex items-baseline justify-between mb-2">
 					<span class="text-2xl font-semibold">Heading 2</span>
@@ -191,7 +188,7 @@
 				</div>
 				<p class="text-sm text-white/60">1.5rem / 24px • Line height: 1.5</p>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 				<div class="flex items-baseline justify-between mb-2">
 					<span class="text-xl font-semibold">Heading 3</span>
@@ -199,7 +196,7 @@
 				</div>
 				<p class="text-sm text-white/60">1.25rem / 20px • Line height: 1.5</p>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 				<div class="flex items-baseline justify-between mb-2">
 					<span class="text-lg font-medium">Heading 4</span>
@@ -207,7 +204,7 @@
 				</div>
 				<p class="text-sm text-white/60">1.125rem / 18px • Line height: 1.5</p>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 				<div class="flex items-baseline justify-between mb-2">
 					<span class="text-base">Body</span>
@@ -215,7 +212,7 @@
 				</div>
 				<p class="text-sm text-white/60">1rem / 16px • Line height: 1.5</p>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 				<div class="flex items-baseline justify-between mb-2">
 					<span class="text-sm">Small</span>
@@ -223,7 +220,7 @@
 				</div>
 				<p class="text-sm text-white/60">0.875rem / 14px • Line height: 1.5</p>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 				<div class="flex items-baseline justify-between mb-2">
 					<span class="text-xs">Extra Small</span>
@@ -238,9 +235,10 @@
 	<section class="mt-16">
 		<h2>Font Pairing</h2>
 		<p class="text-white/70 mb-8">
-			Effective font pairing creates visual interest and hierarchy. Here are recommended combinations for different contexts.
+			Effective font pairing creates visual interest and hierarchy. Here are recommended combinations for different
+			contexts.
 		</p>
-		
+
 		<div class="grid gap-6">
 			{#each fontCombinations as combo}
 				<div class="glass-subtle p-8 rounded-xl">
@@ -250,9 +248,7 @@
 							<p class="text-xs text-white/60 mb-1">
 								{combo.heading.font} • {combo.heading.size} • {combo.heading.weight}
 							</p>
-							<p class="text-{combo.heading.size} font-{combo.heading.weight}">
-								Beautiful Terminal Interfaces
-							</p>
+							<p class="text-{combo.heading.size} font-{combo.heading.weight}">Beautiful Terminal Interfaces</p>
 						</div>
 						<div>
 							<p class="text-xs text-white/60 mb-1">
@@ -274,7 +270,7 @@
 		<p class="text-white/70 mb-8">
 			Proper line height ensures readability and visual comfort across different text sizes and contexts.
 		</p>
-		
+
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="text-terminal-cyan mb-4">Tight (1.25)</h3>
@@ -283,7 +279,7 @@
 				</p>
 				<code class="text-xs text-white/60 mt-4 block">leading-tight</code>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="text-terminal-green mb-4">Normal (1.5)</h3>
 				<p class="leading-normal text-sm">
@@ -291,7 +287,7 @@
 				</p>
 				<code class="text-xs text-white/60 mt-4 block">leading-normal</code>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="text-terminal-purple mb-4">Relaxed (1.75)</h3>
 				<p class="leading-relaxed text-sm">
@@ -305,7 +301,7 @@
 	<!-- Usage Guidelines -->
 	<section class="mt-16">
 		<h2>Typography Guidelines</h2>
-		
+
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 			<div class="glass-subtle p-8 rounded-xl">
 				<h3 class="text-terminal-green mb-6">Best Practices ✓</h3>
@@ -336,7 +332,7 @@
 					</li>
 				</ul>
 			</div>
-			
+
 			<div class="glass-subtle p-8 rounded-xl">
 				<h3 class="text-terminal-pink mb-6">Common Mistakes ✗</h3>
 				<ul class="space-y-3 text-sm">
@@ -372,11 +368,11 @@
 	<!-- Implementation -->
 	<section class="mt-16">
 		<h2>Implementation</h2>
-		
+
 		<div class="space-y-6">
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="mb-4">CSS Variables</h3>
-				<CodeBlock 
+				<CodeBlock
 					code={`:root {
   /* Font Families */
   --font-sans: 'PP Supply Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -396,10 +392,10 @@
 					language="css"
 				/>
 			</div>
-			
+
 			<div class="glass-subtle p-6 rounded-xl">
 				<h3 class="mb-4">Tailwind Classes</h3>
-				<CodeBlock 
+				<CodeBlock
 					code={`<!-- Heading -->
 <h1 class="text-4xl font-bold leading-tight">
   Welcome to Tulio
@@ -425,11 +421,11 @@
 	.lead {
 		@apply text-xl text-white/80 mb-12 max-w-3xl;
 	}
-	
+
 	section {
 		@apply border-t border-white/10 pt-12;
 	}
-	
+
 	section:first-of-type {
 		@apply border-t-0 pt-0;
 	}

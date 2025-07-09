@@ -1,13 +1,7 @@
 <script lang="ts">
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
-	import { 
-		brandColors, 
-		typography, 
-		spacing,
-		animations,
-		shadows
-	} from '$lib/tokens';
-	
+	import { brandColors, typography, spacing, animations, shadows } from '$lib/tokens';
+
 	// Color examples for the palette
 	const terminalColors = [
 		{ name: 'Matrix Green', value: brandColors.terminal.green, hex: '#00d4aa' },
@@ -37,43 +31,37 @@
 
 <article class="docs-content">
 	<h1>Brand Guidelines</h1>
-	
+
 	<p class="lead">
-		The comprehensive guide to the Tulio Brand System — a liquid glass terminal fusion design language 
-		that merges Apple's sophisticated glass aesthetics with hacker terminal culture.
+		The comprehensive guide to the Tulio Brand System — a liquid glass terminal fusion design language that merges
+		Apple's sophisticated glass aesthetics with hacker terminal culture.
 	</p>
 
 	<!-- Brand Story -->
 	<section class="mt-16">
 		<h2>Brand Identity</h2>
-		
+
 		<div class="glass-subtle p-8 rounded-2xl mb-8">
 			<h3>Our Philosophy</h3>
 			<p>
-				The Tulio Brand System represents the intersection of elegance and power. We believe that 
-				developer tools should be both beautiful and functional, combining the visual sophistication 
-				of modern design with the raw efficiency of terminal interfaces.
+				The Tulio Brand System represents the intersection of elegance and power. We believe that developer tools should
+				be both beautiful and functional, combining the visual sophistication of modern design with the raw efficiency
+				of terminal interfaces.
 			</p>
 		</div>
 
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 			<div class="glass-subtle p-6 rounded-xl">
 				<h4 class="text-terminal-cyan mb-2">Sophisticated</h4>
-				<p class="text-sm text-white/70">
-					Clean, refined aesthetics inspired by Apple's design philosophy
-				</p>
+				<p class="text-sm text-white/70">Clean, refined aesthetics inspired by Apple's design philosophy</p>
 			</div>
 			<div class="glass-subtle p-6 rounded-xl">
 				<h4 class="text-terminal-green mb-2">Powerful</h4>
-				<p class="text-sm text-white/70">
-					Terminal-inspired functionality that developers love
-				</p>
+				<p class="text-sm text-white/70">Terminal-inspired functionality that developers love</p>
 			</div>
 			<div class="glass-subtle p-6 rounded-xl">
 				<h4 class="text-terminal-purple mb-2">Innovative</h4>
-				<p class="text-sm text-white/70">
-					Cutting-edge WebGL effects and liquid animations
-				</p>
+				<p class="text-sm text-white/70">Cutting-edge WebGL effects and liquid animations</p>
 			</div>
 		</div>
 	</section>
@@ -81,37 +69,27 @@
 	<!-- Typography -->
 	<section class="mt-16">
 		<h2>Typography</h2>
-		
+
 		<div class="mb-8">
 			<h3>Font Families</h3>
 			<p class="mb-6">
-				Our typography system is built on PP Supply, a modern geometric typeface that perfectly 
-				balances technical precision with visual elegance.
+				Our typography system is built on PP Supply, a modern geometric typeface that perfectly balances technical
+				precision with visual elegance.
 			</p>
-			
+
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 				<div class="glass-subtle p-8 rounded-xl">
 					<h4 class="font-mono text-terminal-cyan mb-4">PP Supply Mono</h4>
 					<p class="font-mono text-2xl mb-4">The quick brown fox jumps over the lazy dog</p>
-					<p class="text-sm text-white/70">
-						Used for: Code, terminal interfaces, technical content, data displays
-					</p>
-					<CodeBlock 
-						code="font-family: 'PP Supply Mono', monospace;"
-						language="css"
-					/>
+					<p class="text-sm text-white/70">Used for: Code, terminal interfaces, technical content, data displays</p>
+					<CodeBlock code="font-family: 'PP Supply Mono', monospace;" language="css" />
 				</div>
-				
+
 				<div class="glass-subtle p-8 rounded-xl">
 					<h4 class="font-sans text-terminal-purple mb-4">PP Supply Sans</h4>
 					<p class="font-sans text-2xl mb-4">The quick brown fox jumps over the lazy dog</p>
-					<p class="text-sm text-white/70">
-						Used for: Headings, UI elements, marketing content, body text
-					</p>
-					<CodeBlock 
-						code="font-family: 'PP Supply Sans', sans-serif;"
-						language="css"
-					/>
+					<p class="text-sm text-white/70">Used for: Headings, UI elements, marketing content, body text</p>
+					<CodeBlock code="font-family: 'PP Supply Sans', sans-serif;" language="css" />
 				</div>
 			</div>
 		</div>
@@ -180,7 +158,7 @@
 	<!-- Color System -->
 	<section class="mt-16">
 		<h2>Color System</h2>
-		
+
 		<div class="mb-8">
 			<h3>Terminal Colors</h3>
 			<p class="mb-6">
@@ -189,10 +167,7 @@
 			<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
 				{#each terminalColors as color}
 					<div class="glass-subtle p-4 rounded-xl">
-						<div 
-							class="w-full h-24 rounded-lg mb-3"
-							style="background-color: {color.value}"
-						></div>
+						<div class="w-full h-24 rounded-lg mb-3" style="background-color: {color.value}"></div>
 						<p class="font-semibold text-sm">{color.name}</p>
 						<code class="text-xs text-white/60">{color.hex}</code>
 					</div>
@@ -202,13 +177,11 @@
 
 		<div class="mb-8">
 			<h3>Glass System</h3>
-			<p class="mb-6">
-				Our glass morphism effects use carefully calibrated opacity levels for depth and hierarchy.
-			</p>
+			<p class="mb-6">Our glass morphism effects use carefully calibrated opacity levels for depth and hierarchy.</p>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 				{#each glassColors as color}
 					<div class="glass-subtle p-4 rounded-xl">
-						<div 
+						<div
 							class="w-full h-24 rounded-lg mb-3 border border-white/20"
 							style="background-color: {color.value}"
 						></div>
@@ -248,22 +221,19 @@
 	<!-- Spacing System -->
 	<section class="mt-16">
 		<h2>Spacing & Layout</h2>
-		
+
 		<div class="mb-8">
 			<h3>8-Point Grid System</h3>
 			<p class="mb-6">
-				Our spacing system is based on an 8-point grid, ensuring consistent and harmonious layouts 
-				across all interfaces.
+				Our spacing system is based on an 8-point grid, ensuring consistent and harmonious layouts across all
+				interfaces.
 			</p>
-			
+
 			<div class="space-y-3">
 				{#each spacingScale as space}
 					<div class="glass-subtle p-4 rounded-xl flex items-center">
 						<div class="w-20 font-mono text-terminal-cyan">{space.name}</div>
-						<div 
-							class="h-8 bg-terminal-green/30 rounded mr-4"
-							style="width: {space.px}"
-						></div>
+						<div class="h-8 bg-terminal-green/30 rounded mr-4" style="width: {space.px}"></div>
 						<code class="text-sm text-white/60">{space.rem} / {space.px}</code>
 					</div>
 				{/each}
@@ -298,13 +268,13 @@
 	<!-- Motion Principles -->
 	<section class="mt-16">
 		<h2>Motion & Animation</h2>
-		
+
 		<div class="mb-8">
 			<h3>Animation Principles</h3>
 			<div class="glass-subtle p-8 rounded-xl mb-6">
 				<p class="mb-4">
-					Motion in the Tulio Brand System should feel liquid, smooth, and purposeful. Every animation 
-					serves to enhance the user experience, not distract from it.
+					Motion in the Tulio Brand System should feel liquid, smooth, and purposeful. Every animation serves to enhance
+					the user experience, not distract from it.
 				</p>
 				<ul class="space-y-2">
 					<li>• <strong>Liquid:</strong> Animations should flow like water</li>
@@ -345,14 +315,14 @@
 	<!-- Voice & Tone -->
 	<section class="mt-16">
 		<h2>Voice & Tone</h2>
-		
+
 		<div class="glass-subtle p-8 rounded-xl mb-8">
 			<h3>Brand Voice</h3>
 			<p class="mb-4">
-				The Tulio brand speaks with confidence and technical expertise while remaining approachable 
-				and human. We're the friend who knows their stuff but never talks down to you.
+				The Tulio brand speaks with confidence and technical expertise while remaining approachable and human. We're the
+				friend who knows their stuff but never talks down to you.
 			</p>
-			
+
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
 				<div>
 					<h4 class="text-terminal-cyan mb-2">We Are</h4>
@@ -402,13 +372,11 @@
 	<!-- Implementation -->
 	<section class="mt-16">
 		<h2>Implementation</h2>
-		
+
 		<div class="glass-subtle p-8 rounded-xl">
 			<h3>Quick Start</h3>
-			<p class="mb-4">
-				To use the Tulio Brand System in your project:
-			</p>
-			<CodeBlock 
+			<p class="mb-4">To use the Tulio Brand System in your project:</p>
+			<CodeBlock
 				code={`npm install tulio-brand-system
 
 // Import in your app
@@ -427,11 +395,11 @@ import { colors, spacing, animations } from 'tulio-brand-system/tokens';`}
 	.lead {
 		@apply text-xl text-white/80 mb-12 max-w-3xl;
 	}
-	
+
 	section {
 		@apply border-t border-white/10 pt-12;
 	}
-	
+
 	section:first-of-type {
 		@apply border-t-0 pt-0;
 	}

@@ -75,9 +75,9 @@
 	// Retry function
 	async function retry() {
 		if (retryCount >= maxRetries) return;
-		
+
 		retryCount++;
-		
+
 		if (onRetry) {
 			const retryPromise = onRetry();
 			await handlePromise(retryPromise);
@@ -121,11 +121,7 @@
 		minimal: 'bg-red-50 border border-red-200 text-red-900'
 	};
 
-	const containerClasses = cn(
-		'rounded-brand p-6 m-4',
-		variants[variant],
-		className
-	);
+	const containerClasses = cn('rounded-brand p-6 m-4', variants[variant], className);
 
 	function getErrorIcon(errorType: string) {
 		switch (errorType) {
@@ -161,10 +157,7 @@
 	{#if loading}
 		{@render loading()}
 	{:else}
-		<div 
-			class="flex items-center justify-center p-8"
-			in:glassFade={animate ? { duration: 200 } : undefined}
-		>
+		<div class="flex items-center justify-center p-8" in:glassFade={animate ? { duration: 200 } : undefined}>
 			<div class="flex items-center gap-3">
 				<div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
 				<span class="text-white/70">Loading...</span>
@@ -175,7 +168,7 @@
 	{#if fallback}
 		{@render fallback({ error, retry, reset, retryCount, maxRetries, state })}
 	{:else}
-		<div 
+		<div
 			class={containerClasses}
 			in:glassFade={animate ? { duration: 300 } : undefined}
 			role="alert"
@@ -218,8 +211,8 @@
 				<!-- Actions -->
 				<div class="flex flex-wrap gap-3">
 					{#if retryCount < maxRetries && (onRetry || promise)}
-						<Button 
-							variant="glass" 
+						<Button
+							variant="glass"
 							size="sm"
 							onclick={retry}
 							class="bg-red-500/20 border-red-500/40 hover:bg-red-500/30"
@@ -227,9 +220,9 @@
 							{state === 'timeout' ? 'Try Again' : 'Retry'}
 						</Button>
 					{/if}
-					
-					<Button 
-						variant="glass" 
+
+					<Button
+						variant="glass"
 						size="sm"
 						onclick={reset}
 						class="bg-blue-500/20 border-blue-500/40 hover:bg-blue-500/30"
@@ -277,7 +270,8 @@
 
 	/* Pulse animation for loading states */
 	@keyframes pulse {
-		0%, 100% {
+		0%,
+		100% {
 			opacity: 1;
 		}
 		50% {
@@ -290,7 +284,7 @@
 	}
 
 	/* Error state animation */
-	div[role="alert"] {
+	div[role='alert'] {
 		animation: slideInUp 0.3s ease-out;
 	}
 
