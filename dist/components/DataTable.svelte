@@ -133,8 +133,8 @@
 		}
 	};
 
-	const currentSize = sizes()[size];
-	const currentVariant = variants()[variant];
+	const currentSize = sizes[size];
+	const currentVariant = variants[variant];
 
 	// Computed properties
 	const filteredData = $derived(() => {
@@ -143,17 +143,17 @@
 		// Apply global search
 		if (searchQuery.trim()) {
 			const query = searchQuery.toLowerCase();
-			filtered = filtered().filter((row) => columns().some((col) => String(row[col.key]).toLowerCase().includes(query)));
+			filtered = filtered.filter((row) => columns.some((col) => String(row[col.key]).toLowerCase().includes(query)));
 		}
 
 		// Apply column filters
 		if (filterConfig) {
-			filtered = filtered().filter((row) => {
+			filtered = filtered.filter((row) => {
 				return Object.entries(filterConfig).every(([key, value]) => {
 					if (!value) return true;
-					const cellValue = String(row()[key]).toLowerCase();
+					const cellValue = String(row[key]).toLowerCase();
 					const filterValue = String(value).toLowerCase();
-					return cellValue().includes(filterValue);
+					return cellValue.includes(filterValue);
 				});
 			});
 		}
@@ -167,8 +167,8 @@
 		const { key, direction } = sortConfig;
 
 		return [...filteredData].sort((a, b) => {
-			const aVal = a()[key];
-			const bVal = b()[key];
+			const aVal = a[key];
+			const bVal = b[key];
 
 			let comparison = 0;
 
@@ -179,16 +179,32 @@
 		});
 	});
 
-	const paginatedData = $derived(() => { return sortedData().slice(start, end); });
+	const paginatedData = $derived(() => {
+		if (!showPagination) return sortedData;
 
-	const totalPages = $derived(() => { return Math.ceil((totalRows || sortedData().length) / pageSize); });
+		const start = (currentPage - 1) * pageSize;
+		const end = start + pageSize;
+		return sortedData.slice(start, end);
+	});
 
-	const isAllSelected = $derived(() => { return paginatedData().every((row) => selectedRows().includes(row.id)); });
+	const totalPages = $derived(() => {
+		if (!showPagination) return 1;
+		return Math.ceil((totalRows || sortedData.length) / pageSize);
+	});
 
-	const isIndeterminate = $derived(() => { return selectedCount > 0 && selectedCount < paginatedData().length; });
+	const isAllSelected = $derived(() => {
+		if (!selectable || paginatedData.length === 0) return false;
+		return paginatedData.every((row) => selectedRows.includes(row.id));
+	});
+
+	const isIndeterminate = $derived(() => {
+		if (!selectable || paginatedData.length === 0) return false;
+		const selectedCount = paginatedData.filter((row) => selectedRows.includes(row.id)).length;
+		return selectedCount > 0 && selectedCount < paginatedData.length;
+	});
 
 	function handleSort(columnKey: string) {
-		const column = columns().find((col) => col.key === columnKey);
+		const column = columns.find((col) => col.key === columnKey);
 		if (!column?.sortable) return;
 
 		if (sortConfig?.key === columnKey) {
@@ -205,17 +221,17 @@
 
 	function handleSelectAll() {
 		if (isAllSelected) {
-			selectedRows = selectedRows().filter((id) => !paginatedData().some((row) => row.id === id));
+			selectedRows = selectedRows.filter((id) => !paginatedData.some((row) => row.id === id));
 		} else {
-			const newSelections = paginatedData().map((row) => row.id);
+			const newSelections = paginatedData.map((row) => row.id);
 			selectedRows = [...new Set([...selectedRows, ...newSelections])];
 		}
 		dispatch('selectionChange', { selectedRows });
 	}
 
 	function handleSelectRow(rowId: string | number) {
-		if (selectedRows().includes(rowId)) {
-			selectedRows = selectedRows().filter((id) => id !== rowId);
+		if (selectedRows.includes(rowId)) {
+			selectedRows = selectedRows.filter((id) => id !== rowId);
 		} else {
 			selectedRows = [...selectedRows, rowId];
 		}
@@ -226,9 +242,9 @@
 		if (!filterConfig) filterConfig = {};
 
 		if (value.trim()) {
-			filterConfig()[columnKey] = value;
+			filterConfig[columnKey] = value;
 		} else {
-			delete filterConfig()[columnKey];
+			delete filterConfig[columnKey];
 		}
 
 		// Reset to first page when filtering
@@ -285,7 +301,7 @@
 
 			<!-- Filter Toggle -->
 			<button
-				onclick={() => (showFilters = !showFilters)} onkeydown={(e) => e.key === "Enter" && (showFilters = !showFilters)(e)} 
+				onclick={() => (showFilters = !showFilters)}
 				class={cn(
 					'p-2 rounded border transition-colors',
 					'bg-white/5 border-white/10 text-white hover:bg-white/10',
@@ -297,16 +313,16 @@
 			</button>
 
 			{#if Object.keys(filterConfig || {}).length > 0 || searchQuery}
-				<button onclick={clearFilters} onkeydown={(e) => e.key === "Enter" && clearFilters(e)} class="text-sm text-blue-400 hover:text-blue-300 transition-colors">
+				<button onclick={clearFilters} class="text-sm text-blue-400 hover:text-blue-300 transition-colors">
 					Clear Filters
 				</button>
 			{/if}
 		</div>
 
 		<!-- Selection Info -->
-		{#if selectable && selectedRows().length > 0}
+		{#if selectable && selectedRows.length > 0}
 			<div class="text-sm opacity-70">
-				{selectedRows().length} of {totalRows || sortedData().length} selected
+				{selectedRows.length} of {totalRows || sortedData.length} selected
 			</div>
 		{/if}
 	</div>
@@ -316,9 +332,9 @@
 		<div class={cn('p-4 border-b bg-white/5', currentVariant.header)}>
 			<div
 				class="grid gap-4"
-				style="grid-template-columns: repeat({columns().filter((col) => col.filterable).length}, 1fr);"
+				style="grid-template-columns: repeat({columns.filter((col) => col.filterable).length}, 1fr);"
 			>
-				{#each columns().filter((col) => col.filterable) as column}
+				{#each columns.filter((col) => col.filterable) as column}
 					<div>
 						<label class="block text-xs font-medium mb-1 opacity-70">
 							{column.label}
@@ -356,7 +372,7 @@
 						</th>
 					{/if}
 
-					{#each columns() as column (column.id || column)}
+					{#each columns as column}
 						<th
 							class={cn(
 								currentSize.header,
@@ -367,7 +383,7 @@
 								column.headerClass
 							)}
 							style={column.width ? `width: ${column.width}` : undefined}
-							onclick={() => column.sortable && handleSort(column.key)} onkeydown={(e) => e.key === "Enter" && column.sortable && handleSort(column.key)(e)} 
+							onclick={() => column.sortable && handleSort(column.key)}
 						>
 							<div class="flex items-center gap-2">
 								<span class="font-semibold">{column.label}</span>
@@ -392,28 +408,28 @@
 			<tbody class={cn(currentVariant.table)}>
 				{#if loading}
 					<tr>
-						<td colspan={columns().length + (selectable ? 1 : 0)} class="text-center py-8">
+						<td colspan={columns.length + (selectable ? 1 : 0)} class="text-center py-8">
 							<div class="inline-flex items-center gap-2">
 								<div class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
 								Loading...
 							</div>
 						</td>
 					</tr>
-				{:else if paginatedData().length === 0}
+				{:else if paginatedData.length === 0}
 					<tr>
-						<td colspan={columns().length + (selectable ? 1 : 0)} class="text-center py-8 opacity-60">
+						<td colspan={columns.length + (selectable ? 1 : 0)} class="text-center py-8 opacity-60">
 							{emptyMessage}
 						</td>
 					</tr>
 				{:else}
-					{#each paginatedData() as row, index (row.id)}
+					{#each paginatedData as row, index (row.id)}
 						<tr
 							class={cn(
 								currentVariant.row,
 								bordered && 'border-b last:border-b-0',
 								hover && currentVariant.rowHover,
 								striped && index % 2 === 1 && 'bg-white/5',
-								selectedRows().includes(row.id) && currentVariant.rowSelected,
+								selectedRows.includes(row.id) && currentVariant.rowSelected,
 								'transition-colors duration-150'
 							)}
 						>
@@ -421,14 +437,14 @@
 								<td class={cn(currentSize.cell, currentVariant.cell, bordered && 'border-r')}>
 									<input
 										type="checkbox"
-										checked={selectedRows().includes(row.id)}
+										checked={selectedRows.includes(row.id)}
 										onchange={() => handleSelectRow(row.id)}
 										class="rounded border-white/20 bg-white/10 text-blue-500 focus:ring-blue-400/50"
 									/>
 								</td>
 							{/if}
 
-							{#each columns() as column (column.id || column)}
+							{#each columns as column}
 								<td
 									class={cn(
 										currentSize.cell,
@@ -452,13 +468,13 @@
 	{#if showPagination && totalPages > 1}
 		<div class={cn('flex items-center justify-between p-4 border-t rounded-b-lg', currentVariant.header)}>
 			<div class="text-sm opacity-70">
-				Showing {(currentPage - 1) * pageSize + 1} to {Math.min(currentPage * pageSize, totalRows || sortedData().length)}
-				of {totalRows || sortedData().length} results
+				Showing {(currentPage - 1) * pageSize + 1} to {Math.min(currentPage * pageSize, totalRows || sortedData.length)}
+				of {totalRows || sortedData.length} results
 			</div>
 
 			<div class="flex items-center gap-2">
 				<button
-					onclick={() => (currentPage = Math.max(1, currentPage - 1))} onkeydown={(e) => e.key === "Enter" && (currentPage = Math.max(1, currentPage - 1))(e)} 
+					onclick={() => (currentPage = Math.max(1, currentPage - 1))}
 					disabled={currentPage === 1}
 					class={cn(
 						'px-3 py-1 rounded border transition-colors',
@@ -474,7 +490,7 @@
 				</span>
 
 				<button
-					onclick={() => (currentPage = Math.min(totalPages, currentPage + 1))} onkeydown={(e) => e.key === "Enter" && (currentPage = Math.min(totalPages, currentPage + 1))(e)} 
+					onclick={() => (currentPage = Math.min(totalPages, currentPage + 1))}
 					disabled={currentPage === totalPages}
 					class={cn(
 						'px-3 py-1 rounded border transition-colors',

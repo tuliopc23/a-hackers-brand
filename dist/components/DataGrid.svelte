@@ -1,4 +1,12 @@
-<script module lang="ts">
+<script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+	import { cn } from '../utils.js';
+	import { brandColors } from '../tokens';
+	import { glassFade, magneticHover, liquidBlur } from '../motion';
+	import Button from './Button.svelte';
+	import Input from './Input.svelte';
+	import Select from './Select.svelte';
+
 	export interface GridColumn {
 		key: string;
 		label: string;
@@ -24,17 +32,6 @@
 		value: any;
 		operator: 'equals' | 'contains' | 'startsWith' | 'endsWith' | 'gt' | 'lt' | 'gte' | 'lte';
 	}
-</script>
-
-<script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-	import { cn } from '../utils.js';
-	import { brandColors } from '../tokens';
-	import { glassFade, magneticHover, liquidBlur } from '../motion';
-	import Button from './Button.svelte';
-	import Input from './Input.svelte';
-	import Select from './Select.svelte';
-	import type { GridColumn as DataGridGridColumn, GridRow as DataGridGridRow, GridFilter as DataGridGridFilter } from './DataGrid.svelte';
 
 	interface Props {
 		columns: GridColumn[];
@@ -168,8 +165,8 @@
 		lg: { cell: 'px-4 py-3 text-base', header: 'px-4 py-4 text-base' }
 	};
 
-	const currentVariant = $derived(variants()[variant]);
-	const currentSize = $derived(sizes()[size]);
+	const currentVariant = $derived(variants[variant]);
+	const currentSize = $derived(sizes[size]);
 
 	// Computed filtered and sorted data
 	const filteredData = $derived(() => {
@@ -178,17 +175,17 @@
 		// Apply search
 		if (searchQuery.trim()) {
 			const query = searchQuery.toLowerCase();
-			result = result().filter((row) =>
-				columns().some((col) => {
+			result = result.filter((row) =>
+				columns.some((col) => {
 					const value = String(row[col.key] || '').toLowerCase();
-					return value().includes(query);
+					return value.includes(query);
 				})
 			);
 		}
 
 		// Apply filters
 		for (const filter of currentFilters) {
-			result = result().filter((row) => {
+			result = result.filter((row) => {
 				const value = row[filter.column];
 				switch (filter.operator) {
 					case 'equals':
@@ -215,11 +212,11 @@
 
 		// Apply sorting
 		if (currentSortBy) {
-			const column = columns().find((col) => col.key === currentSortBy);
+			const column = columns.find((col) => col.key === currentSortBy);
 			if (column?.sortable) {
 				result.sort((a, b) => {
-					const aVal = a()[currentSortBy];
-					const bVal = b()[currentSortBy];
+					const aVal = a[currentSortBy];
+					const bVal = b[currentSortBy];
 					if (aVal === bVal) return 0;
 					const isAsc = currentSortOrder === 'asc';
 					if (aVal < bVal) return isAsc ? -1 : 1;
@@ -232,8 +229,12 @@
 	});
 
 	// Pagination
-	const totalPages = $derived(Math.ceil((totalRows ?? filteredData().length) / pageSize));
-	const paginatedData = $derived(() => { return filteredData().slice(start, start + pageSize); });
+	const totalPages = $derived(Math.ceil((totalRows ?? filteredData.length) / pageSize));
+	const paginatedData = $derived(() => {
+		if (!pagination) return filteredData;
+		const start = (currentPage - 1) * pageSize;
+		return filteredData.slice(start, start + pageSize);
+	});
 
 	function handleSort(column: GridColumn) {
 		if (!column.sortable) return;
@@ -272,7 +273,7 @@
 
 	function handleSelectAll(selected: boolean) {
 		if (selected) {
-			currentSelectedRows = new Set(paginatedData().map((row) => row.id));
+			currentSelectedRows = new Set(paginatedData.map((row) => row.id));
 		} else {
 			currentSelectedRows = new Set();
 		}
@@ -288,10 +289,10 @@
 	function saveEdit() {
 		if (!editingCell) return;
 
-		const row = paginatedData().find((r) => r.id === editingCell!.rowId);
+		const row = paginatedData.find((r) => r.id === editingCell!.rowId);
 		if (!row) return;
 
-		const column = columns().find((c) => c.key === editingCell!.column);
+		const column = columns.find((c) => c.key === editingCell!.column);
 		if (!column) return;
 
 		const oldValue = row[column.key];
@@ -350,7 +351,7 @@
 	}
 
 	const isAllSelected = $derived(
-		paginatedData().length > 0 && paginatedData().every((row) => currentSelectedRows.has(row.id))
+		paginatedData.length > 0 && paginatedData.every((row) => currentSelectedRows.has(row.id))
 	);
 
 	const containerClasses = $derived(
@@ -360,7 +361,7 @@
 
 <div class={containerClasses}>
 	<!-- Toolbar -->
-	{#if searchable || exportable || actions().length > 0}
+	{#if searchable || exportable || actions.length > 0}
 		<div class={cn('px-4 py-3 border-b flex items-center justify-between', currentVariant.toolbar)}>
 			<div class="flex items-center gap-3">
 				{#if searchable}
@@ -376,7 +377,7 @@
 							}}
 						/>
 						<button
-							onclick={handleSearch} onkeydown={(e) => e.key === "Enter" && handleSearch(e)}
+							onclick={handleSearch}
 							class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
 						>
 							🔍
@@ -393,7 +394,7 @@
 
 			<div class="flex items-center gap-2">
 				{#if exportable}
-					<Button size="sm" {variant} onclick={() => dispatch('export', { format: 'csv' } onkeydown={(e) => e.key === "Enter" && dispatch('export', { format: 'csv' (e)} )}>📥 Export</Button>
+					<Button size="sm" {variant} onclick={() => dispatch('export', { format: 'csv' })}>📥 Export</Button>
 				{/if}
 			</div>
 		</div>
@@ -423,7 +424,7 @@
 						</th>
 					{/if}
 
-					{#each columns() as column (column.key)}
+					{#each columns as column (column.key)}
 						<th
 							class={cn(
 								currentSize.header,
@@ -433,7 +434,7 @@
 								column.sortable && 'cursor-pointer select-none'
 							)}
 							style={column.width ? `width: ${column.width}` : undefined}
-							onclick={() => column.sortable && handleSort(column)} onkeydown={(e) => e.key === "Enter" && column.sortable && handleSort(column)(e)} 
+							onclick={() => column.sortable && handleSort(column)}
 							use:magneticHover={{ enabled: column.sortable, strength: 0.05 }}
 						>
 							<div class="flex items-center gap-2">
@@ -470,7 +471,7 @@
 						</th>
 					{/each}
 
-					{#if actions().length > 0}
+					{#if actions.length > 0}
 						<th class={cn(currentSize.header, currentVariant.headerCell, 'w-32')}> Actions </th>
 					{/if}
 				</tr>
@@ -481,7 +482,7 @@
 				{#if loading}
 					<tr>
 						<td
-							colspan={columns().length + (selectable ? 1 : 0) + (actions().length > 0 ? 1 : 0)}
+							colspan={columns.length + (selectable ? 1 : 0) + (actions.length > 0 ? 1 : 0)}
 							class={cn(currentSize.cell, currentVariant.cell, 'text-center')}
 						>
 							<div class="flex items-center justify-center gap-3 py-8">
@@ -497,10 +498,10 @@
 							</div>
 						</td>
 					</tr>
-				{:else if paginatedData().length === 0}
+				{:else if paginatedData.length === 0}
 					<tr>
 						<td
-							colspan={columns().length + (selectable ? 1 : 0) + (actions().length > 0 ? 1 : 0)}
+							colspan={columns.length + (selectable ? 1 : 0) + (actions.length > 0 ? 1 : 0)}
 							class={cn(currentSize.cell, currentVariant.cell, 'text-center text-gray-400')}
 						>
 							<div class="py-8">
@@ -517,7 +518,7 @@
 						</td>
 					</tr>
 				{:else}
-					{#each paginatedData() as row, index (row.id)}
+					{#each paginatedData as row, index (row.id)}
 						{@const isSelected = currentSelectedRows.has(row.id)}
 						<tr
 							class={cn(
@@ -526,7 +527,7 @@
 								isSelected && currentVariant.rowSelected,
 								'transition-colors duration-150 cursor-pointer'
 							)}
-							onclick={() => handleRowClick(row, index)} onkeydown={(e) => e.key === "Enter" && handleRowClick(row, index)} 
+							onclick={() => handleRowClick(row, index)}
 							in:glassFade={{ direction: 'up', duration: 100, delay: index * 20 }}
 						>
 							{#if selectable}
@@ -538,13 +539,13 @@
 											const target = e.target as HTMLInputElement;
 											handleRowSelect(row, target.checked);
 										}}
-										onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.key === "Enter" && e.stopPropagation()} 
+										onclick={(e) => e.stopPropagation()}
 										class="rounded bg-transparent border-current"
 									/>
 								</td>
 							{/if}
 
-							{#each columns() as column (column.key)}
+							{#each columns as column (column.key)}
 								<td
 									class={cn(currentSize.cell, currentVariant.cell, column.align && `text-${column.align}`)}
 									ondblclick={() => editable && column.editable && startEdit(row, column)}
@@ -565,19 +566,17 @@
 								</td>
 							{/each}
 
-							{#if actions().length > 0}
+							{#if actions.length > 0}
 								<td class={cn(currentSize.cell, currentVariant.cell)}>
 									<div class="flex items-center gap-1">
-										{#each actions() as action (action.id || action)}
+										{#each actions as action}
 											{#if !action.show || action.show(row)}
 												<Button
 													size="sm"
 													variant={action.variant || 'secondary'}
 													onclick={(e) => {
 														e.stopPropagation();
-														dispatch('actionClick', { row, action: action.action } onkeydown={(e) => e.key === "Enter" && (e) => {
-														e.stopPropagation();
-														dispatch('actionClick', { row, action: action.action (e)} );
+														dispatch('actionClick', { row, action: action.action });
 													}}
 												>
 													{#if action.icon}
@@ -604,8 +603,8 @@
 				<span class="text-sm text-gray-400">
 					Showing {(currentPage - 1) * pageSize + 1} to {Math.min(
 						currentPage * pageSize,
-						totalRows ?? filteredData().length
-					)} of {totalRows ?? filteredData().length} entries
+						totalRows ?? filteredData.length
+					)} of {totalRows ?? filteredData.length} entries
 				</span>
 			</div>
 
@@ -614,7 +613,7 @@
 					size="sm"
 					{variant}
 					disabled={currentPage === 1}
-					onclick={() => dispatch('pageChange', { page: currentPage - 1 } onkeydown={(e) => e.key === "Enter" && dispatch('pageChange', { page: currentPage - 1 (e)} )}
+					onclick={() => dispatch('pageChange', { page: currentPage - 1 })}
 				>
 					Previous
 				</Button>
@@ -626,7 +625,7 @@
 					<Button
 						size="sm"
 						variant={page === currentPage ? 'primary' : 'secondary'}
-						onclick={() => dispatch('pageChange', { page } onkeydown={(e) => e.key === "Enter" && dispatch('pageChange', { page (e)} )}
+						onclick={() => dispatch('pageChange', { page })}
 					>
 						{page}
 					</Button>
@@ -636,7 +635,7 @@
 					size="sm"
 					{variant}
 					disabled={currentPage === totalPages}
-					onclick={() => dispatch('pageChange', { page: currentPage + 1 } onkeydown={(e) => e.key === "Enter" && dispatch('pageChange', { page: currentPage + 1 (e)} )}
+					onclick={() => dispatch('pageChange', { page: currentPage + 1 })}
 				>
 					Next
 				</Button>

@@ -74,7 +74,7 @@
 		minimal: 'bg-red-50 border border-red-200 text-red-900'
 	};
 
-	const containerClasses = cn('rounded-brand p-6 m-4', variants()[variant], className);
+	const containerClasses = cn('rounded-brand p-6 m-4', variants[variant], className);
 
 	// Set up global error handlers for child components
 	onMount(() => {
@@ -180,7 +180,7 @@
 						<Button
 							variant="glass"
 							size="sm"
-							onclick={retry} onkeydown={(e) => e.key === "Enter" && retry(e)}
+							onclick={retry}
 							class="bg-red-500/20 border-red-500/40 hover:bg-red-500/30"
 						>
 							Try Again
@@ -190,7 +190,7 @@
 					<Button
 						variant="glass"
 						size="sm"
-						onclick={reset} onkeydown={(e) => e.key === "Enter" && reset(e)}
+						onclick={reset}
 						class="bg-blue-500/20 border-blue-500/40 hover:bg-blue-500/30"
 					>
 						Reset
@@ -200,7 +200,7 @@
 						<Button
 							variant="glass"
 							size="sm"
-							onclick={() => (showFullError = !showFullError)} onkeydown={(e) => e.key === "Enter" && (showFullError = !showFullError)(e)} 
+							onclick={() => (showFullError = !showFullError)}
 							class="bg-gray-500/20 border-gray-500/40 hover:bg-gray-500/30"
 						>
 							{showFullError ? 'Hide' : 'Show'} Details

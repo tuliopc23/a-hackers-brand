@@ -62,7 +62,7 @@
 		{ text: '', delay: 500 }
 	];
 
-	const bootMessages = messages().length > 0 ? messages : defaultMessages;
+	const bootMessages = messages.length > 0 ? messages : defaultMessages;
 
 	const variants = {
 		classic: {
@@ -105,8 +105,8 @@
 		fast: 15
 	};
 
-	const typewriterSpeed = speeds()[speed];
-	const currentVariant = variants()[variant];
+	const typewriterSpeed = speeds[speed];
+	const currentVariant = variants[variant];
 
 	let bootContainer: HTMLDivElement;
 	let displayedMessages = $state<{ text: string; type?: string }[]>([]);
@@ -114,8 +114,8 @@
 	const typeMessage = async (message: string, delay: number = 50): Promise<void> => {
 		currentText = '';
 
-		for (let i = 0; i <= message().length; i++) {
-			currentText = message().slice(0, i);
+		for (let i = 0; i <= message.length; i++) {
+			currentText = message.slice(0, i);
 			await new Promise((resolve) => setTimeout(resolve, delay));
 		}
 
@@ -131,8 +131,8 @@
 		displayedMessages = [];
 		currentText = '';
 
-		for (let i = 0; i < bootMessages().length; i++) {
-			const message = bootMessages()[i];
+		for (let i = 0; i < bootMessages.length; i++) {
+			const message = bootMessages[i];
 			currentMessageIndex = i;
 
 			if (message.text) {
@@ -214,7 +214,7 @@
 
 	<!-- Boot messages -->
 	<div class="relative z-10 space-y-1">
-		{#each displayedMessages() as message, index (index)}
+		{#each displayedMessages as message, index}
 			<div
 				class={cn(
 					'whitespace-pre-wrap',
@@ -231,8 +231,8 @@
 			<div
 				class={cn(
 					'whitespace-pre-wrap',
-					bootMessages()[currentMessageIndex]?.type && messageTypes[bootMessages()[currentMessageIndex].type]
-						? messageTypes[bootMessages()[currentMessageIndex].type]
+					bootMessages[currentMessageIndex]?.type && messageTypes[bootMessages[currentMessageIndex].type]
+						? messageTypes[bootMessages[currentMessageIndex].type]
 						: currentVariant.text
 				)}
 			>

@@ -82,18 +82,18 @@
 
 	const trackClasses = cn(
 		'relative overflow-hidden rounded-full',
-		sizes()[size][type],
-		variants()[variant].track,
-		variant === 'glass' && blurLevels()[blur]
+		sizes[size][type],
+		variants[variant].track,
+		variant === 'glass' && blurLevels[blur]
 	);
 
 	const fillClasses = cn(
 		'h-full transition-all duration-500 ease-out rounded-full',
-		variants()[variant].fill,
+		variants[variant].fill,
 		indeterminate && 'animate-pulse'
 	);
 
-	const circularSize = type === 'circular' ? parseInt(sizes()[size].circular.split(' ')[0].slice(2)) * 4 : 0;
+	const circularSize = type === 'circular' ? parseInt(sizes[size].circular.split(' ')[0].slice(2)) * 4 : 0;
 	const strokeWidth = Math.max(2, circularSize / 8);
 	const radius = (circularSize - strokeWidth) / 2;
 	const circumference = 2 * Math.PI * radius;
@@ -113,7 +113,7 @@
 				{label}
 			</label>
 			{#if showValue || showPercentage}
-				<span class={cn('font-medium text-white/80', sizes()[size].text)}>
+				<span class={cn('font-medium text-white/80', sizes[size].text)}>
 					{#if showPercentage}
 						{percentage.toFixed(0)}%
 					{:else if showValue}
@@ -145,7 +145,7 @@
 	{:else}
 		<!-- Circular Progress -->
 		<div
-			class={cn('relative inline-flex items-center justify-center', sizes()[size].circular, className)}
+			class={cn('relative inline-flex items-center justify-center', sizes[size].circular, className)}
 			role="progressbar"
 			aria-valuemin="0"
 			aria-valuemax={max}
@@ -180,7 +180,7 @@
 			</svg>
 
 			{#if showValue || showPercentage}
-				<div class={cn('absolute inset-0 flex items-center justify-center font-medium text-white', sizes()[size].text)}>
+				<div class={cn('absolute inset-0 flex items-center justify-center font-medium text-white', sizes[size].text)}>
 					{#if showPercentage}
 						{percentage.toFixed(0)}%
 					{:else if showValue}

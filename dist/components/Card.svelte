@@ -1,13 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import {
-		magneticHover,
-		liquidBlur,
-		liquidBlurTransition,
-		jellyHover,
-		liquidResponsive,
-		breathing as breathingMotion
-	} from '../motion';
+	import { magneticHover, liquidBlur, jellyHover, liquidResponsive, breathing as breathingMotion } from '../motion';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -92,7 +85,7 @@
 			}}
 			use:breathingMotion={{ enabled: breathing, intensity: 0.015, speed: 3500 }}
 			use:magneticHover={{ enabled: !jelly && !liquid, strength: 0.2, scale: 1.02 }}
-			in:liquidBlurTransition={{ blur: blur, opacity: 'medium' }}
+			in:liquidBlur={{ blur: blur, opacity: 'medium' }}
 			{...restProps}
 		>
 			{#if children}
@@ -110,7 +103,7 @@
 				responsiveness: 'subtle'
 			}}
 			use:breathingMotion={{ enabled: breathing, intensity: 0.01, speed: 4000 }}
-			in:liquidBlurTransition={{ blur: blur, opacity: 'subtle' }}
+			in:liquidBlur={{ blur: blur, opacity: 'subtle' }}
 			{...restProps}
 		>
 			{#if children}

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
 	import { glassFade, magneticHover } from '../motion';
-	import { jellyHover } from '../actions/jellyHover';
 	import { X, CheckCircle2, AlertCircle, XCircle, Info } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -90,7 +89,7 @@
 		'bottom-left': 'bottom-4 left-4'
 	};
 
-	const currentVariant = variants()[variant];
+	const currentVariant = variants[variant];
 	const IconComponent = currentVariant.icon;
 </script>
 
@@ -102,7 +101,7 @@
 			currentVariant.border,
 			glow && currentVariant.glow,
 			position === 'fixed' && 'fixed z-50',
-			position === 'fixed' && placements()[placement],
+			position === 'fixed' && placements[placement],
 			animated && 'transform-gpu will-change-transform',
 			className
 		)}
@@ -139,7 +138,6 @@
 			{#if closable}
 				<button
 					onclick={handleClose}
-					onkeydown={(e) => e.key === 'Enter' && handleClose(e)}
 					class={cn(
 						'flex-shrink-0 p-1 rounded-lg transition-all duration-200',
 						'hover:bg-white/10 hover:scale-110',

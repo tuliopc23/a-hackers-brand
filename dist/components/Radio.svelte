@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
 	import { magneticHover, breathing } from '../motion';
-	import { jellyHover } from '../actions/jellyHover';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	interface RadioOption {
@@ -11,7 +10,7 @@
 		description?: string;
 	}
 
-	interface Props extends Omit<HTMLInputAttributes, 'type' | 'value' | 'size'> {
+	interface Props extends Omit<HTMLInputAttributes, 'type' | 'value'> {
 		options: RadioOption[];
 		value?: string;
 		name: string;
@@ -99,8 +98,8 @@
 		}
 	};
 
-	const currentVariant = variants()[variant];
-	const currentSize = sizes()[componentSize];
+	const currentVariant = variants[variant];
+	const currentSize = sizes[size];
 </script>
 
 <div
@@ -113,7 +112,7 @@
 	)}
 	{...restProps}
 >
-	{#each options() as option (option.id || option)}
+	{#each options as option}
 		<label
 			class={cn(
 				'relative flex items-center cursor-pointer group',

@@ -1,13 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import {
-		liquidBlur,
-		glassFade,
-		springPop,
-		magneticHover,
-		breathing as breathingMotion,
-		jellyHover
-	} from '../motion';
+	import { liquidBlur, glassFade, springPop, magneticHover, breathing as breathingMotion } from '../motion';
 	import { sizeOf } from '../utils/bundle-size.js';
 	import { onMount } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -92,18 +85,18 @@
 		xl: 'backdrop-blur-xl'
 	};
 
-	const currentVariant = variants()[variant];
+	const currentVariant = variants[variant];
 
 	const overlayClasses = cn(
 		'fixed inset-0 z-50 flex items-center justify-center p-4',
 		currentVariant.overlay,
-		blurLevels()[blur]
+		blurLevels[blur]
 	);
 
 	const modalClasses = cn(
 		'relative w-full rounded-2xl p-6 backdrop-blur-xl border transition-all duration-300',
 		'transform-gpu will-change-transform',
-		sizes()[size],
+		sizes[size],
 		currentVariant.bg,
 		glow && currentVariant.glow,
 		className
@@ -137,10 +130,10 @@
 		if (!modalElement) return;
 
 		const focusableElements = modalElement.querySelectorAll(
-			'a()[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
+			'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
 		);
-		const firstElement = focusableElements()[0] as HTMLElement;
-		const lastElement = focusableElements[focusableElements().length - 1] as HTMLElement;
+		const firstElement = focusableElements[0] as HTMLElement;
+		const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
 		if (event.shiftKey) {
 			if (document.activeElement === firstElement) {
@@ -164,9 +157,9 @@
 			setTimeout(() => {
 				if (modalElement) {
 					const focusableElements = modalElement.querySelectorAll(
-						'a()[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])'
+						'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])'
 					);
-					const firstElement = focusableElements()[0] as HTMLElement;
+					const firstElement = focusableElements[0] as HTMLElement;
 					if (firstElement) {
 						firstElement.focus();
 					}
@@ -212,7 +205,7 @@
 		aria-describedby={ariaDescribedby}
 		tabindex="0"
 		onclick={handleOverlayClick}
-		onkeydown={(e) => e.key === 'Enter' && handleOverlayClick(e)}
+		onkeydown={(e) => e.key === 'Escape' && handleClose()}
 		in:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 200 : 0 }}
 		out:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 150 : 0 }}
 	>
@@ -244,7 +237,7 @@
 <style>
 	div[role='dialog'] {
 		-webkit-backdrop-filter: blur(8px);
-		        backdrop-filter: blur(8px);
+		backdrop-filter: blur(8px);
 	}
 
 	@media (prefers-reduced-motion: reduce) {

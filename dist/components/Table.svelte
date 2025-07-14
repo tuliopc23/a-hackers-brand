@@ -116,11 +116,25 @@
 		}
 	};
 
-	const currentVariant = $derived(variants()[variant]);
-	const currentSize = $derived(sizes()[size]);
+	const currentVariant = $derived(variants[variant]);
+	const currentSize = $derived(sizes[size]);
 
-	const sortedData = $derived(() => { return 0; });
-		return sorted;
+	const sortedData = $derived(() => {
+		if (!currentSortBy) return data;
+
+		const column = columns.find((col) => col.key === currentSortBy);
+		if (!column?.sortable) return data;
+
+		return [...data].sort((a, b) => {
+			const aVal = a[currentSortBy];
+			const bVal = b[currentSortBy];
+
+			if (aVal === bVal) return 0;
+
+			const isAsc = currentSortOrder === 'asc';
+			if (aVal < bVal) return isAsc ? -1 : 1;
+			return isAsc ? 1 : -1;
+		});
 	});
 
 	function handleSort(column: TableColumn) {
@@ -153,7 +167,7 @@
 
 	function handleSelectAll(selected: boolean) {
 		if (selected) {
-			currentSelectedRows = new Set(data().map((row, index) => row.id ?? index));
+			currentSelectedRows = new Set(data.map((row, index) => row.id ?? index));
 		} else {
 			currentSelectedRows = new Set();
 		}
@@ -171,7 +185,7 @@
 	}
 
 	const isAllSelected = $derived(
-		data().length > 0 && data().every((row, index) => currentSelectedRows.has(row.id ?? index))
+		data.length > 0 && data.every((row, index) => currentSelectedRows.has(row.id ?? index))
 	);
 
 	const isIndeterminate = $derived(currentSelectedRows.size > 0 && !isAllSelected);
@@ -194,7 +208,7 @@
 <div class={containerClasses}>
 	<table class={tableClasses}>
 		<caption class="sr-only">
-			Data table with {data().length} rows and {columns().length} columns
+			Data table with {data.length} rows and {columns.length} columns
 		</caption>
 		<!-- Table Header -->
 		<thead class={cn(currentVariant.header, stickyHeader && 'sticky top-0 z-10')}>
@@ -215,7 +229,7 @@
 					</th>
 				{/if}
 
-				{#each columns() as column (column.key)}
+				{#each columns as column (column.key)}
 					<th
 						class={cn(
 							currentSize.header,
@@ -226,7 +240,7 @@
 							bordered && 'border-r last:border-r-0'
 						)}
 						style={column.width ? `width: ${column.width}` : undefined}
-						onclick={() => column.sortable && handleSort(column)} onkeydown={(e) => e.key === "Enter" && column.sortable && handleSort(column)(e)} 
+						onclick={() => column.sortable && handleSort(column)}
 						scope="col"
 						aria-sort={currentSortBy === column.key
 							? currentSortOrder === 'asc'
@@ -276,7 +290,7 @@
 			{#if loading}
 				<tr>
 					<td
-						colspan={columns().length + (selectable ? 1 : 0)}
+						colspan={columns.length + (selectable ? 1 : 0)}
 						class={cn(currentSize.cell, currentVariant.loading, 'text-center')}
 					>
 						<div class="flex items-center justify-center gap-3 py-8">
@@ -292,10 +306,10 @@
 						</div>
 					</td>
 				</tr>
-			{:else if sortedData().length === 0}
+			{:else if sortedData.length === 0}
 				<tr>
 					<td
-						colspan={columns().length + (selectable ? 1 : 0)}
+						colspan={columns.length + (selectable ? 1 : 0)}
 						class={cn(currentSize.cell, currentVariant.cell, 'text-center text-gray-400')}
 					>
 						<div class="py-8">
@@ -312,7 +326,7 @@
 					</td>
 				</tr>
 			{:else}
-				{#each sortedData() as row, index (row.id ?? index)}
+				{#each sortedData as row, index (row.id ?? index)}
 					{@const rowId = row.id ?? index}
 					{@const isSelected = currentSelectedRows.has(rowId)}
 					<tr
@@ -323,7 +337,7 @@
 							isSelected && currentVariant.rowSelected,
 							'transition-colors duration-150 cursor-pointer'
 						)}
-						onclick={() => handleRowClick(row, index)} onkeydown={(e) => e.key === "Enter" && handleRowClick(row, index)} 
+						onclick={() => handleRowClick(row, index)}
 						in:glassFade={{ direction: 'up', duration: 100, delay: index * 20 }}
 					>
 						{#if selectable}
@@ -335,13 +349,13 @@
 										const target = e.target as HTMLInputElement;
 										handleRowSelect(row, target.checked);
 									}}
-									onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.key === "Enter" && e.stopPropagation()} 
+									onclick={(e) => e.stopPropagation()}
 									class="rounded bg-transparent border-current text-blue-500 focus:ring-blue-500"
 								/>
 							</td>
 						{/if}
 
-						{#each columns() as column (column.key)}
+						{#each columns as column (column.key)}
 							<td
 								class={cn(
 									currentSize.cell,

@@ -1,62 +1,38 @@
 [
 	{
-		"name": "Core Design System (Package)",
+		"name": "Core Design System",
 		"path": "dist/index.js",
 		"limit": "100 KB",
 		"gzip": true
 	},
 	{
-		"name": "Components Bundle (Package)",
+		"name": "Components Bundle",
 		"path": "dist/components/index.js",
 		"limit": "80 KB",
 		"gzip": true
 	},
 	{
-		"name": "Motion System (Package)",
+		"name": "Motion System",
 		"path": "dist/motion/index.js",
 		"limit": "15 KB",
 		"gzip": true
 	},
 	{
-		"name": "Design Tokens (Package)",
+		"name": "Design Tokens",
 		"path": "dist/tokens/index.js",
 		"limit": "5 KB",
 		"gzip": true
 	},
 	{
-		"name": "WebGL Components (Package)",
+		"name": "WebGL Components",
 		"path": "dist/components/webgl/index.js",
 		"limit": "50 KB",
 		"gzip": true
 	},
 	{
-		"name": "Liquidify Components (Package)",
+		"name": "Liquidify Components",
 		"path": "dist/components/liquidify/index.js",
 		"limit": "30 KB",
-		"gzip": true
-	},
-	{
-		"name": "SvelteKit App - Main Entry",
-		"path": "build/_app/immutable/entry/app.*.js",
-		"limit": "150 KB",
-		"gzip": true
-	},
-	{
-		"name": "SvelteKit App - Components Chunk",
-		"path": "build/_app/immutable/chunks/components.*.js",
-		"limit": "100 KB",
-		"gzip": true
-	},
-	{
-		"name": "SvelteKit App - Vendor Chunk",
-		"path": "build/_app/immutable/chunks/vendor.*.js",
-		"limit": "200 KB",
-		"gzip": true
-	},
-	{
-		"name": "SvelteKit App - CSS Bundle",
-		"path": "build/_app/immutable/assets/*.css",
-		"limit": "50 KB",
 		"gzip": true
 	}
 ]

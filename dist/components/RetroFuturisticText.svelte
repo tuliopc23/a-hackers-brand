@@ -179,15 +179,15 @@
 		'3xl': 'text-3xl'
 	};
 
-	const currentVariant = variants()[variant];
+	const currentVariant = variants[variant];
 
 	// Typewriter effect
 	onMount(() => {
 		if (typewriter) {
 			const typewriterInterval = setInterval(
 				() => {
-					if (typewriterIndex < text().length) {
-						displayText = text().slice(0, typewriterIndex + 1);
+					if (typewriterIndex < text.length) {
+						displayText = text.slice(0, typewriterIndex + 1);
 						typewriterIndex++;
 					} else {
 						clearInterval(typewriterInterval);
@@ -214,7 +214,7 @@
 		'relative inline-block transition-all duration-300',
 		currentVariant.font,
 		currentVariant.color,
-		sizes()[size],
+		sizes[size],
 		glow && currentVariant.shadow,
 		animated && 'transform-gpu will-change-transform',
 		scanlines && 'retro-scanlines',

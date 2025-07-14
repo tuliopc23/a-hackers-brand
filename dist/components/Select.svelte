@@ -32,7 +32,7 @@
 
 	let {
 		options = [],
-		value = $bindable(''),
+		value = '',
 		placeholder = 'Select an option...',
 		disabled = false,
 		size = 'md',
@@ -80,15 +80,15 @@
 		xl: 'backdrop-blur-xl'
 	};
 
-	const selectedOption = $derived(options().find((opt) => opt.value === value));
+	const selectedOption = $derived(options.find((opt) => opt.value === value));
 
 	const selectClasses = cn(
 		'relative flex items-center justify-between rounded-brand-md cursor-pointer',
 		'focus:outline-none focus:ring-2 focus:ring-blue-400/50',
 		'transition-all duration-200',
-		sizes()[size],
-		variants()[variant],
-		variant === 'glass' && blurLevels()[blur],
+		sizes[size],
+		variants[variant],
+		variant === 'glass' && blurLevels[blur],
 		liquid && 'backdrop-blur-md hover:backdrop-blur-lg',
 		glow && 'focus:shadow-lg focus:shadow-brand-primary/20',
 		jelly && !disabled && 'hover:scale-105 active:scale-95',
@@ -99,8 +99,8 @@
 	const dropdownClasses = cn(
 		'absolute top-full left-0 right-0 z-50 mt-1 rounded-brand-md shadow-lg',
 		'max-h-60 overflow-auto',
-		variants()[variant],
-		variant === 'glass' && `${blurLevels()[blur]} border border-white/20`
+		variants[variant],
+		variant === 'glass' && `${blurLevels[blur]} border border-white/20`
 	);
 
 	function handleKeydown(event: KeyboardEvent) {
@@ -111,7 +111,7 @@
 			case ' ':
 				event.preventDefault();
 				if (isOpen && activeIndex >= 0) {
-					selectOption(options()[activeIndex]);
+					selectOption(options[activeIndex]);
 				} else {
 					toggleOpen();
 				}
@@ -147,26 +147,26 @@
 			case 'End':
 				if (isOpen) {
 					event.preventDefault();
-					activeIndex = options().length - 1;
+					activeIndex = options.length - 1;
 				}
 				break;
 		}
 	}
 
 	function navigateOptions(direction: number) {
-		const enabledOptions = options().filter((opt) => !opt.disabled);
-		if (enabledOptions().length === 0) return;
+		const enabledOptions = options.filter((opt) => !opt.disabled);
+		if (enabledOptions.length === 0) return;
 
 		let newIndex = activeIndex + direction;
 
 		if (newIndex < 0) {
-			newIndex = enabledOptions().length - 1;
-		} else if (newIndex >= enabledOptions().length) {
+			newIndex = enabledOptions.length - 1;
+		} else if (newIndex >= enabledOptions.length) {
 			newIndex = 0;
 		}
 
 		// Find the actual index in the original array
-		activeIndex = options.findIndex((opt) => opt === enabledOptions()[newIndex]);
+		activeIndex = options.findIndex((opt) => opt === enabledOptions[newIndex]);
 	}
 
 	function toggleOpen() {
@@ -225,15 +225,16 @@
 	bind:this={selectElement}
 	id={uniqueId}
 	class={selectClasses}
-	role="combobox" aria-controls="dropdown" aria-expanded="false"  aria-expanded={isOpen}
+	role="combobox"
+	aria-expanded={isOpen}
 	aria-haspopup="listbox"
 	aria-labelledby={labelId || ariaLabel}
 	aria-activedescendant={activeIndex > -1 ? `${uniqueId}-option-${activeIndex}` : undefined}
 	tabindex={disabled ? -1 : 0}
-	use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.1,  } : undefined}
+	use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.1, distance: 40 } : undefined}
 	use:magneticHover={jelly && !disabled && !reduceMotion ? { strength: 0.08 } : undefined}
 	onkeydown={handleKeydown}
-	onclick={toggleOpen} onkeydown={(e) => e.key === "Enter" && toggleOpen(e)}
+	onclick={toggleOpen}
 	{...restProps}
 >
 	<span class="truncate">
@@ -259,10 +260,10 @@
 		id={listboxId}
 		role="listbox"
 		aria-labelledby={labelId || ariaLabel}
-		in:glassFade={{ direction: 'down', , duration: animate && !reduceMotion ? 150 : 0 }}
-		out:glassFade={{ direction: 'up', , duration: animate && !reduceMotion ? 100 : 0 }}
+		in:glassFade={{ direction: 'down', distance: 10, duration: animate && !reduceMotion ? 150 : 0 }}
+		out:glassFade={{ direction: 'up', distance: 10, duration: animate && !reduceMotion ? 100 : 0 }}
 	>
-		{#each options() as option, index (index)}
+		{#each options as option, index}
 			<li
 				id={`${uniqueId}-option-${index}`}
 				class={cn(
@@ -270,11 +271,16 @@
 					activeIndex === index && 'bg-white/20',
 					option.disabled && 'opacity-50 cursor-not-allowed'
 				)}
-				role="option" tabindex="0" tabindex="0"
+				role="option"
 				aria-selected={value === option.value}
 				aria-disabled={option.disabled}
 				tabindex="-1"
-				onclick={() => selectOption(option)} onkeydown={(e) => e.key === "Enter" && selectOption(option)}
+				onclick={() => selectOption(option)}
+				onkeydown={(e) => {
+					if (e.key === 'Enter' || e.key === ' ') {
+						e.preventDefault();
+						selectOption(option);
+					}
 				}}
 				onmouseenter={() => !option.disabled && (activeIndex = index)}
 			>

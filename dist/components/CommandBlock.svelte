@@ -74,7 +74,7 @@
 		}
 	};
 
-	const currentTheme = themeConfig()[theme];
+	const currentTheme = themeConfig[theme];
 
 	// Status configurations
 	const statusConfig = {
@@ -110,7 +110,7 @@
 		}
 	};
 
-	const currentStatus = statusConfig()[status];
+	const currentStatus = statusConfig[status];
 
 	// Prompt configurations
 	const promptConfig = {
@@ -120,7 +120,7 @@
 		neural: '◈ '
 	};
 
-	const currentPrompt = promptConfig()[theme];
+	const currentPrompt = promptConfig[theme];
 
 	// Sound effects (optional)
 	const playSound = (soundType: 'execute' | 'success' | 'error') => {
@@ -240,10 +240,15 @@
 		: {
 				role: 'article'
 			}}
-onmouseenter={() => (isHovered = true)}
-onmouseleave={() => (isHovered = false)}
-onclick={executeCommand} onkeydown={(e) => e.key === "Enter" && executeCommand()}
-{...restProps}
+	onmouseenter={() => (isHovered = true)}
+	onmouseleave={() => (isHovered = false)}
+	onclick={executeCommand}
+	onkeydown={(e) => {
+		if (interactive && (e.key === 'Enter' || e.key === ' ')) {
+			e.preventDefault();
+			executeCommand();
+		}
+	}}
 >
 	<!-- Status Indicator -->
 	<div class="absolute top-2 right-2 flex items-center gap-2">
@@ -289,13 +294,10 @@ onclick={executeCommand} onkeydown={(e) => e.key === "Enter" && executeCommand()
 		<!-- Copy Button -->
 		{#if interactive}
 			<button
-			onclick={(e) => {
-				e.stopPropagation();
-				copyCommand();
-			}} onkeydown={(e) => e.key === "Enter" && (() => {
-				e.stopPropagation();
-				copyCommand();
-			})()}
+				onclick={(e) => {
+					e.stopPropagation();
+					copyCommand();
+				}}
 				class={cn(
 					'opacity-0 group-hover:opacity-100 p-1 rounded text-xs transition-opacity',
 					currentTheme.accent,

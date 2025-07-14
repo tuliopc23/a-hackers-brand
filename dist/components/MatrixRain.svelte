@@ -72,10 +72,10 @@
 		high: 10
 	};
 
-	const currentVariant = variants()[variant];
-	const currentCharacters = characterSets()[characters];
-	const currentSpeed = speeds()[speed];
-	const currentDensity = densities()[density];
+	const currentVariant = variants[variant];
+	const currentCharacters = characterSets[characters];
+	const currentSpeed = speeds[speed];
+	const currentDensity = densities[density];
 
 	const fontSize = 14;
 	let columns = 0;
@@ -91,7 +91,7 @@
 		// Reset drops array
 		drops = [];
 		for (let x = 0; x < columns; x++) {
-			drops()[x] = Math.random() * canvas.height;
+			drops[x] = Math.random() * canvas.height;
 		}
 	};
 
@@ -117,28 +117,28 @@
 		}
 
 		// Draw characters
-		for (let i = 0; i < drops().length; i++) {
+		for (let i = 0; i < drops.length; i++) {
 			// Random character
-			const char = currentCharacters[Math.floor(Math.random() * currentCharacters().length)];
+			const char = currentCharacters[Math.floor(Math.random() * currentCharacters.length)];
 
 			// Primary color for leading character
 			ctx.fillStyle = currentVariant.primary;
-			ctx.fillText(char, i * fontSize + fontSize / 2, drops()[i]);
+			ctx.fillText(char, i * fontSize + fontSize / 2, drops[i]);
 
 			// Secondary color for trailing characters
-			if (drops()[i] > fontSize) {
+			if (drops[i] > fontSize) {
 				ctx.fillStyle = currentVariant.secondary;
-				const trailChar = currentCharacters[Math.floor(Math.random() * currentCharacters().length)];
-				ctx.fillText(trailChar, i * fontSize + fontSize / 2, drops()[i] - fontSize);
+				const trailChar = currentCharacters[Math.floor(Math.random() * currentCharacters.length)];
+				ctx.fillText(trailChar, i * fontSize + fontSize / 2, drops[i] - fontSize);
 			}
 
 			// Reset drop when it reaches bottom or randomly
-			if (drops()[i] > canvas.height || Math.random() > 0.975) {
-				drops()[i] = 0;
+			if (drops[i] > canvas.height || Math.random() > 0.975) {
+				drops[i] = 0;
 			}
 
 			// Move drop down
-			drops()[i] += fontSize;
+			drops[i] += fontSize;
 		}
 	};
 

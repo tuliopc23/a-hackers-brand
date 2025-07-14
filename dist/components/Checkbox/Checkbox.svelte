@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '../../utils.js';
-	import { liquidBlur, springPop, springPopAction } from '../../motion';
+	import { liquidBlur, springPop } from '../../motion';
 	import { sizeOf } from '../../utils/bundle-size.js';
 	import { Check, Minus } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -24,7 +24,7 @@
 	}
 
 	let {
-		checked = $bindable(false),
+		checked = false,
 		indeterminate = false,
 		disabled = false,
 		size = 'md',
@@ -109,13 +109,13 @@
 	const containerClasses = cn(
 		'relative inline-flex items-center justify-center rounded-md transition-all duration-200',
 		'focus-within:ring-2 focus-within:ring-blue-400/50 focus-within:ring-offset-2 focus-within:ring-offset-transparent',
-		sizes()[size].container,
+		sizes[size].container,
 		indeterminate
-			? variants()[variant].containerIndeterminate
+			? variants[variant].containerIndeterminate
 			: checked
-				? variants()[variant].containerChecked
-				: variants()[variant].container,
-		variant === 'glass' && blurLevels()[blur],
+				? variants[variant].containerChecked
+				: variants[variant].container,
+		variant === 'glass' && blurLevels[blur],
 		disabled && 'opacity-50 cursor-not-allowed',
 		!disabled && 'cursor-pointer hover:scale-105',
 		error && 'border-red-400/60 bg-red-500/10',
@@ -124,17 +124,17 @@
 
 	const iconClasses = cn(
 		'transition-all duration-200',
-		sizes()[size].icon,
+		sizes[size].icon,
 		indeterminate
-			? variants()[variant].iconIndeterminate
+			? variants[variant].iconIndeterminate
 			: checked
-				? variants()[variant].iconChecked
-				: variants()[variant].icon
+				? variants[variant].iconChecked
+				: variants[variant].icon
 	);
 
 	const labelClasses = cn(
 		'font-medium text-white cursor-pointer select-none',
-		sizes()[size].text,
+		sizes[size].text,
 		disabled && 'opacity-50',
 		error && 'text-red-300'
 	);
@@ -174,14 +174,14 @@
 			bind:this={checkboxElement}
 			type="checkbox"
 			id={uniqueId}
-			{checked}
+			bind:checked
 			{disabled}
 			{required}
 			class="sr-only"
 			aria-label={ariaLabel || label}
 			aria-describedby={[descriptionId, errorId].filter(Boolean).join(' ') || undefined}
 			aria-invalid={!!error}
-			use:springPopAction={animate && !reduceMotion ? { scale: 0.9, duration: 150 } : undefined}
+			use:springPop={animate && !reduceMotion ? { scale: 0.9, duration: 150 } : undefined}
 			onchange={handleChange}
 			onkeydown={handleKeydown}
 			{...restProps}
@@ -226,13 +226,13 @@
 	.glass-subtle {
 		background: rgba(255, 255, 255, 0.05);
 		-webkit-backdrop-filter: blur(10px);
-		        backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
 	}
 
 	.glass-medium {
 		background: rgba(255, 255, 255, 0.1);
 		-webkit-backdrop-filter: blur(15px);
-		        backdrop-filter: blur(15px);
+		backdrop-filter: blur(15px);
 	}
 
 	/* Hover effects */
@@ -253,7 +253,7 @@
 	}
 
 	/* Checkbox container animation */
-	div:has(:global(input)) {
+	div:has(input) {
 		will-change: transform;
 	}
 

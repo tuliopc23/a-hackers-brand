@@ -39,7 +39,7 @@
 			return;
 		}
 
-		const output = commands()[trimmedCommand] || `Command "${command}" not found. Type "help" for available commands.`;
+		const output = commands[trimmedCommand] || `Command "${command}" not found. Type "help" for available commands.`;
 
 		history = [
 			...history,
@@ -128,7 +128,7 @@
 			<!-- Terminal Body -->
 			<div class="terminal-body">
 				<!-- Command History -->
-				{#each history() as entry (entry.id || entry)}
+				{#each history as entry}
 					<div class="mb-2">
 						<!-- Command -->
 						<div class="flex items-center gap-2 mb-1">
@@ -202,7 +202,7 @@
 		font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
 		overflow: hidden;
 		-webkit-backdrop-filter: blur(10px);
-		        backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
 	}
 
 	.terminal-header {

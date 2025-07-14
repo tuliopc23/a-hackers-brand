@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { glassFade, springPop, springPopAction } from '../motion';
+	import { glassFade, springPop } from '../motion';
 	import { sizeOf } from '../utils/bundle-size.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -88,10 +88,10 @@
 	const toastClasses = cn(
 		'fixed z-50 max-w-sm w-full rounded-brand-lg p-4 shadow-lg',
 		'flex items-start gap-3 transition-all duration-300',
-		positions()[position],
-		variants()[variant],
-		variant === 'glass' && blurLevels()[blur],
-		types()[type].colors,
+		positions[position],
+		variants[variant],
+		variant === 'glass' && blurLevels[blur],
+		types[type].colors,
 		className
 	);
 
@@ -153,12 +153,12 @@
 		aria-atomic="true"
 		tabindex="-1"
 		in:glassFade={{
-			direction: position().includes('top') ? 'down' : 'up',
+			direction: position.includes('top') ? 'down' : 'up',
 			distance: 20,
 			duration: animate && !reduceMotion ? 300 : 0
 		}}
 		out:glassFade={{
-			direction: position().includes('top') ? 'up' : 'down',
+			direction: position.includes('top') ? 'up' : 'down',
 			distance: 20,
 			duration: animate && !reduceMotion ? 200 : 0
 		}}
@@ -166,7 +166,7 @@
 	>
 		<!-- Icon -->
 		<div class="flex-shrink-0 text-lg" aria-hidden="true">
-			{types()[type].icon}
+			{types[type].icon}
 		</div>
 
 		<!-- Content -->
@@ -191,8 +191,7 @@
 				<button
 					class="mt-2 text-sm font-medium text-white hover:text-white/80 focus:outline-none focus:underline transition-colors duration-150"
 					onclick={handleAction}
-					onkeydown={(e) => e.key === 'Enter' && handleAction(e)}
-					use:springPopAction={animate && !reduceMotion ? { scale: 0.98, duration: 100 } : undefined}
+					use:springPop={animate && !reduceMotion ? { scale: 0.98, duration: 100 } : undefined}
 				>
 					{action.label}
 				</button>
@@ -204,9 +203,8 @@
 			<button
 				class="flex-shrink-0 text-white/60 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 rounded transition-all duration-150"
 				onclick={handleClose}
-				onkeydown={(e) => e.key === 'Enter' && handleClose(e)}
 				aria-label="Close notification"
-				use:springPopAction={animate && !reduceMotion ? { scale: 0.9, duration: 100 } : undefined}
+				use:springPop={animate && !reduceMotion ? { scale: 0.9, duration: 100 } : undefined}
 			>
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

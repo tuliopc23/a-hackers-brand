@@ -32,7 +32,7 @@
 
 	let dismissed = $state(false);
 
-	const hasErrors = $derived(errors().length > 0 && !dismissed);
+	const hasErrors = $derived(errors.length > 0 && !dismissed);
 
 	// Group errors by field
 	const errorsByField = $derived(
@@ -55,7 +55,7 @@
 		minimal: 'bg-red-50 border border-red-200 text-red-900'
 	};
 
-	const containerClasses = cn('rounded-brand p-4 mb-4', variants()[variant], className);
+	const containerClasses = cn('rounded-brand p-4 mb-4', variants[variant], className);
 
 	function dismiss() {
 		dismissed = true;
@@ -108,16 +108,16 @@
 			<div class="flex-1 min-w-0">
 				<!-- Error Title -->
 				<h3 class="text-sm font-semibold text-red-600 mb-2">
-					Please correct the following {errors().length === 1 ? 'error' : 'errors'}:
+					Please correct the following {errors.length === 1 ? 'error' : 'errors'}:
 				</h3>
 
 				<!-- Error List -->
 				<ul class="space-y-2">
-					{#each Object.entries(errorsByField) as [field, fieldErrors] (fieldErrors])}
+					{#each Object.entries(errorsByField) as [field, fieldErrors]}
 						<li class="flex items-start gap-2">
 							<div class="flex-shrink-0 mt-1">
 								<svg class="w-3 h-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									{@html getErrorIcon(fieldErrors()[0]?.code)}
+									{@html getErrorIcon(fieldErrors[0]?.code)}
 								</svg>
 							</div>
 							<div class="min-w-0">
@@ -125,7 +125,7 @@
 									{getFieldDisplayName(field)}:
 								</span>
 								<ul class="mt-1 space-y-1">
-									{#each fieldErrors() as error (error.id || error)}
+									{#each fieldErrors as error}
 										<li class="text-sm text-red-500">
 											{error.message}
 										</li>
@@ -140,7 +140,7 @@
 			<!-- Dismiss Button -->
 			{#if dismissible}
 				<button
-					onclick={dismiss} onkeydown={(e) => e.key === "Enter" && dismiss(e)}
+					onclick={dismiss}
 					class="flex-shrink-0 p-1 rounded-md text-red-400 hover:text-red-600 hover:bg-red-500/10 transition-colors"
 					aria-label="Dismiss errors"
 				>
@@ -160,9 +160,9 @@
 
 <!-- Individual field error displays -->
 {#if hasErrors && !showSummary}
-	{#each Object.entries(errorsByField) as [field, fieldErrors] (fieldErrors])}
+	{#each Object.entries(errorsByField) as [field, fieldErrors]}
 		<div class="mt-1" id="{field}-errors">
-			{#each fieldErrors() as error (error.id || error)}
+			{#each fieldErrors as error}
 				<p
 					class="text-sm text-red-500 flex items-center gap-1"
 					in:glassFade={animate ? { duration: 200, direction: 'up', distance: 5 } : undefined}

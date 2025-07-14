@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
 	import { magneticHover } from '../motion';
-	import { jellyHover } from '../actions/jellyHover';
 	import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -125,8 +124,8 @@
 		onchange?.(page);
 	};
 
-	const currentVariant = variants()[variant];
-	const currentSize = sizes()[size];
+	const currentVariant = variants[variant];
+	const currentSize = sizes[size];
 	const pageNumbers = $derived(getPageNumbers());
 </script>
 
@@ -142,7 +141,7 @@
 >
 	{#if showFirstLast}
 		<button
-			onclick={() => handlePageChange(1)} onkeydown={(e) => e.key === "Enter" && handlePageChange(1)}
+			onclick={() => handlePageChange(1)}
 			disabled={currentPage === 1}
 			class={cn(
 				'flex items-center justify-center rounded-lg border transition-all duration-200',
@@ -164,7 +163,7 @@
 	{/if}
 
 	<button
-		onclick={() => handlePageChange(currentPage - 1)} onkeydown={(e) => e.key === "Enter" && handlePageChange(currentPage - 1)}
+		onclick={() => handlePageChange(currentPage - 1)}
 		disabled={currentPage === 1}
 		class={cn(
 			'flex items-center justify-center rounded-lg border transition-all duration-200',
@@ -184,12 +183,12 @@
 		<ChevronLeft size={currentSize.icon} />
 	</button>
 
-	{#each pageNumbers() as pageNumber (pageNumber.id || pageNumber)}
+	{#each pageNumbers as pageNumber}
 		{#if pageNumber === '...'}
 			<span class={cn('flex items-center justify-center', currentSize.button, 'opacity-50')}> ... </span>
 		{:else}
 			<button
-				onclick={() => handlePageChange(pageNumber)} onkeydown={(e) => e.key === "Enter" && handlePageChange(pageNumber)}
+				onclick={() => handlePageChange(pageNumber)}
 				class={cn(
 					'flex items-center justify-center rounded-lg border transition-all duration-200 font-medium',
 					currentSize.button,
@@ -212,7 +211,7 @@
 	{/each}
 
 	<button
-		onclick={() => handlePageChange(currentPage + 1)} onkeydown={(e) => e.key === "Enter" && handlePageChange(currentPage + 1)}
+		onclick={() => handlePageChange(currentPage + 1)}
 		disabled={currentPage === totalPages}
 		class={cn(
 			'flex items-center justify-center rounded-lg border transition-all duration-200',
@@ -234,7 +233,7 @@
 
 	{#if showFirstLast}
 		<button
-			onclick={() => handlePageChange(totalPages)} onkeydown={(e) => e.key === "Enter" && handlePageChange(totalPages)}
+			onclick={() => handlePageChange(totalPages)}
 			disabled={currentPage === totalPages}
 			class={cn(
 				'flex items-center justify-center rounded-lg border transition-all duration-200',

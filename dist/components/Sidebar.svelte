@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { liquidBlur, springPop } from '../motion'
-import { fade } from "svelte/transition";
+	import { liquidBlur, springPop } from '../motion';
 	import { brandColors } from '../tokens';
 	import { createEventDispatcher } from 'svelte';
 	import { X, ChevronLeft, ChevronRight, Menu } from 'lucide-svelte';
@@ -32,7 +31,7 @@ import { fade } from "svelte/transition";
 		class?: string;
 	}
 
-	let { header, footer,
+	let {
 		items = [],
 		width = 'md',
 		variant = 'glass',
@@ -89,7 +88,7 @@ import { fade } from "svelte/transition";
 		}
 	};
 
-	const currentVariant = variants()[variant];
+	const currentVariant = variants[variant];
 
 	function toggleSidebar() {
 		collapsed = !collapsed;
@@ -167,14 +166,14 @@ import { fade } from "svelte/transition";
 
 <!-- Overlay for mobile -->
 {#if overlay && !collapsed}
-	<div class={cn('fixed inset-0 z-40', currentVariant.overlay)} onclick={closeSidebar} onkeydown={(e) => e.key === "Enter" && closeSidebar(e)} transition:fade></div>
+	<div class={cn('fixed inset-0 z-40', currentVariant.overlay)} onclick={closeSidebar} transition:fade></div>
 {/if}
 
 <!-- Sidebar -->
 <aside
 	class={cn(
 		'flex flex-col h-full border-r transition-all duration-300 ease-in-out',
-		widths()[width],
+		widths[width],
 		currentVariant.sidebar,
 		position === 'right' && 'border-r-0 border-l',
 		overlay && 'fixed top-0 z-50',
@@ -191,14 +190,14 @@ import { fade } from "svelte/transition";
 	{#if showToggle}
 		<div class="flex items-center justify-between p-4 border-b border-white/10">
 			{#if !collapsed}
-				{#if header}{@render header()}{:else}
+				<slot name="header">
 					<h2 class="text-lg font-semibold truncate">Menu</h2>
-				{/if}
+				</slot>
 			{/if}
 
 			{#if collapsible}
 				<button
-					onclick={toggleSidebar} onkeydown={(e) => e.key === "Enter" && toggleSidebar(e)}
+					onclick={toggleSidebar}
 					class={cn('p-2 rounded-lg border transition-colors', currentVariant.toggle, collapsed && 'mx-auto')}
 					title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
 				>
@@ -232,7 +231,7 @@ import { fade } from "svelte/transition";
 							collapsed && 'justify-center px-2'
 						)}
 						style={!collapsed && level > 0 ? `padding-left: ${paddingLeft}` : undefined}
-						onclick={() => handleItemClick(item)} onkeydown={(e) => e.key === "Enter" && handleItemClick(item)} 
+						onclick={() => handleItemClick(item)}
 						disabled={item.disabled}
 						title={collapsed ? item.label : undefined}
 					>
@@ -275,9 +274,9 @@ import { fade } from "svelte/transition";
 	</nav>
 
 	<!-- Footer -->
-	{#if footer}
+	{#if $$slots.footer}
 		<div class="p-4 border-t border-white/10">
-			{@render footer?.({ collapsed, })}
+			<slot name="footer" {collapsed}></slot>
 		</div>
 	{/if}
 </aside>

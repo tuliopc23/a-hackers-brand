@@ -70,17 +70,17 @@
 		dot: '•'
 	};
 
-	const currentVariant = $derived(variants()[variant]);
+	const currentVariant = $derived(variants[variant]);
 
 	// Handle collapsed items if there are too many
 	const displayItems = $derived(() => {
-		if (items().length <= maxItems) {
+		if (items.length <= maxItems) {
 			return items;
 		}
 
 		// Show first item, ellipsis, and last few items
-		const firstItem = items()[0];
-		const lastItems = items().slice(-(maxItems - 2));
+		const firstItem = items[0];
+		const lastItems = items.slice(-(maxItems - 2));
 
 		return [
 			firstItem,
@@ -114,7 +114,7 @@
 		{#if showHome}
 			<li>
 				<button
-					onclick={handleHomeClick} onkeydown={(e) => e.key === "Enter" && handleHomeClick()}
+					onclick={handleHomeClick}
 					class="flex items-center {currentVariant.home} hover:underline transition-colors"
 					aria-label="Go to home"
 					use:magneticHover={{ strength: 0.1 }}
@@ -126,21 +126,21 @@
 				</button>
 			</li>
 
-			{#if displayItems().length > 0}
+			{#if displayItems.length > 0}
 				<li class={currentVariant.separator} aria-hidden="true">
-					{separators()[separator]}
+					{separators[separator]}
 				</li>
 			{/if}
 		{/if}
 
 		<!-- Breadcrumb Items -->
-		{#each displayItems() as item, index (item.id)}
+		{#each displayItems as item, index (item.id)}
 			<li class="flex items-center">
 				{#if item.id === 'ellipsis'}
 					<span class="px-2 {currentVariant.separator}" aria-hidden="true">
 						{item.label}
 					</span>
-				{:else if index === displayItems().length - 1}
+				{:else if index === displayItems.length - 1}
 					<!-- Last item (current page) -->
 					<span class="flex items-center {currentVariant.activeItem} font-medium" aria-current="page">
 						{#if item.icon}
@@ -156,14 +156,8 @@
 							onclick={(e) => {
 								if (!item.disabled) {
 									handleItemClick(item, index);
-								}
-							}} onkeydown={(e) => {
-								if (e.key === "Enter") {
-									if (!item.disabled) {
-										handleItemClick(item, index);
-									} else {
-										e.preventDefault();
-									}
+								} else {
+									e.preventDefault();
 								}
 							}}
 							class="flex items-center {currentVariant.item} hover:underline transition-colors
@@ -177,7 +171,7 @@
 						</a>
 					{:else}
 						<button
-							onclick={() => handleItemClick(item, index)} onkeydown={(e) => e.key === "Enter" && handleItemClick(item, index)} 
+							onclick={() => handleItemClick(item, index)}
 							disabled={item.disabled}
 							class="flex items-center {currentVariant.item} hover:underline transition-colors
 							       {item.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}"
@@ -193,9 +187,9 @@
 			</li>
 
 			<!-- Separator -->
-			{#if index < displayItems().length - 1 && item.id !== 'ellipsis'}
+			{#if index < displayItems.length - 1 && item.id !== 'ellipsis'}
 				<li class={currentVariant.separator} aria-hidden="true">
-					{separators()[separator]}
+					{separators[separator]}
 				</li>
 			{/if}
 		{/each}

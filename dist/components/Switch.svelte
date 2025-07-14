@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { liquidBlur, springPop, magneticHover, springPopAction } from '../motion';
+	import { liquidBlur, springPop, magneticHover } from '../motion';
 	import { sizeOf } from '../utils/bundle-size.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -24,7 +24,7 @@
 	}
 
 	let {
-		checked = $bindable(false),
+		checked = false,
 		disabled = false,
 		size = 'md',
 		variant = 'glass',
@@ -99,9 +99,9 @@
 	const trackClasses = cn(
 		'relative inline-flex items-center rounded-full transition-all duration-200',
 		'focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:ring-offset-2 focus:ring-offset-transparent',
-		sizes()[size].track,
-		checked ? variants()[variant].trackChecked : variants()[variant].track,
-		variant === 'glass' && blurLevels()[blur],
+		sizes[size].track,
+		checked ? variants[variant].trackChecked : variants[variant].track,
+		variant === 'glass' && blurLevels[blur],
 		liquid && 'backdrop-blur-md',
 		glow && checked && 'shadow-lg shadow-blue-400/30',
 		disabled && 'opacity-50 cursor-not-allowed',
@@ -112,9 +112,9 @@
 
 	const thumbClasses = cn(
 		'inline-block rounded-full transition-all duration-200 ease-in-out transform',
-		sizes()[size].thumb,
-		variants()[variant].thumb,
-		checked ? sizes()[size].translate : 'translate-x-0.5',
+		sizes[size].thumb,
+		variants[variant].thumb,
+		checked ? sizes[size].translate : 'translate-x-0.5',
 		!reduceMotion && 'will-change-transform'
 	);
 
@@ -153,11 +153,11 @@
 		aria-label={ariaLabel}
 		class={trackClasses}
 		{disabled}
-		use:springPopAction={animate && !reduceMotion ? { scale: 0.95, duration: 100 } : undefined}
+		use:springPop={animate && !reduceMotion ? { scale: 0.95, duration: 100 } : undefined}
 		use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.15, distance: 30 } : undefined}
 		use:magneticHover={jelly && !disabled && !reduceMotion ? { strength: 0.1 } : undefined}
 		onclick={handleClick}
-		onkeydown={(e) => e.key === 'Enter' && handleClick(e)}
+		onkeydown={handleKeydown}
 		{...restProps}
 	>
 		<span class={thumbClasses}></span>
@@ -205,7 +205,7 @@
 	/* Enhanced liquid variant styling */
 	button:global(.backdrop-blur-md):hover {
 		-webkit-backdrop-filter: blur(16px) saturate(150%);
-		        backdrop-filter: blur(16px) saturate(150%);
+		backdrop-filter: blur(16px) saturate(150%);
 	}
 
 	/* Jelly physics */
