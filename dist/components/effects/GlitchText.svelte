@@ -53,7 +53,7 @@
 		}
 	};
 
-	const config = intensityConfig[intensity];
+	const config = intensityConfig()[intensity];
 
 	const triggerGlitch = () => {
 		if (isGlitching) return;
@@ -115,7 +115,7 @@
 			.split('')
 			.map((char) => {
 				if (Math.random() < intensity / 100) {
-					return glitchChars[Math.floor(Math.random() * glitchChars.length)];
+					return glitchChars[Math.floor(Math.random() * glitchChars().length)];
 				}
 				return char;
 			})
@@ -128,9 +128,9 @@
 	class={cn('relative inline-block font-mono', isGlitching && 'glitching', className)}
 	data-text={text}
 	style="
-		--glitch-color-1: {colors[0] || '#ff0000'};
-		--glitch-color-2: {colors[1] || '#00ffff'};
-		--glitch-color-3: {colors[2] || '#ff00ff'};
+		--glitch-color-1: {colors()[0] || '#ff0000'};
+		--glitch-color-2: {colors()[1] || '#00ffff'};
+		--glitch-color-3: {colors()[2] || '#ff00ff'};
 		--glitch-distortion: {config.distortion}px;
 	"
 >

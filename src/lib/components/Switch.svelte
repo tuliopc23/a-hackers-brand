@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { liquidBlur, springPop, magneticHover } from '$lib/motion';
+	import { liquidBlur, springPop, magneticHover, springPopAction } from '$lib/motion';
 	import { sizeOf } from '$lib/utils/bundle-size.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -24,7 +24,7 @@
 	}
 
 	let {
-		checked = false,
+		checked = $bindable(false),
 		disabled = false,
 		size = 'md',
 		variant = 'glass',
@@ -41,7 +41,7 @@
 		class: className = '',
 		onCheckedChange,
 		...restProps
-	}: Props = $props();
+	} = $props();
 
 	let switchElement = $state<HTMLButtonElement>();
 	const uniqueId = `switch-${Math.random().toString(36).substr(2, 9)}`;
@@ -153,11 +153,11 @@
 		aria-label={ariaLabel}
 		class={trackClasses}
 		{disabled}
-		use:springPop={animate && !reduceMotion ? { scale: 0.95, duration: 100 } : undefined}
-		use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.15, distance: 30 } : undefined}
+		use:springPopAction={animate && !reduceMotion ? { scale: 0.95, duration: 100 } : undefined}
+		use:magneticHover={magnetic && !disabled && !reduceMotion ? { strength: 0.15 } : undefined}
 		use:magneticHover={jelly && !disabled && !reduceMotion ? { strength: 0.1 } : undefined}
 		onclick={handleClick}
-		onkeydown={handleKeydown}
+		onkeydown={(e) => e.key === 'Enter' && handleClick()}
 		{...restProps}
 	>
 		<span class={thumbClasses}></span>

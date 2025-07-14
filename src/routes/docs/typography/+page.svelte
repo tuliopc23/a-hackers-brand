@@ -240,7 +240,7 @@
 		</p>
 
 		<div class="grid gap-6">
-			{#each fontCombinations as combo}
+			{#each fontCombinations as combo (combo.id || combo)}
 				<div class="glass-subtle p-8 rounded-xl">
 					<h3 class="text-terminal-purple mb-4">{combo.title}</h3>
 					<div class="space-y-4">

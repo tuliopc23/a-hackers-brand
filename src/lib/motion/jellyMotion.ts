@@ -3,7 +3,7 @@
  * Liquid, jelly-like animations with dynamic responsiveness
  */
 
-import { DURATIONS, EASINGS, EASING_CSS, TRANSFORMS } from './tokens.js';
+import { DURATIONS, EASINGS, EASING_CSS, TRANSFORMS } from './tokens';
 import type { TransitionConfig } from 'svelte/transition';
 
 export interface JellyConfig {
@@ -29,7 +29,7 @@ export interface LiquidJellyConfig extends JellyConfig {
 /**
  * Jelly transition - creates a bouncy, elastic entrance/exit
  */
-export function jelly(node: Element, config: JellyConfig = {}): TransitionConfig {
+export function jelly(_node: Element, config: JellyConfig = {}): TransitionConfig {
 	const {
 		duration = DURATIONS.moderate,
 		easing = 'jelly',
@@ -70,7 +70,7 @@ export function jelly(node: Element, config: JellyConfig = {}): TransitionConfig
 /**
  * Liquid jelly transition - more fluid, organic motion
  */
-export function liquidJelly(node: Element, config: LiquidJellyConfig = {}): TransitionConfig {
+export function liquidJelly(_node: Element, config: LiquidJellyConfig = {}): TransitionConfig {
 	const {
 		duration = DURATIONS.slow,
 		easing = 'liquidJelly',

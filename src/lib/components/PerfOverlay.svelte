@@ -19,7 +19,7 @@
 
 	// Cleanup function
 	let animationId: number;
-	let intervalId: number;
+	let intervalId: ReturnType<typeof setTimeout>;
 
 	// Toggle visibility function
 	function toggleVisibility() {
@@ -65,7 +65,7 @@
 			const modules = import.meta.glob('./**/*.js', { eager: false });
 			bundleInfo = Object.keys(modules).map((path) => ({ path }));
 		} catch (error) {
-			console.warn('Failed to get bundle info:', error);
+			// Failed to get bundle info - will show empty bundle info
 			bundleInfo = [];
 		}
 
@@ -116,7 +116,9 @@
 	<div class="perf-overlay">
 		<div class="perf-header">
 			<h3>🚀 Performance Overlay</h3>
-			<button onclick={toggleVisibility} class="close-btn">×</button>
+			<button onclick={toggleVisibility} onkeydown={(e) => e.key === 'Enter' && toggleVisibility()} class="close-btn"
+				>×</button
+			>
 		</div>
 
 		<div class="perf-content">
@@ -136,7 +138,7 @@
 			<!-- Bundle Information -->
 			<div class="metric">
 				<span class="metric-label">Bundle Files:</span>
-				<span class="metric-value">{bundleInfo.length}</span>
+				<span class="metric-value">{bundleInfo().length}</span>
 			</div>
 
 			<!-- 3D Controls Section -->
@@ -146,7 +148,12 @@
 				<!-- 3D Toggle -->
 				<div class="metric">
 					<span class="metric-label">3D Scene:</span>
-					<button onclick={toggle3D} class="toggle-btn" class:active={show3D}>
+					<button
+						onclick={toggle3D}
+						onkeydown={(e) => e.key === 'Enter' && toggle3D()}
+						class="toggle-btn"
+						class:active={show3D}
+					>
 						{show3D ? 'ON' : 'OFF'}
 					</button>
 				</div>
@@ -183,7 +190,12 @@
 					<!-- Auto-rotate Toggle -->
 					<div class="metric">
 						<span class="metric-label">Auto-rotate:</span>
-						<button onclick={toggleAutoRotate} class="toggle-btn" class:active={autoRotate}>
+						<button
+							onclick={toggleAutoRotate}
+							onkeydown={(e) => e.key === 'Enter' && toggleAutoRotate()}
+							class="toggle-btn"
+							class:active={autoRotate}
+						>
 							{autoRotate ? 'ON' : 'OFF'}
 						</button>
 					</div>
@@ -197,10 +209,10 @@
 			</div>
 
 			<!-- Core Web Vitals -->
-			{#if vitals.length > 0}
+			{#if vitals().length > 0}
 				<div class="vitals-section">
 					<div class="section-title">Core Web Vitals:</div>
-					{#each vitals as vital}
+					{#each vitals() as vital (vital.id || vital)}
 						<div class="vital">
 							<span class="vital-name">{vital.name}:</span>
 							<span class="vital-value" style="color: {getVitalColor(vital.rating)}">
@@ -218,15 +230,15 @@
 			{/if}
 
 			<!-- Bundle Details (collapsed by default) -->
-			{#if bundleInfo.length > 0}
+			{#if bundleInfo().length > 0}
 				<details class="bundle-details">
-					<summary>Bundle Files ({bundleInfo.length})</summary>
+					<summary>Bundle Files ({bundleInfo().length})</summary>
 					<div class="bundle-list">
-						{#each bundleInfo.slice(0, 10) as bundle}
+						{#each bundleInfo().slice(0, 10) as bundle}
 							<div class="bundle-item">{bundle.path}</div>
 						{/each}
-						{#if bundleInfo.length > 10}
-							<div class="bundle-item more">... and {bundleInfo.length - 10} more</div>
+						{#if bundleInfo().length > 10}
+							<div class="bundle-item more">... and {bundleInfo().length - 10} more</div>
 						{/if}
 					</div>
 				</details>

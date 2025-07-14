@@ -30,15 +30,15 @@
 	const LazyLiquidBackground = lazy(() => import('$lib/components/webgl/LiquidBackground.svelte'));
 	const LazyAdvancedLiquidGlassScene = lazy(() => import('$lib/components/webgl/AdvancedLiquidGlassScene.svelte'));
 
-	let mounted = false;
-	let showModal = false;
-	let showToast = false;
-	let selectedTab = 'liquidify';
-	let inputValue = '';
-	let sliderValue = 50;
-	let switchValue = false;
-	let progressValue = 0;
-	let selectValue = 'option1';
+	let mounted = $state(false);
+	let showModal = $state(false);
+	let showToast = $state(false);
+	let selectedTab = $state('liquidify');
+	let inputValue = $state('');
+	let sliderValue = $state(50);
+	let switchValue = $state(false);
+	let progressValue = $state(0);
+	let selectValue = $state('option1');
 
 	// Component categories
 	const componentCategories = {
@@ -151,7 +151,7 @@
 	<!-- WebGL Background -->
 	{#if mounted && LazyLiquidBackground.component}
 		<div class="absolute inset-0 opacity-20">
-			<svelte:component this={LazyLiquidBackground.component} />
+			<LazyLiquidBackground.component />
 		</div>
 	{/if}
 
@@ -214,7 +214,7 @@
 						</div>
 
 						<div class="space-y-12">
-							{#each category.components as component}
+							{#each category.components as component (component.id || component)}
 								<GlassCard intensity="light" class="p-8">
 									<div class="grid lg:grid-cols-2 gap-8">
 										<!-- Component Info -->
@@ -369,7 +369,7 @@
 					<h3 class="text-2xl font-bold mb-6 text-center">Advanced WebGL Scene</h3>
 					<div class="h-96 rounded-lg overflow-hidden bg-black/30 border border-white/10">
 						{#if mounted && LazyAdvancedLiquidGlassScene.component}
-							<svelte:component this={LazyAdvancedLiquidGlassScene.component} />
+							<LazyAdvancedLiquidGlassScene.component />
 						{:else}
 							<div class="flex items-center justify-center h-full">
 								<div class="text-center">

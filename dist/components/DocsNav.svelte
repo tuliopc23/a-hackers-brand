@@ -2,7 +2,11 @@
 	import { page } from '$app/stores';
 	import { GlassButton } from './liquidify';
 
-	export let currentSection = '';
+	interface Props {
+		currentSection?: string;
+	}
+
+	let { currentSection = '' }: Props = $props();
 
 	// Navigation items
 	const navItems = [
@@ -58,7 +62,7 @@
 				<GlassButton
 					variant="ghost"
 					size="sm"
-					onclick={() => window.open('https://github.com/tulio/liquid-glass-system', '_blank')}
+					onclick={() => window.open('https://github.com/tulio/liquid-glass-system', '_blank')} onkeydown={(e) => e.key === "Enter" && window.open('https://github.com/tulio/liquid-glass-system', '_blank')(e)} 
 				>
 					GitHub
 				</GlassButton>
@@ -68,7 +72,7 @@
 
 		<!-- Navigation Links -->
 		<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-			{#each navItems as item}
+			{#each navItems() as item (item.id || item)}
 				<a
 					href={item.href}
 					class="group p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-all duration-300 {currentPath ===

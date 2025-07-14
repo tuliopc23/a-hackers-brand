@@ -93,8 +93,7 @@
 		if (bytes === 0) return '0 Bytes';
 		const k = 1024;
 		const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-		const i = Math.floor(Math.log(bytes) / Math.log(k));
-		return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+		const i = Math.floor(Math.log(bytes) / Math.log(k));			return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 	}
 
 	function isImageFile(file: File): boolean {
@@ -298,8 +297,7 @@
 			fileInputRef.click();
 		}
 	}
-
-	const canAddMoreFiles = $derived(files.length < maxFiles);
+ const canAddMoreFiles = $derived(files.length < maxFiles);
 
 	const combinedClasses = $derived(
 		cn(
@@ -329,7 +327,7 @@
 	bind:this={dropZoneRef}
 	class={combinedClasses}
 	onclick={triggerFileSelect}
-	onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && triggerFileSelect()}
+	onkeydown={(e) => e.key === "Enter" && triggerFileSelect()}
 	ondragover={handleDragOver}
 	ondragleave={handleDragLeave}
 	ondrop={handleDrop}
@@ -371,7 +369,7 @@
 				</p>
 				{#if multiple}
 					<p class="text-xs text-gray-500 mt-1">
-						{files.length} of {maxFiles} files selected
+      {files.length} of {maxFiles} files selected
 					</p>
 				{/if}
 			</div>
@@ -393,7 +391,7 @@
 <!-- File list -->
 {#if files.length > 0}
 	<div class="mt-4 space-y-3">
-		{#each files as file (file.id)}
+  {#each files as file (file.id)}
 			<div
 				class="p-4 rounded-lg border {currentVariant.fileItem} transition-all duration-200"
 				in:springPop={{ duration: 300, bounce: true }}
@@ -422,7 +420,6 @@
 					<div class="flex-1 min-w-0">
 						<div class="flex items-center justify-between">
 							<h4 class="text-sm font-medium truncate pr-2">{file.name}</h4>
-
 							<!-- Status icon and actions -->
 							<div class="flex items-center gap-2">
 								{#if file.status === 'success'}
@@ -436,6 +433,7 @@
 								{:else if file.status === 'error'}
 									<button
 										onclick={() => retryUpload(file.id)}
+										onkeydown={(e) => e.key === 'Enter' && retryUpload(file.id)}
 										class="text-xs px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
 										title="Retry upload"
 									>
@@ -460,10 +458,10 @@
 										</svg>
 									</div>
 								{/if}
-
 								<!-- Remove button -->
 								<button
 									onclick={() => removeFile(file.id)}
+									onkeydown={(e) => e.key === 'Enter' && removeFile(file.id)}
 									class="p-1 rounded {currentVariant.removeButton} hover:bg-red-500/20 transition-colors"
 									aria-label="Remove file"
 								>
@@ -473,7 +471,6 @@
 								</button>
 							</div>
 						</div>
-
 						<!-- File size and error -->
 						<div class="mt-1">
 							<p class="text-xs text-gray-400">{formatFileSize(file.size)}</p>
@@ -491,8 +488,10 @@
 										style="width: {file.progress}%"
 									></div>
 								</div>
-								<p class="text-xs text-gray-400 mt-1">{file.progress}% uploaded</p>
 							</div>
+						{/if}
+						{#if file.status === 'uploading' && file.progress !== undefined}
+							<p class="text-xs text-gray-400 mt-1">{file.progress}% uploaded</p>
 						{/if}
 					</div>
 				</div>
@@ -500,7 +499,6 @@
 		{/each}
 	</div>
 {/if}
-
 <style>
 	/* Terminal-specific glow effects */
 	:global(.terminal .file-upload:hover) {

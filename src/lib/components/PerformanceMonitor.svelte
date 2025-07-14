@@ -40,7 +40,7 @@
 	let frameCount = 0;
 	let lastTime = performance.now();
 	let animationId: number;
-	let intervalId: number;
+	let intervalId: ReturnType<typeof setTimeout>;
 
 	// Web Vitals observer
 	let observer: PerformanceObserver | null = null;
@@ -70,7 +70,7 @@
 		}
 	};
 
-	const currentTheme = themeConfig[theme];
+	const currentTheme = themeConfig()[theme];
 
 	// Position classes
 	const positionClasses = {
@@ -143,7 +143,7 @@
 				entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift', 'paint', 'navigation']
 			});
 		} catch (e) {
-			console.warn('Some performance entries not supported:', e);
+			// Some performance entries not supported - silently handle
 		}
 	};
 
@@ -170,7 +170,7 @@
 		const k = 1024;
 		const sizes = ['B', 'KB', 'MB', 'GB'];
 		const i = Math.floor(Math.log(bytes) / Math.log(k));
-		return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes[i]}`;
+		return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes()[i]}`;
 	};
 
 	// Performance bar component
@@ -212,7 +212,7 @@
 		'transform transition-all duration-300 hover:scale-105',
 		currentTheme.bg,
 		currentTheme.shadow,
-		positionClasses[position],
+		positionClasses()[position],
 		className
 	)}
 >

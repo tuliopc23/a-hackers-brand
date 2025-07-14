@@ -1,18 +1,18 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { cn } from '$lib/utils.js';
-	import { glassFade, liquidBlur } from '$lib/motion';
+	import { liquidBlur } from '$lib/motion';
 	import { Button } from './index.js';
 
 	interface Props {
-		fallback?: any;
-		onError?: (error: Error, errorInfo?: any) => void;
+		fallback?: import('svelte').Snippet;
+		onError?: (error: Error, errorInfo?: Record<string, unknown>) => void;
 		showDetails?: boolean;
 		variant?: 'glass' | 'terminal' | 'minimal';
 		animate?: boolean;
 		retryable?: boolean;
 		class?: string;
-		children?: any;
+		children?: import('svelte').Snippet;
 	}
 
 	const {
@@ -43,11 +43,7 @@
 		// Call user-provided error handler
 		onError?.(err, info);
 
-		// Log error for debugging
-		console.error('Component Error Boundary caught an error:', err);
-		if (info) {
-			console.error('Error info:', info);
-		}
+		// Error caught by boundary - integrate with error reporting service
 	}
 
 	function retry() {
@@ -123,12 +119,12 @@
 {#if hasError}
 	<div
 		class={containerClasses}
-		in:liquidBlur={animate ? { duration: 300, blur: 'sm' } : undefined}
+		transition:liquidBlur={animate ? { duration: 300, blur: 'sm' } : undefined}
 		role="alert"
 		aria-live="assertive"
 	>
 		{#if fallback}
-			{@render fallback({ error, retry, reset, retryCount, maxRetries })}
+			{@render fallback()}
 		{:else}
 			<div class="space-y-4">
 				<!-- Error Icon and Title -->
@@ -181,6 +177,7 @@
 							variant="glass"
 							size="sm"
 							onclick={retry}
+							onkeydown={(e) => e.key === 'Enter' && retry()}
 							class="bg-red-500/20 border-red-500/40 hover:bg-red-500/30"
 						>
 							Try Again
@@ -191,6 +188,7 @@
 						variant="glass"
 						size="sm"
 						onclick={reset}
+						onkeydown={(e) => e.key === 'Enter' && reset()}
 						class="bg-blue-500/20 border-blue-500/40 hover:bg-blue-500/30"
 					>
 						Reset
@@ -201,6 +199,7 @@
 							variant="glass"
 							size="sm"
 							onclick={() => (showFullError = !showFullError)}
+							onkeydown={(e) => e.key === 'Enter' && (showFullError = !showFullError)}
 							class="bg-gray-500/20 border-gray-500/40 hover:bg-gray-500/30"
 						>
 							{showFullError ? 'Hide' : 'Show'} Details

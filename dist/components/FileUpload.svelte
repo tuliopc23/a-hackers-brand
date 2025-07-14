@@ -83,7 +83,7 @@
 		}
 	};
 
-	const currentVariant = $derived(variants[variant]);
+	const currentVariant = $derived(variants()[variant]);
 
 	function generateFileId(): string {
 		return Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -94,7 +94,7 @@
 		const k = 1024;
 		const sizes = ['Bytes', 'KB', 'MB', 'GB'];
 		const i = Math.floor(Math.log(bytes) / Math.log(k));
-		return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+		return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes()[i];
 	}
 
 	function isImageFile(file: File): boolean {
@@ -109,11 +109,11 @@
 		if (accept !== '*/*') {
 			const acceptedTypes = accept.split(',').map((type) => type.trim());
 			const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
-			const isAccepted = acceptedTypes.some(
+			const isAccepted = acceptedTypes().some(
 				(type) =>
 					type === file.type ||
 					type === fileExtension ||
-					(type.endsWith('/*') && file.type.startsWith(type.slice(0, -1)))
+					(type.endsWith('/*') && file.type.startsWith(type().slice(0, -1)))
 			);
 
 			if (!isAccepted) {
@@ -139,8 +139,8 @@
 		if (disabled) return;
 
 		const fileArray = Array.from(fileList);
-		const remainingSlots = maxFiles - files.length;
-		const filesToProcess = fileArray.slice(0, remainingSlots);
+		const remainingSlots = maxFiles - files().length;
+		const filesToProcess = fileArray().slice(0, remainingSlots);
 
 		const newFiles: FileWithPreview[] = [];
 
@@ -164,7 +164,7 @@
 		dispatch('filesAdded', newFiles);
 
 		if (autoUpload && uploadUrl) {
-			newFiles.forEach((file) => {
+			newFiles().forEach((file) => {
 				if (file.status === 'pending') {
 					uploadFile(file);
 				}
@@ -179,8 +179,8 @@
 		if (fileIndex === -1) return;
 
 		// Update file status
-		files[fileIndex] = { ...file, status: 'uploading', progress: 0 };
-		dispatch('uploadStart', files[fileIndex]);
+		files()[fileIndex] = { ...file, status: 'uploading', progress: 0 };
+		dispatch('uploadStart', files()[fileIndex]);
 
 		const formData = new FormData();
 		formData.append('file', file);
@@ -190,23 +190,23 @@
 
 			// Track upload progress
 			xhr.upload.onprogress = (event) => {
-				if (event.lengthComputable) {
+				if (event().lengthComputable) {
 					const progress = Math.round((event.loaded / event.total) * 100);
-					files[fileIndex] = { ...files[fileIndex], progress };
-					dispatch('uploadProgress', { file: files[fileIndex], progress });
+					files()[fileIndex] = { ...files()[fileIndex], progress };
+					dispatch('uploadProgress', { file: files()[fileIndex], progress });
 				}
 			};
 
 			// Handle completion
 			xhr.onload = () => {
 				if (xhr.status >= 200 && xhr.status < 300) {
-					files[fileIndex] = {
-						...files[fileIndex],
+					files()[fileIndex] = {
+						...files()[fileIndex],
 						status: 'success',
 						progress: 100
 					};
 					dispatch('uploadSuccess', {
-						file: files[fileIndex],
+						file: files()[fileIndex],
 						response: xhr.response
 					});
 				} else {
@@ -214,31 +214,31 @@
 				}
 
 				// Check if all uploads are complete
-				if (files.every((f) => f.status === 'success' || f.status === 'error')) {
+				if (files().every((f) => f.status === 'success' || f.status === 'error')) {
 					dispatch('allUploadsComplete', files);
 				}
 			};
 
 			xhr.onerror = () => {
 				const error = 'Upload failed: Network error';
-				files[fileIndex] = {
-					...files[fileIndex],
+				files()[fileIndex] = {
+					...files()[fileIndex],
 					status: 'error',
 					error
 				};
-				dispatch('uploadError', { file: files[fileIndex], error });
+				dispatch('uploadError', { file: files()[fileIndex], error });
 			};
 
 			xhr.open('POST', uploadUrl);
 			xhr.send(formData);
 		} catch (error) {
 			const errorMessage = error instanceof Error ? error.message : 'Upload failed';
-			files[fileIndex] = {
-				...files[fileIndex],
+			files()[fileIndex] = {
+				...files()[fileIndex],
 				status: 'error',
 				error: errorMessage
 			};
-			dispatch('uploadError', { file: files[fileIndex], error: errorMessage });
+			dispatch('uploadError', { file: files()[fileIndex], error: errorMessage });
 		}
 	}
 
@@ -246,13 +246,13 @@
 		const fileIndex = files.findIndex((f) => f.id === fileId);
 		if (fileIndex === -1) return;
 
-		const removedFile = files[fileIndex];
-		files = files.filter((f) => f.id !== fileId);
+		const removedFile = files()[fileIndex];
+		files = files().filter((f) => f.id !== fileId);
 		dispatch('fileRemoved', removedFile);
 	}
 
 	function retryUpload(fileId: string) {
-		const file = files.find((f) => f.id === fileId);
+		const file = files().find((f) => f.id === fileId);
 		if (file && uploadUrl) {
 			uploadFile(file);
 		}
@@ -299,7 +299,7 @@
 		}
 	}
 
-	const canAddMoreFiles = $derived(files.length < maxFiles);
+	const canAddMoreFiles = $derived(files().length < maxFiles);
 
 	const combinedClasses = $derived(
 		cn(
@@ -328,8 +328,7 @@
 <div
 	bind:this={dropZoneRef}
 	class={combinedClasses}
-	onclick={triggerFileSelect}
-	onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && triggerFileSelect()}
+	onclick={triggerFileSelect} onkeydown={(e) => e.key === "Enter" && triggerFileSelect(e)} 
 	ondragover={handleDragOver}
 	ondragleave={handleDragLeave}
 	ondrop={handleDrop}
@@ -371,7 +370,7 @@
 				</p>
 				{#if multiple}
 					<p class="text-xs text-gray-500 mt-1">
-						{files.length} of {maxFiles} files selected
+						{files().length} of {maxFiles} files selected
 					</p>
 				{/if}
 			</div>
@@ -391,9 +390,9 @@
 </div>
 
 <!-- File list -->
-{#if files.length > 0}
+{#if files().length > 0}
 	<div class="mt-4 space-y-3">
-		{#each files as file (file.id)}
+		{#each files() as file (file.id)}
 			<div
 				class="p-4 rounded-lg border {currentVariant.fileItem} transition-all duration-200"
 				in:springPop={{ duration: 300, bounce: true }}
@@ -435,7 +434,7 @@
 									</svg>
 								{:else if file.status === 'error'}
 									<button
-										onclick={() => retryUpload(file.id)}
+										onclick={() => retryUpload(file.id)} onkeydown={(e) => e.key === "Enter" && retryUpload(file.id)} 
 										class="text-xs px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
 										title="Retry upload"
 									>
@@ -463,7 +462,7 @@
 
 								<!-- Remove button -->
 								<button
-									onclick={() => removeFile(file.id)}
+									onclick={() => removeFile(file.id)} onkeydown={(e) => e.key === "Enter" && removeFile(file.id)} 
 									class="p-1 rounded {currentVariant.removeButton} hover:bg-red-500/20 transition-colors"
 									aria-label="Remove file"
 								>

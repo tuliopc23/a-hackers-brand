@@ -21,7 +21,7 @@
 
 			if (above) {
 				const breakpoints: Breakpoint[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
-				const index = breakpoints.indexOf(above);
+				const index = breakpoints().indexOf(above);
 				if (index !== -1) {
 					classes += ` hidden ${above}:block`;
 				}

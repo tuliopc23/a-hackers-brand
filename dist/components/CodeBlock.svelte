@@ -11,7 +11,7 @@
 		maxHeight?: string;
 	}
 
-	let {
+	const {
 		language = 'javascript',
 		code = '',
 		title = '',
@@ -90,14 +90,14 @@
 
 	// Apply syntax highlighting
 	function highlightCode(code: string, lang: string): string {
-		const patterns = syntaxPatterns[lang] || [];
+		const patterns = syntaxPatterns()[lang] || [];
 		let highlighted = code;
 
 		// Escape HTML
 		highlighted = highlighted.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 		// Apply syntax patterns
-		patterns.forEach(({ pattern, class: className }) => {
+		patterns().forEach(({ pattern, class: className }) => {
 			highlighted = highlighted.replace(pattern, `<span class="${className}">$1</span>`);
 		});
 
@@ -138,6 +138,7 @@
 						? 'bg-green-500/20 text-green-400'
 						: 'text-white/80'}"
 					onclick={copyCode}
+					onkeydown={(e) => e.key === 'Enter' && copyCode(e)}
 					aria-label="Copy code to clipboard"
 				>
 					{#if copied}
@@ -169,7 +170,7 @@
 				: ''} {title || showCopy ? '' : 'rounded-lg'} {title || showCopy ? 'rounded-b-lg' : ''}"><code
 				class="text-white/90"
 				>{#if showLineNumbers}
-					{#each codeLines as line, index}
+					{#each codeLines() as line, index (index)}
 						<span class="text-white/40 select-none mr-4">{String(index + 1).padStart(2, ' ')}</span>{@html line}
 					{/each}
 				{:else}
@@ -190,7 +191,7 @@
 	/* Ensure proper scrolling */
 	pre {
 		-o-tab-size: 2;
-		tab-size: 2;
+		   tab-size: 2;
 		-moz-tab-size: 2;
 	}
 

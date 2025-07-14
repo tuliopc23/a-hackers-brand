@@ -13,7 +13,7 @@
 		divider?: boolean;
 	}
 
-	interface Props extends HTMLAttributes<HTMLDivElement> {
+	interface Props extends Omit<HTMLAttributes<HTMLDivElement>, 'onselect'> {
 		items: DropdownItem[];
 		trigger?: string;
 		value?: string;
@@ -176,6 +176,16 @@
 	<button
 		type="button"
 		onclick={toggleDropdown}
+		onkeydown={(e) => {
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault();
+				toggleDropdown();
+			}
+			if (e.key === 'ArrowDown' && !open) {
+				e.preventDefault();
+				toggleDropdown();
+			}
+		}}
 		class={cn(
 			'flex items-center justify-between gap-2 rounded-xl border backdrop-blur-xl transition-all duration-200',
 			sizes[size],
@@ -191,7 +201,8 @@
 			borderRadius: '12px'
 		}}
 		aria-expanded={open}
-		aria-haspopup="true"
+		aria-haspopup="listbox"
+		aria-label={selectedItem?.label || trigger}
 	>
 		<span>{selectedItem?.label || trigger}</span>
 		<ChevronDown size={16} class={cn('transition-transform duration-200', open && 'rotate-180')} />
@@ -209,16 +220,22 @@
 			)}
 			style="left: {menuPosition.x}px; top: {menuPosition.y}px;"
 			transition:glassFade={{ duration: animated ? 200 : 0 }}
+			role="listbox"
+			aria-label="Options"
 		>
 			<div class="py-1">
-				{#each items || [] as item}
+				{#each items || [] as item (item.value || item.label)}
 					{#if item.divider}
 						<div class="h-px bg-white/10 my-1"></div>
 					{:else}
 						<button
 							type="button"
 							onclick={() => handleSelect(item)}
+							onkeydown={(e) => e.key === 'Enter' && handleSelect(item)}
 							disabled={item.disabled}
+							role="option"
+							aria-selected={item.value === value}
+							aria-disabled={item.disabled}
 							class={cn(
 								'flex items-center gap-3 w-full px-4 py-2 transition-all duration-200',
 								currentVariant.item,

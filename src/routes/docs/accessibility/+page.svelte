@@ -10,7 +10,7 @@
 
 	let mounted = $state(false);
 	let selectedSection = $state('overview');
-	let contrastResult = $state(null);
+	const contrastResult = $state(null);
 	let showMotionDemo = $state(true);
 
 	// Accessibility sections
@@ -361,7 +361,7 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">WCAG Compliance Levels</h3>
 									<div class="space-y-6">
-										{#each wcagLevels as level}
+										{#each wcagLevels as level (level.id || level)}
 											<div class="border border-white/10 rounded-lg p-6">
 												<div class="flex items-start justify-between mb-4">
 													<div>
@@ -379,7 +379,7 @@
 												<div class="space-y-2">
 													<h5 class="font-semibold text-sm">Key Requirements:</h5>
 													<ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
-														{#each level.requirements as requirement}
+														{#each level.requirements as requirement (requirement.id || requirement)}
 															<li class="flex items-start space-x-2 text-sm">
 																<span class="text-{level.color}-400 mt-1">•</span>
 																<span class="text-white/80">{requirement}</span>
@@ -463,7 +463,7 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Color Contrast Testing</h3>
 									<div class="space-y-6">
-										{#each colorCombinations as combo}
+										{#each colorCombinations as combo (combo.id || combo)}
 											<div class="border border-white/10 rounded-lg p-6">
 												<div class="grid md:grid-cols-3 gap-6 items-center">
 													<div>
@@ -534,7 +534,7 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Motion Preferences</h3>
 									<div class="space-y-6">
-										{#each motionPreferences as pref}
+										{#each motionPreferences as pref (pref.id || pref)}
 											<div class="border border-white/10 rounded-lg p-6">
 												<h4 class="text-lg font-semibold mb-3">{pref.setting}</h4>
 												<p class="text-white/80 mb-4">{pref.description}</p>
@@ -631,7 +631,7 @@ mediaQuery.addEventListener('change', (e) => {
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Keyboard Navigation Patterns</h3>
 									<div class="space-y-4">
-										{#each keyboardPatterns as pattern}
+										{#each keyboardPatterns as pattern (pattern.id || pattern)}
 											<div class="border border-white/10 rounded-lg p-6">
 												<div class="grid md:grid-cols-4 gap-4">
 													<div>
@@ -640,7 +640,7 @@ mediaQuery.addEventListener('change', (e) => {
 													<div>
 														<div class="text-sm text-white/70 mb-1">Keys:</div>
 														<div class="flex flex-wrap gap-1">
-															{#each pattern.keys as key}
+															{#each pattern.keys as key (key.id || key)}
 																<kbd class="px-2 py-1 bg-black/20 rounded text-xs font-mono">{key}</kbd>
 															{/each}
 														</div>
@@ -715,12 +715,12 @@ mediaQuery.addEventListener('change', (e) => {
 						{:else if selectedSection === 'screen_readers'}
 							<div class="space-y-12">
 								<!-- Screen Reader Guidelines -->
-								{#each screenReaderGuidelines as guideline}
+								{#each screenReaderGuidelines as guideline (guideline.id || guideline)}
 									<GlassCard intensity="light" class="p-8">
 										<h3 class="text-2xl font-bold mb-6">{guideline.category}</h3>
 										<p class="text-white/80 mb-6">{guideline.description}</p>
 										<div class="grid md:grid-cols-2 gap-6">
-											{#each guideline.examples as example}
+											{#each guideline.examples as example (example.id || example)}
 												<div class="p-4 bg-black/20 rounded-lg">
 													<code class="text-terminal-green text-sm">{example}</code>
 												</div>
@@ -802,7 +802,7 @@ mediaQuery.addEventListener('change', (e) => {
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Accessibility Testing Tools</h3>
 									<div class="grid md:grid-cols-2 gap-6">
-										{#each testingTools as tool}
+										{#each testingTools as tool (tool.id || tool)}
 											<div class="border border-white/10 rounded-lg p-6">
 												<div class="flex items-start justify-between mb-4">
 													<div>
@@ -814,7 +814,7 @@ mediaQuery.addEventListener('change', (e) => {
 												<div class="space-y-2 mb-4">
 													<div class="text-sm text-white/70">Features:</div>
 													<ul class="space-y-1">
-														{#each tool.features as feature}
+														{#each tool.features as feature (feature.id || feature)}
 															<li class="flex items-start space-x-2 text-sm">
 																<span class="text-green-400 mt-1">•</span>
 																<span class="text-white/80">{feature}</span>

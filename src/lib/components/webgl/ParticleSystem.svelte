@@ -106,7 +106,7 @@
 			positions[i * 3 + 1] = radius * Math.cos(phi);
 			positions[i * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
 
-			scales[i] = Math.random() * 0.5 + 0.5;
+			scales()[i] = Math.random() * 0.5 + 0.5;
 
 			randomness[i * 3] = (Math.random() - 0.5) * 0.5;
 			randomness[i * 3 + 1] = (Math.random() - 0.5) * 0.5;

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { glassFade, magneticHover } from '../motion';
+	import { glassFade, jellyHover } from '../motion';
 	import { ChevronDown } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { onMount } from 'svelte';
@@ -13,7 +13,7 @@
 		divider?: boolean;
 	}
 
-	interface Props extends HTMLAttributes<HTMLDivElement> {
+	interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "onselect"> {
 		items: DropdownItem[];
 		trigger?: string;
 		value?: string;
@@ -30,7 +30,7 @@
 	}
 
 	const {
-		items,
+		items = [],
 		trigger = 'Select',
 		value,
 		variant = 'glass',
@@ -168,16 +168,17 @@
 		};
 	});
 
-	const currentVariant = variants[variant];
-	const selectedItem = items.find((item) => item.value === value);
+	const currentVariant = variants()[variant];
+	const selectedItem = items?.find((item) => item.value === value);
 </script>
 
 <div bind:this={dropdownRef} class={cn('relative inline-block', className)} {...restProps}>
 	<button
-		onclick={toggleDropdown}
+		type="button"
+		onclick={toggleDropdown} onkeydown={(e) => e.key === "Enter" && toggleDropdown(e)}
 		class={cn(
 			'flex items-center justify-between gap-2 rounded-xl border backdrop-blur-xl transition-all duration-200',
-			sizes[size],
+			sizes()[size],
 			currentVariant.trigger,
 			glow && open && currentVariant.glow,
 			'focus:outline-none focus:ring-2 focus:ring-white/20',
@@ -210,12 +211,13 @@
 			transition:glassFade={{ duration: animated ? 200 : 0 }}
 		>
 			<div class="py-1">
-				{#each items as item}
+				{#each items || [] as item}
 					{#if item.divider}
 						<div class="h-px bg-white/10 my-1"></div>
 					{:else}
 						<button
-							onclick={() => handleSelect(item)}
+							type="button"
+							onclick={() => handleSelect(item)} onkeydown={(e) => e.key === "Enter" && handleSelect(item)} 
 							disabled={item.disabled}
 							class={cn(
 								'flex items-center gap-3 w-full px-4 py-2 transition-all duration-200',

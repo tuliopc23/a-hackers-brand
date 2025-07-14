@@ -78,12 +78,12 @@
 			} else {
 				stopMatrixRain();
 			}
-			output = commands[trimmedCommand] || 'MATRIX RAIN DEACTIVATED';
+			output = commands()[trimmedCommand] || 'MATRIX RAIN DEACTIVATED';
 		} else if (trimmedCommand === 'glitch') {
 			triggerGlitch();
-			output = commands[trimmedCommand] || 'GLITCH EFFECT ACTIVATED';
+			output = commands()[trimmedCommand] || 'GLITCH EFFECT ACTIVATED';
 		} else {
-			output = commands[trimmedCommand] || `zsh: command not found: ${command}\n\nTry 'help' for available commands.`;
+			output = commands()[trimmedCommand] || `zsh: command not found: ${command}\n\nTry 'help' for available commands.`;
 		}
 
 		history = [
@@ -143,7 +143,7 @@
 			ctx.font = `${fontSize}px 'PP Supply Mono', monospace`;
 
 			for (let i = 0; i < matrixColumns.length; i++) {
-				const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+				const char = matrixChars[Math.floor(Math.random() * matrixChars().length)];
 				ctx.fillText(char, i * fontSize, matrixColumns[i] * fontSize);
 
 				if (matrixColumns[i] * fontSize > canvasRef.height && Math.random() > 0.975) {
@@ -209,7 +209,7 @@
 	class={cn(
 		'relative overflow-hidden rounded-xl backdrop-blur-md transition-all duration-300',
 		'border shadow-2xl shadow-black/25 transform-gpu will-change-transform',
-		themeClasses[theme],
+		themeClasses()[theme],
 		scanlineActive && 'terminal-scanlines',
 		flickerActive && 'terminal-flicker',
 		isGlitching && 'terminal-glitch',
@@ -265,7 +265,7 @@ Connection established. Type 'help' for available commands.</pre>
 		</div>
 
 		<!-- Command History -->
-		{#each history as entry}
+		{#each history() as entry (entry.id || entry)}
 			<div class="mb-4">
 				<!-- Command -->
 				<div class="flex items-start gap-2 mb-2">

@@ -169,7 +169,7 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Primary Colors</h3>
 									<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-										{#each Object.entries(liquidGlassTokens.colors.primary) as [shade, color]}
+                    {#each Object.entries(liquidGlassTokens.colors.primary) as [shade, color] (shade)}
 											<button
 												class="group cursor-pointer text-left w-full"
 												onclick={() => copyToken(`primary-${shade}`, color)}
@@ -197,8 +197,7 @@
 								<!-- Terminal Colors -->
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Terminal Colors</h3>
-									<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-										{#each Object.entries(liquidGlassTokens.colors.terminal) as [name, color]}
+									<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">											{#each Object.entries(liquidGlassTokens.colors.terminal) as [name, color] (color)}
 											<button
 												class="group cursor-pointer text-left w-full"
 												onclick={() => copyToken(`terminal-${name}`, color)}
@@ -227,16 +226,16 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Glass Colors</h3>
 									<div class="space-y-6">
-										{#each Object.entries(liquidGlassTokens.colors.glass) as [type, shades]}
+          {#each Object.entries(liquidGlassTokens.colors.glass) as [type, shades] (shades)}
 											<div>
 												<h4 class="text-lg font-semibold mb-4 capitalize">Glass {type}</h4>
 												<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-													{#each Object.entries(shades) as [level, color]}
+             {#each Object.entries(shades) as [level, color] (color)}
 														<button
 															class="group cursor-pointer text-left w-full"
-															onclick={() => copyToken(`glass-${type}-${level}`, color)}
-															onkeydown={(e) =>
-																(e.key === 'Enter' || e.key === ' ') && copyToken(`glass-${type}-${level}`, color)}
+               onclick={() => copyToken(`glass-${type}-${level}`, color)}
+                onkeydown={(e) =>
+                                  (e.key === 'Enter' || e.key === ' ') && copyToken(`glass-${type}-${level}`, color)}
 															aria-label={`Copy glass ${type} ${level} color ${color}`}
 															tabindex="0"
 														>
@@ -266,11 +265,11 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Font Families</h3>
 									<div class="space-y-6">
-										{#each Object.entries(liquidGlassTokens.typography.fontFamily) as [name, family]}
+          {#each Object.entries(liquidGlassTokens.typography.fontFamily) as [name, family] (family)}
 											<button
 												class="group cursor-pointer border border-white/10 rounded-lg p-6 hover:bg-white/5 transition-colors text-left w-full"
-												onclick={() => copyToken(`font-${name}`, family.join(', '))}
-												onkeydown={(e) =>
+            onclick={() => copyToken(`font-${name}`, family.join(', '))}
+            onkeydown={(e) =>
 													(e.key === 'Enter' || e.key === ' ') && copyToken(`font-${name}`, family.join(', '))}
 												aria-label={`Copy font ${name}: ${family.join(', ')}`}
 												tabindex="0"
@@ -317,11 +316,11 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Spacing Scale</h3>
 									<div class="space-y-4">
-										{#each Object.entries(liquidGlassTokens.spacing) as [scale, value]}
+          {#each Object.entries(liquidGlassTokens.spacing) as [scale, value] (value)}
 											<button
 												class="group cursor-pointer border border-white/10 rounded-lg p-4 hover:bg-white/5 transition-colors text-left w-full"
-												onclick={() => copyToken(`spacing-${scale}`, value)}
-												onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && copyToken(`spacing-${scale}`, value)}
+            onclick={() => copyToken(`spacing-${scale}`, value)}
+            onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && copyToken(`spacing-${scale}`, value)}
 												aria-label={`Copy spacing ${scale}: ${value}`}
 												tabindex="0"
 											>
@@ -344,11 +343,11 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Glass Shadows</h3>
 									<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-										{#each Object.entries(liquidGlassTokens.shadows.glass) as [level, shadow]}
+          {#each Object.entries(liquidGlassTokens.shadows.glass) as [level, shadow] (shadow)}
 											<button
 												class="group cursor-pointer text-left w-full"
-												onclick={() => copyToken(`shadow-glass-${level}`, shadow)}
-												onkeydown={(e) =>
+            onclick={() => copyToken(`shadow-glass-${level}`, shadow)}
+            onkeydown={(e) =>
 													(e.key === 'Enter' || e.key === ' ') && copyToken(`shadow-glass-${level}`, shadow)}
 												aria-label={`Copy glass shadow ${level}`}
 												tabindex="0"
@@ -374,11 +373,11 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Focus Shadows</h3>
 									<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-										{#each Object.entries(liquidGlassTokens.shadows.focus) as [level, shadow]}
+          {#each Object.entries(liquidGlassTokens.shadows.focus) as [level, shadow] (shadow)}
 											<button
 												class="group cursor-pointer text-left w-full"
-												onclick={() => copyToken(`shadow-focus-${level}`, shadow)}
-												onkeydown={(e) =>
+            onclick={() => copyToken(`shadow-focus-${level}`, shadow)}
+            onkeydown={(e) =>
 													(e.key === 'Enter' || e.key === ' ') && copyToken(`shadow-focus-${level}`, shadow)}
 												aria-label={`Copy focus shadow ${level}`}
 												tabindex="0"
@@ -406,10 +405,10 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Animation Duration</h3>
 									<div class="space-y-4">
-										{#each Object.entries(liquidGlassTokens.animation.duration) as [name, duration]}
+          {#each Object.entries(liquidGlassTokens.animation.duration) as [name, duration] (duration)}
 											<button
 												class="group cursor-pointer border border-white/10 rounded-lg p-4 hover:bg-white/5 transition-colors text-left w-full"
-												onclick={() => copyToken(`duration-${name}`, duration)}
+            onclick={() => copyToken(`duration-${name}`, duration)}
 												onkeydown={(e) =>
 													(e.key === 'Enter' || e.key === ' ') && copyToken(`duration-${name}`, duration)}
 												aria-label={`Copy animation duration ${name}: ${duration}`}
@@ -437,10 +436,10 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Easing Functions</h3>
 									<div class="space-y-4">
-										{#each Object.entries(liquidGlassTokens.animation.easing) as [name, easing]}
+          {#each Object.entries(liquidGlassTokens.animation.easing) as [name, easing] (easing)}
 											<button
 												class="group cursor-pointer border border-white/10 rounded-lg p-4 hover:bg-white/5 transition-colors text-left w-full"
-												onclick={() => copyToken(`ease-${name}`, easing)}
+            onclick={() => copyToken(`ease-${name}`, easing)}
 												onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && copyToken(`ease-${name}`, easing)}
 												aria-label={`Copy easing function ${name}: ${easing}`}
 												tabindex="0"
@@ -462,10 +461,10 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Blur Levels</h3>
 									<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-										{#each Object.entries(liquidGlassTokens.blur) as [level, blur]}
+          {#each Object.entries(liquidGlassTokens.blur) as [level, blur] (blur)}
 											<button
 												class="group cursor-pointer text-left w-full"
-												onclick={() => copyToken(`blur-${level}`, blur)}
+            onclick={() => copyToken(`blur-${level}`, blur)}
 												onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && copyToken(`blur-${level}`, blur)}
 												aria-label={`Copy blur level ${level}: ${blur}`}
 												tabindex="0"
@@ -493,18 +492,18 @@
 							</div>
 						{:else if selectedTokenCategory === 'components'}
 							<div class="space-y-12">
-								{#each Object.entries(componentTokens) as [componentName, tokens]}
+        {#each Object.entries(componentTokens) as [componentName, tokens] (tokens)}
 									<GlassCard intensity="light" class="p-8">
 										<h3 class="text-2xl font-bold mb-6 capitalize">{componentName} Tokens</h3>
 										<div class="space-y-6">
-											{#each Object.entries(tokens) as [property, values]}
+           {#each Object.entries(tokens) as [property, values] (values)}
 												<div>
 													<h4 class="text-lg font-semibold mb-4 capitalize">{property}</h4>
 													<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-														{#each Object.entries(values) as [size, value]}
+              {#each Object.entries(values) as [size, value] (value)}
 															<button
 																class="group cursor-pointer border border-white/10 rounded-lg p-4 hover:bg-white/5 transition-colors text-left w-full"
-																onclick={() => copyToken(`${componentName}-${property}-${size}`, value)}
+                onclick={() => copyToken(`${componentName}-${property}-${size}`, value)}
 																onkeydown={(e) =>
 																	(e.key === 'Enter' || e.key === ' ') &&
 																	copyToken(`${componentName}-${property}-${size}`, value)}

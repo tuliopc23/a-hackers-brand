@@ -11,7 +11,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 class VisualDiffReporter {
-	constructor(options = {}) {
+	outputDir: string;
+	results: any;
+	startTime: number;
+
+	constructor(options: any = {}) {
 		this.outputDir = options.outputDir || 'test-results/visual-regression';
 		this.results = {
 			summary: {
@@ -26,16 +30,16 @@ class VisualDiffReporter {
 		};
 	}
 
-	onBegin(config, suite) {
+	onBegin(config: any, suite: any) {
 		console.log(`🎨 Starting visual regression tests with ${suite.allTests().length} tests`);
 		this.startTime = Date.now();
 	}
 
-	onTestBegin(test, result) {
+	onTestBegin(test: any, result: any) {
 		console.log(`📸 Running: ${test.title}`);
 	}
 
-	onTestEnd(test, result) {
+	onTestEnd(test: any, result: any) {
 		this.results.summary.total++;
 
 		const testResult = {
@@ -90,7 +94,7 @@ class VisualDiffReporter {
 		this.results.tests.push(testResult);
 	}
 
-	onEnd(result) {
+	onEnd(result: any) {
 		const duration = Date.now() - this.startTime;
 		const { summary } = this.results;
 
@@ -214,7 +218,6 @@ class VisualDiffReporter {
 				}
 			}
 		}
-
 		// Test coverage
 		markdown += `## Test Coverage\n\n`;
 		markdown += `This report covers visual regression testing for:\n\n`;

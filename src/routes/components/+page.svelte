@@ -110,7 +110,7 @@
 						aria-selected={activeTab === 'tab1'}
 						aria-controls="panel1"
 						id="tab1"
-						on:click={() => (activeTab = 'tab1')}
+						onclick={() => (activeTab = 'tab1')}
 						class="px-4 py-2 mr-2 border rounded {activeTab === 'tab1' ? 'bg-blue-600 text-white' : 'bg-gray-200'}"
 					>
 						Tab 1
@@ -121,7 +121,7 @@
 						aria-selected={activeTab === 'tab2'}
 						aria-controls="panel2"
 						id="tab2"
-						on:click={() => (activeTab = 'tab2')}
+						onclick={() => (activeTab = 'tab2')}
 						class="px-4 py-2 mr-2 border rounded {activeTab === 'tab2' ? 'bg-blue-600 text-white' : 'bg-gray-200'}"
 					>
 						Tab 2
@@ -149,14 +149,14 @@
 		<!-- Modal Section -->
 		<section>
 			<h2 class="text-2xl font-semibold mb-4">Modal</h2>
-			<Button type="button" on:click={() => (showModal = true)}>Open Modal</Button>
+			<Button type="button" onclick={() => (showModal = true)}>Open Modal</Button>
 			{#if showModal}
 				<Modal bind:open={showModal} aria-labelledby="modal-title" aria-describedby="modal-description">
 					<h3 id="modal-title" class="text-xl font-semibold mb-4">Modal Title</h3>
 					<p id="modal-description" class="mb-4">This is a modal dialog with proper accessibility attributes.</p>
 					<div class="flex justify-end space-x-4">
-						<Button type="button" variant="secondary" on:click={() => (showModal = false)}>Cancel</Button>
-						<Button type="button" on:click={() => (showModal = false)}>Confirm</Button>
+						<Button type="button" variant="secondary" onclick={() => (showModal = false)}>Cancel</Button>
+						<Button type="button" onclick={() => (showModal = false)}>Confirm</Button>
 					</div>
 				</Modal>
 			{/if}

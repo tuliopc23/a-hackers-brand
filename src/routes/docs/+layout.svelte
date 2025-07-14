@@ -6,12 +6,17 @@
 	import { Search } from 'lucide-svelte';
 	import SearchModal from '$lib/components/SearchModal.svelte';
 	import searchIndexData from '$lib/search/search-index.json';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	const { children }: Props = $props();
 
 	// Lazy load WebGL components for performance
 	const LazyLiquidBackground = lazy(() => import('$lib/components/webgl/LiquidBackground.svelte'));
 
-	let mounted = false;
-	let sidebarOpen = false;
+	let mounted = $state(false);
+	let sidebarOpen = $state(false);
 	let searchModalOpen = $state(false);
 
 	// Transform search index data for SearchModal
@@ -153,7 +158,7 @@
 	<!-- WebGL Background -->
 	{#if mounted && LazyLiquidBackground.component}
 		<div class="fixed inset-0 opacity-20 pointer-events-none">
-			<svelte:component this={LazyLiquidBackground.component} />
+			<LazyLiquidBackground.component />
 		</div>
 	{/if}
 
@@ -260,13 +265,13 @@
 			</div>
 
 			<nav class="p-6 overflow-y-auto h-full pb-20">
-				{#each navigation as section}
+				{#each navigation as section (section.id || section)}
 					<div class="mb-8">
 						<h3 class="text-sm font-semibold text-white/60 uppercase tracking-wider mb-3">
 							{section.title}
 						</h3>
 						<ul class="space-y-1">
-							{#each section.items as item}
+							{#each section.items as item (item.id || item)}
 								<li>
 									<a
 										href={item.href}
@@ -306,7 +311,7 @@
 
 			<!-- Page Content -->
 			<div class="min-h-screen">
-				<slot />
+				{@render children?.()}
 			</div>
 		</main>
 	</div>

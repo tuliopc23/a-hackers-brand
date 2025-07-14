@@ -8,7 +8,7 @@
 		format: void;
 	}>();
 
-	let showCopiedNotification = false;
+	let showCopiedNotification = $state(false);
 
 	function handleShare() {
 		dispatch('share');
@@ -56,7 +56,7 @@
 	}
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window onkeydown={handleKeydown} />
 
 <div class="playground-toolbar bg-slate-800/80 backdrop-blur-sm border border-white/10 rounded-lg p-3 mb-4">
 	<div class="flex items-center justify-between">
@@ -67,7 +67,12 @@
 
 		<div class="flex items-center space-x-2">
 			<!-- Format Code -->
-			<button class="toolbar-btn" onclick={handleFormat} title="Format Code (Ctrl+Shift+F)">
+			<button
+				class="toolbar-btn"
+				onclick={handleFormat}
+				onkeydown={(e) => e.key === 'Enter' && handleFormat()}
+				title="Format Code (Ctrl+Shift+F)"
+			>
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
 				</svg>
@@ -75,7 +80,12 @@
 			</button>
 
 			<!-- Download Code -->
-			<button class="toolbar-btn" onclick={downloadCode} title="Download Code (Ctrl+S)">
+			<button
+				class="toolbar-btn"
+				onclick={downloadCode}
+				onkeydown={(e) => e.key === 'Enter' && downloadCode()}
+				title="Download Code (Ctrl+S)"
+			>
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path
 						stroke-linecap="round"
@@ -88,7 +98,12 @@
 			</button>
 
 			<!-- Share -->
-			<button class="toolbar-btn relative" onclick={handleShare} title="Share Playground">
+			<button
+				class="toolbar-btn relative"
+				onclick={handleShare}
+				onkeydown={(e) => e.key === 'Enter' && handleShare()}
+				title="Share Playground"
+			>
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path
 						stroke-linecap="round"
@@ -112,6 +127,7 @@
 			<button
 				class="toolbar-btn text-red-400 hover:text-red-300 hover:bg-red-500/10"
 				onclick={handleReset}
+				onkeydown={(e) => e.key === 'Enter' && handleReset()}
 				title="Reset to Default (Ctrl+R)"
 			>
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

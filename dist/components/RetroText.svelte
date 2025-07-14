@@ -140,8 +140,8 @@
 		currentIndex = 0;
 
 		const interval = setInterval(() => {
-			if (currentIndex < text.length) {
-				displayText += text[currentIndex];
+			if (currentIndex < text().length) {
+				displayText += text()[currentIndex];
 				currentIndex++;
 			} else {
 				clearInterval(interval);
@@ -161,14 +161,14 @@
 	// CSS custom properties for dynamic styling
 	$effect(() => {
 		if (containerRef) {
-			const fontConfig = bitmapFonts[variant];
-			const colorConfig = colors[color];
+			const fontConfig = bitmapFonts()[variant];
+			const colorConfig = colors()[color];
 
 			containerRef.style.setProperty('--retro-font-family', fontConfig.fontFamily);
 			containerRef.style.setProperty('--retro-font-weight', fontConfig.fontWeight);
 			containerRef.style.setProperty('--retro-letter-spacing', fontConfig.letterSpacing);
 			containerRef.style.setProperty('--retro-line-height', fontConfig.lineHeight);
-			containerRef.style.setProperty('--retro-font-size', sizes[size]);
+			containerRef.style.setProperty('--retro-font-size', sizes()[size]);
 			containerRef.style.setProperty('--retro-color', colorConfig.color);
 			containerRef.style.setProperty('--retro-shadow-color', colorConfig.shadowColor);
 			containerRef.style.setProperty('--retro-text-transform', (fontConfig as any).textTransform || 'none');
@@ -209,7 +209,7 @@
 		{@render children()}
 	{:else if variant === 'commodore' || variant === 'atari'}
 		<!-- Bitmap rendering for specific variants -->
-		{#each displayText.split('') as char}
+		{#each displayText.split('') as char (char.id || char)}
 			<span class="bitmap-char" data-char={char}>
 				{@html renderBitmapCharacter(char)}
 			</span>
@@ -217,7 +217,7 @@
 	{:else}
 		<!-- Standard text rendering -->
 		{displayText}
-		{#if typewriter && currentIndex < text.length}
+		{#if typewriter && currentIndex < text().length}
 			<span class="cursor">█</span>
 		{/if}
 	{/if}

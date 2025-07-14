@@ -1,4 +1,4 @@
-import { DURATIONS, EASINGS, OPACITY_LEVELS } from './tokens.js';
+import { DURATIONS, OPACITY_LEVELS } from './tokens';
 
 import type { TransitionConfig } from 'svelte/transition';
 

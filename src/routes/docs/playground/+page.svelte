@@ -15,38 +15,38 @@
 	let isDragging = false;
 
 	// Default Svelte code template
-	const defaultCode = `<script>
-	import { Button, Card, Badge } from 'a-hackers-brand';
-	
+	const defaultCode = `<${"script"}>
+	import { Button, Card, Badge } from "a-hackers-brand";
+
 	let count = 0;
-	
+
 	function increment() {
 		count += 1;
 	}
-</script>
+</${"script"}>
 
 <div class="p-8 min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
 	<Card class="max-w-md mx-auto p-6">
 		<h1 class="text-2xl font-bold text-white mb-4">
 			Welcome to the Playground!
 		</h1>
-		
+
 		<p class="text-white/80 mb-4">
-			You've clicked the button <Badge variant="outline">{count}</Badge> times.
+			You clicked the button <Badge variant="outline">{count}</Badge> times.
 		</p>
-		
+
 		<Button onclick={increment} class="w-full">
 			Click me!
 		</Button>
 	</Card>
 </div>
 
-<style>
+<${"style"}>
 	:global(body) {
 		margin: 0;
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
 	}
-</style>`;
+</${"style"}>`;
 
 	onMount(() => {
 		// Load code from URL params if provided
@@ -62,7 +62,7 @@
 		} else {
 			playgroundStore.setCode(defaultCode);
 		}
-		
+
 		isLoading = false;
 	});
 
@@ -73,10 +73,10 @@
 
 	function handleDragMove(event: MouseEvent) {
 		if (!isDragging) return;
-		
+
 		const containerRect = editorContainer.parentElement?.getBoundingClientRect();
 		if (!containerRect) return;
-		
+
 		const newPosition = ((event.clientX - containerRect.left) / containerRect.width) * 100;
 		splitPanePosition = Math.min(Math.max(newPosition, 20), 80); // Limit between 20% and 80%
 	}
@@ -89,7 +89,7 @@
 		const code = $playgroundStore.code;
 		const encodedCode = btoa(encodeURIComponent(code));
 		const shareUrl = `${window.location.origin}/docs/playground?code=${encodedCode}`;
-		
+
 		if (navigator.share) {
 			navigator.share({
 				title: 'A Hacker\'s Brand Playground',
@@ -108,10 +108,12 @@
 
 	// Handle window resize for mobile layout
 	let windowWidth = 0;
-	$: isMobile = windowWidth < 768;
-	$: if (isMobile) {
-		splitPanePosition = 100; // Stack vertically on mobile
-	}
+	const isMobile = $derived(() => windowWidth < 768);
+	$effect(() => {
+		if (isMobile) {
+			splitPanePosition = 100; // Stack vertically on mobile
+		}
+	});
 </script>
 
 <svelte:window 
@@ -170,7 +172,7 @@
 					>
 						<MonacoEditor />
 					</div>
-					
+
 					<!-- Resizer -->
 					<div 
 						class="w-1 bg-white/10 hover:bg-blue-400/50 cursor-col-resize transition-colors"
@@ -186,7 +188,7 @@
 							}
 						}}
 					></div>
-					
+
 					<div 
 						class="transition-all duration-200"
 						style="width: {100 - splitPanePosition}%"

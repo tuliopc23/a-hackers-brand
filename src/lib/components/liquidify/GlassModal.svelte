@@ -14,15 +14,16 @@
 		onClose?: () => void;
 	}
 
-	let {
-		isOpen = $bindable(false),
+	const {
+isOpen = $bindable(false),
 		title,
 		titleClassName = '',
 		contentClassName = '',
 		class: className = '',
 		children,
 		onClose
-	}: Props = $props();
+	
+}: Props = $props();
 
 	const dispatch = createEventDispatcher();
 
@@ -81,7 +82,7 @@
 		bind:this={backdropRef}
 		class="fixed inset-0 z-50 flex items-center justify-center p-4"
 		onclick={handleBackdropClick}
-		onkeydown={(e) => e.key === 'Enter' && handleBackdropClick(e)}
+		onkeydown={(e) => e.key === 'Enter' && handleBackdropClick()}
 		role="presentation"
 		aria-hidden="true"
 		transition:fade={{ duration: 300 }}
@@ -105,7 +106,7 @@
 			tabindex="-1"
 			transition:fly={{ y: 50, duration: 300, opacity: 0 }}
 			onclick={(e) => e.stopPropagation()}
-			onkeydown={(e) => e.key === 'Escape' && handleClose()}
+			onkeydown={(e) => e.key === 'Escape' && onClose?.()}
 		>
 			<!-- Glass effect overlay -->
 			<div
@@ -124,6 +125,7 @@
 						type="button"
 						class="text-white/60 hover:text-white/90 transition-colors duration-200 p-1 rounded-lg hover:bg-white/10"
 						onclick={handleClose}
+						onkeydown={(e) => e.key === 'Enter' && handleClose()}
 						aria-label="Close modal"
 					>
 						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,8 +137,7 @@
 
 			<!-- Content -->
 			<div class={cn('relative z-10 p-6 overflow-y-auto', !title && 'pt-8', contentClassName)}>
-				{#if children}
-					{@render children()}
+				{#if children}{@render children()}{/if}
 				{/if}
 			</div>
 		</div>

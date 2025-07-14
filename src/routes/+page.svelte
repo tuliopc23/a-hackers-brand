@@ -10,11 +10,11 @@
 	});
 
 	function handleTerminalFocus() {
-		console.log('Terminal focused');
+		// Terminal focus handler
 	}
 
 	function handleCardClick() {
-		console.log('Card clicked');
+		// Card click handler
 	}
 </script>
 
@@ -38,7 +38,7 @@
 					retrofuturistic aesthetics.
 				</p>
 				<div class="hero-actions">
-					<LiquidGlass variant="medium" effect="jelly" customClass="action-button" on:click={handleCardClick}>
+					<LiquidGlass variant="medium" effect="jelly" customClass="action-button" onclick={handleCardClick}>
 						<span>Explore Components</span>
 					</LiquidGlass>
 					<LiquidGlass variant="subtle" effect="shimmer" customClass="action-button secondary">
@@ -97,7 +97,7 @@
 				enableLiquidFlow={true}
 				glowEffect={true}
 				expandable={true}
-				on:focus={handleTerminalFocus}
+				onfocus={handleTerminalFocus}
 			>
 				<div class="terminal-line">
 					<span class="terminal-prompt">user@hackers-brand:~$</span>

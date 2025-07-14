@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { liquidBlur, springPop } from '../motion';
+	import { liquidBlur, springPop, springPopAction } from '../motion';
 	import { sizeOf } from '../utils/bundle-size.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -24,7 +24,7 @@
 	}
 
 	let {
-		value = 50,
+		value = $bindable(50),
 		min = 0,
 		max = 100,
 		step = 1,
@@ -96,15 +96,15 @@
 
 	const trackClasses = cn(
 		'relative w-full rounded-full cursor-pointer',
-		sizes[size].track,
-		variants[variant].track,
-		variant === 'glass' && blurLevels[blur],
+		sizes()[size].track,
+		variants()[variant].track,
+		variant === 'glass' && blurLevels()[blur],
 		disabled && 'opacity-50 cursor-not-allowed'
 	);
 
 	const fillClasses = cn(
 		'absolute top-0 left-0 h-full rounded-full transition-all duration-200',
-		variants[variant].fill
+		variants()[variant].fill
 	);
 
 	const thumbClasses = $derived(
@@ -112,8 +112,8 @@
 			'absolute top-1/2 -translate-y-1/2 rounded-full cursor-pointer transition-all duration-200',
 			'focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:ring-offset-2',
 			'hover:scale-110 active:scale-95',
-			sizes[size].thumb,
-			variants[variant].thumb,
+			sizes()[size].thumb,
+			variants()[variant].thumb,
 			disabled && 'cursor-not-allowed hover:scale-100 active:scale-100',
 			isDragging && 'scale-110',
 			isFocused && 'ring-2 ring-blue-400/50'
@@ -251,12 +251,12 @@
 				class={thumbClasses}
 				style:left="{percentage}%"
 				style:transform="translateX(-50%) translateY(-50%)"
-				use:springPop={animate && !reduceMotion && isDragging ? { scale: 1.1, duration: 100 } : undefined}
+				use:springPopAction={animate && !reduceMotion && isDragging ? { scale: 1.1, duration: 100 } : undefined}
 			></div>
 
 			<!-- Marks -->
-			{#if showMarks && marks.length > 0}
-				{#each marks as mark}
+			{#if showMarks && marks().length > 0}
+				{#each marks() as mark (mark.id || mark)}
 					{@const markPercentage = ((mark - min) / (max - min)) * 100}
 					<div
 						class="absolute top-1/2 w-1 h-1 bg-white/50 rounded-full -translate-y-1/2 -translate-x-1/2"
@@ -268,7 +268,7 @@
 
 		{#if showValue}
 			<div class="flex justify-center mt-2">
-				<span class={cn('font-medium text-white/80', sizes[size].value)}>
+				<span class={cn('font-medium text-white/80', sizes()[size].value)}>
 					{value}
 				</span>
 			</div>

@@ -130,8 +130,8 @@
 		}
 	};
 
-	const currentVariant = $derived(variants[variant]);
-	const currentSize = $derived(sizes[size]);
+	const currentVariant = $derived(variants()[variant]);
+	const currentSize = $derived(sizes()[size]);
 
 	function handleItemClick(item: ListItem, index: number) {
 		if (item.disabled) return;
@@ -171,7 +171,7 @@
 
 	function handleSelectAll(selected: boolean) {
 		if (selected) {
-			currentSelectedItems = new Set(items.filter((item) => !item.disabled).map((item) => item.id));
+			currentSelectedItems = new Set(items().filter((item) => !item.disabled).map((item) => item.id));
 		} else {
 			currentSelectedItems = new Set();
 		}
@@ -179,7 +179,7 @@
 	}
 
 	const isAllSelected = $derived(
-		items.length > 0 && items.filter((item) => !item.disabled).every((item) => currentSelectedItems.has(item.id))
+		items().length > 0 && items().filter((item) => !item.disabled).every((item) => currentSelectedItems.has(item.id))
 	);
 
 	const containerClasses = $derived(
@@ -203,7 +203,7 @@
 </script>
 
 <div class={containerClasses} role="list" aria-label="Item list">
-	{#if selectable && multiSelect && items.length > 0}
+	{#if selectable && multiSelect && items().length > 0}
 		<!-- Select All Header -->
 		<div class="px-4 py-3 border-b {currentVariant.item} border-gray-600">
 			<label class="flex items-center gap-3 cursor-pointer">
@@ -218,7 +218,7 @@
 					class="rounded bg-transparent border-current"
 				/>
 				<span class="text-sm font-medium">
-					{currentSelectedItems.size} of {items.filter((item) => !item.disabled).length} selected
+					{currentSelectedItems.size} of {items().filter((item) => !item.disabled).length} selected
 				</span>
 			</label>
 		</div>
@@ -227,7 +227,7 @@
 	<div class="divide-y divide-gray-600">
 		{#if loading}
 			<!-- Loading Skeletons -->
-			{#each skeletonItems as skeleton, index (skeleton.id)}
+			{#each skeletonItems() as skeleton, index (skeleton.id)}
 				<div
 					class={cn(currentSize.item, currentVariant.item, 'animate-pulse')}
 					in:glassFade={{ direction: 'up', duration: 200, delay: index * 50 }}
@@ -264,7 +264,7 @@
 					{/if}
 				</div>
 			{/each}
-		{:else if items.length === 0}
+		{:else if items().length === 0}
 			<!-- Empty State -->
 			<div class="py-12 text-center {currentVariant.description}">
 				<div class="text-4xl mb-3">{emptyIcon}</div>
@@ -272,7 +272,7 @@
 			</div>
 		{:else}
 			<!-- List Items -->
-			{#each items as item, index (item.id)}
+			{#each items() as item, index (item.id)}
 				{@const isSelected = currentSelectedItems.has(item.id)}
 				<div
 					class={cn(
@@ -284,8 +284,7 @@
 						!item.disabled && 'cursor-pointer',
 						'transition-all duration-200'
 					)}
-					onclick={() => handleItemClick(item, index)}
-					onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && handleItemClick(item, index)}
+					onclick={() => handleItemClick(item, index)} onkeydown={(e) => e.key === "Enter" && handleItemClick(item, index)}
 					role={selectable ? 'option' : 'listitem'}
 					{...selectable && !item.disabled ? { tabindex: 0 } : {}}
 					aria-selected={selectable ? isSelected : undefined}
@@ -306,7 +305,7 @@
 										const target = e.target as HTMLInputElement;
 										handleItemSelect(item, target.checked);
 									}}
-									onclick={(e) => e.stopPropagation()}
+									onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.key === "Enter" && e.stopPropagation()} 
 									class="rounded bg-transparent border-current"
 								/>
 							{/if}
@@ -340,12 +339,12 @@
 							</div>
 
 							<!-- Actions -->
-							{#if item.actions && item.actions.length > 0}
+							{#if item.actions && item.actions().length > 0}
 								<div class="flex items-center gap-2">
 									{#each item.actions as action (action.action)}
 										<button
 											class={getActionButtonClasses(action.variant)}
-											onclick={(e) => handleActionClick(item, action.action, e)}
+											onclick={(e) => handleActionClick(item, action.action, e)} onkeydown={(e) => e.key === "Enter" && (e) => handleActionClick(item, action.action, e)(e)}
 											use:magneticHover={{ strength: 0.1 }}
 										>
 											{#if action.icon}
@@ -370,7 +369,7 @@
 											const target = e.target as HTMLInputElement;
 											handleItemSelect(item, target.checked);
 										}}
-										onclick={(e) => e.stopPropagation()}
+										onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.key === "Enter" && e.stopPropagation()} 
 										class="rounded bg-transparent border-current mt-1"
 									/>
 								{/if}
@@ -421,12 +420,12 @@
 								</div>
 
 								<!-- Actions -->
-								{#if item.actions && item.actions.length > 0}
+								{#if item.actions && item.actions().length > 0}
 									<div class="flex flex-col gap-2">
 										{#each item.actions as action (action.action)}
 											<button
 												class={getActionButtonClasses(action.variant)}
-												onclick={(e) => handleActionClick(item, action.action, e)}
+												onclick={(e) => handleActionClick(item, action.action, e)} onkeydown={(e) => e.key === "Enter" && (e) => handleActionClick(item, action.action, e)(e)}
 												use:magneticHover={{ strength: 0.1 }}
 											>
 												{#if action.icon}
@@ -452,7 +451,7 @@
 											const target = e.target as HTMLInputElement;
 											handleItemSelect(item, target.checked);
 										}}
-										onclick={(e) => e.stopPropagation()}
+										onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.key === "Enter" && e.stopPropagation()} 
 										class="rounded bg-transparent border-current mt-1"
 									/>
 								{/if}
@@ -479,12 +478,12 @@
 											{/if}
 										</div>
 
-										{#if item.actions && item.actions.length > 0}
+										{#if item.actions && item.actions().length > 0}
 											<div class="flex items-center gap-2">
 												{#each item.actions as action (action.action)}
 													<button
 														class={getActionButtonClasses(action.variant)}
-														onclick={(e) => handleActionClick(item, action.action, e)}
+														onclick={(e) => handleActionClick(item, action.action, e)} onkeydown={(e) => e.key === "Enter" && (e) => handleActionClick(item, action.action, e)(e)}
 														use:magneticHover={{ strength: 0.1 }}
 													>
 														{#if action.icon}

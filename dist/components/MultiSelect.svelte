@@ -27,9 +27,9 @@
 		class?: string;
 	}
 
-	const {
+	let {
 		options = [],
-		value = [],
+		value = $bindable([]),
 		placeholder = 'Select items...',
 		variant = 'default',
 		size = 'md',
@@ -53,8 +53,8 @@
 	}>();
 
 	let containerRef: HTMLDivElement;
-	let searchInputRef: HTMLInputElement = $state();
-	let dropdownRef: HTMLDivElement = $state();
+	let searchInputRef: HTMLInputElement = $state()!;
+	let dropdownRef: HTMLDivElement = $state()!;
 	let isOpen = $state(false);
 	let searchTerm = $state('');
 	let selectedValues = $state<string[]>([...value]);
@@ -111,35 +111,26 @@
 		}
 	};
 
-	const currentVariant = $derived(variants[variant]);
-	const currentChipVariant = $derived(variants[chipVariant]);
-	const currentSize = $derived(sizes[size]);
+	const currentVariant = $derived(variants()[variant]);
+	const currentChipVariant = $derived(variants()[chipVariant]);
+	const currentSize = $derived(sizes()[size]);
 
 	// Filtered options based on search
-	const filteredOptions = $derived(() => {
-		if (!searchTerm) return options;
-		return options.filter(
+	const filteredOptions = $derived(() => { return options().filter(
 			(option) =>
 				option.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
 				option.value.toLowerCase().includes(searchTerm.toLowerCase()) ||
 				option.description?.toLowerCase().includes(searchTerm.toLowerCase())
-		);
-	});
+		); });
 
 	// Available options (not selected)
-	const availableOptions = $derived(() => {
-		return filteredOptions.filter((option) => !selectedValues.includes(option.value));
-	});
+	const availableOptions = $derived(() => { return filteredOptions().filter((option) => !selectedValues().includes(option.value)); });
 
 	// Selected option objects
-	const selectedOptions = $derived(() => {
-		return selectedValues.map((value) => options.find((opt) => opt.value === value)).filter(Boolean) as Option[];
-	});
+	const selectedOptions = $derived(() => { return selectedValues().map((value) => options().find((opt) => opt.value === value)).filter(Boolean) as Option[]; });
 
 	// Check if max selections reached
-	const isMaxReached = $derived(() => {
-		return maxSelections ? selectedValues.length >= maxSelections : false;
-	});
+	const isMaxReached = $derived(() => { return maxSelections ? selectedValues().length >= maxSelections : false; });
 
 	function handleContainerClick() {
 		if (disabled) return;
@@ -156,9 +147,9 @@
 	}
 
 	function handleOptionSelect(option: Option) {
-		if (option.disabled || (isMaxReached && !selectedValues.includes(option.value))) return;
+		if (option.disabled || (isMaxReached && !selectedValues().includes(option.value))) return;
 
-		if (selectedValues.includes(option.value)) {
+		if (selectedValues().includes(option.value)) {
 			// Remove if already selected
 			removeOption(option.value);
 		} else {
@@ -166,7 +157,7 @@
 			addOption(option.value);
 		}
 
-		if (closeOnSelect && !selectedValues.includes(option.value)) {
+		if (closeOnSelect && !selectedValues().includes(option.value)) {
 			isOpen = false;
 			dispatch('close');
 		}
@@ -185,7 +176,7 @@
 	}
 
 	function removeOption(value: string) {
-		selectedValues = selectedValues.filter((v) => v !== value);
+		selectedValues = selectedValues().filter((v) => v !== value);
 		dispatch('remove', value);
 		dispatch('change', selectedValues);
 	}
@@ -214,7 +205,7 @@
 					isOpen = true;
 					dispatch('open');
 				} else {
-					focusedIndex = Math.min(focusedIndex + 1, availableOptions.length - 1);
+					focusedIndex = Math.min(focusedIndex + 1, availableOptions().length - 1);
 				}
 				break;
 			case 'ArrowUp':
@@ -223,14 +214,14 @@
 				break;
 			case 'Enter':
 				event.preventDefault();
-				if (focusedIndex >= 0 && availableOptions[focusedIndex]) {
-					handleOptionSelect(availableOptions[focusedIndex]);
+				if (focusedIndex >= 0 && availableOptions()[focusedIndex]) {
+					handleOptionSelect(availableOptions()[focusedIndex]);
 				}
 				break;
 			case 'Backspace':
-				if (searchTerm === '' && selectedValues.length > 0) {
+				if (searchTerm === '' && selectedValues().length > 0) {
 					// Remove last selected item if search is empty
-					removeOption(selectedValues[selectedValues.length - 1]);
+					removeOption(selectedValues[selectedValues().length - 1]);
 				}
 				break;
 		}
@@ -271,10 +262,8 @@
 <div
 	bind:this={containerRef}
 	class={combinedClasses}
-	onclick={handleContainerClick}
-	onkeydown={handleKeydown}
-	role="combobox"
-	aria-expanded={isOpen}
+	onclick={handleContainerClick} onkeydown={(e) => e.key === "Enter" && handleContainerClick(e)}
+	role="combobox" aria-controls="dropdown" aria-expanded="false"  aria-expanded={isOpen}
 	aria-haspopup="listbox"
 	aria-controls="multiselect-listbox"
 	aria-label={placeholder}
@@ -286,7 +275,7 @@
 >
 	<!-- Selected Items (Chips) -->
 	<div class="flex flex-wrap gap-1.5 items-center">
-		{#each selectedOptions as option (option.value)}
+		{#each selectedOptions() as option (option.value)}
 			<div
 				class="inline-flex items-center gap-1.5 rounded-md {currentChipVariant.chip} {currentSize.chip} 
 				       font-mono transition-all duration-200"
@@ -295,7 +284,7 @@
 			>
 				<span class="truncate max-w-32">{option.label}</span>
 				<button
-					onclick={(e) => handleChipRemove(option.value, e)}
+					onclick={(e) => handleChipRemove(option.value, e)} onkeydown={(e) => e.key === "Enter" && (e) => handleChipRemove(option.value, e)(e)}
 					class="flex-shrink-0 rounded-full {currentChipVariant.chipClose} hover:bg-black/20
 					       transition-colors p-0.5"
 					aria-label="Remove {option.label}"
@@ -314,14 +303,14 @@
 				bind:value={searchTerm}
 				oninput={handleSearchInput}
 				onkeydown={handleKeydown}
-				placeholder={selectedValues.length === 0 ? placeholder : ''}
+				placeholder={selectedValues().length === 0 ? placeholder : ''}
 				class="flex-1 min-w-32 outline-none {currentVariant.searchInput} {currentSize.input}"
 				disabled={disabled || isMaxReached}
 				role="searchbox"
 				aria-label="Search options"
 				aria-controls="multiselect-listbox"
 			/>
-		{:else if selectedValues.length === 0}
+		{:else if selectedValues().length === 0}
 			<span class="text-gray-400 {currentSize.input}">{placeholder}</span>
 		{/if}
 	</div>
@@ -352,23 +341,22 @@
 			aria-multiselectable="true"
 			aria-label="Available options"
 		>
-			{#if availableOptions.length === 0}
+			{#if availableOptions().length === 0}
 				<div class="px-4 py-3 text-center {currentVariant.option} font-mono">
 					{searchTerm ? 'No results found' : 'No more options available'}
 				</div>
 			{:else}
-				{#each availableOptions as option, index (option.value)}
+				{#each availableOptions() as option, index (option.value)}
 					{@const isFocused = index === focusedIndex}
-					{@const isSelected = selectedValues.includes(option.value)}
+					{@const isSelected = selectedValues().includes(option.value)}
 
 					<div
-						onclick={() => handleOptionSelect(option)}
-						onkeydown={(e) => e.key === 'Enter' && handleOptionSelect(option)}
+						onclick={() => handleOptionSelect(option)} onkeydown={(e) => e.key === "Enter" && handleOptionSelect(option)}
 						class="cursor-pointer transition-all duration-150 {currentSize.option}
 						       {isFocused ? currentVariant.selectedOption : currentVariant.option}
 						       {option.disabled ? 'opacity-50 cursor-not-allowed' : ''}
 						       font-mono border-b border-white/5 last:border-b-0"
-						role="option"
+						role="option" tabindex="0" tabindex="0"
 						aria-selected={isSelected}
 						tabindex="0"
 						use:magneticHover={{ enabled: !option.disabled, strength: 0.1 }}
@@ -406,7 +394,7 @@
 
 	<!-- Live region for screen reader announcements -->
 	<div id="multiselect-status" aria-live="polite" aria-atomic="true" class="sr-only">
-		{selectedValues.length} items selected
+		{selectedValues().length} items selected
 		{#if maxSelections}
 			out of maximum {maxSelections}
 		{/if}

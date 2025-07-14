@@ -3,11 +3,17 @@
 	import { browser } from '$app/environment';
 	import { playgroundStore } from '$lib/stores/playground';
 
-	export let container: HTMLElement | undefined = undefined;
+	interface Props {
+		container?: HTMLElement | undefined;
+	}
 
-	let editorContainer: HTMLElement;
+	const {
+container = $bindable(undefined) 
+}: Props = $props();
+
+	let editorContainer: HTMLElement = $state()!;
 	let editor: any;
-	let isLoading = true;
+	let isLoading = $state(true);
 
 	onMount(async () => {
 		if (!browser) return;

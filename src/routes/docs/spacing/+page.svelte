@@ -126,7 +126,7 @@
 		</p>
 
 		<div class="space-y-4">
-			{#each spacingScale as space}
+			{#each spacingScale as space (space.id || space)}
 				<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 					<div class="flex items-center gap-6">
 						<div class="flex items-center min-w-0 flex-1">
@@ -158,14 +158,14 @@
 		<div class="glass-subtle p-8 rounded-xl mb-8">
 			<h3 class="mb-6">Grid Columns</h3>
 			<div class="space-y-6">
-				{#each gridExamples as grid}
+				{#each gridExamples as grid (grid.id || grid)}
 					<div class="border border-white/10 rounded-lg p-4">
 						<div class="flex items-center justify-between mb-3">
 							<h4 class="font-semibold">{grid.columns} Column{grid.columns > 1 ? 's' : ''}</h4>
 							<code class="text-xs text-terminal-cyan">grid-cols-{grid.columns}</code>
 						</div>
 						<div class="grid grid-cols-{grid.columns} gap-2 mb-3">
-							{#each Array(grid.columns) as _, i}
+							{#each Array(grid.columns) as _, i (i)}
 								<div
 									class="h-12 glass-subtle rounded border border-terminal-green/20 flex items-center justify-center text-xs"
 								>
@@ -188,7 +188,7 @@
 		</p>
 
 		<div class="space-y-4">
-			{#each breakpoints as bp}
+			{#each breakpoints as bp (bp.id || bp)}
 				<div class="glass-subtle p-6 rounded-xl">
 					<div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
 						<div>
@@ -239,7 +239,7 @@
 		</p>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-			{#each componentPatterns as pattern}
+			{#each componentPatterns as pattern (pattern.id || pattern)}
 				<div class="glass-subtle p-6 rounded-xl">
 					<h3 class="text-terminal-cyan mb-3">{pattern.component}</h3>
 					<div class="space-y-2 mb-4">

@@ -20,7 +20,11 @@
 		class?: string;
 	}
 
-	let {
+	const {
+header,
+		title,
+		children,
+		footer,
 		open = $bindable(false),
 		position = 'right',
 		size = 'md',
@@ -32,7 +36,8 @@
 		persistent = false,
 		class: className = '',
 		...restProps
-	}: Props = $props();
+	
+}: Props = $props();
 
 	const dispatch = createEventDispatcher();
 
@@ -91,8 +96,8 @@
 		}
 	};
 
-	const currentVariant = variants[variant];
-	const currentSize = sizes[size][position];
+	const currentVariant = variants()[variant];
+	const currentSize = sizes()[size][position];
 
 	// Position-specific classes
 	const positionClasses = {
@@ -168,8 +173,8 @@
 				'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
 			);
 
-			if (focusableElements.length > 0) {
-				(focusableElements[0] as HTMLElement).focus();
+			if (focusableElements().length > 0) {
+				(focusableElements()[0] as HTMLElement).focus();
 			} else {
 				contentElement.focus();
 			}
@@ -183,6 +188,7 @@
 		<div
 			class={cn('fixed inset-0 z-40', currentVariant.overlay)}
 			onclick={handleOverlayClick}
+			onkeydown={(e) => e.key === 'Enter' && handleOverlayClick()}
 			transition:fade={{ duration: 200 }}
 			role="presentation"
 		></div>
@@ -191,7 +197,7 @@
 	<!-- Drawer -->
 	<div
 		bind:this={drawerElement}
-		class={cn('fixed z-50 flex flex-col', positionClasses[position], currentSize, currentVariant.drawer, className)}
+		class={cn('fixed z-50 flex flex-col', positionClasses()[position], currentSize, currentVariant.drawer, className)}
 		transition:fly={getTransitionConfig()}
 		use:liquidBlur={{ intensity: 'medium' }}
 		role="dialog"
@@ -203,16 +209,17 @@
 			<!-- Header -->
 			<div class="flex items-center justify-between p-4 border-b border-white/10 flex-shrink-0">
 				<div class="flex-1">
-					<slot name="header">
+					{#if header}{@render header()}{:else}
 						<h2 id="drawer-title" class="text-lg font-semibold">
-							<slot name="title">Drawer</slot>
+							{#if title}{@render title()}{:else}Drawer{/if}
 						</h2>
-					</slot>
+					{/if}
 				</div>
 
 				{#if showCloseButton && !persistent}
 					<button
 						onclick={closeDrawer}
+						onkeydown={(e) => e.key === 'Enter' && closeDrawer()}
 						class={cn('p-2 rounded-lg border transition-colors ml-4', currentVariant.closeButton)}
 						title="Close drawer"
 						aria-label="Close drawer"
@@ -224,13 +231,13 @@
 
 			<!-- Content -->
 			<div class="flex-1 overflow-y-auto p-4">
-				<slot {open} close={closeDrawer}></slot>
+				{@render children?.({ open, close: closeDrawer })}
 			</div>
 
 			<!-- Footer -->
-			{#if $$slots.footer}
+			{#if footer}
 				<div class="p-4 border-t border-white/10 flex-shrink-0">
-					<slot name="footer" {open} close={closeDrawer}></slot>
+					{@render footer?.({ open, close: closeDrawer })}
 				</div>
 			{/if}
 		</div>

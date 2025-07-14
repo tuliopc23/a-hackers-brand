@@ -165,7 +165,7 @@
 				Our primary palette draws inspiration from classic terminal interfaces and cyberpunk aesthetics.
 			</p>
 			<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-				{#each terminalColors as color}
+				{#each terminalColors as color (color.id || color)}
 					<div class="glass-subtle p-4 rounded-xl">
 						<div class="w-full h-24 rounded-lg mb-3" style="background-color: {color.value}"></div>
 						<p class="font-semibold text-sm">{color.name}</p>
@@ -179,7 +179,7 @@
 			<h3>Glass System</h3>
 			<p class="mb-6">Our glass morphism effects use carefully calibrated opacity levels for depth and hierarchy.</p>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-				{#each glassColors as color}
+				{#each glassColors as color (color.id || color)}
 					<div class="glass-subtle p-4 rounded-xl">
 						<div
 							class="w-full h-24 rounded-lg mb-3 border border-white/20"
@@ -230,7 +230,7 @@
 			</p>
 
 			<div class="space-y-3">
-				{#each spacingScale as space}
+				{#each spacingScale as space (space.id || space)}
 					<div class="glass-subtle p-4 rounded-xl flex items-center">
 						<div class="w-20 font-mono text-terminal-cyan">{space.name}</div>
 						<div class="h-8 bg-terminal-green/30 rounded mr-4" style="width: {space.px}"></div>

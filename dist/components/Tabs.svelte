@@ -28,7 +28,7 @@
 
 	let {
 		tabs = [],
-		activeTab = tabs[0]?.id || '',
+		activeTab = tabs()[0]?.id || '',
 		variant = 'glass',
 		size = 'md',
 		orientation = 'horizontal',
@@ -82,19 +82,19 @@
 	const listClasses = cn(
 		'flex rounded-brand-lg p-1',
 		isHorizontal ? 'flex-row' : 'flex-col min-w-max',
-		variants[variant].list,
-		variant === 'glass' && blurLevels[blur]
+		variants()[variant].list,
+		variant === 'glass' && blurLevels()[blur]
 	);
 
 	const tabClasses = cn(
 		'relative flex-1 rounded-brand-md transition-all duration-200',
 		'focus:outline-none focus:ring-2 focus:ring-blue-400/50',
 		'font-medium whitespace-nowrap cursor-pointer',
-		sizes[size],
-		variants[variant].tab
+		sizes()[size],
+		variants()[variant].tab
 	);
 
-	const activeTabClasses = cn(tabClasses, variants[variant].activeTab);
+	const activeTabClasses = cn(tabClasses, variants()[variant].activeTab);
 
 	const contentClasses = cn('mt-4 focus:outline-none', isHorizontal ? '' : 'ml-4');
 
@@ -109,7 +109,7 @@
 	function handleKeydown(event: KeyboardEvent, tab: Tab) {
 		if (tab.disabled) return;
 
-		const enabledTabs = tabs.filter((t) => !t.disabled);
+		const enabledTabs = tabs().filter((t) => !t.disabled);
 		const currentEnabledIndex = enabledTabs.findIndex((t) => t.id === activeTab);
 
 		switch (event.key) {
@@ -122,8 +122,8 @@
 			case 'ArrowDown':
 				if (isHorizontal ? event.key === 'ArrowRight' : event.key === 'ArrowDown') {
 					event.preventDefault();
-					const nextIndex = (currentEnabledIndex + 1) % enabledTabs.length;
-					const nextTab = enabledTabs[nextIndex];
+					const nextIndex = (currentEnabledIndex + 1) % enabledTabs().length;
+					const nextTab = enabledTabs()[nextIndex];
 					handleTabClick(nextTab);
 					focusTab(nextTab.id);
 				}
@@ -132,21 +132,21 @@
 			case 'ArrowUp':
 				if (isHorizontal ? event.key === 'ArrowLeft' : event.key === 'ArrowUp') {
 					event.preventDefault();
-					const prevIndex = currentEnabledIndex === 0 ? enabledTabs.length - 1 : currentEnabledIndex - 1;
-					const prevTab = enabledTabs[prevIndex];
+					const prevIndex = currentEnabledIndex === 0 ? enabledTabs().length - 1 : currentEnabledIndex - 1;
+					const prevTab = enabledTabs()[prevIndex];
 					handleTabClick(prevTab);
 					focusTab(prevTab.id);
 				}
 				break;
 			case 'Home':
 				event.preventDefault();
-				const firstTab = enabledTabs[0];
+				const firstTab = enabledTabs()[0];
 				handleTabClick(firstTab);
 				focusTab(firstTab.id);
 				break;
 			case 'End':
 				event.preventDefault();
-				const lastTab = enabledTabs[enabledTabs.length - 1];
+				const lastTab = enabledTabs[enabledTabs().length - 1];
 				handleTabClick(lastTab);
 				focusTab(lastTab.id);
 				break;
@@ -158,7 +158,7 @@
 		tabElement?.focus();
 	}
 
-	const activeTabData = $derived(tabs.find((tab) => tab.id === activeTab));
+	const activeTabData = $derived(tabs().find((tab) => tab.id === activeTab));
 
 	// Track bundle size
 	$effect(() => {
@@ -175,7 +175,7 @@
 		aria-orientation={orientation}
 		aria-label={ariaLabel}
 	>
-		{#each tabs as tab, index}
+		{#each tabs() as tab, index (index)}
 			<button
 				id={`${uniqueId}-tab-${tab.id}`}
 				class={tab.id === activeTab ? activeTabClasses : tabClasses}
@@ -191,8 +191,7 @@
 				use:liquidBlur={animate && !reduceMotion && tab.id === activeTab
 					? { blur: blur, opacity: 'medium' }
 					: undefined}
-				onclick={() => handleTabClick(tab)}
-				onkeydown={(e) => handleKeydown(e, tab)}
+				onclick={() => handleTabClick(tab)} onkeydown={(e) => e.key === "Enter" && handleTabClick(tab)}
 			>
 				{tab.label}
 			</button>

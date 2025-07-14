@@ -33,7 +33,7 @@ class PerformanceMonitor {
 			try {
 				observer.observe({ entryTypes: ['measure', 'navigation', 'paint', 'largest-contentful-paint'] });
 			} catch (error) {
-				console.warn('Performance observer setup failed:', error);
+				// Performance observer setup failed - will continue without observer
 			}
 		}
 	}
@@ -60,7 +60,7 @@ class PerformanceMonitor {
 			}
 		}
 
-		console.debug(`📊 Performance mark: ${name}`, { startTime, detail });
+		// Consider integrating a proper logging mechanism for performance marks
 	}
 
 	/**
@@ -70,13 +70,13 @@ class PerformanceMonitor {
 		const startMarkData = this.marks.get(startMark);
 
 		if (!startMarkData) {
-			console.warn(`Performance mark "${startMark}" not found`);
+			// Performance mark not found - returning 0
 			return 0;
 		}
 
 		const endTime = endMark ? this.marks.get(endMark)?.startTime : performance.now();
 		if (endMark && !endTime) {
-			console.warn(`Performance mark "${endMark}" not found`);
+			// End mark not found - returning 0
 			return 0;
 		}
 
@@ -101,15 +101,11 @@ class PerformanceMonitor {
 					performance.measure(name, startMark);
 				}
 			} catch (error) {
-				console.debug('Native performance.measure failed:', error);
+			// Log failure to a monitoring service instead
 			}
 		}
 
-		console.debug(`⏱️ Performance measure: ${name}`, {
-			duration: `${duration.toFixed(2)}ms`,
-			startMark,
-			endMark: endMark || 'now'
-		});
+		// Performance measure tracked; send to analytics service if needed
 
 		return duration;
 	}
@@ -262,7 +258,7 @@ export const trackPageLoad = () => {
 
 	const trackMetric = (name: string, value: number) => {
 		mark(name, { value });
-		console.debug(`📈 ${name}: ${value.toFixed(2)}ms`);
+		// Stat collection completed; integrate with analytics service here
 	};
 
 	// Track key navigation timing metrics

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
 	import { glassFade, magneticHover } from '$lib/motion';
+	import { jellyHover } from '$lib/actions/jellyHover';
 	import { X, CheckCircle2, AlertCircle, XCircle, Info } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -138,6 +139,7 @@
 			{#if closable}
 				<button
 					onclick={handleClose}
+					onkeydown={(e) => e.key === 'Enter' && handleClose()}
 					class={cn(
 						'flex-shrink-0 p-1 rounded-lg transition-all duration-200',
 						'hover:bg-white/10 hover:scale-110',

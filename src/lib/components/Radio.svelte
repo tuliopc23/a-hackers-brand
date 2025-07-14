@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
 	import { magneticHover, breathing } from '$lib/motion';
+	import { jellyHover } from '$lib/actions/jellyHover';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	interface RadioOption {
@@ -10,7 +11,7 @@
 		description?: string;
 	}
 
-	interface Props extends Omit<HTMLInputAttributes, 'type' | 'value'> {
+	interface Props extends Omit<HTMLInputAttributes, 'type' | 'value' | 'size'> {
 		options: RadioOption[];
 		value?: string;
 		name: string;
@@ -25,8 +26,8 @@
 		onchange?: (value: string) => void;
 	}
 
-	let {
-		options,
+	const {
+options,
 		value = $bindable(),
 		name,
 		variant = 'glass',
@@ -39,7 +40,8 @@
 		class: className = '',
 		onchange,
 		...restProps
-	}: Props = $props();
+	
+}: Props = $props();
 
 	const handleChange = (optionValue: string) => {
 		value = optionValue;
@@ -112,7 +114,7 @@
 	)}
 	{...restProps}
 >
-	{#each options as option}
+	{#each options as option (option.value)}
 		<label
 			class={cn(
 				'relative flex items-center cursor-pointer group',

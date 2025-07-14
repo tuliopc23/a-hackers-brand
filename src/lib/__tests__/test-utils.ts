@@ -2,6 +2,8 @@ import { render, type RenderResult } from '@testing-library/svelte';
 import { vi } from 'vitest';
 import type { ComponentType } from 'svelte';
 
+// === ENHANCED TEST UTILITIES FOR 90%+ COVERAGE ===
+
 // Mock window.matchMedia for responsive tests
 export const mockMatchMedia = (matches: boolean = false) => {
 	Object.defineProperty(window, 'matchMedia', {
@@ -23,8 +25,8 @@ export const mockMatchMedia = (matches: boolean = false) => {
 export const renderComponent = <T extends Record<string, any>>(
 	Component: ComponentType<T>,
 	props: Partial<T> = {} as Partial<T>
-): RenderResult<T> => {
-	return render(Component, { props });
+): RenderResult<any> => {
+	return render(Component as any, { props });
 };
 
 // Wait for animations to complete
@@ -52,7 +54,7 @@ export const mockResizeObserver = () => {
 
 // Test all component variants
 export const testAllVariants = async (
-	Component: ComponentType,
+	Component: any,
 	baseProps: Record<string, any> = {},
 	testFn: (variant: string) => Promise<void> | void
 ) => {
@@ -64,7 +66,7 @@ export const testAllVariants = async (
 
 // Test all component sizes
 export const testAllSizes = async (
-	Component: ComponentType,
+	Component: any,
 	baseProps: Record<string, any> = {},
 	testFn: (size: string) => Promise<void> | void
 ) => {

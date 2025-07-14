@@ -1,11 +1,5 @@
-<script lang="ts">
-	import { cn } from '../utils.js';
-	import { liquidBlur, springPop } from '../motion';
-	import { brandColors } from '../tokens';
-	import { createEventDispatcher, onMount } from 'svelte';
-	import { ChevronRight, ChevronDown } from 'lucide-svelte';
-	import type { HTMLAttributes } from 'svelte/elements';
-
+<!-- @migration-task Error while migrating Svelte code: This migration would change the name of a slot (trigger to trigger_1) making the component unusable -->
+<script module lang="ts">
 	export interface MenuItem {
 		id: string;
 		label: string;
@@ -18,6 +12,16 @@
 		children?: MenuItem[];
 		keyboard?: string;
 	}
+</script>
+
+<script lang="ts">
+	import { cn } from '../utils.js';
+	import { liquidBlur, springPop } from '../motion';
+	import { brandColors } from '../tokens';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import { ChevronRight, ChevronDown } from 'lucide-svelte';
+	import type { HTMLAttributes } from 'svelte/elements';
+	import type { MenuItem as MenuMenuItem } from './Menu.svelte';
 
 	interface Props extends HTMLAttributes<HTMLDivElement> {
 		items: MenuItem[];
@@ -105,8 +109,8 @@
 		}
 	};
 
-	const currentSize = sizes[size];
-	const currentVariant = variants[variant];
+	const currentSize = sizes()[size];
+	const currentVariant = variants()[variant];
 
 	// Get all menu items flattened for keyboard navigation
 	const flatItems = $derived(() => {
@@ -189,7 +193,7 @@
 				break;
 			case 'ArrowDown':
 				event.preventDefault();
-				highlightedIndex = Math.min(highlightedIndex + 1, flatItems.length - 1);
+				highlightedIndex = Math.min(highlightedIndex + 1, flatItems().length - 1);
 				break;
 			case 'ArrowUp':
 				event.preventDefault();
@@ -197,13 +201,13 @@
 				break;
 			case 'Enter':
 				event.preventDefault();
-				if (highlightedIndex >= 0 && flatItems[highlightedIndex]) {
-					handleItemClick(flatItems[highlightedIndex]);
+				if (highlightedIndex >= 0 && flatItems()[highlightedIndex]) {
+					handleItemClick(flatItems()[highlightedIndex]);
 				}
 				break;
 			case 'ArrowRight':
-				if (highlightedIndex >= 0 && flatItems[highlightedIndex]?.children?.length) {
-					activeSubmenuId = flatItems[highlightedIndex].id;
+				if (highlightedIndex >= 0 && flatItems()[highlightedIndex]?.children?.length) {
+					activeSubmenuId = flatItems()[highlightedIndex].id;
 				}
 				break;
 			case 'ArrowLeft':
@@ -234,7 +238,7 @@
 			'right-start': 'left-full top-0 ml-1',
 			'left-start': 'right-full top-0 mr-1'
 		};
-		return placements[placement];
+		return placements()[placement];
 	}
 </script>
 
@@ -243,7 +247,7 @@
 	<div
 		bind:this={triggerElement}
 		class="cursor-pointer"
-		onclick={trigger === 'click' ? toggleMenu : undefined}
+		onclick={trigger === 'click' ? toggleMenu : undefined} onkeydown={(e) => e.key === "Enter" && trigger === 'click' ? toggleMenu : undefined(e)}
 		onmouseenter={trigger === 'hover' ? toggleMenu : undefined}
 		onmouseleave={trigger === 'hover' ? () => setTimeout(closeMenu, 150) : undefined}
 		onkeydown={handleKeydown}
@@ -253,7 +257,7 @@
 		aria-haspopup="menu"
 		aria-controls={uniqueId}
 	>
-		<slot name="trigger">
+		{@render trigger?.()}
 			<div
 				class={cn(
 					'flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-200',
@@ -264,7 +268,7 @@
 				<span>Menu</span>
 				<ChevronDown size={16} class={cn('transition-transform duration-200', isOpen && 'rotate-180')} />
 			</div>
-		</slot>
+		
 	</div>
 
 	<!-- Menu -->
@@ -276,7 +280,7 @@
 			use:liquidBlur={{ intensity: 'medium' }}
 		>
 			<div class="py-1">
-				{#each items as item, index (item.id)}
+				{#each items() as item, index (item.id)}
 					{#if item.separator}
 						<hr class={cn('my-1 border-t', currentVariant.separator)} />
 					{:else}
@@ -287,10 +291,10 @@
 									'flex items-center justify-between cursor-pointer transition-all duration-150',
 									currentSize.item,
 									item.disabled ? currentVariant.itemDisabled : currentVariant.item,
-									highlightedIndex === flatItems.indexOf(item) && !item.disabled && currentVariant.itemActive,
+									highlightedIndex === flatItems().indexOf(item) && !item.disabled && currentVariant.itemActive,
 									activeSubmenuId === item.id && currentVariant.itemActive
 								)}
-								onclick={() => handleItemClick(item)}
+								onclick={() => handleItemClick(item)} onkeydown={(e) => e.key === "Enter" && handleItemClick(item)} 
 								onmouseenter={() => handleMouseEnter(item)}
 								onmouseleave={handleMouseLeave}
 								role="menuitem"
@@ -355,7 +359,7 @@
 														currentSize.item,
 														childItem.disabled ? currentVariant.itemDisabled : currentVariant.item
 													)}
-													onclick={() => handleItemClick(childItem)}
+													onclick={() => handleItemClick(childItem)} onkeydown={(e) => e.key === "Enter" && handleItemClick(childItem)} 
 													role="menuitem"
 													aria-disabled={childItem.disabled}
 													tabindex={childItem.disabled ? -1 : 0}

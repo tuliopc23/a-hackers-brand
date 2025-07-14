@@ -25,15 +25,7 @@ function sendToAnalytics(metric: Metric) {
 		window.__vitals.push(metric);
 	}
 
-	// Log to console for development
-	console.log('📊 Core Web Vital:', {
-		name: metric.name,
-		value: metric.value,
-		rating: metric.rating,
-		delta: metric.delta,
-		id: metric.id,
-		navigationType: metric.navigationType
-	});
+	// Metrics collected - integrate with analytics service instead of console logging
 
 	// Send to analytics service (example implementations)
 	// You can uncomment and modify based on your analytics provider
@@ -54,7 +46,7 @@ function sendToAnalytics(metric: Metric) {
 	//   headers: { 'Content-Type': 'application/json' },
 	//   body: JSON.stringify(metric),
 	//   keepalive: true
-	// }).catch(console.error);
+	// }).catch(err => { /* Handle error silently or with proper error tracking */ });
 
 	// PostHog example
 	// if (typeof posthog !== 'undefined') {
@@ -89,9 +81,9 @@ export function initWebVitals() {
 		// Time to First Byte (TTFB)
 		onTTFB(sendToAnalytics);
 
-		console.log('✅ Core Web Vitals tracking initialized');
+		// Core Web Vitals tracking initialized
 	} catch (error) {
-		console.error('❌ Failed to initialize Core Web Vitals tracking:', error);
+		// Failed to initialize Core Web Vitals tracking - implement proper error handling
 	}
 }
 

@@ -66,11 +66,11 @@
 		'before:absolute before:inset-0 before:rounded-[inherit] before:bg-gradient-to-b before:from-white/5 before:to-transparent',
 		'after:absolute after:inset-0 after:rounded-[inherit] after:shadow-inner after:shadow-white/5',
 		// Variant styles
-		variantClasses[variant],
+		variantClasses()[variant],
 		// Border
 		bordered && 'border',
 		// Padding
-		paddingClasses[padding],
+		paddingClasses()[padding],
 		// Hover effects
 		hover && 'hover:shadow-2xl hover:bg-white/12 hover:border-white/30 cursor-pointer',
 		// Enhanced glass effect

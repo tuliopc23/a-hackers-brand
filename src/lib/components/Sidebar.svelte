@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
 	import { liquidBlur, springPop } from '$lib/motion';
+	import { fade } from 'svelte/transition';
 	import { brandColors } from '$lib/tokens';
 	import { createEventDispatcher } from 'svelte';
 	import { X, ChevronLeft, ChevronRight, Menu } from 'lucide-svelte';
@@ -31,7 +32,9 @@
 		class?: string;
 	}
 
-	let {
+	const {
+header,
+		footer,
 		items = [],
 		width = 'md',
 		variant = 'glass',
@@ -43,7 +46,8 @@
 		showToggle = true,
 		class: className = '',
 		...restProps
-	}: Props = $props();
+	
+}: Props = $props();
 
 	const dispatch = createEventDispatcher();
 
@@ -88,7 +92,7 @@
 		}
 	};
 
-	const currentVariant = variants[variant];
+	const currentVariant = variants()[variant];
 
 	function toggleSidebar() {
 		collapsed = !collapsed;
@@ -166,14 +170,19 @@
 
 <!-- Overlay for mobile -->
 {#if overlay && !collapsed}
-	<div class={cn('fixed inset-0 z-40', currentVariant.overlay)} onclick={closeSidebar} transition:fade></div>
+	<div
+		class={cn('fixed inset-0 z-40', currentVariant.overlay)}
+		onclick={closeSidebar}
+		onkeydown={(e) => e.key === 'Enter' && closeSidebar()}
+		transition:fade
+	></div>
 {/if}
 
 <!-- Sidebar -->
 <aside
 	class={cn(
 		'flex flex-col h-full border-r transition-all duration-300 ease-in-out',
-		widths[width],
+		widths()[width],
 		currentVariant.sidebar,
 		position === 'right' && 'border-r-0 border-l',
 		overlay && 'fixed top-0 z-50',
@@ -190,14 +199,15 @@
 	{#if showToggle}
 		<div class="flex items-center justify-between p-4 border-b border-white/10">
 			{#if !collapsed}
-				<slot name="header">
+				{#if header}{@render header()}{:else}
 					<h2 class="text-lg font-semibold truncate">Menu</h2>
-				</slot>
+				{/if}
 			{/if}
 
 			{#if collapsible}
 				<button
 					onclick={toggleSidebar}
+					onkeydown={(e) => e.key === 'Enter' && toggleSidebar()}
 					class={cn('p-2 rounded-lg border transition-colors', currentVariant.toggle, collapsed && 'mx-auto')}
 					title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
 				>
@@ -232,6 +242,7 @@
 						)}
 						style={!collapsed && level > 0 ? `padding-left: ${paddingLeft}` : undefined}
 						onclick={() => handleItemClick(item)}
+						onkeydown={(e) => e.key === 'Enter' && handleItemClick(item)}
 						disabled={item.disabled}
 						title={collapsed ? item.label : undefined}
 					>
@@ -274,9 +285,9 @@
 	</nav>
 
 	<!-- Footer -->
-	{#if $$slots.footer}
+	{#if footer}
 		<div class="p-4 border-t border-white/10">
-			<slot name="footer" {collapsed}></slot>
+			{@render footer?.({ collapsed })}
 		</div>
 	{/if}
 </aside>

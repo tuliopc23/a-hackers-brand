@@ -4,7 +4,7 @@
 	import LiquidGlass from './LiquidGlass.svelte';
 	import LiquidTerminal from './LiquidTerminal.svelte';
 
-	let showcaseContainer: HTMLElement;
+	let showcaseContainer: HTMLElement = $state()!;
 
 	const glassVariants = [
 		{ variant: 'subtle', title: 'Subtle Glass', description: 'Minimal transparency with light blur' },
@@ -66,7 +66,7 @@
 	<section class="showcase-section">
 		<h2 class="section-title">Glass Variants</h2>
 		<div class="showcase-grid">
-			{#each glassVariants as { variant, title, description }}
+			{#each glassVariants as { variant, title, description } (variant)}
 				<div class="showcase-item">
 					<LiquidGlass {variant} effect="jelly" customClass="variant-demo">
 						<div class="demo-content">
@@ -86,7 +86,7 @@
 	<section class="showcase-section">
 		<h2 class="section-title">Interactive Effects</h2>
 		<div class="showcase-grid">
-			{#each glassEffects as { effect, title, description }}
+			{#each glassEffects as { effect, title, description } (effect)}
 				<div class="showcase-item">
 					<LiquidGlass variant="medium" {effect} customClass="effect-demo">
 						<div class="demo-content">

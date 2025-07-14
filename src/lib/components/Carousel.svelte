@@ -34,7 +34,8 @@
 		class?: string;
 	}
 
-	let {
+	const {
+children,
 		items,
 		currentIndex = $bindable(0),
 		autoPlay = false,
@@ -52,7 +53,8 @@
 		touchEnabled = true,
 		class: className = '',
 		...restProps
-	}: Props = $props();
+	
+}: Props = $props();
 
 	const dispatch = createEventDispatcher();
 
@@ -120,22 +122,20 @@
 		'21:9': 'aspect-[21/9]'
 	};
 
-	const currentSize = sizes[size];
-	const currentVariant = variants[variant];
+	const currentSize = sizes()[size];
+	const currentVariant = variants()[variant];
 
 	// Computed properties
-	const totalItems = $derived(() => items.length);
+	const totalItems = $derived(() => items().length);
 	const maxIndex = $derived(() => Math.max(0, totalItems - itemsPerView));
 	const canPrevious = $derived(() => loop || currentIndex > 0);
 	const canNext = $derived(() => loop || currentIndex < maxIndex);
 
 	const translateX = $derived(() => {
-		const percentage = (currentIndex * 100) / itemsPerView;
 		return `-${percentage}%`;
 	});
 
 	const progress = $derived(() => {
-		if (totalItems <= 1) return 100;
 		return ((currentIndex + 1) / totalItems) * 100;
 	});
 
@@ -148,7 +148,7 @@
 			currentIndex = index;
 		}
 
-		dispatch('change', { index: currentIndex, item: items[currentIndex] });
+		dispatch('change', { index: currentIndex, item: items()[currentIndex] });
 	}
 
 	function previous() {
@@ -199,7 +199,7 @@
 	function handleTouchStart(event: TouchEvent) {
 		if (!touchEnabled) return;
 
-		const touch = event.touches[0];
+		const touch = event.touches()[0];
 		touchStartX = touch.clientX;
 		touchStartY = touch.clientY;
 		isDragging = true;
@@ -220,7 +220,7 @@
 	function handleTouchEnd(event: TouchEvent) {
 		if (!touchEnabled || !isDragging) return;
 
-		const touch = event.changedTouches[0];
+		const touch = event.changedTouches()[0];
 		const deltaX = touch.clientX - touchStartX;
 		const deltaY = touch.clientY - touchStartY;
 
@@ -292,7 +292,7 @@
 	bind:this={carouselElement}
 	class={cn(
 		'relative rounded-lg border overflow-hidden',
-		aspectRatios[aspectRatio],
+		aspectRatios()[aspectRatio],
 		currentVariant.container,
 		currentSize.container,
 		className
@@ -315,12 +315,12 @@
 	>
 		<!-- Items -->
 		<div
-			class={cn('flex h-full transition-transform duration-300 ease-in-out', currentSize.gap[gap])}
+			class={cn('flex h-full transition-transform duration-300 ease-in-out', currentSize.gap()[gap])}
 			style={`transform: translateX(${translateX}); width: ${(totalItems * 100) / itemsPerView}%`}
 		>
-			{#each items as item, index (item.id)}
+			{#each items() as item, index (item.id)}
 				<div class="flex-shrink-0 h-full relative" style={`width: ${100 / totalItems}%`}>
-					<slot {item} {index} active={index === currentIndex}>
+					{#if children}{@render children({ item, index, active: index === currentIndex })}{:else}
 						<!-- Default item content -->
 						<div class="w-full h-full flex flex-col">
 							{#if item.image}
@@ -347,7 +347,7 @@
 								</div>
 							{/if}
 						</div>
-					</slot>
+					{/if}
 				</div>
 			{/each}
 		</div>
@@ -368,6 +368,7 @@
 		<!-- Previous Button -->
 		<button
 			onclick={previous}
+			onkeydown={(e) => e.key === 'Enter' && previous()}
 			disabled={!canPrevious}
 			class={cn(
 				'absolute left-2 top-1/2 -translate-y-1/2 rounded-full border transition-all duration-200',
@@ -384,6 +385,7 @@
 		<!-- Next Button -->
 		<button
 			onclick={next}
+			onkeydown={(e) => e.key === 'Enter' && next()}
 			disabled={!canNext}
 			class={cn(
 				'absolute right-2 top-1/2 -translate-y-1/2 rounded-full border transition-all duration-200',
@@ -401,6 +403,7 @@
 		{#if autoPlay}
 			<button
 				onclick={toggleAutoPlay}
+				onkeydown={(e) => e.key === 'Enter' && toggleAutoPlay()}
 				class={cn(
 					'absolute top-2 right-2 rounded-full border transition-all duration-200',
 					currentSize.controls,
@@ -421,9 +424,10 @@
 	<!-- Dots Navigation -->
 	{#if showDots && totalItems > 1}
 		<div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-			{#each items as _, index}
+			{#each items() as _, index (index)}
 				<button
 					onclick={() => goToSlide(index)}
+					onkeydown={(e) => e.key === 'Enter' && goToSlide(index)}
 					class={cn(
 						'rounded-full transition-all duration-200',
 						currentSize.dots,

@@ -153,7 +153,7 @@
 			bind:this={tooltipRef}
 			class={cn(
 				'fixed z-50 px-3 py-2 text-sm font-medium rounded-lg shadow-xl',
-				variants[variant],
+				variants()[variant],
 				animated && 'transition-all duration-200',
 				className
 			)}
@@ -167,8 +167,8 @@
 				<div
 					class={cn(
 						'absolute w-0 h-0 border-4',
-						arrowClasses[actualPosition],
-						arrowStyles[actualPosition],
+						arrowClasses()[actualPosition],
+						arrowStyles()[actualPosition],
 						variant === 'glass' && 'border-white/10',
 						variant === 'terminal' && 'border-green-400/40',
 						variant === 'liquid' && 'border-white/30',

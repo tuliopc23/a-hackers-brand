@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { magneticHover, springPop, jellyHover, liquidResponsive } from '$lib/motion';
+	import { magneticHover, springPop, jellyHover, liquidResponsive, useReducedMotion } from '$lib/motion';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLButtonAttributes {
@@ -14,7 +14,7 @@
 		'aria-label'?: string;
 		'aria-describedby'?: string;
 		class?: string;
-		children?: any;
+		children?: import('svelte').Snippet;
 	}
 
 	const {
@@ -32,6 +32,10 @@
 		'aria-describedby': ariaDescribedBy,
 		...restProps
 	}: Props = $props();
+
+	// Check for reduced motion preference
+	const prefersReducedMotion = useReducedMotion();
+	const shouldAnimate = $derived(animate && !prefersReducedMotion);
 
 	const variants = {
 		default:
@@ -72,7 +76,7 @@
 	);
 </script>
 
-{#if animate}
+{#if shouldAnimate}
 	<button
 		class={combinedClasses}
 		{disabled}
@@ -80,21 +84,29 @@
 		aria-describedby={ariaDescribedBy}
 		aria-busy={loading}
 		use:jellyHover={{
-			enabled: !disabled && !loading && jelly,
-			duration: 200,
-			scale: variant === 'liquid' ? 1.08 : 1.05,
+			enabled: !disabled && !loading && jelly && shouldAnimate,
+			duration: prefersReducedMotion ? 100 : 200,
+			scale: prefersReducedMotion ? 1.02 : variant === 'liquid' ? 1.08 : 1.05,
 			borderRadius: variant === 'liquid' ? '24px' : '16px',
-			responsiveness: 'strong'
+			responsiveness: prefersReducedMotion ? 'subtle' : 'strong'
 		}}
 		use:liquidResponsive={{
-			enabled: !disabled && !loading && liquid,
-			liquidIntensity: 1.2,
-			morphStrength: 0.4,
+			enabled: !disabled && !loading && liquid && shouldAnimate,
+			liquidIntensity: prefersReducedMotion ? 0.5 : 1.2,
+			morphStrength: prefersReducedMotion ? 0.1 : 0.4,
 			flowDirection: 'center'
 		}}
-		use:magneticHover={{ enabled: !disabled && !loading && !jelly && !liquid, strength: 0.15, scale: 1.02 }}
-		in:springPop={{ duration: 200, bounce: variant.includes('glass') || variant === 'liquid' }}
+		use:magneticHover={{
+			enabled: !disabled && !loading && !jelly && !liquid && shouldAnimate,
+			strength: prefersReducedMotion ? 0.05 : 0.15,
+			scale: prefersReducedMotion ? 1.01 : 1.02
+		}}
+		in:springPop={{
+			duration: prefersReducedMotion ? 100 : 200,
+			bounce: !prefersReducedMotion && (variant.includes('glass') || variant === 'liquid')
+		}}
 		onclick={(e) => e.stopPropagation()}
+		onkeydown={(e) => e.key === 'Enter' && e.currentTarget.click()}
 		{...restProps}
 	>
 		{#if loading}
@@ -115,19 +127,23 @@
 		aria-describedby={ariaDescribedBy}
 		aria-busy={loading}
 		use:jellyHover={{
-			enabled: !disabled && !loading && jelly,
-			duration: 200,
-			scale: variant === 'liquid' ? 1.08 : 1.05,
+			enabled: !disabled && !loading && jelly && shouldAnimate,
+			duration: prefersReducedMotion ? 100 : 200,
+			scale: prefersReducedMotion ? 1.02 : variant === 'liquid' ? 1.08 : 1.05,
 			borderRadius: variant === 'liquid' ? '24px' : '16px',
-			responsiveness: 'strong'
+			responsiveness: prefersReducedMotion ? 'subtle' : 'strong'
 		}}
 		use:liquidResponsive={{
-			enabled: !disabled && !loading && liquid,
-			liquidIntensity: 1.2,
-			morphStrength: 0.4,
+			enabled: !disabled && !loading && liquid && shouldAnimate,
+			liquidIntensity: prefersReducedMotion ? 0.5 : 1.2,
+			morphStrength: prefersReducedMotion ? 0.1 : 0.4,
 			flowDirection: 'center'
 		}}
-		use:magneticHover={{ enabled: !disabled && !loading && !jelly && !liquid, strength: 0.15, scale: 1.02 }}
+		use:magneticHover={{
+			enabled: !disabled && !loading && !jelly && !liquid && shouldAnimate,
+			strength: prefersReducedMotion ? 0.05 : 0.15,
+			scale: prefersReducedMotion ? 1.01 : 1.02
+		}}
 		{...restProps}
 	>
 		{#if loading}

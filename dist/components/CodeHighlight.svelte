@@ -8,10 +8,10 @@
 		title?: string;
 	}
 
-	let { code = '', language = 'svelte', showCopy = true, title = '' }: Props = $props();
+	const { code = '', language = 'svelte', showCopy = true, title = '' }: Props = $props();
 
 	let copied = $state(false);
-	let codeElement = $state();
+	let codeElement = $state() as any;
 
 	// Simple syntax highlighting for common languages
 	const highlightSyntax = (code, lang) => {
@@ -141,7 +141,7 @@
 		// Add line numbers if needed
 		if (codeElement) {
 			const lines = code.split('\n');
-			if (lines.length > 1) {
+			if (lines().length > 1) {
 				codeElement.style.counterReset = 'line';
 			}
 		}
@@ -156,6 +156,7 @@
 				<button
 					class="p-1 hover:bg-white/10 rounded transition-colors text-white/60 hover:text-white"
 					onclick={copyToClipboard}
+					onkeydown={(e) => e.key === 'Enter' && copyToClipboard(e)}
 					title={copied ? 'Copied!' : 'Copy code'}
 				>
 					{#if copied}
@@ -182,6 +183,7 @@
 			<button
 				class="absolute top-3 right-3 p-2 bg-black/50 hover:bg-black/70 rounded transition-colors text-white/60 hover:text-white opacity-0 group-hover:opacity-100 z-10"
 				onclick={copyToClipboard}
+				onkeydown={(e) => e.key === 'Enter' && copyToClipboard(e)}
 				title={copied ? 'Copied!' : 'Copy code'}
 			>
 				{#if copied}
@@ -211,8 +213,8 @@
 	pre {
 		margin: 0;
 		-moz-tab-size: 2;
-		-o-tab-size: 2;
-		tab-size: 2;
+		  -o-tab-size: 2;
+		     tab-size: 2;
 	}
 
 	code {
@@ -238,7 +240,7 @@
 		border-right: 1px solid rgba(255, 255, 255, 0.1);
 		text-align: right;
 		-webkit-user-select: none;
-		-moz-user-select: none;
-		user-select: none;
+		   -moz-user-select: none;
+		        user-select: none;
 	}
 </style>

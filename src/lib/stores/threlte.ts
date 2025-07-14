@@ -97,21 +97,28 @@ export const qualitySettings = {
 	}
 };
 
-// Persistence (optional)
-if (browser) {
-	// Load saved config
+// Persistence helper functions
+export function loadThrelteConfig() {
+	if (!browser) return;
+
 	const saved = localStorage.getItem('threlte-config');
 	if (saved) {
 		try {
 			const savedConfig = JSON.parse(saved);
 			threlteConfig.set({ ...initialConfig, ...savedConfig });
 		} catch (e) {
-			console.warn('Failed to load saved Threlte config:', e);
+			// Failed to load saved config - will use defaults
 		}
 	}
+}
 
-	// Save config changes
-	threlteConfig.subscribe((config) => {
-		localStorage.setItem('threlte-config', JSON.stringify(config));
-	});
+// Save config to localStorage - to be called in components using $effect
+export function saveThrelteConfig(config: ThrelteConfig) {
+	if (!browser) return;
+	localStorage.setItem('threlte-config', JSON.stringify(config));
+}
+
+// Initialize config on module load
+if (browser) {
+	loadThrelteConfig();
 }

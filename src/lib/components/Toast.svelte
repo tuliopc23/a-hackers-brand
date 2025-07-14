@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { glassFade, springPop } from '$lib/motion';
+	import { glassFade, springPop, springPopAction } from '$lib/motion';
 	import { sizeOf } from '$lib/utils/bundle-size.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -22,8 +22,8 @@
 		onOpenChange?: (open: boolean) => void;
 	}
 
-	let {
-		open = false,
+	const {
+open = false,
 		type = 'info',
 		variant = 'glass',
 		position = 'top-right',
@@ -39,7 +39,8 @@
 		children,
 		onOpenChange,
 		...restProps
-	}: Props = $props();
+	
+}: Props = $props();
 
 	let toastElement = $state<HTMLDivElement>();
 	let timeoutId: NodeJS.Timeout | null = null;
@@ -191,7 +192,8 @@
 				<button
 					class="mt-2 text-sm font-medium text-white hover:text-white/80 focus:outline-none focus:underline transition-colors duration-150"
 					onclick={handleAction}
-					use:springPop={animate && !reduceMotion ? { scale: 0.98, duration: 100 } : undefined}
+					onkeydown={(e) => e.key === 'Enter' && handleAction()}
+					use:springPopAction={animate && !reduceMotion ? { scale: 0.98, duration: 100 } : undefined}
 				>
 					{action.label}
 				</button>
@@ -203,8 +205,9 @@
 			<button
 				class="flex-shrink-0 text-white/60 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 rounded transition-all duration-150"
 				onclick={handleClose}
+				onkeydown={(e) => e.key === 'Enter' && handleAction()}
 				aria-label="Close notification"
-				use:springPop={animate && !reduceMotion ? { scale: 0.9, duration: 100 } : undefined}
+				use:springPopAction={animate && !reduceMotion ? { scale: 0.9, duration: 100 } : undefined}
 			>
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

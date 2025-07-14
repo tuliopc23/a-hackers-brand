@@ -21,8 +21,7 @@ export function sizeOf(componentName: string, size: 'small' | 'medium' | 'large'
 
 		componentSizes.set(componentName, sizeInfo);
 
-		// Log to console in development
-		console.log(`📦 Bundle: ${componentName} (${size})`);
+		// Bundle size tracked - integrate with monitoring service for production
 	}
 }
 

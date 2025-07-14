@@ -110,9 +110,9 @@
 		'before:absolute before:inset-0 before:rounded-[inherit] before:bg-gradient-to-b before:from-white/10 before:to-transparent before:opacity-0 hover:before:opacity-100',
 		'after:absolute after:inset-0 after:rounded-[inherit] after:shadow-inner after:shadow-white/10',
 		// Variant styles
-		variantClasses[variant],
+		variantClasses()[variant],
 		// Size styles
-		sizeClasses[size],
+		sizeClasses()[size],
 		// Loading state
 		loading && 'cursor-wait',
 		className
@@ -120,6 +120,7 @@
 	onmousemove={handleMouseMove}
 	onmouseleave={handleMouseLeave}
 	onclick={handleClick}
+	onkeydown={(e) => e.key === 'Enter' && handleClick(e)}
 >
 	<!-- Ripple container -->
 	<div bind:this={rippleRef} class="absolute inset-0 rounded-[inherit] overflow-hidden"></div>

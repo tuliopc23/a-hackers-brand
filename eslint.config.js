@@ -4,6 +4,7 @@ import svelte from 'eslint-plugin-svelte';
 import prettier from 'eslint-config-prettier';
 import globals from 'globals';
 import a11y from 'eslint-plugin-jsx-a11y';
+import security from 'eslint-plugin-security';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -30,18 +31,50 @@ export default [
 	},
 	{
 		files: ['**/*.{js,ts,svelte}'],
+		plugins: {
+			security
+		},
 		rules: {
-			// TypeScript rules
-			'@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-			'@typescript-eslint/no-explicit-any': 'warn',
-			'@typescript-eslint/no-non-null-assertion': 'warn',
+			// === TYPESCRIPT RULES (Production Ready) ===
+			'@typescript-eslint/no-unused-vars': ['error', {
+				argsIgnorePattern: '^_',
+				varsIgnorePattern: '^_',
+				caughtErrorsIgnorePattern: '^_'
+			}],
+			'@typescript-eslint/no-explicit-any': 'error',
+			'@typescript-eslint/no-non-null-assertion': 'error',
+			'@typescript-eslint/prefer-nullish-coalescing': 'error',
+			'@typescript-eslint/prefer-optional-chain': 'error',
+			'@typescript-eslint/no-unnecessary-type-assertion': 'error',
+			'@typescript-eslint/no-floating-promises': 'error',
+			'@typescript-eslint/await-thenable': 'error',
+			'@typescript-eslint/no-misused-promises': 'error',
 
-			// General JavaScript rules
+			// === GENERAL JAVASCRIPT RULES ===
 			'no-console': 'warn',
-			'no-debugger': 'warn',
+			'no-debugger': 'error',
 			'no-undef': 'off', // TypeScript handles this
 			'prefer-const': 'error',
-			'no-var': 'error'
+			'no-var': 'error',
+			'no-unused-expressions': 'error',
+			'no-unreachable': 'error',
+			'no-duplicate-imports': 'error',
+			'no-self-compare': 'error',
+			'no-template-curly-in-string': 'error',
+
+			// === SECURITY RULES ===
+			'security/detect-object-injection': 'warn',
+			'security/detect-non-literal-regexp': 'warn',
+			'security/detect-unsafe-regex': 'error',
+			'security/detect-buffer-noassert': 'error',
+			'security/detect-child-process': 'warn',
+			'security/detect-disable-mustache-escape': 'error',
+			'security/detect-eval-with-expression': 'error',
+			'security/detect-no-csrf-before-method-override': 'error',
+			'security/detect-non-literal-fs-filename': 'warn',
+			'security/detect-non-literal-require': 'warn',
+			'security/detect-possible-timing-attacks': 'warn',
+			'security/detect-pseudoRandomBytes': 'error'
 		}
 	},
 	{
@@ -50,8 +83,22 @@ export default [
 			'jsx-a11y': a11y
 		},
 		rules: {
-			// Svelte-specific accessibility rules are handled by svelte plugin
-			// Additional accessibility rules
+			// === SVELTE-SPECIFIC RULES ===
+			'svelte/no-at-debug-tags': 'error',
+			'svelte/no-reactive-functions': 'error',
+			'svelte/no-reactive-literals': 'error',
+			'svelte/prefer-destructuring-props': 'warn',
+			'svelte/require-store-reactive-access': 'error',
+			'svelte/valid-compile': 'error',
+			'svelte/no-unused-svelte-ignore': 'error',
+			'svelte/no-useless-mustaches': 'error',
+			'svelte/prefer-class-directive': 'error',
+			'svelte/prefer-style-directive': 'error',
+			'svelte/shorthand-attribute': 'error',
+			'svelte/shorthand-directive': 'error',
+			'svelte/spaced-html-comment': 'error',
+
+			// === ACCESSIBILITY RULES (WCAG 2.1 AA Compliance) ===
 			'jsx-a11y/alt-text': 'error',
 			'jsx-a11y/aria-props': 'error',
 			'jsx-a11y/aria-proptypes': 'error',
@@ -62,7 +109,21 @@ export default [
 			'jsx-a11y/no-noninteractive-element-interactions': 'error',
 			'jsx-a11y/no-noninteractive-tabindex': 'error',
 			'jsx-a11y/role-supports-aria-props': 'error',
-			'jsx-a11y/tabindex-no-positive': 'error'
+			'jsx-a11y/tabindex-no-positive': 'error',
+			'jsx-a11y/anchor-has-content': 'error',
+			'jsx-a11y/anchor-is-valid': 'error',
+			'jsx-a11y/aria-activedescendant-has-tabindex': 'error',
+			'jsx-a11y/aria-role': 'error',
+			'jsx-a11y/heading-has-content': 'error',
+			'jsx-a11y/iframe-has-title': 'error',
+			'jsx-a11y/img-redundant-alt': 'error',
+			'jsx-a11y/media-has-caption': 'warn',
+			'jsx-a11y/mouse-events-have-key-events': 'error',
+			'jsx-a11y/no-access-key': 'error',
+			'jsx-a11y/no-autofocus': 'warn',
+			'jsx-a11y/no-distracting-elements': 'error',
+			'jsx-a11y/no-redundant-roles': 'error',
+			'jsx-a11y/scope': 'error'
 		}
 	},
 	{

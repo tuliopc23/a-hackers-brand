@@ -33,7 +33,7 @@
 					bind:value={selectedVariant}
 					class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white"
 				>
-					{#each variants as variant}
+					{#each variants as variant (variant.id || variant)}
 						<option value={variant}>{variant}</option>
 					{/each}
 				</select>
@@ -46,7 +46,7 @@
 					bind:value={selectedSize}
 					class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white"
 				>
-					{#each sizes as size}
+					{#each sizes as size (size.id || size)}
 						<option value={size}>{size}</option>
 					{/each}
 				</select>
@@ -59,7 +59,7 @@
 					bind:value={selectedBlur}
 					class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white"
 				>
-					{#each blurLevels as blur}
+					{#each blurLevels as blur (blur.id || blur)}
 						<option value={blur}>{blur}</option>
 					{/each}
 				</select>
@@ -115,7 +115,7 @@
 		<h2 class="text-xl font-semibold text-white mb-4">All Variants</h2>
 
 		<div class="flex flex-wrap gap-3 justify-center">
-			{#each variants as variant}
+			{#each variants as variant (variant.id || variant)}
 				<Badge {variant} glass={isGlass} size={selectedSize}>
 					{variant}
 				</Badge>
@@ -128,7 +128,7 @@
 		<h2 class="text-xl font-semibold text-white mb-4">All Sizes</h2>
 
 		<div class="flex flex-wrap gap-3 justify-center items-center">
-			{#each sizes as size}
+			{#each sizes as size (size.id || size)}
 				<Badge variant={selectedVariant} {size} glass={isGlass}>
 					{size} size
 				</Badge>

@@ -66,7 +66,7 @@
 		}
 	};
 
-	const currentTheme = themeConfig[theme];
+	const currentTheme = themeConfig()[theme];
 
 	// Quality settings
 	const qualitySettings = {
@@ -96,7 +96,7 @@
 		}
 	};
 
-	const settings = qualitySettings[quality];
+	const settings = qualitySettings()[quality];
 
 	// Physics state
 	const physicsEnabled = $state(enablePhysics);
@@ -127,9 +127,9 @@
 		if (!physicsEnabled) return;
 
 		// Update orbital shapes
-		orbitalShapesRefs.forEach((ref, index) => {
+		orbitalShapesRefs().forEach((ref, index) => {
 			if (ref) {
-				const angle = time * 0.5 + (index * Math.PI * 2) / orbitalShapesRefs.length;
+				const angle = time * 0.5 + (index * Math.PI * 2) / orbitalShapesRefs().length;
 				const radius = 3 + Math.sin(time + index) * 0.5;
 				ref.position.x = Math.cos(angle) * radius;
 				ref.position.z = Math.sin(angle) * radius;
@@ -202,7 +202,7 @@
 			shadow.mapSize.height={settings.shadowMapSize}
 		></T.DirectionalLight>
 
-		{#each lighting.pointLights as light}
+		{#each lighting.pointLights as light (light.id || light)}
 			<T.PointLight position={light.position} color={light.color} intensity={light.intensity} decay={2} distance={20}
 			></T.PointLight>
 		{/each}
@@ -222,8 +222,8 @@
 		/>
 
 		<!-- Orbital Liquid Shapes -->
-		{#each Array(6) as _, i}
-			<T.Group bind:ref={orbitalShapesRefs[i]}>
+		{#each Array(6) as _, i (i)}
+			<T.Group bind:ref={orbitalShapesRefs()[i]}>
 				<LiquidGlassShader
 					intensity={currentTheme.intensity * 0.7}
 					color={i % 2 === 0 ? currentTheme.primaryColor : currentTheme.secondaryColor}

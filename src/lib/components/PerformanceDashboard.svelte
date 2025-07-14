@@ -109,7 +109,7 @@
 <!-- Performance Dashboard Toggle -->
 <button
 	type="button"
-	onclick={toggleVisibility}
+	onclick={toggleVisibility} onkeydown={(e) => e.key === "Enter" && toggleVisibility()}
 	class="fixed bottom-4 right-4 z-50 p-3 glass rounded-full shadow-lg hover:scale-105 transition-all duration-200"
 	title="Toggle Performance Dashboard"
 	aria-label="Toggle Performance Dashboard"
@@ -127,7 +127,7 @@
 			</h2>
 			<button
 				type="button"
-				onclick={toggleVisibility}
+				onclick={toggleVisibility} onkeydown={(e) => e.key === "Enter" && toggleVisibility()}
 				class="text-white/60 hover:text-white transition-colors"
 				aria-label="Close Performance Dashboard"
 			>
@@ -168,7 +168,7 @@
 						<h3 class="font-semibold text-white">Core Web Vitals</h3>
 					</div>
 					<div class="space-y-2 text-sm">
-						{#each Object.entries(vitalsSummary) as [name, data]}
+            {#each Object.entries(vitalsSummary) as [name, data] (name)}
 							<div class="flex justify-between">
 								<span class="text-white/70">{name}:</span>
 								<span class={getVitalRating((data as any).rating)}>
@@ -221,7 +221,7 @@
 				{#snippet children()}
 					<h3 class="font-semibold text-white mb-3">Paint Timing</h3>
 					<div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-						{#each Object.entries(perfSummary.paint) as [name, time]}
+						{#each Object.entries(perfSummary.paint) as [name, time] (time)}
 							<div class="text-center">
 								<div class="text-white/70 mb-1">{name.replace('-', ' ').toUpperCase()}</div>
 								<div class="text-terminal-green font-mono">{formatMs(time as number)}</div>
@@ -233,13 +233,13 @@
 		{/if}
 
 		<!-- Custom Marks -->
-		{#if perfSummary.marks && perfSummary.marks.length > 0}
+		{#if perfSummary.marks && perfSummary.marks().length > 0}
 			<Card variant="glass" class="p-4 mb-4">
 				{#snippet children()}
 					<h3 class="font-semibold text-white mb-3">Performance Marks</h3>
 					<div class="max-h-32 overflow-y-auto">
 						<div class="space-y-1 text-sm">
-							{#each perfSummary.marks.slice(-10) as mark}
+							{#each perfSummary.marks().slice(-10) as mark (mark.id || mark)}
 								<div class="flex justify-between">
 									<span class="text-white/70">{mark.name}:</span>
 									<span class="text-terminal-green font-mono">{formatMs(mark.startTime)}</span>
@@ -252,13 +252,13 @@
 		{/if}
 
 		<!-- Custom Measures -->
-		{#if perfSummary.measures && perfSummary.measures.length > 0}
+		{#if perfSummary.measures && perfSummary.measures().length > 0}
 			<Card variant="glass" class="p-4">
 				{#snippet children()}
 					<h3 class="font-semibold text-white mb-3">Performance Measures</h3>
 					<div class="max-h-32 overflow-y-auto">
 						<div class="space-y-1 text-sm">
-							{#each perfSummary.measures.slice(-10) as measure}
+							{#each perfSummary.measures().slice(-10) as measure (measure.id || measure)}
 								<div class="flex justify-between">
 									<span class="text-white/70">{measure.name}:</span>
 									<span class="text-brand-primary font-mono">{formatMs(measure.duration)}</span>

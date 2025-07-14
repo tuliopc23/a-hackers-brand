@@ -3,7 +3,7 @@
 	import { AppleLiquidShowcase, LiquidGlassAdvanced } from '$lib/components';
 	import { gsap } from 'gsap';
 
-	let pageContainer: HTMLElement;
+	let pageContainer: HTMLElement = $state();
 
 	onMount(() => {
 		if (!pageContainer) return;

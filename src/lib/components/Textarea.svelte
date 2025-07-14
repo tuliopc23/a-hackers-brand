@@ -24,7 +24,7 @@
 	}
 
 	let {
-		value = '',
+value = $bindable(''),
 		placeholder = '',
 		disabled = false,
 		size = 'md',
@@ -41,7 +41,8 @@
 		class: className = '',
 		onValueChange,
 		...restProps
-	}: Props = $props();
+	
+}: Props = $props();
 
 	let textareaElement = $state<HTMLTextAreaElement>();
 	let isFocused = $state(false);
@@ -89,7 +90,6 @@
 
 	function handleInput(event: Event) {
 		const target = event.target as HTMLTextAreaElement;
-		value = target.value;
 		onValueChange?.(target.value);
 
 		if (autoResize) {
@@ -155,7 +155,8 @@
 		const end = textareaElement.selectionEnd;
 		const newValue = value.slice(0, start) + text + value.slice(end);
 
-		value = newValue;
+		// Update the textarea value directly
+		textareaElement.value = newValue;
 		onValueChange?.(newValue);
 
 		// Restore cursor position

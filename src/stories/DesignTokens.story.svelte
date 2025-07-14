@@ -1,3 +1,5 @@
+<!-- @migration-task Error while migrating Svelte code: Unexpected token
+https://svelte.dev/e/js_parse_error -->
 <script module>
 	export const title = 'Design Tokens/Explorer';
 </script>
@@ -101,7 +103,7 @@
 		<div class="space-y-4">
 			<h3 class="text-lg font-semibold">Brand Color Palette</h3>
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-				{#each brandColors as color}
+				{#each brandColors as color (color.id || color)}
 					<div class="space-y-2">
 						<div
 							class="w-full h-20 rounded-brand border border-gray-200"
@@ -122,7 +124,7 @@
 		<div class="space-y-4">
 			<h3 class="text-lg font-semibold">Terminal Color Palette</h3>
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-				{#each terminalColors as color}
+				{#each terminalColors as color (color.id || color)}
 					<div class="space-y-2">
 						<div
 							class="w-full h-20 rounded-brand border border-gray-200"
@@ -143,7 +145,7 @@
 		<div class="space-y-4">
 			<h3 class="text-lg font-semibold">Semantic Color System</h3>
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-				{#each semanticColors as color}
+				{#each semanticColors as color (color.id || color)}
 					<div class="space-y-2">
 						<div
 							class="w-full h-16 rounded-brand border border-gray-200 flex items-center px-4"
@@ -162,7 +164,7 @@
 		<div class="space-y-6">
 			<h3 class="text-lg font-semibold">Typography System</h3>
 			<div class="space-y-4">
-				{#each fontSizes as font}
+				{#each fontSizes as font (font.id || font)}
 					<div class="border border-gray-200 rounded-brand p-4">
 						<div class="mb-2">
 							<span class="text-sm font-mono text-gray-600">
@@ -185,7 +187,7 @@
 		<div class="space-y-4">
 			<h3 class="text-lg font-semibold">Spacing System</h3>
 			<div class="space-y-3">
-				{#each spacingTokens as spacing}
+				{#each spacingTokens as spacing (spacing.id || spacing)}
 					<div class="flex items-center gap-4">
 						<div class="w-20 text-sm font-mono text-gray-600">{spacing.name}</div>
 						<div class="flex items-center gap-2">
@@ -205,7 +207,7 @@
 		<div class="space-y-4">
 			<h3 class="text-lg font-semibold">Border Radius System</h3>
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-				{#each borderRadiusTokens as radius}
+				{#each borderRadiusTokens as radius (radius.id || radius)}
 					<div class="space-y-2">
 						<div class="w-16 h-16 bg-brand-primary border border-gray-200" style="border-radius: {radius.value}"></div>
 						<div class="text-sm font-mono">
@@ -222,7 +224,7 @@
 		<div class="space-y-4">
 			<h3 class="text-lg font-semibold">Animation System</h3>
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-				{#each animationTokens as animation}
+				{#each animationTokens as animation (animation.id || animation)}
 					<div class="border border-gray-200 rounded-brand p-4">
 						<div class="mb-3">
 							<div class="font-medium">{animation.name}</div>

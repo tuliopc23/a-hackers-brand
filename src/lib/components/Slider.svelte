@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { liquidBlur, springPop } from '$lib/motion';
+	import { liquidBlur, springPop, springPopAction } from '$lib/motion';
 	import { sizeOf } from '$lib/utils/bundle-size.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
@@ -23,8 +23,8 @@
 		onValueChange?: (value: number) => void;
 	}
 
-	let {
-		value = 50,
+	const {
+value = $bindable(50),
 		min = 0,
 		max = 100,
 		step = 1,
@@ -41,7 +41,8 @@
 		class: className = '',
 		onValueChange,
 		...restProps
-	}: Props = $props();
+	
+}: Props = $props();
 
 	let sliderElement = $state<HTMLDivElement>();
 	let trackElement = $state<HTMLDivElement>();
@@ -251,12 +252,12 @@
 				class={thumbClasses}
 				style:left="{percentage}%"
 				style:transform="translateX(-50%) translateY(-50%)"
-				use:springPop={animate && !reduceMotion && isDragging ? { scale: 1.1, duration: 100 } : undefined}
+				use:springPopAction={animate && !reduceMotion && isDragging ? { scale: 1.1, duration: 100 } : undefined}
 			></div>
 
 			<!-- Marks -->
 			{#if showMarks && marks.length > 0}
-				{#each marks as mark}
+				{#each marks as mark (mark)}
 					{@const markPercentage = ((mark - min) / (max - min)) * 100}
 					<div
 						class="absolute top-1/2 w-1 h-1 bg-white/50 rounded-full -translate-y-1/2 -translate-x-1/2"

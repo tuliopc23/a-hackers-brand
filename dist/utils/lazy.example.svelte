@@ -11,9 +11,9 @@
 	// Example 3: Conditional lazy loading based on feature flags
 	const LazyFeatureComponent = lazy(() => import('../components/TerminalOrbit.svelte'));
 
-	let showFeature = false;
-	let elementRef;
-	let isInViewport = false;
+	let showFeature = $state(false);
+	let elementRef = $state();
+	let isInViewport = $state(false);
 
 	// Intersection observer for viewport-based loading
 	import { onMount } from 'svelte';
@@ -41,7 +41,7 @@
 			Error: {LazyHeavyComponent.error}
 		</div>
 	{:else if LazyHeavyComponent.component}
-		<svelte:component this={LazyHeavyComponent.component} />
+		<LazyHeavyComponent.component />
 	{/if}
 </section>
 
@@ -52,7 +52,7 @@
 		{#if LazyOffscreenComponent.loading}
 			<div class="loading-placeholder">Loading when in viewport...</div>
 		{:else if LazyOffscreenComponent.component}
-			<svelte:component this={LazyOffscreenComponent.component} />
+			<LazyOffscreenComponent.component />
 		{/if}
 	{:else}
 		<div class="placeholder">Scroll to load this component</div>
@@ -72,7 +72,7 @@
 				Error: {LazyFeatureComponent.error}
 			</div>
 		{:else if LazyFeatureComponent.component}
-			<svelte:component this={LazyFeatureComponent.component} />
+			<LazyFeatureComponent.component />
 		{/if}
 	{/if}
 </section>

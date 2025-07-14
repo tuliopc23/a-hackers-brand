@@ -89,7 +89,7 @@
 	};
 
 	function toggleItem(itemId: string) {
-		const item = items.find((i) => i.id === itemId);
+		const item = items().find((i) => i.id === itemId);
 		if (item?.disabled) return;
 
 		const isOpen = openItems.has(itemId);
@@ -116,7 +116,7 @@
 	}
 
 	function handleKeydown(event: KeyboardEvent, itemId: string) {
-		const item = items.find((i) => i.id === itemId);
+		const item = items().find((i) => i.id === itemId);
 		if (item?.disabled) return;
 
 		switch (event.key) {
@@ -145,31 +145,31 @@
 	}
 
 	function focusNextItem(currentId: string) {
-		const enabledItems = items.filter((item) => !item.disabled);
+		const enabledItems = items().filter((item) => !item.disabled);
 		const currentIndex = enabledItems.findIndex((item) => item.id === currentId);
-		const nextIndex = (currentIndex + 1) % enabledItems.length;
-		const nextItem = enabledItems[nextIndex];
+		const nextIndex = (currentIndex + 1) % enabledItems().length;
+		const nextItem = enabledItems()[nextIndex];
 		focusItem(nextItem.id);
 	}
 
 	function focusPrevItem(currentId: string) {
-		const enabledItems = items.filter((item) => !item.disabled);
+		const enabledItems = items().filter((item) => !item.disabled);
 		const currentIndex = enabledItems.findIndex((item) => item.id === currentId);
-		const prevIndex = currentIndex === 0 ? enabledItems.length - 1 : currentIndex - 1;
-		const prevItem = enabledItems[prevIndex];
+		const prevIndex = currentIndex === 0 ? enabledItems().length - 1 : currentIndex - 1;
+		const prevItem = enabledItems()[prevIndex];
 		focusItem(prevItem.id);
 	}
 
 	function focusFirstItem() {
-		const firstEnabledItem = items.find((item) => !item.disabled);
+		const firstEnabledItem = items().find((item) => !item.disabled);
 		if (firstEnabledItem) {
 			focusItem(firstEnabledItem.id);
 		}
 	}
 
 	function focusLastItem() {
-		const enabledItems = items.filter((item) => !item.disabled);
-		const lastItem = enabledItems[enabledItems.length - 1];
+		const enabledItems = items().filter((item) => !item.disabled);
+		const lastItem = enabledItems[enabledItems().length - 1];
 		if (lastItem) {
 			focusItem(lastItem.id);
 		}
@@ -187,18 +187,18 @@
 </script>
 
 <div class={cn('w-full space-y-2', className)} {...restProps}>
-	{#each items as item, index}
+	{#each items() as item, index (index)}
 		{@const isOpen = openItems.has(item.id)}
 		{@const isFirst = index === 0}
-		{@const isLast = index === items.length - 1}
+		{@const isLast = index === items().length - 1}
 		{@const headerId = `${uniqueId}-header-${item.id}`}
 		{@const contentId = `${uniqueId}-content-${item.id}`}
 
 		<div
 			class={cn(
 				'overflow-hidden transition-all duration-200',
-				variants[variant].container,
-				variant === 'glass' && blurLevels[blur],
+				variants()[variant].container,
+				variant === 'glass' && blurLevels()[blur],
 				isFirst && 'rounded-t-brand-lg',
 				isLast && 'rounded-b-brand-lg',
 				!isFirst && !isLast && index > 0 && 'rounded-none border-t-0'
@@ -211,8 +211,8 @@
 					'w-full flex items-center justify-between transition-all duration-200',
 					'focus:outline-none focus:ring-2 focus:ring-blue-400/50',
 					'font-medium cursor-pointer',
-					sizes[size].header,
-					variants[variant].header,
+					sizes()[size].header,
+					variants()[variant].header,
 					item.disabled && 'opacity-50 cursor-not-allowed'
 				)}
 				type="button"
@@ -222,13 +222,12 @@
 				data-accordion-header={item.id}
 				disabled={item.disabled}
 				use:liquidBlur={animate && !reduceMotion && isOpen ? { blur: blur, opacity: 'subtle' } : undefined}
-				onclick={() => toggleItem(item.id)}
-				onkeydown={(e) => handleKeydown(e, item.id)}
+				onclick={() => toggleItem(item.id)} onkeydown={(e) => e.key === "Enter" && toggleItem(item.id)}
 			>
 				<span class="text-left">{item.title}</span>
 
 				<svg
-					class={cn('transition-transform duration-200 flex-shrink-0 ml-2', sizes[size].icon, isOpen && 'rotate-180')}
+					class={cn('transition-transform duration-200 flex-shrink-0 ml-2', sizes()[size].icon, isOpen && 'rotate-180')}
 					fill="none"
 					stroke="currentColor"
 					viewBox="0 0 24 24"
@@ -246,8 +245,8 @@
 					aria-labelledby={headerId}
 					class={cn(
 						'border-t border-white/10 transition-all duration-200',
-						sizes[size].content,
-						variants[variant].content
+						sizes()[size].content,
+						variants()[variant].content
 					)}
 					in:glassFade={{ direction: 'down', distance: 10, duration: animate && !reduceMotion ? 200 : 0 }}
 					out:glassFade={{ direction: 'up', distance: 10, duration: animate && !reduceMotion ? 150 : 0 }}

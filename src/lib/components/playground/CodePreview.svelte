@@ -1,9 +1,15 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
-import { playgroundStore } from '$lib/stores/playground';
+	import { playgroundStore } from '$lib/stores/playground';
 
-	export let container: HTMLElement | undefined = undefined;
+	interface Props {
+		container?: HTMLElement | undefined;
+	}
+
+	const {
+container = $bindable() 
+}: Props = $props();
 
 	let iframeContainer: HTMLElement;
 	let iframe: HTMLIFrameElement;
@@ -320,11 +326,11 @@ import { playgroundStore } from '$lib/stores/playground';
 			
 			// Extract script content
 			const scriptMatch = code.match(/<script[^>]*>(.*?)<\/script>/s);
-			let scriptContent = scriptMatch ? scriptMatch[1] : '';
+			let scriptContent = scriptMatch ? scriptMatch()[1] : '';
 
 			// Extract template content
 			const templateMatch = code.match(/<\/script>\s*(.*?)(?:<style|$)/s);
-			let template = templateMatch ? templateMatch[1] : code.replace(/<script[^>]*>.*?<\/script>/s, '');
+			let template = templateMatch ? templateMatch()[1] : code.replace(/<script[^>]*>.*?<\/script>/s, '');
 
 			// Remove style tags for simplicity
 			template = template.replace(/<style[^>]*>.*?<\/style>/s, '');
@@ -333,7 +339,7 @@ import { playgroundStore } from '$lib/stores/playground';
 			const reactiveVars = [];
 			const letMatches = scriptContent.match(/let\s+(\w+)\s*=/g);
 			if (letMatches) {
-				letMatches.forEach(match => {
+				letMatches().forEach(match => {
 					const varName = match.match(/let\s+(\w+)/)?.[1];
 					if (varName) {
 						reactiveVars.push(varName);
@@ -368,15 +374,15 @@ import { playgroundStore } from '$lib/stores/playground';
 
 					// Initialize components
 					const componentElements = appContainer.querySelectorAll('[data-component]');
-					componentElements.forEach(el => {
+					componentElements().forEach(el => {
 						const componentName = el.getAttribute('data-component');
-						if (components[componentName]) {
+						if (components()[componentName]) {
 							const props = {
 								class: el.className,
 								children: el.innerHTML,
 								onclick: window[el.getAttribute('onclick')?.replace('()', '')]
 							};
-							components[componentName].create(el.parentNode, props);
+							components()[componentName].create(el.parentNode, props);
 							el.remove();
 						}
 					});
@@ -386,7 +392,7 @@ import { playgroundStore } from '$lib/stores/playground';
 				render();
 
 				// Make functions available globally for event handlers
-				${reactiveVars.map(varName => `
+				${reactiveVars().map(varName => `
 					window.${varName} = ${varName};
 				`).join('')}
 			`;
@@ -423,7 +429,7 @@ import { playgroundStore } from '$lib/stores/playground';
 				<span class="text-red-400 text-sm">Error</span>
 				<button 
 					class="text-blue-400 hover:text-blue-300 text-sm"
-					onclick={refreshPreview}
+					onclick={refreshPreview} onkeydown={(e) => e.key === "Enter" && refreshPreview()}
 				>
 					Retry
 				</button>
@@ -433,7 +439,7 @@ import { playgroundStore } from '$lib/stores/playground';
 			
 			<button 
 				class="text-white/70 hover:text-white p-1 rounded"
-				onclick={refreshPreview}
+				onclick={refreshPreview} onkeydown={(e) => e.key === "Enter" && refreshPreview()}
 				title="Refresh preview"
 			>
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -456,7 +462,7 @@ import { playgroundStore } from '$lib/stores/playground';
 					<p class="text-red-700 text-sm font-mono max-w-md">{error}</p>
 					<button 
 						class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-						onclick={refreshPreview}
+						onclick={refreshPreview} onkeydown={(e) => e.key === "Enter" && refreshPreview()}
 					>
 						Try Again
 					</button>

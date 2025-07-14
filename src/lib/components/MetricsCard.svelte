@@ -32,8 +32,8 @@
 		class?: string;
 	}
 
-	let {
-		metric,
+	const {
+metric,
 		size = 'md',
 		variant = 'glass',
 		layout = 'vertical',
@@ -45,7 +45,8 @@
 		clickable = false,
 		class: className = '',
 		...restProps
-	}: Props = $props();
+	
+}: Props = $props();
 
 	const sizes = {
 		sm: {
@@ -101,8 +102,8 @@
 		}
 	};
 
-	const currentSize = sizes[size];
-	const currentVariant = variants[variant];
+ const currentSize = sizes[size];
+ const currentVariant = variants[variant];
 
 	// Computed properties
 	const formattedValue = $derived(() => {
@@ -122,19 +123,10 @@
 		}
 	});
 
-	const changeDisplay = $derived(() => {
-		if (!metric.change || loading) return null;
-
-		const change = metric.change;
-		const isPositive = change > 0;
-		const isNegative = change < 0;
-		const prefix = isPositive ? '+' : '';
-
-		return {
-			value: `${prefix}${change}%`,
-			type: isPositive ? 'positive' : isNegative ? 'negative' : 'neutral'
-		};
-	});
+	const changeDisplay = $derived(() => { return {
+			value: `${(metric.change && metric.change > 0 ? "+" : "") || ""}${(metric.change ?? 0)}%`,
+			type: metric.change > 0 ? 'positive' : metric.change < 0 ? 'negative' : 'neutral'
+		}; });
 
 	const trendIcon = $derived(() => {
 		if (!metric.trend || loading) return null;
@@ -152,7 +144,7 @@
 	const changeColorClass = $derived(() => {
 		if (!changeDisplay) return currentVariant.changeNeutral;
 
-		switch (changeDisplay.type) {
+		switch (changeDisplay().type) {
 			case 'positive':
 				return currentVariant.changePositive;
 			case 'negative':
@@ -180,9 +172,9 @@
 		className
 	)}
 	use:liquidBlur={{ intensity: 'medium' }}
-	onclick={handleClick}
+	onclick={handleClick} onkeydown={(e) => e.key === "Enter" && handleClick()}
 	role={clickable ? 'button' : undefined}
-	tabindex={clickable ? 0 : undefined}
+	tabindex={clickable ? 0 : -1}
 	{...restProps}
 >
 	{#if layout === 'horizontal'}
@@ -200,6 +192,7 @@
 			<div class="flex flex-col items-end gap-1">
 				{#if showIcon && showTrend && trendIcon}
 					{@const TrendIcon = trendIcon}
+					<!-- TrendIcon component would go here -->
 					<TrendIcon class={cn(currentSize.icon, changeColorClass)} strokeWidth={2} />
 				{:else if showIcon && metric.icon}
 					<Activity class={cn(currentSize.icon, currentVariant.icon)} />
@@ -207,7 +200,7 @@
 
 				{#if showChange && changeDisplay}
 					<div class={cn('font-medium', currentSize.change, changeColorClass)}>
-						{changeDisplay.value}
+						{changeDisplay().value}
 					</div>
 				{/if}
 			</div>
@@ -236,12 +229,13 @@
 				<div class="flex items-center gap-2">
 					{#if showTrend && trendIcon}
 						{@const TrendIcon = trendIcon}
+						<!-- TrendIcon component would go here -->
 						<TrendIcon class={cn('w-4 h-4', changeColorClass)} strokeWidth={2} />
 					{/if}
 
 					{#if showChange && changeDisplay}
 						<span class={cn('font-medium', currentSize.change, changeColorClass)}>
-							{changeDisplay.value}
+							{changeDisplay().value}
 						</span>
 					{/if}
 

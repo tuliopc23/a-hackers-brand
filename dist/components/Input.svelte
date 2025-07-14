@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { glassFade, liquidBlur, magneticHover } from '../motion';
+	import { glassFade, liquidBlur, magneticHover, jellyHover } from '../motion';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	interface Props extends Omit<HTMLInputAttributes, 'size'> {
@@ -95,8 +95,8 @@
 				{id}
 				class={combinedClasses}
 				in:liquidBlur={{ duration: 300, blur: 'sm', scale: 0.98 }}
-				use:magneticHover={magnetic ? { strength: 0.1, distance: 50 } : undefined}
-				use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
+				use:magneticHover={magnetic ? { strength: 0.1 } : undefined}
+				use:jellyHover={jelly ? { enabled: true, intensity: 0.05, speed: 200 } : { enabled: false }}
 				{...restProps}
 			/>
 		{:else if animate}
@@ -107,8 +107,8 @@
 				aria-invalid={!!error}
 				aria-describedby={errorId}
 				in:glassFade={{ duration: 200, direction: 'up', distance: 5, opacity: 'light' }}
-				use:magneticHover={magnetic ? { strength: 0.1, distance: 50 } : undefined}
-				use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
+				use:magneticHover={magnetic ? { strength: 0.1 } : undefined}
+				use:jellyHover={jelly ? { enabled: true, intensity: 0.05, speed: 200 } : { enabled: false }}
 				{...restProps}
 			/>
 		{:else}
@@ -118,8 +118,8 @@
 				aria-label={ariaLabel}
 				aria-invalid={!!error}
 				aria-describedby={errorId}
-				use:magneticHover={magnetic ? { strength: 0.1, distance: 50 } : undefined}
-				use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
+				use:magneticHover={magnetic ? { strength: 0.1 } : undefined}
+				use:jellyHover={jelly ? { enabled: true, intensity: 0.05, speed: 200 } : { enabled: false }}
 				{...restProps}
 			/>
 		{/if}
@@ -140,12 +140,10 @@
 
 	input:global(.glass):focus {
 		-webkit-backdrop-filter: blur(16px) saturate(200%);
-		backdrop-filter: blur(16px) saturate(200%);
+		        backdrop-filter: blur(16px) saturate(200%);
 		transition: -webkit-backdrop-filter 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 		transition: backdrop-filter 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-		transition:
-			backdrop-filter 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
-			-webkit-backdrop-filter 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+		transition: backdrop-filter 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94), -webkit-backdrop-filter 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	}
 
 	input:global(.terminal) {
@@ -159,7 +157,7 @@
 
 	input:global(.backdrop-blur-md):focus {
 		-webkit-backdrop-filter: blur(12px) saturate(150%);
-		backdrop-filter: blur(12px) saturate(150%);
+		        backdrop-filter: blur(12px) saturate(150%);
 		background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
 	}
 

@@ -1,15 +1,12 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
 	import {
-		liquidBlur,
 		glassFade,
 		springPop,
-		magneticHover,
 		breathing as breathingMotion,
 		jellyHover
 	} from '$lib/motion';
 	import { sizeOf } from '$lib/utils/bundle-size.js';
-	import { onMount } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -27,7 +24,7 @@
 		'aria-labelledby'?: string;
 		'aria-describedby'?: string;
 		class?: string;
-		children?: any;
+		children?: import('svelte').Snippet;
 		onClose?: () => void;
 	}
 
@@ -141,7 +138,6 @@
 		);
 		const firstElement = focusableElements[0] as HTMLElement;
 		const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-
 		if (event.shiftKey) {
 			if (document.activeElement === firstElement) {
 				lastElement.focus();
@@ -212,7 +208,7 @@
 		aria-describedby={ariaDescribedby}
 		tabindex="0"
 		onclick={handleOverlayClick}
-		onkeydown={(e) => e.key === 'Escape' && handleClose()}
+		onkeydown={(e) => e.key === 'Enter' && handleOverlayClick(e as any)}
 		in:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 200 : 0 }}
 		out:glassFade={{ direction: 'center', duration: animate && !reduceMotion ? 150 : 0 }}
 	>

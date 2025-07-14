@@ -142,7 +142,7 @@
 					leftIcon && 'pl-10',
 					variant === 'search' && 'pl-10',
 					(clearable && value) || rightIcon ? 'pr-10' : 'pr-4',
-					variantClasses[variant]
+					variantClasses()[variant]
 				)}
 				onfocus={handleFocus}
 				onblur={handleBlur}
@@ -155,6 +155,7 @@
 					type="button"
 					class="absolute right-3 z-10 text-white/50 hover:text-white/80 transition-colors duration-200"
 					onclick={handleClear}
+					onkeydown={(e) => e.key === 'Enter' && handleClear(e)}
 					aria-label="Clear input"
 				>
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

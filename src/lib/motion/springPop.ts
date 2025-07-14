@@ -1,4 +1,4 @@
-import { DURATIONS, EASINGS, TRANSFORMS } from './tokens.js';
+import { DURATIONS, EASINGS } from './tokens';
 
 export interface SpringPopOptions {
 	duration?: number;
@@ -155,8 +155,8 @@ export function springPopAction(
 	}
 
 	let isAnimating = false;
-	let animationId: number | null = null;
-	let timeoutId: number | null = null;
+	const animationId: number | null = null;
+	let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
 	const originalTransform = node.style.transform;
 	const originalTransition = node.style.transition;

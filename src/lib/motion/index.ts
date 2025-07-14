@@ -4,23 +4,26 @@
  */
 
 // Export tokens
-export * from './tokens.js';
+export * from './tokens';
+
+// Export effects helpers for Svelte 5
+export * from './effects.svelte';
 
 // Export transitions
-export * from './liquidBlur.js';
-export { liquidBlurTransition } from './liquidBlur.js';
-export * from './glassFade.js';
-export * from './springPop.js';
+export * from './liquidBlur';
+export { liquidBlurTransition } from './liquidBlur';
+export * from './glassFade';
+export * from './springPop';
 
 // Export actions
-export * from './magneticHover.js';
-export * from './jellyMotion.js';
-export { springPopAction } from './springPop.js';
+export * from './magneticHover';
+export * from './jellyMotion';
+export { springPopAction } from './springPop';
 
 // Convenience re-exports with common configurations
-export { liquidBlur as liquid } from './liquidBlur.js';
-export { glassFade as fade } from './glassFade.js';
-export { springPop as pop } from './springPop.js';
+export { liquidBlur as liquid } from './liquidBlur';
+export { glassFade as fade } from './glassFade';
+export { springPop as pop } from './springPop';
 // Note: magneticHover is exported from liquidify/physics to avoid conflicts
 export {
 	jelly,
@@ -29,14 +32,14 @@ export {
 	liquidResponsive,
 	breathing,
 	breathing as breathingMotion
-} from './jellyMotion.js';
+} from './jellyMotion';
 
 // Common animation presets
-import { liquidBlur } from './liquidBlur.js';
-import { glassFade } from './glassFade.js';
-import { springPop } from './springPop.js';
-import { jelly, liquidJelly, jellyHover } from './jellyMotion.js';
-import { DURATIONS, EASINGS } from './tokens.js';
+import { liquidBlur } from './liquidBlur';
+import { glassFade } from './glassFade';
+import { springPop } from './springPop';
+import { jelly, liquidJelly } from './jellyMotion';
+import { DURATIONS, EASINGS } from './tokens';
 
 // Preset configurations for common use cases
 export const presets = {

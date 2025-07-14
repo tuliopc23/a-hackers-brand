@@ -5,7 +5,9 @@ export interface BaseComponentProps {
 	class?: string;
 	id?: string;
 	'data-testid'?: string;
-	[key: string]: any; // Allow additional HTML attributes
+	// Allow additional HTML attributes with proper typing
+	[key: `data-${string}`]: string | number | boolean | undefined;
+	[key: `aria-${string}`]: string | number | boolean | undefined;
 }
 
 // Component variant types
@@ -26,7 +28,7 @@ export interface ButtonProps extends BaseComponentProps {
 	magnetic?: boolean;
 	ripple?: boolean;
 	animated?: boolean;
-	children?: any;
+	children?: import('svelte').Snippet;
 }
 
 // Input Props
@@ -109,7 +111,7 @@ export interface ListItem {
 	value?: string;
 	href?: string;
 	disabled?: boolean;
-	[key: string]: any;
+	[key: string]: string | number | boolean | undefined;
 }
 
 // Breadcrumb Item
@@ -124,11 +126,11 @@ export interface SelectOption extends ListItem {
 }
 
 // Table Column
-export interface TableColumn {
+export interface TableColumn<T = unknown> {
 	key: string;
 	label: string;
 	sortable?: boolean;
-	render?: (value: any, row?: any) => any;
+	render?: (value: T, row?: TableRow) => string | import('svelte').Snippet;
 	width?: string;
 	align?: 'left' | 'center' | 'right';
 }
@@ -157,7 +159,7 @@ export interface GridProps extends BaseComponentProps {
 	minColWidth?: string;
 	maxColWidth?: string;
 	responsive?: boolean;
-	breakpoints?: Record<string, any>;
+	breakpoints?: Record<string, number | string>;
 	align?: 'start' | 'end' | 'center' | 'stretch';
 	justify?: 'start' | 'end' | 'center' | 'stretch' | 'space-between' | 'space-around';
 	placeItems?: string;
@@ -261,7 +263,7 @@ export type TerminalTheme = 'matrix' | 'cyberpunk' | 'hacker' | 'liquid' | 'neon
 export type GlassQuality = 'low' | 'medium' | 'high' | 'ultra';
 
 // Event Types
-export interface GlassEvent<T = any> {
+export interface GlassEvent<T = unknown> {
 	type: string;
 	detail: T;
 	target: EventTarget | null;
@@ -273,6 +275,125 @@ export interface TerminalCommand {
 	output?: string;
 	error?: string;
 	timestamp: number;
+}
+
+// Accordion Types
+export interface AccordionItem {
+	id: string;
+	title: string;
+	content: string;
+	disabled?: boolean;
+}
+
+// Navigation Types
+export interface NavItem {
+	id: string;
+	label: string;
+	href?: string;
+	icon?: string;
+	children?: NavItem[];
+	disabled?: boolean;
+	active?: boolean;
+}
+
+// Menu Types
+export interface MenuItem {
+	id: string;
+	label: string;
+	href?: string;
+	icon?: string;
+	action?: () => void;
+	separator?: boolean;
+	disabled?: boolean;
+	badge?: string;
+	keyboard?: string;
+}
+
+// Table Types
+export interface TableRow {
+	id: string | number;
+	[key: string]: string | number | boolean | null | undefined;
+}
+
+// Grid Types
+export interface GridColumn {
+	id: string;
+	key: string;
+	label: string;
+	sortable?: boolean;
+	filterable?: boolean;
+	width?: string;
+	align?: 'left' | 'center' | 'right';
+	render?: (value: unknown, row: GridRow) => string;
+}
+
+export interface GridRow {
+	id: string | number;
+	[key: string]: string | number | boolean | null | undefined;
+}
+
+export interface GridAction {
+	id: string;
+	label: string;
+	icon?: string;
+	action: string;
+	variant?: 'primary' | 'secondary' | 'danger';
+	show?: (row: GridRow) => boolean;
+}
+
+// Radio and Select Types
+export interface RadioOption {
+	id: string;
+	label: string;
+	value: string;
+	description?: string;
+	disabled?: boolean;
+}
+
+export interface Option {
+	id: string;
+	label: string;
+	value: string;
+	description?: string;
+	disabled?: boolean;
+}
+
+// File Upload Types
+export interface FileUploadItem {
+	id: string;
+	file: File;
+	status: 'pending' | 'uploading' | 'success' | 'error';
+	progress: number;
+	error?: string;
+	url?: string;
+}
+
+// Metrics Types
+export interface MetricData {
+	id: string;
+	label: string;
+	value: number | string;
+	unit?: string;
+	change?: number;
+	changeType?: 'positive' | 'negative' | 'neutral';
+	previousValue?: number | string;
+	description?: string;
+	icon?: string;
+	target?: number;
+	format?: 'number' | 'currency' | 'percentage' | 'bytes';
+}
+
+// Command Types
+export interface CommandEntry {
+	id: string;
+	command: string;
+	output: string;
+	timestamp: Date;
+}
+
+// Filter Types
+export interface FilterConfig {
+	[key: string]: string | number | boolean | string[] | number[] | null | undefined;
 }
 
 // Legacy utility types (keeping for backwards compatibility)

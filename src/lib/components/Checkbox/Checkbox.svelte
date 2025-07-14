@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { liquidBlur, springPop } from '$lib/motion';
+	import { liquidBlur, springPop, springPopAction } from '$lib/motion';
 	import { sizeOf } from '$lib/utils/bundle-size.js';
 	import { Check, Minus } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -23,8 +23,8 @@
 		onCheckedChange?: (checked: boolean | 'indeterminate') => void;
 	}
 
-	let {
-		checked = false,
+	const {
+checked = $bindable(false),
 		indeterminate = false,
 		disabled = false,
 		size = 'md',
@@ -40,7 +40,8 @@
 		class: className = '',
 		onCheckedChange,
 		...restProps
-	}: Props = $props();
+	
+}: Props = $props();
 
 	let checkboxElement: HTMLInputElement;
 	const uniqueId = `checkbox-${Math.random().toString(36).substr(2, 9)}`;
@@ -174,14 +175,14 @@
 			bind:this={checkboxElement}
 			type="checkbox"
 			id={uniqueId}
-			bind:checked
+			{checked}
 			{disabled}
 			{required}
 			class="sr-only"
 			aria-label={ariaLabel || label}
 			aria-describedby={[descriptionId, errorId].filter(Boolean).join(' ') || undefined}
 			aria-invalid={!!error}
-			use:springPop={animate && !reduceMotion ? { scale: 0.9, duration: 150 } : undefined}
+			use:springPopAction={animate && !reduceMotion ? { scale: 0.9, duration: 150 } : undefined}
 			onchange={handleChange}
 			onkeydown={handleKeydown}
 			{...restProps}
@@ -251,7 +252,7 @@
 	}
 
 	/* Checkbox container animation */
-	div:has(input) {
+	div:has(:global(input)) {
 		will-change: transform;
 	}
 

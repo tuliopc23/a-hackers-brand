@@ -105,8 +105,8 @@
 		fast: 15
 	};
 
-	const typewriterSpeed = speeds[speed];
-	const currentVariant = variants[variant];
+	const typewriterSpeed = speeds()[speed];
+	const currentVariant = variants()[variant];
 
 	let bootContainer: HTMLDivElement;
 	let displayedMessages = $state<{ text: string; type?: string }[]>([]);
@@ -214,7 +214,7 @@
 
 	<!-- Boot messages -->
 	<div class="relative z-10 space-y-1">
-		{#each displayedMessages as message, index}
+		{#each displayedMessages() as message, index (index)}
 			<div
 				class={cn(
 					'whitespace-pre-wrap',

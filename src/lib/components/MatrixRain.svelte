@@ -72,10 +72,10 @@
 		high: 10
 	};
 
-	const currentVariant = variants[variant];
-	const currentCharacters = characterSets[characters];
-	const currentSpeed = speeds[speed];
-	const currentDensity = densities[density];
+	const currentVariant = variants()[variant];
+	const currentCharacters = characterSets()[characters];
+	const currentSpeed = speeds()[speed];
+	const currentDensity = densities()[density];
 
 	const fontSize = 14;
 	let columns = 0;
@@ -119,7 +119,7 @@
 		// Draw characters
 		for (let i = 0; i < drops.length; i++) {
 			// Random character
-			const char = currentCharacters[Math.floor(Math.random() * currentCharacters.length)];
+			const char = currentCharacters[Math.floor(Math.random() * currentCharacters().length)];
 
 			// Primary color for leading character
 			ctx.fillStyle = currentVariant.primary;
@@ -128,7 +128,7 @@
 			// Secondary color for trailing characters
 			if (drops[i] > fontSize) {
 				ctx.fillStyle = currentVariant.secondary;
-				const trailChar = currentCharacters[Math.floor(Math.random() * currentCharacters.length)];
+				const trailChar = currentCharacters[Math.floor(Math.random() * currentCharacters().length)];
 				ctx.fillText(trailChar, i * fontSize + fontSize / 2, drops[i] - fontSize);
 			}
 

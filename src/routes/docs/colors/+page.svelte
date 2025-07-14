@@ -185,7 +185,7 @@
 		</p>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-			{#each terminalPalette as color}
+			{#each terminalPalette as color (color.id || color)}
 				<div class="glass-subtle p-6 rounded-xl hover:glass-medium transition-all">
 					<div class="flex items-start gap-4">
 						<div
@@ -215,7 +215,7 @@
 		</p>
 
 		<div class="grid gap-4">
-			{#each glassPalette as glass}
+			{#each glassPalette as glass (glass.id || glass)}
 				<div
 					class="p-6 rounded-xl border border-white/20"
 					style="background-color: {glass.value}; backdrop-filter: blur(12px)"
@@ -258,7 +258,7 @@
 		</p>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-			{#each gradients as gradient}
+			{#each gradients as gradient (gradient.id || gradient)}
 				<div class="glass-subtle p-6 rounded-xl">
 					<div class="w-full h-32 rounded-lg mb-4" style="background: {gradient.value}"></div>
 					<h3 class="font-semibold mb-1">{gradient.name}</h3>
@@ -277,7 +277,7 @@
 		</p>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-			{#each semanticColors as color}
+			{#each semanticColors as color (color.id || color)}
 				<div class="glass-subtle p-6 rounded-xl">
 					<div class="flex items-center gap-4">
 						<div class="w-16 h-16 rounded-lg" style="background-color: {color.value}"></div>
@@ -300,7 +300,7 @@
 		</p>
 
 		<div class="space-y-4">
-			{#each backgroundColors as bg}
+			{#each backgroundColors as bg (bg.id || bg)}
 				<div class="p-8 rounded-xl border border-white/10" style="background-color: {bg.value}">
 					<div class="flex items-center justify-between">
 						<div>

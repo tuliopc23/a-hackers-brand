@@ -8,7 +8,7 @@
 	import { glassFade } from '$lib/motion';
 
 	let mounted = false;
-	let activeExample = 'basic';
+	let activeExample = $state('basic');
 
 	onMount(() => {
 		mounted = true;
@@ -164,7 +164,7 @@
 
 		<!-- Example Navigation -->
 		<div class="flex flex-wrap gap-2 mb-8">
-			{#each exampleTabs as tab}
+			{#each exampleTabs as tab (tab.id || tab)}
 				<button
 					class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 {activeExample === tab.id
 						? 'bg-terminal-blue/20 text-terminal-blue border border-terminal-blue/30'
@@ -177,7 +177,7 @@
 		</div>
 
 		<!-- Example Content -->
-		{#each exampleTabs as tab}
+		{#each exampleTabs as tab (tab.id || tab)}
 			{#if activeExample === tab.id}
 				<div class="space-y-8" in:glassFade>
 					<div>

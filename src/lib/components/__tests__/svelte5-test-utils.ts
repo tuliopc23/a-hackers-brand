@@ -1,5 +1,5 @@
 import { vi, expect } from 'vitest';
-import { DURATIONS, EASINGS } from '../../motion/tokens';
+import { DURATIONS } from '../../motion/tokens';
 
 /**
  * Svelte 5 Test Utilities
@@ -39,7 +39,7 @@ export function createMockElement(overrides = {}): MockElement {
 		classList: {
 			add: vi.fn(),
 			remove: vi.fn(),
-			contains: vi.fn((className: string) => false),
+		contains: vi.fn((_className: string) => false),
 			toggle: vi.fn()
 		},
 		style: new Proxy(mockStyle as Record<string, any>, {
@@ -52,7 +52,7 @@ export function createMockElement(overrides = {}): MockElement {
 			}
 		}),
 		setAttribute: vi.fn(),
-		getAttribute: vi.fn((name: string) => null),
+	getAttribute: vi.fn((_name: string) => null),
 		addEventListener: vi.fn((event: string, handler: Function) => {
 			if (!eventListeners.has(event)) {
 				eventListeners.set(event, []);
@@ -164,7 +164,7 @@ export function simulateMotionPreference(reducedMotion: boolean = false) {
 	});
 }
 
-export function simulateKeyboardEvent(element: MockElement, key: string, callback?: () => void) {
+export function simulateKeyboardEvent(_element: MockElement, key: string, callback?: () => void) {
 	const event = { key, preventDefault: vi.fn(), stopPropagation: vi.fn() };
 
 	if (callback && (key === 'Enter' || key === ' ')) {
@@ -175,7 +175,7 @@ export function simulateKeyboardEvent(element: MockElement, key: string, callbac
 }
 
 export function simulateMouseEvent(
-	element: MockElement,
+	_element: MockElement,
 	eventType: 'click' | 'mouseenter' | 'mouseleave' | 'mousedown' | 'mouseup',
 	callback?: () => void
 ) {
@@ -240,17 +240,36 @@ export function testPerformanceThreshold(testFn: () => void, maxTime: number = 5
 
 // Common test patterns for different component types
 export const buttonTestDefaults = {
-	variant: 'glass' as const,
-	size: 'md' as const,
+	variant: 'glass' as 'glass' | 'terminal' | 'liquid' | 'neon',
+	size: 'md' as 'sm' | 'md' | 'lg',
 	animated: true,
-	children: 'Test Button'
+	children: 'Test Button',
+	glow: false,
+	jelly: false,
+	loading: false,
+	disabled: false
 };
 
 export const inputTestDefaults = {
-	variant: 'glass' as const,
-	size: 'md' as const,
-	type: 'text' as const,
-	placeholder: 'Enter text...'
+	variant: 'glass' as 'glass' | 'terminal' | 'liquid' | 'neon',
+	size: 'md' as 'sm' | 'md' | 'lg',
+	type: 'text' as 'text' | 'email' | 'password' | 'number',
+	placeholder: 'Enter text...',
+	disabled: false,
+	readonly: false,
+	required: false,
+	error: '',
+	glow: false,
+	liquid: false,
+	blur: 'md' as 'sm' | 'md' | 'lg',
+	animated: false,
+	label: '',
+	class: '',
+	'data-testid': '',
+	id: '',
+	name: '',
+	minlength: 0,
+	maxlength: 0
 };
 
 export const cardTestDefaults = {
@@ -262,8 +281,120 @@ export const cardTestDefaults = {
 export const modalTestDefaults = {
 	open: false,
 	title: 'Test Modal',
+	variant: 'glass' as 'glass' | 'terminal' | 'liquid' | 'neon',
+	size: 'md' as 'sm' | 'md' | 'lg' | 'xl' | 'full',
+	showHeader: true,
+	closable: false,
+	closeOnOverlay: false,
+	closeOnEscape: false,
+	backdrop: 'default' as 'default' | 'blur' | 'transparent',
+	breathing: false,
+	glow: false,
+	animated: false,
+	transition: 'default' as 'default' | 'liquidGlassFade',
+	description: '',
+	portalTarget: '',
+	class: '',
+	'data-testid': '',
+	id: ''
+};
+
+export const accordionTestDefaults = {
 	variant: 'glass' as const,
-	size: 'md' as const
+	size: 'md' as const,
+	blur: 'md' as const,
+	defaultOpen: [] as string[]
+};
+
+export const alertTestDefaults = {
+	variant: 'success' as 'success' | 'error' | 'warning' | 'info' | 'terminal',
+	title: 'Test Alert',
+	description: 'Test description',
+	closable: false,
+	animated: false,
+	glow: false,
+	jelly: false,
+	icon: false,
+	position: 'static' as 'static' | 'fixed',
+	placement: 'top' as 'top' | 'bottom' | 'left' | 'right',
+	class: '',
+	'data-testid': '',
+	id: ''
+};
+
+export const asyncErrorBoundaryTestDefaults = {
+	variant: 'glass' as 'glass' | 'terminal' | 'liquid' | 'neon',
+	onError: undefined as (() => void) | undefined,
+	onRetry: undefined as (() => void) | undefined,
+	fallback: undefined as (() => string) | undefined,
+	loading: undefined as (() => string) | undefined
+};
+
+export const bootSequenceTestDefaults = {
+	variant: 'classic' as 'classic' | 'modern' | 'retro',
+	speed: 'normal' as 'slow' | 'normal' | 'fast',
+	messages: [{ text: 'Loading...', type: 'info' as 'info' | 'success' | 'error' | 'warning', delay: 100 }] as Array<{ text: string; type: 'info' | 'success' | 'error' | 'warning'; delay?: number }>,
+	onComplete: undefined as (() => void) | undefined
+};
+
+export const breadcrumbTestDefaults = {
+	variant: 'default' as 'default' | 'glass' | 'terminal',
+	separator: 'chevron' as 'chevron' | 'slash' | 'dot',
+	items: [{ id: '1', label: 'Dashboard' }] as Array<{ id: string; label: string; href?: string; disabled?: boolean }>
+};
+
+export const fileUploadTestDefaults = {
+	variant: 'default' as const,
+	multiple: false,
+	accept: undefined as string | undefined,
+	uploadUrl: undefined as string | undefined
+};
+
+export const listTestDefaults = {
+	variant: 'glass' as const,
+	size: 'md' as const,
+	items: [{ id: '1', label: 'Item 1' }] as Array<{ id: string; label: string }>
+};
+
+export const multiSelectTestDefaults = {
+	variant: 'glass' as const,
+	size: 'md' as const,
+	options: [{ value: '1', label: 'Option 1' }] as Array<{ value: string; label: string; disabled?: boolean }>,
+	value: [] as string[]
+};
+
+export const progressTestDefaults = {
+	variant: 'glass' as const,
+	type: 'linear' as const,
+	size: 'md' as const,
+	value: 50,
+	max: 100
+};
+
+export const selectTestDefaults = {
+	variant: 'glass' as const,
+	size: 'md' as const,
+	options: [{ value: '1', label: 'Option 1' }] as Array<{ value: string; label: string; disabled?: boolean }>,
+	value: ''
+};
+
+export const sliderTestDefaults = {
+	variant: 'glass' as const,
+	size: 'md' as const,
+	value: 50,
+	min: 0,
+	max: 100,
+	step: 1,
+	marks: [] as number[]
+};
+
+export const tableTestDefaults = {
+	variant: 'default' as const,
+	size: 'md' as const,
+	columns: [{ key: 'name', label: 'Name' }] as Array<{ key: string; label: string; sortable?: boolean; render?: (value: any) => string }>,
+	data: [{ id: '1', name: 'John Doe' }] as Array<{ id: string; [key: string]: any }>,
+	sortBy: '',
+	sortOrder: 'asc' as const
 };
 
 // Variant and size constants for testing

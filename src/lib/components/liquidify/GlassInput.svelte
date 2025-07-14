@@ -17,8 +17,8 @@
 		type?: string;
 	}
 
-	let {
-		variant = 'default',
+	const {
+variant = 'default',
 		leftIcon,
 		rightIcon,
 		clearable = false,
@@ -30,7 +30,8 @@
 		class: className = '',
 		type = 'text',
 		...restProps
-	}: Props = $props();
+	
+}: Props = $props();
 
 	const dispatch = createEventDispatcher();
 
@@ -155,6 +156,7 @@
 					type="button"
 					class="absolute right-3 z-10 text-white/50 hover:text-white/80 transition-colors duration-200"
 					onclick={handleClear}
+					onkeydown={(e) => e.key === 'Enter' && handleClear()}
 					aria-label="Clear input"
 				>
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

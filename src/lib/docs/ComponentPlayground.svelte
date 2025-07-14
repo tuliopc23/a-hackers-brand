@@ -10,7 +10,7 @@
 
 	const { component: Component, props, componentName }: PlaygroundProps = $props();
 
-	let currentProps = $state({});
+	const currentProps = $state({});
 	let generatedCode = $state('');
 
 	onMount(() => {
@@ -43,7 +43,7 @@
 		<!-- Controls -->
 		<div class="space-y-6">
 			<h4 class="text-lg font-medium">Props</h4>
-			{#each Object.entries(props) as [propName, config]}
+			{#each Object.entries(props) as [propName, config] (propName)}
 				<div class="space-y-2">
 					<label class="block text-sm font-medium text-white/80">
 						{propName}
@@ -62,7 +62,7 @@
 							onchange={() => handlePropChange(propName, currentProps[propName])}
 							class="w-full px-3 py-2 bg-slate-800 border border-white/20 rounded-lg text-white"
 						>
-							{#each config.options as option}
+							{#each config.options as option (option.id || option)}
 								<option value={option}>{option}</option>
 							{/each}
 						</select>

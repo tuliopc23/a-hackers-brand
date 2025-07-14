@@ -35,7 +35,7 @@
 		class?: string;
 	}
 
-	let {
+	const {
 		options,
 		value = $bindable(),
 		placeholder = 'Select an option...',
@@ -68,19 +68,11 @@
 	const uniqueId = `select-${Math.random().toString(36).substr(2, 9)}`;
 
 	// Computed properties
-	const selectedValues = $derived(() => {
-		if (!value) return [];
-		return Array.isArray(value) ? value : [value];
-	});
+	const selectedValues = $derived(() => { return Array.isArray(value) ? value : [value]; });
 
-	const filteredOptions = $derived(() => {
-		if (!searchQuery.trim()) return options;
-
-		const query = searchQuery.toLowerCase();
-		return options.filter(
-			(option) => option.label.toLowerCase().includes(query) || option.description?.toLowerCase().includes(query)
-		);
-	});
+	const filteredOptions = $derived(() => { return options.filter(
+			(option) => option.label.toLowerCase().includes(searchQuery) || option.description?.toLowerCase().includes(searchQuery)
+		); });
 
 	const groupedOptions = $derived(() => {
 		if (!groupBy) return { '': filteredOptions };
@@ -169,12 +161,12 @@
 
 		if (multiple) {
 			const currentValues = selectedValues;
-			const isSelected = currentValues.includes(option.value);
+			const isSelected = currentValues().includes(option.value);
 
 			if (isSelected) {
-				value = currentValues.filter((v) => v !== option.value);
+				value = currentValues().filter((v) => v !== option.value);
 			} else {
-				if (maxSelections && currentValues.length >= maxSelections) return;
+				if (maxSelections && currentValues().length >= maxSelections) return;
 				value = [...currentValues, option.value];
 			}
 		} else {
@@ -193,7 +185,7 @@
 	function removeOption(optionValue: string | number) {
 		if (!multiple) return;
 		const currentValues = selectedValues;
-		value = currentValues.filter((v) => v !== optionValue);
+		value = currentValues().filter((v) => v !== optionValue);
 	}
 
 	function handleKeydown(event: KeyboardEvent) {
@@ -202,8 +194,8 @@
 		switch (event.key) {
 			case 'Enter':
 				event.preventDefault();
-				if (isOpen && highlightedIndex >= 0 && filteredOptions[highlightedIndex]) {
-					selectOption(filteredOptions[highlightedIndex]);
+				if (isOpen && highlightedIndex >= 0 && filteredOptions()[highlightedIndex]) {
+					selectOption(filteredOptions()[highlightedIndex]);
 				} else if (!isOpen) {
 					toggleDropdown();
 				}
@@ -219,7 +211,7 @@
 				if (!isOpen) {
 					toggleDropdown();
 				} else {
-					highlightedIndex = Math.min(highlightedIndex + 1, filteredOptions.length - 1);
+					highlightedIndex = Math.min(highlightedIndex + 1, filteredOptions().length - 1);
 				}
 				break;
 			case 'ArrowUp':
@@ -266,19 +258,17 @@
 			error && 'border-red-500/50',
 			isOpen && 'ring-2 ring-blue-400/50'
 		)}
-		onclick={toggleDropdown}
-		onkeydown={handleKeydown}
+		onclick={toggleDropdown} onkeydown={(e) => e.key === "Enter" && toggleDropdown()}
 		tabindex={disabled ? -1 : 0}
-		role="combobox"
-		aria-expanded={isOpen}
+    role="combobox" aria-controls="dropdown" aria-expanded={isOpen}
 		aria-haspopup="listbox"
 		aria-labelledby={uniqueId}
 	>
 		<div class="flex-1 truncate">
-			{#if multiple && selectedValues.length > 1}
+			{#if multiple && selectedValues().length > 1}
 				<div class="flex flex-wrap gap-1">
-					{#each selectedValues.slice(0, 2) as selectedValue}
-						{@const option = options.find((opt) => opt.value === selectedValue)}
+					{#each selectedValues().slice(0, 2) as selectedValue}
+						{@const option = options().find((opt) => opt.value === selectedValue)}
 						{#if option}
 							<span class="inline-flex items-center gap-1 px-2 py-0.5 text-xs bg-blue-500/30 text-white rounded-md">
 								{option.label}
@@ -288,18 +278,19 @@
 										e.stopPropagation();
 										removeOption(option.value);
 									}}
+									onkeydown={(e) => e.key === "Enter" && handleAction()}
 								>
 									<X size={12} />
 								</button>
 							</span>
 						{/if}
 					{/each}
-					{#if selectedValues.length > 2}
-						<span class="text-xs opacity-70">+{selectedValues.length - 2} more</span>
+					{#if selectedValues().length > 2}
+						<span class="text-xs opacity-70">+{selectedValues().length - 2} more</span>
 					{/if}
 				</div>
 			{:else}
-				<span class={cn(!selectedValues.length && 'opacity-60')}>
+				<span class={cn(!selectedValues().length && 'opacity-60')}>
 					{displayValue}
 				</span>
 			{/if}
@@ -308,13 +299,14 @@
 		<div class="flex items-center gap-2">
 			{#if loading}
 				<div class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
-			{:else if clearable && selectedValues.length > 0}
+			{:else if clearable && selectedValues().length > 0}
 				<button
 					class="p-1 hover:bg-white/10 rounded transition-colors"
 					onclick={(e) => {
 						e.stopPropagation();
 						clearSelection();
 					}}
+					onkeydown={(e) => e.key === "Enter" && clearSelection()}
 				>
 					<X size={16} />
 				</button>
@@ -354,21 +346,21 @@
 			{/if}
 
 			<div class="overflow-y-auto max-h-48">
-				{#if filteredOptions.length === 0}
+				{#if filteredOptions().length === 0}
 					<div class={cn('text-center py-4 opacity-60', currentSize.option)}>
 						{searchQuery ? 'No options found' : 'No options available'}
 					</div>
 				{:else}
-					{#each Object.entries(groupedOptions) as [groupName, groupOptions]}
+					{#each Object.entries(groupedOptions) as [groupName, groupOptions] (groupOptions])}
 						{#if groupName && Object.keys(groupedOptions).length > 1}
 							<div class="px-4 py-2 text-xs font-semibold opacity-60 border-b border-white/5">
 								{groupName}
 							</div>
 						{/if}
 
-						{#each groupOptions as option, index}
-							{@const isSelected = selectedValues.includes(option.value)}
-							{@const isHighlighted = filteredOptions.indexOf(option) === highlightedIndex}
+						{#each groupOptions() as option, index (index)}
+							{@const isSelected = selectedValues().includes(option.value)}
+							{@const isHighlighted = filteredOptions().indexOf(option) === highlightedIndex}
 
 							<div
 								class={cn(
@@ -378,8 +370,8 @@
 									isSelected && currentVariant.optionSelected,
 									isHighlighted && 'bg-white/5'
 								)}
-								onclick={() => selectOption(option)}
-								role="option"
+								onclick={() => selectOption(option)} onkeydown={(e) => e.key === "Enter" && selectOption(option)} 
+								role="option" tabindex="0" tabindex="0" tabindex="0" tabindex="0"
 								aria-selected={isSelected}
 							>
 								<div class="flex-1">

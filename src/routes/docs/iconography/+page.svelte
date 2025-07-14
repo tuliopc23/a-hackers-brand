@@ -349,7 +349,7 @@
 					<GlassCard intensity="light" class="p-8">
 						<h2 class="text-3xl font-bold mb-6">Design Principles</h2>
 						<div class="grid md:grid-cols-2 gap-8">
-							{#each designPrinciples as principle}
+							{#each designPrinciples as principle (principle.id || principle)}
 								<div class="space-y-3">
 									<h3 class="text-xl font-semibold text-terminal-cyan">{principle.title}</h3>
 									<p class="text-white/80">{principle.description}</p>
@@ -368,7 +368,7 @@
 						</p>
 
 						<div class="space-y-4">
-							{#each iconSizes as size}
+							{#each iconSizes as size (size.id || size)}
 								<div class="flex items-center justify-between p-4 bg-slate-800/30 rounded-lg border border-white/10">
 									<div class="flex items-center space-x-6">
 										<div class="w-16 text-terminal-cyan font-mono text-sm">{size.name}</div>
@@ -450,7 +450,7 @@
 					{#if iconCollections[selectedCategory]}
 						<GlassCard intensity="light" class="p-8">
 							<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-								{#each iconCollections[selectedCategory] as icon}
+								{#each iconCollections[selectedCategory] as icon (icon.id || icon)}
 									<button
 										class="group p-4 rounded-xl border border-white/10 hover:border-terminal-green/30 bg-slate-800/20 hover:bg-slate-700/30 transition-all duration-300 text-center"
 										onclick={() => copyIconCode(icon.name)}

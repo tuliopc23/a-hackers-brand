@@ -1,4 +1,4 @@
-import { DURATIONS, EASINGS, BLUR_LEVELS, OPACITY_LEVELS } from './tokens.js';
+import { DURATIONS, EASINGS, BLUR_LEVELS, OPACITY_LEVELS } from './tokens';
 
 export interface LiquidBlurOptions {
 	duration?: number;

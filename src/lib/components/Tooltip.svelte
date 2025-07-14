@@ -166,9 +166,9 @@
 			{#if arrow}
 				<div
 					class={cn(
-						'absolute w-0 h-0 border-4',
-						arrowClasses[actualPosition],
-						arrowStyles[actualPosition],
+					'absolute w-0 h-0 border-4',
+					arrowClasses[actualPosition],
+					arrowStyles[actualPosition],
 						variant === 'glass' && 'border-white/10',
 						variant === 'terminal' && 'border-green-400/40',
 						variant === 'liquid' && 'border-white/30',

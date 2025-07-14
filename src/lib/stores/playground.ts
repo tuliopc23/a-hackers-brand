@@ -40,7 +40,7 @@ function createPlaygroundStore() {
 						lastFormatted: new Date()
 					};
 				} catch (error) {
-					console.warn('Failed to format code:', error);
+					// Format failed - could implement proper error handling
 					return {
 						...state,
 						isFormatting: false

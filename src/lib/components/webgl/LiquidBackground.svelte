@@ -188,7 +188,7 @@
 		gl.compileShader(shader);
 
 		if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-			console.error('Shader compilation error:', gl.getShaderInfoLog(shader));
+			// Shader compilation failed - integrate proper error handling
 			gl.deleteShader(shader);
 			return null;
 		}
@@ -211,7 +211,7 @@
 		gl.linkProgram(program);
 
 		if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-			console.error('Program linking error:', gl.getProgramInfoLog(program));
+			// Program linking failed - integrate proper error handling
 			return null;
 		}
 
@@ -222,7 +222,7 @@
 	const setupWebGL = () => {
 		gl = canvasRef.getContext('webgl')!;
 		if (!gl) {
-			console.error('WebGL not supported');
+			// WebGL not supported - fallback to canvas or other implementation
 			return false;
 		}
 
@@ -245,9 +245,9 @@
 
 	// Convert color hex to RGB
 	const hexToRgb = (hex: string): [number, number, number] => {
-		const r = parseInt(hex.slice(1, 3), 16) / 255;
-		const g = parseInt(hex.slice(3, 5), 16) / 255;
-		const b = parseInt(hex.slice(5, 7), 16) / 255;
+		const r = parseInt(hex().slice(1, 3), 16) / 255;
+		const g = parseInt(hex().slice(3, 5), 16) / 255;
+		const b = parseInt(hex().slice(5, 7), 16) / 255;
 		return [r, g, b];
 	};
 
@@ -290,9 +290,9 @@
 		gl.uniform1f(gl.getUniformLocation(program, 'u_interactive'), interactive ? 1.0 : 0.0);
 
 		// Set color uniforms
-		const [r1, g1, b1] = hexToRgb(colors[0]);
-		const [r2, g2, b2] = hexToRgb(colors[1]);
-		const [r3, g3, b3] = hexToRgb(colors[2]);
+		const [r1, g1, b1] = hexToRgb(colors()[0]);
+		const [r2, g2, b2] = hexToRgb(colors()[1]);
+		const [r3, g3, b3] = hexToRgb(colors()[2]);
 
 		gl.uniform3f(gl.getUniformLocation(program, 'u_color1'), r1, g1, b1);
 		gl.uniform3f(gl.getUniformLocation(program, 'u_color2'), r2, g2, b2);

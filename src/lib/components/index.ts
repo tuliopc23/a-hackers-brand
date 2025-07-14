@@ -1,5 +1,8 @@
 // A Hacker's Brand - Component Exports
 
+// === LAZY LOADING EXPORTS ===
+export * from './lazy/index.js';
+
 // Core Glass Components
 export { default as Button } from './Button.svelte';
 export { default as Card } from './Card.svelte';
@@ -86,6 +89,11 @@ export { default as FormErrorBoundary } from './FormErrorBoundary.svelte';
 export { default as CodeHighlight } from './CodeHighlight.svelte';
 
 // Brand & Portfolio Components
+export { default as ProjectCard } from './ProjectCard.svelte';
+export { default as TechStack } from './TechStack.svelte';
+export { default as ContactForm } from './ContactForm.svelte';
+export { default as Avatar } from './Avatar.svelte';
+export { default as Stats } from './Stats.svelte';
 // export { default as BrandStyleguide } from './BrandStyleguide.svelte';
 // export { default as PortfolioCard } from './PortfolioCard.svelte';
 // export { default as ResponsiveDemo } from './ResponsiveDemo.svelte';

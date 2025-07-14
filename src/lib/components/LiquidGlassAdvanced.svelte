@@ -2,33 +2,55 @@
 	import { onMount, createEventDispatcher } from 'svelte';
 	import { gsap } from 'gsap';
 
-	// Props
-	export let variant: 'subtle' | 'medium' | 'heavy' | 'extreme' | 'terminal' | 'fluid' = 'medium';
-	export let effect:
-		| 'jelly'
-		| 'magnetic'
-		| 'shimmer'
-		| 'glow'
-		| 'morph'
-		| 'breathe'
-		| 'ripple'
-		| 'liquid-morph'
-		| 'apple-fluid'
-		| 'none' = 'jelly';
-	export let interactive: boolean = true;
-	export let animate: boolean = true;
-	export let customClass: string = '';
-	export let tag: string = 'div';
-	export let borderRadius: string = '';
-	export let blur: string = '';
-	export let opacity: string = '';
-	export let glow: boolean = false;
-	export let terminalGlow: boolean = false;
-	export let fluidMorphing: boolean = false;
-	export let appleStyle: boolean = true;
+	interface Props {
+		// Props
+		variant?: 'subtle' | 'medium' | 'heavy' | 'extreme' | 'terminal' | 'fluid';
+		effect?:
+			| 'jelly'
+			| 'magnetic'
+			| 'shimmer'
+			| 'glow'
+			| 'morph'
+			| 'breathe'
+			| 'ripple'
+			| 'liquid-morph'
+			| 'apple-fluid'
+			| 'none';
+		interactive?: boolean;
+		animate?: boolean;
+		customClass?: string;
+		tag?: string;
+		borderRadius?: string;
+		blur?: string;
+		opacity?: string;
+		glow?: boolean;
+		terminalGlow?: boolean;
+		fluidMorphing?: boolean;
+		appleStyle?: boolean;
+		children?: import('svelte').Snippet;
+		[key: string]: any;
+	}
+
+	const {
+		variant = 'medium',
+		effect = 'jelly',
+		interactive = true,
+		animate = true,
+		customClass = '',
+		tag = 'div',
+		borderRadius = '',
+		blur = '',
+		opacity = '',
+		glow = false,
+		terminalGlow = false,
+		fluidMorphing = false,
+		appleStyle = true,
+		children,
+		...rest
+	}: Props = $props();
 
 	// Internal state
-	let element: HTMLElement;
+	let element: HTMLElement = $state()!;
 	let isHovered = false;
 	let isPressed = false;
 	let morphTimeline: gsap.core.Timeline | null = null;
@@ -37,35 +59,30 @@
 	const dispatch = createEventDispatcher();
 
 	// Computed classes
-	$: baseClass = variant === 'terminal' ? 'liquid-terminal-advanced' : 'liquid-glass-advanced';
-	$: variantClass = variant !== 'terminal' && variant !== 'medium' ? `liquid-glass-${variant}` : '';
-	$: effectClass = effect !== 'none' ? `liquid-${effect}` : '';
-	$: glowClass = glow ? 'liquid-glow-advanced' : '';
-	$: terminalGlowClass = terminalGlow ? 'liquid-terminal-glow-advanced' : '';
-	$: interactiveClass = interactive ? 'cursor-pointer' : '';
-	$: appleClass = appleStyle ? 'apple-liquid-style' : '';
+	const baseClass = $derived(variant === 'terminal' ? 'liquid-terminal-advanced' : 'liquid-glass-advanced');
+	const variantClass = $derived(variant !== 'terminal' && variant !== 'medium' ? `liquid-glass-${variant}` : '');
+	const effectClass = $derived(effect !== 'none' ? `liquid-${effect}` : '');
+	const glowClass = $derived(glow ? 'liquid-glow-advanced' : '');
+	const terminalGlowClass = $derived(terminalGlow ? 'liquid-terminal-glow-advanced' : '');
+	const interactiveClass = $derived(interactive ? 'cursor-pointer' : '');
+	const appleClass = $derived(appleStyle ? 'apple-liquid-style' : '');
 
-	$: allClasses = [
-		baseClass,
-		variantClass,
-		effectClass,
-		glowClass,
-		terminalGlowClass,
-		interactiveClass,
-		appleClass,
-		customClass
-	]
-		.filter(Boolean)
-		.join(' ');
+	const allClasses = $derived(
+		[baseClass, variantClass, effectClass, glowClass, terminalGlowClass, interactiveClass, appleClass, customClass]
+			.filter(Boolean)
+			.join(' ')
+	);
 
 	// Custom styles
-	$: customStyles = [
-		borderRadius ? `--liquid-radius-md: ${borderRadius}` : '',
-		blur ? `--liquid-blur-md: ${blur}` : '',
-		opacity ? `--liquid-glass-2: ${opacity}` : ''
-	]
-		.filter(Boolean)
-		.join('; ');
+	const customStyles = $derived(
+		[
+			borderRadius ? `--liquid-radius-md: ${borderRadius}` : '',
+			blur ? `--liquid-blur-md: ${blur}` : '',
+			opacity ? `--liquid-glass-2: ${opacity}` : ''
+		]
+			.filter(Boolean)
+			.join('; ')
+	);
 
 	// Advanced GSAP Animations
 	onMount(() => {
@@ -389,12 +406,12 @@
 	style={customStyles}
 	role={interactive ? 'button' : undefined}
 	tabindex={interactive ? 0 : undefined}
-	on:click={handleClick}
-	on:keydown={handleKeydown}
-	{...$$restProps}
+	onclick={handleClick}
+	onkeydown={(e) => e.key === 'Enter' && handleClick()}
+	{...rest}
 >
 	<div class="liquid-content-advanced">
-		<slot />
+		{@render children?.()}
 	</div>
 
 	{#if variant === 'terminal' || glow || appleStyle}

@@ -58,7 +58,7 @@
 		}
 	};
 
-	const currentVariant = variants[variant];
+	const currentVariant = variants()[variant];
 
 	const biosMessages = [
 		'LIQUID GLASS BIOS v4.2.0',
@@ -138,13 +138,13 @@
 	});
 
 	const getMessageStyle = (message: string) => {
-		if (message.includes('PASS') || message.includes('OK') || message.includes('ready')) {
+		if (message().includes('PASS') || message().includes('OK') || message().includes('ready')) {
 			return currentVariant.success;
 		}
-		if (message.includes('FAIL') || message.includes('ERROR')) {
+		if (message().includes('FAIL') || message().includes('ERROR')) {
 			return currentVariant.error;
 		}
-		if (message.includes('Copyright') || message.includes('BIOS') || message.includes('GRUB')) {
+		if (message().includes('Copyright') || message().includes('BIOS') || message().includes('GRUB')) {
 			return currentVariant.accent;
 		}
 		return currentVariant.text;

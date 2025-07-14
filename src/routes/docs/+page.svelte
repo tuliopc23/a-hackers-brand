@@ -10,8 +10,8 @@
 	const LazyLiquidBackground = lazy(() => import('$lib/components/webgl/LiquidBackground.svelte'));
 	const LazyThrelteCanvas = lazy(() => import('$lib/components/LazyThrelteCanvas.svelte'));
 
-	let heroSection;
-	let mounted = false;
+	let heroSection = $state();
+	let mounted = $state(false);
 
 	onMount(() => {
 		mounted = true;
@@ -62,7 +62,7 @@
 			await navigator.clipboard.writeText(text);
 			// Could add a toast notification here
 		} catch (err) {
-			console.error('Failed to copy:', err);
+			// Copy failed - could show user notification
 		}
 	};
 </script>
@@ -82,7 +82,7 @@
 	<!-- WebGL Background -->
 	{#if mounted && LazyLiquidBackground.component}
 		<div class="absolute inset-0 opacity-30">
-			<svelte:component this={LazyLiquidBackground.component} />
+			<LazyLiquidBackground.component />
 		</div>
 	{/if}
 
@@ -116,7 +116,7 @@
 
 			<!-- Features Grid -->
 			<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
-				{#each features as feature}
+				{#each features as feature (feature.id || feature)}
 					<div
 						class="p-3 backdrop-blur-sm bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-all duration-300 group"
 					>
@@ -178,7 +178,7 @@
 			</div>
 
 			<div class="grid md:grid-cols-3 gap-8">
-				{#each docSections as section}
+				{#each docSections as section (section.id || section)}
 					<a href={section.href} class="group block" data-magnetic>
 						<GlassCard
 							intensity="light"

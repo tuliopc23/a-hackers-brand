@@ -17,8 +17,8 @@
 		class?: string;
 	}
 
-	let {
-		command,
+	const {
+command,
 		output = '',
 		status = 'idle',
 		showPrompt = true,
@@ -28,7 +28,8 @@
 		enableGlitch = false,
 		enableSound = false,
 		class: className = ''
-	}: Props = $props();
+	
+}: Props = $props();
 
 	const dispatch = createEventDispatcher();
 
@@ -74,7 +75,7 @@
 		}
 	};
 
-	const currentTheme = themeConfig[theme];
+	const currentTheme = themeConfig()[theme];
 
 	// Status configurations
 	const statusConfig = {
@@ -110,7 +111,7 @@
 		}
 	};
 
-	const currentStatus = statusConfig[status];
+	const currentStatus = statusConfig()[status];
 
 	// Prompt configurations
 	const promptConfig = {
@@ -120,7 +121,7 @@
 		neural: '◈ '
 	};
 
-	const currentPrompt = promptConfig[theme];
+	const currentPrompt = promptConfig()[theme];
 
 	// Sound effects (optional)
 	const playSound = (soundType: 'execute' | 'success' | 'error') => {
@@ -243,12 +244,8 @@
 	onmouseenter={() => (isHovered = true)}
 	onmouseleave={() => (isHovered = false)}
 	onclick={executeCommand}
-	onkeydown={(e) => {
-		if (interactive && (e.key === 'Enter' || e.key === ' ')) {
-			e.preventDefault();
-			executeCommand();
-		}
-	}}
+	onkeydown={(e) => e.key === 'Enter' && handleAction()}
+	{...restProps}
 >
 	<!-- Status Indicator -->
 	<div class="absolute top-2 right-2 flex items-center gap-2">
@@ -298,6 +295,7 @@
 					e.stopPropagation();
 					copyCommand();
 				}}
+				onkeydown={(e) => e.key === 'Enter' && copyCommand()}
 				class={cn(
 					'opacity-0 group-hover:opacity-100 p-1 rounded text-xs transition-opacity',
 					currentTheme.accent,

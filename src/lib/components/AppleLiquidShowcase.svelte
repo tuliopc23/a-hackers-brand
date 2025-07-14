@@ -4,7 +4,7 @@
 	import LiquidGlassAdvanced from './LiquidGlassAdvanced.svelte';
 	import LiquidTerminal from './LiquidTerminal.svelte';
 
-	let showcaseContainer: HTMLElement;
+	let showcaseContainer: HTMLElement = $state()!;
 
 	const appleEffects = [
 		{
@@ -99,12 +99,12 @@
 	<!-- Hero Section -->
 	<section class="apple-hero-section">
 		<div class="apple-hero-content">
-			<LiquidGlassAdvanced
-				variant="extreme"
-				effect="apple-fluid"
-				appleStyle={true}
-				customClass="apple-hero-card apple-hero-float"
-			>
+				<LiquidGlassAdvanced
+					variant="extreme"
+					effect="apple-fluid"
+					appleStyle={true}
+					customClass="apple-hero-card apple-hero-float"
+				>
 				<div class="apple-hero-inner">
 					<h1 class="apple-hero-title">Apple Liquid Glass</h1>
 					<p class="apple-hero-subtitle">WWDC 2025 Inspired Design System</p>
@@ -120,9 +120,14 @@
 	<section class="apple-effects-section">
 		<h2 class="apple-section-title">Apple-Inspired Effects</h2>
 		<div class="apple-effects-grid">
-			{#each appleEffects as { effect, title, description, class: effectClass }}
+			{#each appleEffects as { effect, title, description, class: effectClass } (effect)}
 				<div class="apple-showcase-item">
-					<LiquidGlassAdvanced variant="heavy" {effect} appleStyle={true} customClass="apple-effect-demo {effectClass}">
+					<LiquidGlassAdvanced
+						variant="heavy"
+						{effect}
+						appleStyle={true}
+						customClass="apple-effect-demo {effectClass}"
+					>
 						<div class="apple-demo-content">
 							<div class="apple-demo-icon">
 								<div class="apple-icon-shape"></div>
@@ -143,9 +148,15 @@
 	<section class="apple-variants-section">
 		<h2 class="apple-section-title">Liquid Variants</h2>
 		<div class="apple-variants-grid">
-			{#each liquidVariants as { variant, title, description, fluidMorphing, appleStyle }}
+			{#each liquidVariants as variant_item (variant_item.variant)}
 				<div class="apple-showcase-item">
-					<LiquidGlassAdvanced {variant} effect="jelly" {fluidMorphing} {appleStyle} customClass="apple-variant-demo">
+					<LiquidGlassAdvanced
+						variant={variant_item.variant}
+						effect="jelly"
+						animate={true}
+						jelly={true}
+						customClass="apple-variant-demo"
+					>
 						<div class="apple-demo-content">
 							<div class="apple-variant-preview">
 								<div class="apple-preview-layers">
@@ -154,10 +165,10 @@
 									<div class="apple-layer apple-layer-3"></div>
 								</div>
 							</div>
-							<h3 class="apple-demo-title">{title}</h3>
-							<p class="apple-demo-description">{description}</p>
+							<h3 class="apple-demo-title">{variant_item.title}</h3>
+							<p class="apple-demo-description">{variant_item.description}</p>
 							<div class="apple-demo-code">
-								<code>variant="{variant}"</code>
+								<code>variant="{variant_item.variant}"</code>
 							</div>
 						</div>
 					</LiquidGlassAdvanced>

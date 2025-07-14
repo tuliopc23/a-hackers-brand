@@ -1,23 +1,10 @@
-<script context="module" lang="ts">
-	export interface NavItem {
-		id: string;
-		label: string;
-		href?: string;
-		children?: NavItem[];
-		icon?: string;
-		disabled?: boolean;
-		badge?: string | number;
-		external?: boolean;
-	}
-</script>
-
 <script lang="ts">
 	import { onMount, createEventDispatcher } from 'svelte';
 	import { cn } from '$lib/utils.js';
 	import { brandColors } from '$lib/tokens';
 	import { glassFade, liquidBlur, magneticHover, springPop } from '$lib/motion';
 	import Button from './Button.svelte';
-	import type { NavItem } from './Navbar.svelte';
+	import type { NavItem } from '$lib/types/navbar';
 
 	interface Props {
 		items: NavItem[];
@@ -85,7 +72,7 @@
 		}
 	};
 
-	const currentVariant = $derived(variants[variant]);
+	const currentVariant = $derived(variants()[variant]);
 
 	function handleItemClick(item: NavItem, event?: Event) {
 		if (item.disabled) return;
@@ -193,7 +180,7 @@
 		{#if showBrand}
 			<div class="flex items-center">
 				<button
-					onclick={handleBrandClick}
+					onclick={handleBrandClick} onkeydown={(e) => e.key === "Enter" && handleBrandClick()}
 					class="flex items-center space-x-3 {currentVariant.brand} hover:opacity-80 transition-opacity"
 					use:magneticHover={{ strength: 0.1 }}
 				>
@@ -219,13 +206,12 @@
 
 		<!-- Desktop Navigation -->
 		<div class="hidden md:flex items-center space-x-1">
-			{#each items as item (item.id)}
+			{#each items() as item (item.id)}
 				<div class="relative">
 					{#if item.children}
 						<!-- Dropdown Menu -->
 						<button
-							onclick={() => handleItemClick(item)}
-							onkeydown={(e) => handleKeydown(e, item)}
+							onclick={() => handleItemClick(item)} onkeydown={(e) => e.key === "Enter" && handleItemClick(item)}
 							class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-all duration-200
 							       {item.id === activeItem ? currentVariant.activeItem : currentVariant.item}
 							       {item.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}"
@@ -265,7 +251,7 @@
 								{#each item.children as child (child.id)}
 									<a
 										href={child.href}
-										onclick={(e) => handleItemClick(child, e)}
+                    onclick={(e) => handleItemClick(child, e)} onkeydown={(e) => e.key === "Enter" && handleItemClick(child, e)}
 										class="block px-4 py-2 text-sm {currentVariant.item} hover:bg-white/10
 										       transition-colors duration-150 first:rounded-t-md last:rounded-b-md
 										       {child.disabled ? 'opacity-50 cursor-not-allowed' : ''}"
@@ -289,8 +275,7 @@
 						<!-- Regular Navigation Item -->
 						<a
 							href={item.href}
-							onclick={(e) => handleItemClick(item, e)}
-							onkeydown={(e) => handleKeydown(e, item)}
+							onclick={(e) => handleItemClick(item, e)} onkeydown={(e) => e.key === "Enter" && handleItemClick(item, e)}
 							class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-all duration-200
 							       {item.id === activeItem ? currentVariant.activeItem : currentVariant.item}
 							       {item.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}"
@@ -325,7 +310,7 @@
 		<!-- Mobile Menu Button -->
 		<div class="md:hidden">
 			<button
-				onclick={toggleMobileMenu}
+				onclick={toggleMobileMenu} onkeydown={(e) => e.key === "Enter" && toggleMobileMenu()}
 				class="p-2 rounded-md {currentVariant.mobileButton} hover:bg-white/10 transition-colors"
 				aria-label="Toggle mobile menu"
 				aria-expanded={mobileMenuOpen}
@@ -348,12 +333,12 @@
 	{#if mobileMenuOpen}
 		<div class="md:hidden border-t {currentVariant.nav}" in:glassFade={{ direction: 'down', duration: 200 }}>
 			<div class="px-2 pt-2 pb-3 space-y-1">
-				{#each items as item (item.id)}
+				{#each items() as item (item.id)}
 					{#if item.children}
 						<!-- Mobile Dropdown -->
 						<div>
 							<button
-								onclick={() => handleItemClick(item)}
+								onclick={() => handleItemClick(item)} onkeydown={(e) => e.key === "Enter" && handleItemClick(item)} 
 								class="w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium
 								       {item.id === activeItem ? currentVariant.activeItem : currentVariant.item}
 								       {item.disabled ? 'opacity-50 cursor-not-allowed' : ''}"
@@ -387,7 +372,7 @@
 									{#each item.children as child (child.id)}
 										<a
 											href={child.href}
-											onclick={(e) => handleItemClick(child, e)}
+											onclick={(e) => handleItemClick(child, e)} onkeydown={(e) => e.key === "Enter" && handleItemClick(child, e)}
 											class="flex items-center px-3 py-2 rounded-md text-sm
 											       {currentVariant.item} hover:bg-white/10 transition-colors
 											       {child.disabled ? 'opacity-50 cursor-not-allowed' : ''}"
@@ -410,7 +395,7 @@
 						<!-- Mobile Regular Item -->
 						<a
 							href={item.href}
-							onclick={(e) => handleItemClick(item, e)}
+							onclick={(e) => handleItemClick(item, e)} onkeydown={(e) => e.key === "Enter" && handleItemClick(item, e)}
 							class="flex items-center px-3 py-2 rounded-md text-base font-medium
 							       {item.id === activeItem ? currentVariant.activeItem : currentVariant.item}
 							       {item.disabled ? 'opacity-50 cursor-not-allowed' : ''}"

@@ -8,8 +8,43 @@
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
+		"moduleResolution": "bundler",
+
+		// === STRICT MODE FLAGS (Production Ready) ===
 		"strict": true,
-		"moduleResolution": "bundler"
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"strictBindCallApply": true,
+		"strictPropertyInitialization": true,
+		"noImplicitThis": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitOverride": true,
+		"exactOptionalPropertyTypes": true,
+
+		// === ADDITIONAL STRICT CHECKS ===
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedSideEffectImports": true,
+
+		// === ENHANCED TYPE CHECKING ===
+		"verbatimModuleSyntax": true,
+		"isolatedModules": true,
+		"preserveValueImports": true,
+
+		// === SVELTE 5 COMPATIBILITY ===
+		"useDefineForClassFields": true,
+		"target": "ES2022",
+		"lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker"],
+
+		// === PERFORMANCE & DEBUGGING ===
+		"incremental": true,
+		"tsBuildInfoFile": ".svelte-kit/tsconfig.tsbuildinfo"
 	}
 	// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
 	// except $lib which is handled by https://svelte.dev/docs/kit/configuration#files

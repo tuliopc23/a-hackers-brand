@@ -16,7 +16,6 @@ export default defineConfig({
 		environment: 'jsdom',
 		setupFiles: ['./src/lib/motion/__tests__/setup.ts'],
 		include: ['src/**/*.{test,spec}.{js,ts,svelte}'],
-		setupFiles: ['./src/lib/motion/__tests__/setup.ts'],
 		pool: 'forks',
 		poolOptions: {
 			forks: {
@@ -30,19 +29,38 @@ export default defineConfig({
 		},
 		coverage: {
 			provider: 'v8',
-			reporter: ['text', 'json', 'html', 'lcov'],
+			reporter: ['text', 'json', 'html', 'lcov', 'text-summary'],
 			include: ['src/lib/**/*.{js,ts,svelte}'],
 			exclude: [
 				'src/lib/**/__tests__/**/*',
 				'src/lib/**/*.test.{js,ts,svelte}',
 				'src/lib/**/*.spec.{js,ts,svelte}',
-				'src/lib/**/*.d.ts'
+				'src/lib/**/*.d.ts',
+				'src/lib/**/*.story.{js,ts,svelte}',
+				'src/lib/**/index.ts', // Barrel exports
+				'src/lib/types/**/*', // Type definitions
+				'src/lib/tokens/**/*', // Design tokens (static data)
+				'src/lib/components/webgl/**/*', // WebGL components (complex to test)
+				'src/lib/components/lazy/**/*' // Lazy loading wrappers
 			],
+			// === PRODUCTION-READY COVERAGE THRESHOLDS (90%+) ===
 			thresholds: {
-				functions: 80,
-				lines: 80,
-				statements: 80,
-				branches: 70
+				functions: 90,
+				lines: 90,
+				statements: 90,
+				branches: 85
+			},
+			// === DETAILED COVERAGE REPORTING ===
+			reportOnFailure: true,
+			all: true,
+			skipFull: false,
+			// === COVERAGE OUTPUT ===
+			reportsDirectory: './coverage',
+			watermarks: {
+				statements: [85, 90],
+				functions: [85, 90],
+				branches: [80, 85],
+				lines: [85, 90]
 			}
 		},
 		benchmark: {

@@ -187,7 +187,7 @@
 </script>
 
 <div class={cn('w-full space-y-2', className)} {...restProps}>
-	{#each items as item, index}
+	{#each items as item, index (index)}
 		{@const isOpen = openItems.has(item.id)}
 		{@const isFirst = index === 0}
 		{@const isLast = index === items.length - 1}
@@ -223,7 +223,7 @@
 				disabled={item.disabled}
 				use:liquidBlur={animate && !reduceMotion && isOpen ? { blur: blur, opacity: 'subtle' } : undefined}
 				onclick={() => toggleItem(item.id)}
-				onkeydown={(e) => handleKeydown(e, item.id)}
+				onkeydown={(e) => e.key === 'Enter' && toggleItem(item.id)}
 			>
 				<span class="text-left">{item.title}</span>
 

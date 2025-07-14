@@ -5,17 +5,17 @@
 	import { Button } from './index.js';
 
 	interface Props {
-		promise?: Promise<any>;
-		fallback?: any;
-		loading?: any;
+		promise?: Promise<unknown>;
+		fallback?: import('svelte').Snippet;
+		loading?: import('svelte').Snippet;
 		onError?: (error: Error) => void;
-		onRetry?: () => Promise<any>;
+		onRetry?: () => Promise<unknown>;
 		variant?: 'glass' | 'terminal' | 'minimal';
 		animate?: boolean;
 		timeout?: number;
 		maxRetries?: number;
 		class?: string;
-		children?: any;
+		children?: import('svelte').Snippet;
 	}
 
 	const {
@@ -32,10 +32,10 @@
 		children
 	}: Props = $props();
 
-	let state = $state<'idle' | 'loading' | 'success' | 'error' | 'timeout'>('idle');
-	let error: Error | null = $state(null);
-	let result: any = $state(null);
-	let retryCount = $state(0);
+	let state: 'idle' | 'loading' | 'success' | 'error' | 'timeout' = 'idle';
+	let error: Error | null = null;
+	let result: unknown = null;
+	let retryCount: number = 0;
 	let timeoutId: NodeJS.Timeout | null = null;
 
 	// Handle promise state changes
@@ -166,7 +166,7 @@
 	{/if}
 {:else if state === 'error' || state === 'timeout'}
 	{#if fallback}
-		{@render fallback({ error, retry, reset, retryCount, maxRetries, state })}
+		{@render fallback()}
 	{:else}
 		<div
 			class={containerClasses}
@@ -215,6 +215,7 @@
 							variant="glass"
 							size="sm"
 							onclick={retry}
+							onkeydown={(e) => e.key === 'Enter' && retry()}
 							class="bg-red-500/20 border-red-500/40 hover:bg-red-500/30"
 						>
 							{state === 'timeout' ? 'Try Again' : 'Retry'}
@@ -225,6 +226,7 @@
 						variant="glass"
 						size="sm"
 						onclick={reset}
+						onkeydown={(e) => e.key === 'Enter' && reset()}
 						class="bg-blue-500/20 border-blue-500/40 hover:bg-blue-500/30"
 					>
 						Reset
@@ -247,7 +249,7 @@
 {:else if state === 'success'}
 	<!-- Render children with result -->
 	{#if children}
-		{@render children({ result })}
+		{@render children()}
 	{/if}
 {:else}
 	<!-- Idle state - render children normally -->

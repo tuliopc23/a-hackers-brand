@@ -36,20 +36,20 @@
 
 	const dispatch = createEventDispatcher();
 
-	let activeTab = $state(defaultTab || tabs[0]?.id);
+	let activeTab = $state(defaultTab || tabs()[0]?.id);
 	let tabIndicatorRef: HTMLDivElement;
 	const tabButtonRefs: Record<string, HTMLButtonElement> = {};
 
 	const handleTabChange = (tabId: string) => {
-		if (tabs.find((t) => t.id === tabId)?.disabled) return;
+		if (tabs().find((t) => t.id === tabId)?.disabled) return;
 
 		activeTab = tabId;
-		dispatch('tabChange', { tabId, tab: tabs.find((t) => t.id === tabId) });
+		dispatch('tabChange', { tabId, tab: tabs().find((t) => t.id === tabId) });
 		updateTabIndicator();
 	};
 
 	const updateTabIndicator = () => {
-		const activeButton = tabButtonRefs[activeTab];
+		const activeButton = tabButtonRefs()[activeTab];
 		if (!activeButton || !tabIndicatorRef) return;
 
 		const rect = activeButton.getBoundingClientRect();
@@ -75,7 +75,7 @@
 		}
 	});
 
-	const activeTabData = $derived(tabs.find((t) => t.id === activeTab));
+	const activeTabData = $derived(tabs().find((t) => t.id === activeTab));
 </script>
 
 <div class={cn('glass-tabs', orientation === 'vertical' ? 'flex gap-6' : 'space-y-4', className)}>
@@ -96,7 +96,7 @@
 		></div>
 
 		<!-- Tab Buttons -->
-		{#each tabs as tab}
+		{#each tabs() as tab (tab.id || tab)}
 			<button
 				bind:this={tabButtonRefs[tab.id]}
 				type="button"
@@ -110,7 +110,7 @@
 					tabButtonClassName
 				)}
 				disabled={tab.disabled}
-				onclick={() => handleTabChange(tab.id)}
+				onclick={() => handleTabChange(tab.id)} onkeydown={(e) => e.key === "Enter" && handleTabChange(tab.id)} 
 			>
 				{tab.label}
 			</button>

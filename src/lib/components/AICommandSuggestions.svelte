@@ -156,7 +156,7 @@
 		}
 	};
 
-	const currentTheme = themeConfig[theme];
+	const currentTheme = themeConfig()[theme];
 
 	// Category icons and colors
 	const categoryConfig = {
@@ -205,7 +205,7 @@
 			const results = await simulateAIThinking(newQuery);
 			aiSuggestions.set(results);
 		} else {
-			const filtered = suggestions.slice(0, maxSuggestions);
+			const filtered = suggestions().slice(0, maxSuggestions);
 			aiSuggestions.set(filtered);
 		}
 	};
@@ -217,7 +217,7 @@
 		switch (event.key) {
 			case 'ArrowDown':
 				event.preventDefault();
-				selectedIndex = Math.min(selectedIndex + 1, currentSuggestions.length - 1);
+				selectedIndex = Math.min(selectedIndex + 1, currentSuggestions().length - 1);
 				break;
 			case 'ArrowUp':
 				event.preventDefault();
@@ -225,8 +225,8 @@
 				break;
 			case 'Enter':
 				event.preventDefault();
-				if (selectedIndex >= 0 && currentSuggestions[selectedIndex]) {
-					selectCommand(currentSuggestions[selectedIndex]);
+				if (selectedIndex >= 0 && currentSuggestions()[selectedIndex]) {
+					selectCommand(currentSuggestions()[selectedIndex]);
 				}
 				break;
 			case 'Escape':
@@ -275,7 +275,7 @@
 	});
 </script>
 
-{#if query.trim() && ($aiSuggestions.length > 0 || isThinking)}
+{#if query.trim() && ($aiSuggestions().length > 0 || isThinking)}
 	<div
 		class={cn(
 			'relative mt-2 p-4 rounded-lg border backdrop-blur-md',
@@ -298,7 +298,7 @@
 				{/if}
 			</div>
 			<span class={cn('text-xs', currentTheme.muted)}>
-				{$aiSuggestions.length} matches
+				{$aiSuggestions().length} matches
 			</span>
 		</div>
 
@@ -311,7 +311,7 @@
 		{/if}
 
 		<!-- Suggestions List -->
-		{#if !isThinking && $aiSuggestions.length > 0}
+		{#if !isThinking && $aiSuggestions().length > 0}
 			<div class="space-y-2">
 				{#each $aiSuggestions as suggestion, index (suggestion.command)}
 					<div
@@ -325,12 +325,7 @@
 						tabindex="0"
 						aria-label={`Execute command: ${suggestion.command}`}
 						onclick={() => selectCommand(suggestion)}
-						onkeydown={(e) => {
-							if (e.key === 'Enter' || e.key === ' ') {
-								e.preventDefault();
-								selectCommand(suggestion);
-							}
-						}}
+						onkeydown={(e) => e.key === 'Enter' && selectCommand(suggestion)}
 						transition:fade={{ duration: 150, delay: index * 50 }}
 					>
 						<!-- Command Header -->
@@ -375,7 +370,7 @@
 						</div>
 
 						<!-- Examples (shown on hover) -->
-						{#if suggestion.examples && suggestion.examples.length > 0}
+						{#if suggestion.examples && suggestion.examples().length > 0}
 							<div class="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
 								<div class={cn('text-xs font-bold mb-1', currentTheme.text)}>Examples:</div>
 								<div class="flex flex-wrap gap-1">
@@ -393,7 +388,7 @@
 		{/if}
 
 		<!-- No Results -->
-		{#if !isThinking && query.trim() && $aiSuggestions.length === 0}
+		{#if !isThinking && query.trim() && $aiSuggestions().length === 0}
 			<div class={cn('text-center py-8', currentTheme.muted)}>
 				<div class="text-2xl mb-2">🤔</div>
 				<p class="text-sm">No suggestions found for "{query}"</p>
@@ -402,7 +397,7 @@
 		{/if}
 
 		<!-- Footer -->
-		{#if !isThinking && $aiSuggestions.length > 0}
+		{#if !isThinking && $aiSuggestions().length > 0}
 			<div class={cn('mt-3 pt-2 border-t border-current/20 text-xs', currentTheme.muted)}>
 				<div class="flex items-center justify-between">
 					<span>Use ↑↓ to navigate, Enter to select</span>

@@ -2,7 +2,6 @@
 	import { cn } from '$lib/utils.js';
 	import {
 		magneticHover,
-		liquidBlur,
 		liquidBlurTransition,
 		jellyHover,
 		liquidResponsive,
@@ -19,7 +18,7 @@
 		liquid?: boolean;
 		breathing?: boolean;
 		class?: string;
-		children?: any;
+		children?: import('svelte').Snippet;
 	}
 
 	const {

@@ -31,7 +31,7 @@
 
 	const executeCommand = (command: string) => {
 		const trimmedCommand = command.trim().toLowerCase();
-		const output = commands[trimmedCommand] || `Command "${command}" not found. Type "help" for available commands.`;
+		const output = commands()[trimmedCommand] || `Command "${command}" not found. Type "help" for available commands.`;
 
 		history = [
 			...history,
@@ -89,7 +89,7 @@
 		{/if}
 
 		<!-- Command History -->
-		{#each history as entry}
+		{#each history() as entry (entry.id || entry)}
 			<div class="mb-4">
 				<!-- Command -->
 				<div class="flex items-center gap-2 mb-1">

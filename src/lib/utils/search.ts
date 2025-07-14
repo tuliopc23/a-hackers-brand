@@ -218,7 +218,7 @@ class SearchIndex {
 
 			localStorage.setItem('ahb-recent-searches', JSON.stringify(updated));
 		} catch (error) {
-			console.warn('Failed to store recent search:', error);
+			// Failed to store recent search - user can still search without history
 		}
 	}
 
@@ -229,7 +229,7 @@ class SearchIndex {
 			const stored = localStorage.getItem('ahb-recent-searches');
 			return stored ? JSON.parse(stored) : [];
 		} catch (error) {
-			console.warn('Failed to get recent searches:', error);
+			// Failed to get recent searches - return empty array
 			return [];
 		}
 	}
@@ -317,7 +317,7 @@ class SearchIndex {
 		try {
 			localStorage.removeItem('ahb-recent-searches');
 		} catch (error) {
-			console.warn('Failed to clear recent searches:', error);
+			// Failed to clear recent searches - operation will be silent
 		}
 	}
 
@@ -331,7 +331,7 @@ class SearchIndex {
 				this.popularTerms = new Map(data.popularTerms || []);
 			}
 		} catch (error) {
-			console.warn('Failed to load search analytics:', error);
+			// Failed to load search analytics - will use defaults
 		}
 	}
 
@@ -345,7 +345,7 @@ class SearchIndex {
 			};
 			localStorage.setItem('ahb-search-analytics', JSON.stringify(data));
 		} catch (error) {
-			console.warn('Failed to save search analytics:', error);
+			// Failed to save search analytics - analytics will be lost
 		}
 	}
 

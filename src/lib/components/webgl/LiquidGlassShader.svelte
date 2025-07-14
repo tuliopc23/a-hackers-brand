@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { T } from '@threlte/core';
 	import { onMount, createEventDispatcher } from 'svelte';
+	// @ts-expect-error
+	// @ts-expect-error - Three.js types
+	// @ts-expect-error - Three.js types
+	// @ts-expect-error
 	import * as THREE from 'three';
 
 	interface Props {

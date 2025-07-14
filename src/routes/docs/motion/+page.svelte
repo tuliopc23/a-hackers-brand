@@ -253,7 +253,7 @@
 						key
 							? 'bg-blue-500/20 border-blue-500/30'
 							: ''}"
-						onclick={() => (selectedMotion = key)}
+						on:click={() => (selectedMotion = key)}
 						data-magnetic
 					>
 						<span class="text-lg">{category.icon}</span>
@@ -283,7 +283,7 @@
 						<!-- Motion Presets -->
 						{#if selectedMotion === 'presets'}
 							<div class="space-y-8">
-								{#each motionPresets as preset}
+								{#each motionPresets as preset (preset.id || preset)}
 									<GlassCard intensity="light" class="p-8">
 										<div class="grid md:grid-cols-3 gap-8 items-center">
 											<div>
@@ -325,7 +325,7 @@
 												</div>
 												<button
 													class="mt-2 text-xs text-blue-400 hover:text-blue-300 transition-colors"
-													onclick={() => copyCode(preset.demo)}
+													on:click={() => copyCode(preset.demo)}
 												>
 													Copy Code
 												</button>
@@ -480,7 +480,7 @@ use:springPop={{
 												Elements subtly follow cursor movement creating magnetic attraction.
 											</p>
 											<div class="grid grid-cols-3 gap-4">
-												{#each Array(6) as _, i}
+												{#each Array(6) as _, i (i)}
 													<div
 														class="h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg cursor-pointer border border-white/10 flex items-center justify-center"
 														data-magnetic
@@ -569,7 +569,7 @@ use:jellyHover={{
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Easing Functions</h3>
 									<div class="grid gap-6">
-										{#each easingFunctions as easing}
+										{#each easingFunctions as easing (easing.id || easing)}
 											<div class="border border-white/10 rounded-lg p-6">
 												<div class="grid md:grid-cols-3 gap-6 items-center">
 													<div>
@@ -594,7 +594,7 @@ use:jellyHover={{
 														</div>
 														<button
 															class="mt-2 text-xs text-blue-400 hover:text-blue-300 transition-colors"
-															onclick={() => copyCode(easing.value)}
+               on:click={() => copyCode(easing.value)}
 														>
 															Copy Value
 														</button>
@@ -609,7 +609,7 @@ use:jellyHover={{
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Duration Scale</h3>
 									<div class="space-y-4">
-										{#each durationScale as duration}
+										{#each durationScale as duration (duration.id || duration)}
 											<div class="border border-white/10 rounded-lg p-4">
 												<div class="grid md:grid-cols-4 gap-4 items-center">
 													<div>
@@ -622,7 +622,7 @@ use:jellyHover={{
 														<div
 															class="w-8 h-8 bg-blue-500 rounded-full mx-auto cursor-pointer"
 															style="animation: pulse-{duration.name} {duration.value} ease-in-out infinite;"
-															onclick={() => {}}
+               on:click={() => {}}
 														></div>
 													</div>
 												</div>

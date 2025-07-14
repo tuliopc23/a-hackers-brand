@@ -8,7 +8,7 @@
 		id: string;
 		label: string;
 		disabled?: boolean;
-		content?: any;
+		content?: import('svelte').Snippet;
 	}
 
 	interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -22,13 +22,13 @@
 		reduceMotion?: boolean;
 		'aria-label'?: string;
 		class?: string;
-		children?: any;
+		children?: import('svelte').Snippet;
 		onTabChange?: (tabId: string) => void;
 	}
 
-	let {
+	const {
 		tabs = [],
-		activeTab = tabs[0]?.id || '',
+		activeTab: initialActiveTab = tabs[0]?.id || '',
 		variant = 'glass',
 		size = 'md',
 		orientation = 'horizontal',
@@ -43,8 +43,9 @@
 	}: Props = $props();
 
 	let tabsListElement: HTMLDivElement;
+	let activeTab = $state(initialActiveTab);
 	let activeIndex = $state(tabs.findIndex((tab) => tab.id === activeTab));
-	const uniqueId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
+	const uniqueId = `tabs-${Math.random().toString(36).substring(2, 11)}`;
 
 	const sizes = {
 		sm: 'px-3 py-1.5 text-sm',
@@ -124,8 +125,10 @@
 					event.preventDefault();
 					const nextIndex = (currentEnabledIndex + 1) % enabledTabs.length;
 					const nextTab = enabledTabs[nextIndex];
-					handleTabClick(nextTab);
-					focusTab(nextTab.id);
+					if (nextTab) {
+						handleTabClick(nextTab);
+						focusTab(nextTab.id);
+					}
 				}
 				break;
 			case 'ArrowLeft':
@@ -134,22 +137,30 @@
 					event.preventDefault();
 					const prevIndex = currentEnabledIndex === 0 ? enabledTabs.length - 1 : currentEnabledIndex - 1;
 					const prevTab = enabledTabs[prevIndex];
-					handleTabClick(prevTab);
-					focusTab(prevTab.id);
+					if (prevTab) {
+						handleTabClick(prevTab);
+						focusTab(prevTab.id);
+					}
 				}
 				break;
-			case 'Home':
+			case 'Home': {
 				event.preventDefault();
 				const firstTab = enabledTabs[0];
-				handleTabClick(firstTab);
-				focusTab(firstTab.id);
+				if (firstTab) {
+					handleTabClick(firstTab);
+					focusTab(firstTab.id);
+				}
 				break;
-			case 'End':
+			}
+			case 'End': {
 				event.preventDefault();
 				const lastTab = enabledTabs[enabledTabs.length - 1];
-				handleTabClick(lastTab);
-				focusTab(lastTab.id);
+				if (lastTab) {
+					handleTabClick(lastTab);
+					focusTab(lastTab.id);
+				}
 				break;
+			}
 		}
 	}
 
@@ -175,7 +186,7 @@
 		aria-orientation={orientation}
 		aria-label={ariaLabel}
 	>
-		{#each tabs as tab, index}
+		{#each tabs as tab (tab.id)}
 			<button
 				id={`${uniqueId}-tab-${tab.id}`}
 				class={tab.id === activeTab ? activeTabClasses : tabClasses}
@@ -192,7 +203,7 @@
 					? { blur: blur, opacity: 'medium' }
 					: undefined}
 				onclick={() => handleTabClick(tab)}
-				onkeydown={(e) => handleKeydown(e, tab)}
+				onkeydown={(e) => e.key === 'Enter' && handleTabClick(tab)}
 			>
 				{tab.label}
 			</button>
@@ -219,7 +230,7 @@
 				in:glassFade={{ direction: 'up', distance: 10, duration: animate && !reduceMotion ? 200 : 0 }}
 				out:glassFade={{ direction: 'down', distance: 10, duration: animate && !reduceMotion ? 150 : 0 }}
 			>
-				{@render children(activeTab)}
+				{@render children()}
 			</div>
 		{/if}
 	</div>

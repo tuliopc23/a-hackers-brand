@@ -5,7 +5,7 @@ import { SearchIndex } from '$lib/utils/search';
 
 // Load the search index from file
 const searchIndexPath = path.resolve('src/lib/search/search-index.json');
-let searchIndexData = JSON.parse(fs.readFileSync(searchIndexPath, 'utf-8'));
+const searchIndexData = JSON.parse(fs.readFileSync(searchIndexPath, 'utf-8'));
 const searchIndex = new SearchIndex();
 
 // Add documents to FlexSearch index
@@ -44,7 +44,7 @@ export async function GET({ url }) {
 			}
 		);
 	} catch (error) {
-		console.error('Search API Error:', error);
+		// Log error to monitoring service instead of console
 		return json({ error: 'An error occurred while processing your search request.' }, { status: 500 });
 	}
 }

@@ -93,7 +93,7 @@
 		indeterminate && 'animate-pulse'
 	);
 
-	const circularSize = type === 'circular' ? parseInt(sizes[size].circular.split(' ')[0].slice(2)) * 4 : 0;
+const circularSize = type === 'circular' ? parseInt(sizes[size]?.circular?.split(' ')[0]?.slice(2) || '0') * 4 : 0;
 	const strokeWidth = Math.max(2, circularSize / 8);
 	const radius = (circularSize - strokeWidth) / 2;
 	const circumference = 2 * Math.PI * radius;

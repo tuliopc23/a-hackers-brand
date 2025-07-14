@@ -1,3 +1,5 @@
+<!-- @migration-task Error while migrating Svelte code: This type of directive is not valid on components
+https://svelte.dev/e/component_invalid_directive -->
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
 	import { magneticHover, springPop, glassFade } from '$lib/motion';
@@ -32,8 +34,8 @@
 		children?: Snippet;
 	}
 
-	let {
-		isOpen = $bindable(false),
+	const {
+isOpen = $bindable(false),
 		title = 'Enhanced Search',
 		placeholder = 'Search documentation...',
 		class: className = '',
@@ -47,7 +49,8 @@
 		onClose,
 		onSelect,
 		children
-	}: Props = $props();
+	
+}: Props = $props();
 
 	const dispatch = createEventDispatcher();
 
@@ -79,8 +82,8 @@
 			fuzzyThreshold: 0.6
 		});
 
-		if (searchData.length > 0) {
-			searchData.forEach((doc) => searchIndex?.addDocument(doc));
+		if (searchData().length > 0) {
+			searchData().forEach((doc) => searchIndex?.addDocument(doc));
 		}
 
 		// Focus input when modal opens
@@ -98,7 +101,7 @@
 	const loadInitialSuggestions = () => {
 		if (!searchIndex) return;
 		suggestions = searchIndex.getSuggestions('');
-		showSuggestionsPanel = suggestions.length > 0;
+		showSuggestionsPanel = suggestions().length > 0;
 	};
 
 	// Enhanced search function with category filtering
@@ -107,7 +110,7 @@
 			results = [];
 			isEmpty = false;
 			isLoading = false;
-			showSuggestionsPanel = showSuggestions && suggestions.length > 0;
+			showSuggestionsPanel = showSuggestions && suggestions().length > 0;
 			return;
 		}
 
@@ -122,7 +125,7 @@
 			});
 
 			results = searchResults;
-			isEmpty = query.trim() !== '' && searchResults.length === 0;
+			isEmpty = query.trim() !== '' && searchResults().length === 0;
 			selectedIndex = 0;
 			isLoading = false;
 		}, 150);
@@ -133,7 +136,7 @@
 		if (!searchIndex) return;
 
 		suggestions = searchIndex.getSuggestions(query);
-		showSuggestionsPanel = showSuggestions && !query.trim() && suggestions.length > 0;
+		showSuggestionsPanel = showSuggestions && !query.trim() && suggestions().length > 0;
 	}, 200);
 
 	// Reactive search
@@ -195,34 +198,34 @@
 				break;
 			case 'ArrowDown':
 				e.preventDefault();
-				if (showSuggestionsPanel && suggestions.length > 0) {
-					selectedSuggestionIndex = Math.min(selectedSuggestionIndex + 1, suggestions.length - 1);
-				} else if (results.length > 0) {
-					selectedIndex = Math.min(selectedIndex + 1, results.length - 1);
+				if (showSuggestionsPanel && suggestions().length > 0) {
+					selectedSuggestionIndex = Math.min(selectedSuggestionIndex + 1, suggestions().length - 1);
+				} else if (results().length > 0) {
+					selectedIndex = Math.min(selectedIndex + 1, results().length - 1);
 					scrollToSelected();
 				}
 				break;
 			case 'ArrowUp':
 				e.preventDefault();
-				if (showSuggestionsPanel && suggestions.length > 0) {
+				if (showSuggestionsPanel && suggestions().length > 0) {
 					selectedSuggestionIndex = Math.max(selectedSuggestionIndex - 1, 0);
-				} else if (results.length > 0) {
+				} else if (results().length > 0) {
 					selectedIndex = Math.max(selectedIndex - 1, 0);
 					scrollToSelected();
 				}
 				break;
 			case 'Enter':
 				e.preventDefault();
-				if (showSuggestionsPanel && suggestions[selectedSuggestionIndex]) {
+				if (showSuggestionsPanel && suggestions()[selectedSuggestionIndex]) {
 					selectSuggestion(selectedSuggestionIndex);
-				} else if (results[selectedIndex]) {
-					selectResult(results[selectedIndex]);
+				} else if (results()[selectedIndex]) {
+					selectResult(results()[selectedIndex]);
 				}
 				break;
 			case 'Tab':
 				e.preventDefault();
-				if (suggestions.length > 0) {
-					const suggestion = suggestions[selectedSuggestionIndex];
+				if (suggestions().length > 0) {
+					const suggestion = suggestions()[selectedSuggestionIndex];
 					if (suggestion) {
 						searchQuery = suggestion.text;
 						showSuggestionsPanel = false;
@@ -234,7 +237,7 @@
 
 	// Suggestion selection
 	const selectSuggestion = (index: number) => {
-		const suggestion = suggestions[index];
+		const suggestion = suggestions()[index];
 		if (suggestion) {
 			searchQuery = suggestion.text;
 			showSuggestionsPanel = false;
@@ -277,7 +280,7 @@
 	// Scroll selected item into view
 	const scrollToSelected = () => {
 		if (!resultsRef) return;
-		const selectedElement = resultsRef.children[selectedIndex] as HTMLElement;
+		const selectedElement = resultsRef.children()[selectedIndex] as HTMLElement;
 		if (selectedElement) {
 			selectedElement.scrollIntoView({
 				block: 'nearest',
@@ -349,7 +352,7 @@
 		bind:this={backdropRef}
 		class="fixed inset-0 z-50 flex items-start justify-center pt-16 p-4"
 		onclick={handleBackdropClick}
-		onkeydown={(e) => e.key === 'Enter' && handleBackdropClick(e)}
+		onkeydown={(e) => e.key === 'Enter' && handleBackdropClick()}
 		role="presentation"
 		aria-hidden="true"
 		transition:fade={{ duration: 300 }}
@@ -378,6 +381,7 @@
 			tabindex="-1"
 			transition:fly={{ y: -20, duration: 400, opacity: 0 }}
 			onclick={(e) => e.stopPropagation()}
+			onkeydown={(e) => e.key === 'Enter' && handleAction()}
 		>
 			<!-- Header with terminal styling -->
 			<div class="relative z-10 flex items-center gap-3 p-6 border-b border-white/10">
@@ -397,6 +401,7 @@
 					type="button"
 					class="text-white/60 hover:text-white/90 transition-colors duration-200 p-2 rounded-lg hover:bg-white/10"
 					onclick={handleClose}
+					onkeydown={(e) => e.key === 'Enter' && handleClose()}
 					aria-label="Close search modal"
 					use:magneticHover={{ enabled: true, strength: 0.1, scale: 1.05 }}
 				>
@@ -430,7 +435,7 @@
 			{#if showCategories && searchIndex}
 				<div class="relative z-10 px-6 pb-4">
 					<div class="flex flex-wrap gap-2">
-						{#each searchIndex.getAvailableCategories() as category}
+						{#each searchIndex.getAvailableCategories() as category (category.id || category)}
 							<button
 								type="button"
 								class={cn(
@@ -441,6 +446,7 @@
 										: 'bg-white/5 text-white/70 hover:bg-white/10'
 								)}
 								onclick={() => selectCategory(category)}
+								onkeydown={(e) => e.key === 'Enter' && selectCategory(category)}
 								use:magneticHover={{ enabled: true, strength: 0.05, scale: 1.02 }}
 							>
 								{category}
@@ -460,11 +466,11 @@
 							<div class="text-6xl mb-4">🔍</div>
 							<p class="text-white/60 font-mono mb-4">Start typing to search...</p>
 
-							{#if showSuggestionsPanel && suggestions.length > 0}
+							{#if showSuggestionsPanel && suggestions().length > 0}
 								<div class="max-w-md mx-auto">
 									<h4 class="text-sm font-mono text-white/40 mb-3 text-left">Recent & Popular</h4>
 									<div class="space-y-1">
-										{#each suggestions.slice(0, 5) as suggestion, index}
+										{#each suggestions().slice(0, 5) as suggestion, index}
 											<button
 												type="button"
 												class={cn(
@@ -474,6 +480,7 @@
 													selectedSuggestionIndex === index && 'bg-terminal-green/10 border-terminal-green/30'
 												)}
 												onclick={() => selectSuggestion(index)}
+												onkeydown={(e) => e.key === 'Enter' && selectSuggestion(index)}
 												onmouseenter={() => (selectedSuggestionIndex = index)}
 											>
 												<div class="flex items-center justify-between">
@@ -497,6 +504,7 @@
 											type="button"
 											class="mt-3 text-xs text-white/40 hover:text-white/60 font-mono"
 											onclick={clearRecentSearches}
+											onkeydown={(e) => e.key === 'Enter' && clearRecentSearches()}
 										>
 											Clear recent searches
 										</button>
@@ -520,14 +528,14 @@
 								Try a different search term, check your spelling, or browse by category
 							</p>
 						</div>
-					{:else if results.length > 0}
+					{:else if results().length > 0}
 						<!-- Results list -->
 						<div
 							bind:this={resultsRef}
 							class="max-h-96 overflow-y-auto px-2 pb-4"
 							style="scrollbar-width: thin; scrollbar-color: rgba(48, 209, 88, 0.3) transparent;"
 						>
-							{#each results as result, index}
+							{#each results() as result, index (index)}
 								<button
 									type="button"
 									class={cn(
@@ -538,6 +546,7 @@
 											'bg-terminal-green/10 border-terminal-green/30 shadow-lg shadow-terminal-green/10'
 									)}
 									onclick={() => selectResult(result)}
+									onkeydown={(e) => e.key === 'Enter' && selectResult(result)}
 									onmouseenter={() => {
 										selectedIndex = index;
 										showPreviewOnHover(result);
@@ -619,14 +628,14 @@
 							<div>
 								<h5 class="text-xs font-mono text-white/40 mb-1">Description</h5>
 								<p class="text-sm text-white/70 font-mono leading-relaxed">
-									{previewResult.preview || previewResult.content.slice(0, 200) + '...'}
+									{previewResult.preview || previewResult.content().slice(0, 200) + '...'}
 								</p>
 							</div>
-							{#if previewResult.keywords.length > 0}
+							{#if previewResult.keywords().length > 0}
 								<div>
 									<h5 class="text-xs font-mono text-white/40 mb-2">Keywords</h5>
 									<div class="flex flex-wrap gap-1">
-										{#each previewResult.keywords.slice(0, 6) as keyword}
+										{#each previewResult.keywords().slice(0, 6) as keyword}
 											<span class="px-2 py-1 bg-white/10 rounded text-xs text-white/60 font-mono">
 												{keyword}
 											</span>
@@ -661,7 +670,7 @@
 						</div>
 					</div>
 					<div class="text-terminal-green">
-						{results.length} result{results.length !== 1 ? 's' : ''}
+						{results().length} result{results().length !== 1 ? 's' : ''}
 						{#if selectedCategory !== 'All'}
 							in {selectedCategory}
 						{/if}
@@ -669,8 +678,7 @@
 				</div>
 			</div>
 
-			{#if children}
-				{@render children()}
+			{#if children}{@render children()}{/if}
 			{/if}
 		</GlassCard>
 	</div>

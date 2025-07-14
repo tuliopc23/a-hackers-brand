@@ -6,7 +6,7 @@
 		class?: string;
 		commands?: Record<string, string>;
 		autoPlay?: boolean;
-		children?: any;
+		children?: import('svelte').Snippet;
 	}
 
 	const {

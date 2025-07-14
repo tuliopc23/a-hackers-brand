@@ -1,4 +1,4 @@
-import { DURATIONS, EASING_CSS, TRANSFORMS } from './tokens.js';
+import { DURATIONS, EASING_CSS, TRANSFORMS } from './tokens';
 
 export interface MagneticHoverOptions {
 	duration?: number;
@@ -53,7 +53,7 @@ export function magneticHover(
 		}
 	};
 
-	const handleMouseEnter = (event: MouseEvent) => {
+	const handleMouseEnter = (_event: MouseEvent) => {
 		if (!enabled) return;
 
 		isHovering = true;

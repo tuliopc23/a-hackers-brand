@@ -1,43 +1,66 @@
 <script lang="ts">
+	import { stopPropagation } from 'svelte/legacy';
+
 	import { onMount, createEventDispatcher } from 'svelte';
 	import { gsap } from 'gsap';
 	import LiquidGlass from './LiquidGlass.svelte';
 
-	// Props
-	export let title: string = 'NEURAL_INTERFACE_v3.0';
-	export let theme: 'liquid' | 'hacker' | 'retro' = 'liquid';
-	export let enableLiquidFlow: boolean = true;
-	export let showControls: boolean = true;
-	export let expandable: boolean = true;
-	export let glowEffect: boolean = true;
-	export let customClass: string = '';
-	export let width: string = 'auto';
-	export let height: string = 'auto';
-	export let minHeight: string = '200px';
+	interface Props {
+		// Props
+		title?: string;
+		theme?: 'liquid' | 'hacker' | 'retro';
+		enableLiquidFlow?: boolean;
+		showControls?: boolean;
+		expandable?: boolean;
+		glowEffect?: boolean;
+		customClass?: string;
+		width?: string;
+		height?: string;
+		minHeight?: string;
+		children?: import('svelte').Snippet;
+	}
+
+	const {
+		title = 'NEURAL_INTERFACE_v3.0',
+		theme = 'liquid',
+		enableLiquidFlow = true,
+		showControls = true,
+		expandable = true,
+		glowEffect = true,
+		customClass = '',
+		width = 'auto',
+		height = 'auto',
+		minHeight = '200px',
+		children
+	}: Props = $props();
 
 	// Terminal state
-	let isExpanded = false;
+	let isExpanded = $state(false);
 	let isMinimized = false;
-	let terminalElement: HTMLElement;
-	let headerElement: HTMLElement;
-	let bodyElement: HTMLElement;
+	let terminalElement: HTMLElement = $state()!;
+	let headerElement: HTMLElement = $state()!;
+	let bodyElement: HTMLElement = $state()!;
 
 	const dispatch = createEventDispatcher();
 
 	// Theme classes
-	$: themeClass = {
-		liquid: 'liquid-terminal-theme',
-		hacker: 'hacker-terminal-theme',
-		retro: 'retro-terminal-theme'
-	}[theme];
+	const themeClass = $derived(
+		{
+			liquid: 'liquid-terminal-theme',
+			hacker: 'hacker-terminal-theme',
+			retro: 'retro-terminal-theme'
+		}[theme]
+	);
 
-	$: containerStyles = [
-		width !== 'auto' ? `width: ${width}` : '',
-		height !== 'auto' ? `height: ${height}` : '',
-		minHeight ? `min-height: ${minHeight}` : ''
-	]
-		.filter(Boolean)
-		.join('; ');
+	const containerStyles = $derived(
+		[
+			width !== 'auto' ? `width: ${width}` : '',
+			height !== 'auto' ? `height: ${height}` : '',
+			minHeight ? `min-height: ${minHeight}` : ''
+		]
+			.filter(Boolean)
+			.join('; ')
+	);
 
 	onMount(() => {
 		if (!terminalElement) return;
@@ -157,19 +180,30 @@
 	terminalGlow={glowEffect}
 	customClass="liquid-terminal-container {themeClass} {customClass}"
 	style={containerStyles}
-	on:click={handleTerminalClick}
+	onclick={handleTerminalClick}
+	onkeydown={(e) => e.key === 'Enter' && handleTerminalClick()}
 >
 	<!-- Terminal Header -->
 	{#if showControls}
 		<div bind:this={headerElement} class="terminal-header">
 			<div class="terminal-controls">
-				<button class="terminal-control close" on:click|stopPropagation={close} aria-label="Close terminal"></button>
-				<button class="terminal-control minimize" on:click|stopPropagation={minimize} aria-label="Minimize terminal"
+				<button
+					class="terminal-control close"
+					onclick={stopPropagation(close)}
+					onkeydown={(e) => e.key === 'Enter' && stopPropagation(close)(e)}
+					aria-label="Close terminal"
+				></button>
+				<button
+					class="terminal-control minimize"
+					onclick={stopPropagation(minimize)}
+					onkeydown={(e) => e.key === 'Enter' && stopPropagation(minimize)(e)}
+					aria-label="Minimize terminal"
 				></button>
 				{#if expandable}
 					<button
 						class="terminal-control maximize"
-						on:click|stopPropagation={toggleExpand}
+						onclick={stopPropagation(toggleExpand)}
+						onkeydown={(e) => e.key === 'Enter' && stopPropagation(toggleExpand)(e)}
 						aria-label={isExpanded ? 'Restore terminal' : 'Maximize terminal'}
 					></button>
 				{/if}
@@ -187,13 +221,13 @@
 
 	<!-- Terminal Body -->
 	<div bind:this={bodyElement} class="terminal-body">
-		<slot>
+		{#if children}{@render children()}{:else}
 			<!-- Default terminal content -->
 			<div class="terminal-line">
 				<span class="terminal-prompt">user@hackers-brand:~$</span>
 				<span class="terminal-cursor">_</span>
 			</div>
-		</slot>
+		{/if}
 	</div>
 
 	<!-- Liquid Flow Effect Overlay -->

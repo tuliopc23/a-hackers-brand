@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { lazyWithRetry, preload } from '$lib/utils/lazy.js';
 
 	interface Props {
 		class?: string;
@@ -35,7 +36,7 @@
 
 		// Intersection Observer for lazy loading
 		const observer = new IntersectionObserver(
-			(entries) => {
+			(entries: IntersectionObserverEntry[]) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting && !ThrelteComponent) {
 						isInViewport = true;

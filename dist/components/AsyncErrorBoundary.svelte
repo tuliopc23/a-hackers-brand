@@ -32,9 +32,9 @@
 		children
 	}: Props = $props();
 
-	let state = $state<'idle' | 'loading' | 'success' | 'error' | 'timeout'>('idle');
-	let error: Error | null = $state(null);
-	let result: any = $state(null);
+	let state = $state('idle');
+	let error = $state(null);
+	let result = $state(null);
 	let retryCount = $state(0);
 	let timeoutId: NodeJS.Timeout | null = null;
 
@@ -121,7 +121,7 @@
 		minimal: 'bg-red-50 border border-red-200 text-red-900'
 	};
 
-	const containerClasses = cn('rounded-brand p-6 m-4', variants[variant], className);
+	const containerClasses = cn('rounded-brand p-6 m-4', variants()[variant], className);
 
 	function getErrorIcon(errorType: string) {
 		switch (errorType) {
@@ -135,8 +135,8 @@
 	}
 
 	function getErrorType(err: Error): string {
-		if (err.message.includes('timeout')) return 'timeout';
-		if (err.message.includes('fetch') || err.message.includes('network')) return 'network';
+		if (err.message().includes('timeout')) return 'timeout';
+		if (err.message().includes('fetch') || err.message().includes('network')) return 'network';
 		return 'general';
 	}
 
@@ -215,6 +215,7 @@
 							variant="glass"
 							size="sm"
 							onclick={retry}
+							onkeydown={(e) => e.key === 'Enter' && retry(e)}
 							class="bg-red-500/20 border-red-500/40 hover:bg-red-500/30"
 						>
 							{state === 'timeout' ? 'Try Again' : 'Retry'}
@@ -225,6 +226,7 @@
 						variant="glass"
 						size="sm"
 						onclick={reset}
+						onkeydown={(e) => e.key === 'Enter' && reset(e)}
 						class="bg-blue-500/20 border-blue-500/40 hover:bg-blue-500/30"
 					>
 						Reset

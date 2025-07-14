@@ -13,7 +13,7 @@
 	let error = $state(null);
 
 	// Svelte 5 children prop
-	let { children } = $props();
+	const { children } = $props();
 
 	onMount(async () => {
 		if (!dev) {
@@ -48,6 +48,6 @@
 			Error loading perf overlay: {error}
 		</div>
 	{:else if PerfOverlay}
-		<svelte:component this={PerfOverlay} />
+		<PerfOverlay />
 	{/if}
 {/if}

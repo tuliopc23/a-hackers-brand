@@ -1,31 +1,3 @@
-<script context="module" lang="ts">
-	export interface GridColumn {
-		key: string;
-		label: string;
-		type?: 'text' | 'number' | 'date' | 'boolean' | 'custom';
-		sortable?: boolean;
-		filterable?: boolean;
-		width?: string;
-		minWidth?: string;
-		align?: 'left' | 'center' | 'right';
-		formatter?: (value: any, row: any) => string;
-		render?: (value: any, row: any, column: GridColumn) => string;
-		editable?: boolean;
-		validation?: (value: any) => string | null;
-	}
-
-	export interface GridRow {
-		[key: string]: any;
-		id: string | number;
-	}
-
-	export interface GridFilter {
-		column: string;
-		value: any;
-		operator: 'equals' | 'contains' | 'startsWith' | 'endsWith' | 'gt' | 'lt' | 'gte' | 'lte';
-	}
-</script>
-
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { cn } from '$lib/utils.js';
@@ -34,7 +6,7 @@
 	import Button from './Button.svelte';
 	import Input from './Input.svelte';
 	import Select from './Select.svelte';
-	import type { GridColumn, GridRow, GridFilter } from './DataGrid.svelte';
+	import type { GridColumn, GridRow, GridFilter } from '$lib/types/data-grid';
 
 	interface Props {
 		columns: GridColumn[];
@@ -168,8 +140,8 @@
 		lg: { cell: 'px-4 py-3 text-base', header: 'px-4 py-4 text-base' }
 	};
 
-	const currentVariant = $derived(variants[variant]);
-	const currentSize = $derived(sizes[size]);
+	const currentVariant = $derived(variants()[variant]);
+	const currentSize = $derived(sizes()[size]);
 
 	// Computed filtered and sorted data
 	const filteredData = $derived(() => {
@@ -178,17 +150,17 @@
 		// Apply search
 		if (searchQuery.trim()) {
 			const query = searchQuery.toLowerCase();
-			result = result.filter((row) =>
-				columns.some((col) => {
-					const value = String(row[col.key] || '').toLowerCase();
-					return value.includes(query);
+				result = result.filter((row) =>
+					columns.some((col) => {
+						const value = String(row[col.key] || '').toLowerCase();
+						return value.includes(query);
 				})
 			);
 		}
 
 		// Apply filters
 		for (const filter of currentFilters) {
-			result = result.filter((row) => {
+				result = result.filter((row) => {
 				const value = row[filter.column];
 				switch (filter.operator) {
 					case 'equals':
@@ -232,12 +204,9 @@
 	});
 
 	// Pagination
-	const totalPages = $derived(Math.ceil((totalRows ?? filteredData.length) / pageSize));
-	const paginatedData = $derived(() => {
-		if (!pagination) return filteredData;
-		const start = (currentPage - 1) * pageSize;
-		return filteredData.slice(start, start + pageSize);
-	});
+	const start = $derived((currentPage - 1) * pageSize);
+	const totalPages = $derived(Math.ceil((totalRows ?? filteredData().length) / pageSize));
+	const paginatedData = $derived(() => { return filteredData().slice(start, start + pageSize); });
 
 	function handleSort(column: GridColumn) {
 		if (!column.sortable) return;
@@ -276,7 +245,7 @@
 
 	function handleSelectAll(selected: boolean) {
 		if (selected) {
-			currentSelectedRows = new Set(paginatedData.map((row) => row.id));
+			currentSelectedRows = new Set(paginatedData().map((row) => row.id));
 		} else {
 			currentSelectedRows = new Set();
 		}
@@ -292,7 +261,7 @@
 	function saveEdit() {
 		if (!editingCell) return;
 
-		const row = paginatedData.find((r) => r.id === editingCell!.rowId);
+		const row = paginatedData().find((r) => r.id === editingCell!.rowId);
 		if (!row) return;
 
 		const column = columns.find((c) => c.key === editingCell!.column);
@@ -354,7 +323,7 @@
 	}
 
 	const isAllSelected = $derived(
-		paginatedData.length > 0 && paginatedData.every((row) => currentSelectedRows.has(row.id))
+		paginatedData().length > 0 && paginatedData().every((row) => currentSelectedRows.has(row.id))
 	);
 
 	const containerClasses = $derived(
@@ -380,7 +349,7 @@
 							}}
 						/>
 						<button
-							onclick={handleSearch}
+							onclick={handleSearch} onkeydown={(e) => e.key === "Enter" && handleSearch()}
 							class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
 						>
 							🔍
@@ -395,11 +364,11 @@
 				{/if}
 			</div>
 
-			<div class="flex items-center gap-2">
-				{#if exportable}
-					<Button size="sm" {variant} onclick={() => dispatch('export', { format: 'csv' })}>📥 Export</Button>
-				{/if}
-			</div>
+      <div class="flex items-center gap-2">
+        {#if exportable}
+          <Button size="sm" {variant} onclick={() => dispatch('export', { format: 'csv' })} onkeydown={(e) => e.key === "Enter" && dispatch('export', { format: 'csv' })}>📥 Export</Button>
+        {/if}
+      </div>
 		</div>
 	{/if}
 
@@ -437,7 +406,7 @@
 								column.sortable && 'cursor-pointer select-none'
 							)}
 							style={column.width ? `width: ${column.width}` : undefined}
-							onclick={() => column.sortable && handleSort(column)}
+						onclick={() => column.sortable && handleSort(column)} onkeydown={(e) => e.key === "Enter" && column.sortable && handleSort(column)}
 							use:magneticHover={{ enabled: column.sortable, strength: 0.05 }}
 						>
 							<div class="flex items-center gap-2">
@@ -485,7 +454,7 @@
 				{#if loading}
 					<tr>
 						<td
-							colspan={columns.length + (selectable ? 1 : 0) + (actions.length > 0 ? 1 : 0)}
+				colspan={columns.length + (selectable ? 1 : 0) + (actions.length > 0 ? 1 : 0)}
 							class={cn(currentSize.cell, currentVariant.cell, 'text-center')}
 						>
 							<div class="flex items-center justify-center gap-3 py-8">
@@ -501,10 +470,10 @@
 							</div>
 						</td>
 					</tr>
-				{:else if paginatedData.length === 0}
+				{:else if paginatedData().length === 0}
 					<tr>
 						<td
-							colspan={columns.length + (selectable ? 1 : 0) + (actions.length > 0 ? 1 : 0)}
+				colspan={columns.length + (selectable ? 1 : 0) + (actions.length > 0 ? 1 : 0)}
 							class={cn(currentSize.cell, currentVariant.cell, 'text-center text-gray-400')}
 						>
 							<div class="py-8">
@@ -521,7 +490,7 @@
 						</td>
 					</tr>
 				{:else}
-					{#each paginatedData as row, index (row.id)}
+					{#each paginatedData() as row, index (row.id)}
 						{@const isSelected = currentSelectedRows.has(row.id)}
 						<tr
 							class={cn(
@@ -530,7 +499,7 @@
 								isSelected && currentVariant.rowSelected,
 								'transition-colors duration-150 cursor-pointer'
 							)}
-							onclick={() => handleRowClick(row, index)}
+							onclick={() => handleRowClick(row, index)} onkeydown={(e) => e.key === "Enter" && handleRowClick(row, index)} 
 							in:glassFade={{ direction: 'up', duration: 100, delay: index * 20 }}
 						>
 							{#if selectable}
@@ -542,7 +511,7 @@
 											const target = e.target as HTMLInputElement;
 											handleRowSelect(row, target.checked);
 										}}
-										onclick={(e) => e.stopPropagation()}
+											onclick={(e) => e.stopPropagation()}
 										class="rounded bg-transparent border-current"
 									/>
 								</td>
@@ -572,7 +541,7 @@
 							{#if actions.length > 0}
 								<td class={cn(currentSize.cell, currentVariant.cell)}>
 									<div class="flex items-center gap-1">
-										{#each actions as action}
+									{#each actions as action (action.id || action)}
 											{#if !action.show || action.show(row)}
 												<Button
 													size="sm"
@@ -606,8 +575,8 @@
 				<span class="text-sm text-gray-400">
 					Showing {(currentPage - 1) * pageSize + 1} to {Math.min(
 						currentPage * pageSize,
-						totalRows ?? filteredData.length
-					)} of {totalRows ?? filteredData.length} entries
+						totalRows ?? filteredData().length
+					)} of {totalRows ?? filteredData().length} entries
 				</span>
 			</div>
 

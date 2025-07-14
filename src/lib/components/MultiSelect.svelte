@@ -28,8 +28,8 @@
 	}
 
 	const {
-		options = [],
-		value = [],
+options = [],
+		value = $bindable([]),
 		placeholder = 'Select items...',
 		variant = 'default',
 		size = 'md',
@@ -41,7 +41,8 @@
 		closeOnSelect = false,
 		class: className = '',
 		...restProps
-	}: Props = $props();
+	
+}: Props = $props();
 
 	const dispatch = createEventDispatcher<{
 		change: string[];
@@ -53,8 +54,8 @@
 	}>();
 
 	let containerRef: HTMLDivElement;
-	let searchInputRef: HTMLInputElement = $state();
-	let dropdownRef: HTMLDivElement = $state();
+	let searchInputRef: HTMLInputElement = $state()!;
+	let dropdownRef: HTMLDivElement = $state()!;
 	let isOpen = $state(false);
 	let searchTerm = $state('');
 	let selectedValues = $state<string[]>([...value]);
@@ -116,30 +117,21 @@
 	const currentSize = $derived(sizes[size]);
 
 	// Filtered options based on search
-	const filteredOptions = $derived(() => {
-		if (!searchTerm) return options;
-		return options.filter(
+	const filteredOptions = $derived(() => { return options.filter(
 			(option) =>
 				option.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
 				option.value.toLowerCase().includes(searchTerm.toLowerCase()) ||
 				option.description?.toLowerCase().includes(searchTerm.toLowerCase())
-		);
-	});
+		); });
 
 	// Available options (not selected)
-	const availableOptions = $derived(() => {
-		return filteredOptions.filter((option) => !selectedValues.includes(option.value));
-	});
+	const availableOptions = $derived(() => { return filteredOptions.filter((option) => !selectedValues.includes(option.value)); });
 
 	// Selected option objects
-	const selectedOptions = $derived(() => {
-		return selectedValues.map((value) => options.find((opt) => opt.value === value)).filter(Boolean) as Option[];
-	});
+	const selectedOptions = $derived(() => { return selectedValues.map((value) => options.find((opt) => opt.value === value)).filter(Boolean) as Option[]; });
 
 	// Check if max selections reached
-	const isMaxReached = $derived(() => {
-		return maxSelections ? selectedValues.length >= maxSelections : false;
-	});
+	const isMaxReached = $derived(() => { return maxSelections ? selectedValues.length >= maxSelections : false; });
 
 	function handleContainerClick() {
 		if (disabled) return;
@@ -223,14 +215,14 @@
 				break;
 			case 'Enter':
 				event.preventDefault();
-				if (focusedIndex >= 0 && availableOptions[focusedIndex]) {
-					handleOptionSelect(availableOptions[focusedIndex]);
+			if (focusedIndex >= 0 && availableOptions[focusedIndex]) {
+				handleOptionSelect(availableOptions[focusedIndex]);
 				}
 				break;
 			case 'Backspace':
-				if (searchTerm === '' && selectedValues.length > 0) {
-					// Remove last selected item if search is empty
-					removeOption(selectedValues[selectedValues.length - 1]);
+			if (searchTerm === '' && selectedValues.length > 0) {
+				// Remove last selected item if search is empty
+				removeOption(selectedValues[selectedValues.length - 1]);
 				}
 				break;
 		}
@@ -271,12 +263,9 @@
 <div
 	bind:this={containerRef}
 	class={combinedClasses}
-	onclick={handleContainerClick}
-	onkeydown={handleKeydown}
-	role="combobox"
-	aria-expanded={isOpen}
+	onclick={handleContainerClick} onkeydown={(e) => e.key === "Enter" && handleContainerClick()}
+	role="combobox" aria-controls="multiselect-listbox" aria-expanded={isOpen}
 	aria-haspopup="listbox"
-	aria-controls="multiselect-listbox"
 	aria-label={placeholder}
 	aria-describedby="multiselect-status"
 	tabindex={disabled ? -1 : 0}
@@ -295,7 +284,7 @@
 			>
 				<span class="truncate max-w-32">{option.label}</span>
 				<button
-					onclick={(e) => handleChipRemove(option.value, e)}
+					onclick={(e) => handleChipRemove(option.value, e)} onkeydown={(e) => e.key === "Enter" && handleChipRemove(option.value, e)}
 					class="flex-shrink-0 rounded-full {currentChipVariant.chipClose} hover:bg-black/20
 					       transition-colors p-0.5"
 					aria-label="Remove {option.label}"
@@ -357,13 +346,12 @@
 					{searchTerm ? 'No results found' : 'No more options available'}
 				</div>
 			{:else}
-				{#each availableOptions as option, index (option.value)}
-					{@const isFocused = index === focusedIndex}
-					{@const isSelected = selectedValues.includes(option.value)}
+		{#each availableOptions as option, index (option.value)}
+			{@const isFocused = index === focusedIndex}
+			{@const isSelected = selectedValues.includes(option.value)}
 
 					<div
-						onclick={() => handleOptionSelect(option)}
-						onkeydown={(e) => e.key === 'Enter' && handleOptionSelect(option)}
+						onclick={() => handleOptionSelect(option)} onkeydown={(e) => e.key === "Enter" && handleOptionSelect(option)}
 						class="cursor-pointer transition-all duration-150 {currentSize.option}
 						       {isFocused ? currentVariant.selectedOption : currentVariant.option}
 						       {option.disabled ? 'opacity-50 cursor-not-allowed' : ''}

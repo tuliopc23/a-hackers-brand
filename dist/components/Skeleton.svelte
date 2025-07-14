@@ -96,9 +96,9 @@
 		}
 	};
 
-	const currentVariant = variants[variant];
-	const currentType = types[type];
-	const shimmerSpeed = speeds[speed];
+	const currentVariant = variants()[variant];
+	const currentType = types()[type];
+	const shimmerSpeed = speeds()[speed];
 
 	// Generate line widths for text/paragraph types
 	const lineWidths = $derived(
@@ -112,8 +112,8 @@
 </script>
 
 {#if type === 'text' || type === 'paragraph'}
-	<div class={cn(currentType.spacing, className)} {...restProps}>
-		{#each lineWidths as lineWidth, i}
+	<div class={cn((currentType as any)?.spacing || '', className)} {...restProps}>
+		{#each lineWidths() as lineWidth, i (i)}
 			<div
 				class={cn(
 					'relative overflow-hidden backdrop-blur-xl border',
@@ -144,7 +144,7 @@
 			currentType.height,
 			currentVariant.bg,
 			currentVariant.border,
-			currentType.rounded || (rounded && 'rounded-lg'),
+			(currentType as any)?.rounded || '' || (rounded && 'rounded-lg'),
 			glow && currentVariant.glow,
 			animated && 'transform-gpu will-change-transform',
 			className

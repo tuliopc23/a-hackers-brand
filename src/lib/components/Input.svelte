@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
-	import { glassFade, liquidBlur, magneticHover, jellyHover } from '$lib/motion';
+	import { glassFade, liquidBlurTransition, magneticHover, jellyHover } from '$lib/motion';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	interface Props extends Omit<HTMLInputAttributes, 'size'> {
@@ -8,8 +8,8 @@
 		size?: 'sm' | 'md' | 'lg';
 		label?: string;
 		error?: string;
-		icon?: any;
-		children?: any;
+		icon?: import('svelte').Snippet | null;
+		children?: import('svelte').Snippet;
 		animate?: boolean;
 		liquid?: boolean;
 		magnetic?: boolean;
@@ -53,7 +53,7 @@
 
 	const baseClasses = 'w-full rounded-brand outline-none placeholder:text-white/40 transition-all duration-300';
 	const errorClasses = error ? 'border-red-500 focus:border-red-500' : '';
-	const iconClasses = icon || children?.icon ? 'pl-10' : '';
+	const iconClasses = icon ? 'pl-10' : '';
 	const glowClasses = glow ? 'focus:shadow-lg focus:shadow-brand-primary/20' : '';
 	const liquidClasses = liquid ? 'backdrop-blur-md' : '';
 
@@ -68,7 +68,7 @@
 		className
 	);
 
-	const uniqueId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+	const uniqueId = id || `input-${Math.random().toString(36).substring(2, 11)}`;
 	const errorId = error ? `${uniqueId}-error` : undefined;
 </script>
 
@@ -84,17 +84,20 @@
 			<div class="absolute left-3 top-1/2 -translate-y-1/2 text-white/40">
 				{@render icon()}
 			</div>
-		{:else if children?.icon}
+		{:else if children}
 			<div class="absolute left-3 top-1/2 -translate-y-1/2 text-white/40">
-				{@render children.icon()}
+				{@render children()}
 			</div>
 		{/if}
 
 		{#if animate && liquid}
 			<input
-				{id}
+				id={uniqueId}
 				class={combinedClasses}
-				in:liquidBlur={{ duration: 300, blur: 'sm', scale: 0.98 }}
+				aria-label={ariaLabel}
+				aria-invalid={!!error}
+				aria-describedby={errorId}
+				in:liquidBlurTransition={{ duration: 300, blur: 'sm', scale: 0.98 }}
 				use:magneticHover={magnetic ? { strength: 0.1 } : undefined}
 				use:jellyHover={jelly ? { enabled: true, intensity: 0.05, speed: 200 } : { enabled: false }}
 				{...restProps}

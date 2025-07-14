@@ -1,8 +1,10 @@
+<!-- @migration-task Error while migrating Svelte code: This type of directive is not valid on components
+https://svelte.dev/e/component_invalid_directive -->
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
 	import { magneticHover, springPop, glassFade } from '$lib/motion';
 	import { fade, fly } from 'svelte/transition';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 	import { SearchIndex, debounce, type SearchDocument, type SearchSuggestion } from '$lib/utils/search.js';
 	import GlassCard from './liquidify/GlassCard.svelte';
 	import GlassInput from './liquidify/GlassInput.svelte';
@@ -23,8 +25,8 @@
 		children?: Snippet;
 	}
 
-	let {
-		isOpen = $bindable(false),
+	const {
+isOpen = $bindable(false),
 		title = 'Search Components',
 		placeholder = 'Type to search...',
 		class: className = '',
@@ -35,7 +37,8 @@
 		onClose,
 		onSelect,
 		children
-	}: Props = $props();
+	
+}: Props = $props();
 
 	const dispatch = createEventDispatcher();
 
@@ -56,13 +59,15 @@
 	let resultsRef = $state<HTMLDivElement>();
 
 	// Initialize search index
-	onMount(() => {
+	$effect(() => {
 		searchIndex = new SearchIndex();
 		if (searchData.length > 0) {
 			searchData.forEach((doc) => searchIndex?.addDocument(doc));
 		}
+	});
 
-		// Focus input when modal opens
+	// Focus input when modal opens
+	$effect(() => {
 		if (isOpen && inputRef) {
 			setTimeout(() => inputRef?.focus(), 100);
 		}
@@ -81,7 +86,7 @@
 		setTimeout(() => {
 			const searchResults = searchIndex.search(query).slice(0, maxResults);
 			results = searchResults;
-			isEmpty = query.trim() !== '' && searchResults.length === 0;
+			isEmpty = query.trim() !== '' && searchResults().length === 0;
 			selectedIndex = 0;
 			isLoading = false;
 		}, 150); // Simulate loading delay
@@ -136,11 +141,11 @@
 
 	// Navigate suggestions
 	const navigateSuggestions = (direction: 1 | -1) => {
-		selectedSuggestionIndex = (selectedSuggestionIndex + direction + suggestions.length) % suggestions.length;
+		selectedSuggestionIndex = (selectedSuggestionIndex + direction + suggestions().length) % suggestions().length;
 	};
 
 	const selectSuggestion = (index: number) => {
-		const suggestion = suggestions[index] || suggestions[0];
+		const suggestion = suggestions()[index] || suggestions()[0];
 		if (suggestion) {
 			console.log('Selected suggestion:', suggestion.text);
 			dispatch('select', suggestion.text);
@@ -158,7 +163,7 @@
 				break;
 			case 'ArrowDown':
 				e.preventDefault();
-				selectedIndex = Math.min(selectedIndex + 1, results.length - 1);
+				selectedIndex = Math.min(selectedIndex + 1, results().length - 1);
 				scrollToSelected();
 				break;
 			case 'ArrowUp':
@@ -168,8 +173,8 @@
 				break;
 			case 'Enter':
 				e.preventDefault();
-				if (results[selectedIndex]) {
-					selectResult(results[selectedIndex]);
+				if (results()[selectedIndex]) {
+					selectResult(results()[selectedIndex]);
 				}
 				break;
 		}
@@ -178,7 +183,7 @@
 	// Scroll selected item into view
 	const scrollToSelected = () => {
 		if (!resultsRef) return;
-		const selectedElement = resultsRef.children[selectedIndex] as HTMLElement;
+		const selectedElement = resultsRef.children()[selectedIndex] as HTMLElement;
 		if (selectedElement) {
 			selectedElement.scrollIntoView({
 				block: 'nearest',
@@ -246,7 +251,7 @@
 		bind:this={backdropRef}
 		class="fixed inset-0 z-50 flex items-start justify-center pt-16 p-4"
 		onclick={handleBackdropClick}
-		onkeydown={(e) => e.key === 'Enter' && handleBackdropClick(e)}
+		onkeydown={(e) => e.key === 'Enter' && handleBackdropClick()}
 		role="presentation"
 		aria-hidden="true"
 		transition:fade={{ duration: 300 }}
@@ -275,6 +280,7 @@
 			tabindex="-1"
 			transition:fly={{ y: -20, duration: 400, opacity: 0 }}
 			onclick={(e) => e.stopPropagation()}
+			onkeydown={(e) => e.key === 'Enter' && handleAction()}
 		>
 			<!-- Header with terminal styling -->
 			<div class="relative z-10 flex items-center gap-3 p-6 border-b border-white/10">
@@ -294,6 +300,7 @@
 					type="button"
 					class="text-white/60 hover:text-white/90 transition-colors duration-200 p-2 rounded-lg hover:bg-white/10"
 					onclick={handleClose}
+					onkeydown={(e) => e.key === 'Enter' && handleClose()}
 					aria-label="Close search modal"
 					use:magneticHover={{ enabled: true, strength: 0.1, scale: 1.05 }}
 				>
@@ -344,14 +351,14 @@
 						<p class="text-white/60 font-mono mb-2">No results found</p>
 						<p class="text-white/40 text-sm font-mono">Try a different search term or check your spelling</p>
 					</div>
-				{:else if results.length > 0}
+				{:else if results().length > 0}
 					<!-- Results list -->
 					<div
 						bind:this={resultsRef}
 						class="max-h-96 overflow-y-auto px-2 pb-4"
 						style="scrollbar-width: thin; scrollbar-color: rgba(48, 209, 88, 0.3) transparent;"
 					>
-						{#each results as result, index}
+						{#each results() as result, index (index)}
 							<button
 								type="button"
 								class={cn(
@@ -362,6 +369,7 @@
 										'bg-terminal-green/10 border-terminal-green/30 shadow-lg shadow-terminal-green/10'
 								)}
 								onclick={() => selectResult(result)}
+								onkeydown={(e) => e.key === 'Enter' && selectResult(result)}
 								onmouseenter={() => (selectedIndex = index)}
 								use:magneticHover={{ enabled: true, strength: 0.05, scale: 1.02 }}
 								in:glassFade={{ direction: 'up', distance: 5, delay: index * 50 }}
@@ -392,7 +400,7 @@
 
 										<!-- Description with highlights -->
 										<p class="text-sm text-white/60 group-hover:text-white/80 transition-colors line-clamp-2 font-mono">
-											{@html highlightText(result.content.slice(0, 120) + '...', searchQuery)}
+											{@html highlightText(result.content().slice(0, 120) + '...', searchQuery)}
 										</p>
 
 										<!-- Path -->
@@ -437,13 +445,12 @@
 						</div>
 					</div>
 					<div class="text-terminal-green">
-						{results.length} result{results.length !== 1 ? 's' : ''}
+						{results().length} result{results().length !== 1 ? 's' : ''}
 					</div>
 				</div>
 			</div>
 
-			{#if children}
-				{@render children()}
+			{#if children}{@render children()}{/if}
 			{/if}
 		</GlassCard>
 	</div>

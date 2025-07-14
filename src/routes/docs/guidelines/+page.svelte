@@ -9,9 +9,9 @@
 	// Lazy load WebGL background
 	const LazyLiquidBackground = lazy(() => import('$lib/components/webgl/LiquidBackground.svelte'));
 
-	let mounted = false;
-	let selectedSection = 'philosophy';
-	let showToast = false;
+	let mounted = $state(false);
+	let selectedSection = $state('philosophy');
+	let showToast = $state(false);
 
 	// Brand guidelines sections
 	const sections = {
@@ -165,7 +165,7 @@
 	<!-- WebGL Background -->
 	{#if mounted && LazyLiquidBackground.component}
 		<div class="absolute inset-0 opacity-10">
-			<svelte:component this={LazyLiquidBackground.component} />
+			<LazyLiquidBackground.component />
 		</div>
 	{/if}
 
@@ -237,7 +237,7 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Core Principles</h3>
 									<div class="grid md:grid-cols-2 gap-8">
-										{#each principles as principle}
+										{#each principles as principle (principle.id || principle)}
 											<div class="border border-white/10 rounded-lg p-6 hover:bg-white/5 transition-colors">
 												<h4 class="text-lg font-semibold mb-3">{principle.title}</h4>
 												<p class="text-white/80 mb-4">{principle.description}</p>
@@ -557,7 +557,7 @@
 										<div>
 											<h4 class="text-lg font-semibold mb-4 text-green-400">✅ Do</h4>
 											<ul class="space-y-2 text-white/80">
-												{#each dos as item}
+												{#each dos as item (item.id || item)}
 													<li class="flex items-start space-x-2">
 														<span class="text-green-400 mt-1">•</span>
 														<span>{item}</span>
@@ -568,7 +568,7 @@
 										<div>
 											<h4 class="text-lg font-semibold mb-4 text-red-400">❌ Don't</h4>
 											<ul class="space-y-2 text-white/80">
-												{#each donts as item}
+												{#each donts as item (item.id || item)}
 													<li class="flex items-start space-x-2">
 														<span class="text-red-400 mt-1">•</span>
 														<span>{item}</span>
@@ -582,7 +582,7 @@
 								<GlassCard intensity="light" class="p-8">
 									<h3 class="text-2xl font-bold mb-6">Usage Examples</h3>
 									<div class="space-y-8">
-										{#each usageExamples as example}
+										{#each usageExamples as example (example.id || example)}
 											<div class="border border-white/10 rounded-lg p-6">
 												<h4 class="text-lg font-semibold mb-4">{example.component}</h4>
 												<div class="grid md:grid-cols-2 gap-6">

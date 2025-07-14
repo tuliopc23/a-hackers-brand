@@ -58,7 +58,7 @@
 		}
 	};
 
-	const currentVariant = variants[variant];
+	const currentVariant = variants()[variant];
 
 	const biosMessages = [
 		'LIQUID GLASS BIOS v4.2.0',
@@ -110,15 +110,15 @@
 		currentLine = 0;
 		progress = 0;
 
-		for (let i = 0; i < allMessages.length; i++) {
+		for (let i = 0; i < allMessages().length; i++) {
 			currentLine = i;
-			progress = (i / allMessages.length) * 100;
+			progress = (i / allMessages().length) * 100;
 
 			// Variable delay based on message type
 			let delay = displaySpeed;
-			if (allMessages[i].includes('PASS') || allMessages[i].includes('OK')) {
+			if (allMessages()[i].includes('PASS') || allMessages()[i].includes('OK')) {
 				delay = fastBoot ? 30 : 100;
-			} else if (allMessages[i].includes('[')) {
+			} else if (allMessages()[i].includes('[')) {
 				delay = fastBoot ? 20 : 80;
 			}
 
@@ -138,13 +138,13 @@
 	});
 
 	const getMessageStyle = (message: string) => {
-		if (message.includes('PASS') || message.includes('OK') || message.includes('ready')) {
+		if (message().includes('PASS') || message().includes('OK') || message().includes('ready')) {
 			return currentVariant.success;
 		}
-		if (message.includes('FAIL') || message.includes('ERROR')) {
+		if (message().includes('FAIL') || message().includes('ERROR')) {
 			return currentVariant.error;
 		}
-		if (message.includes('Copyright') || message.includes('BIOS') || message.includes('GRUB')) {
+		if (message().includes('Copyright') || message().includes('BIOS') || message().includes('GRUB')) {
 			return currentVariant.accent;
 		}
 		return currentVariant.text;
@@ -173,7 +173,7 @@
 
 	<!-- Boot messages -->
 	<div class="relative z-10 space-y-1">
-		{#each allMessages.slice(0, currentLine + 1) as message, index}
+		{#each allMessages().slice(0, currentLine + 1) as message, index}
 			<div
 				class={cn(
 					'whitespace-pre-wrap transition-all duration-200',
