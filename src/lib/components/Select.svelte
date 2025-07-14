@@ -30,8 +30,8 @@
 		onValueChange?: (value: string) => void;
 	}
 
-	const {
-options = [],
+	let {
+		options = [],
 		value = $bindable(''),
 		placeholder = 'Select an option...',
 		disabled = false,
@@ -49,8 +49,7 @@ options = [],
 		class: className = '',
 		onValueChange,
 		...restProps
-	
-}: Props = $props();
+	}: Props = $props();
 
 	let isOpen = $state(false);
 	let selectElement = $state<HTMLDivElement>();

@@ -23,8 +23,8 @@
 		onValueChange?: (value: number) => void;
 	}
 
-	const {
-value = $bindable(50),
+	let {
+		value = $bindable(50),
 		min = 0,
 		max = 100,
 		step = 1,
@@ -41,8 +41,7 @@ value = $bindable(50),
 		class: className = '',
 		onValueChange,
 		...restProps
-	
-}: Props = $props();
+	}: Props = $props();
 
 	let sliderElement = $state<HTMLDivElement>();
 	let trackElement = $state<HTMLDivElement>();

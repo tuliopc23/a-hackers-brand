@@ -253,7 +253,7 @@
 						key
 							? 'bg-blue-500/20 border-blue-500/30'
 							: ''}"
-						on:click={() => (selectedMotion = key)}
+					onclick={() => (selectedMotion = key)}
 						data-magnetic
 					>
 						<span class="text-lg">{category.icon}</span>
@@ -325,7 +325,7 @@
 												</div>
 												<button
 													class="mt-2 text-xs text-blue-400 hover:text-blue-300 transition-colors"
-													on:click={() => copyCode(preset.demo)}
+													onclick={() => copyCode(preset.demo)}
 												>
 													Copy Code
 												</button>
@@ -594,7 +594,7 @@ use:jellyHover={{
 														</div>
 														<button
 															class="mt-2 text-xs text-blue-400 hover:text-blue-300 transition-colors"
-               on:click={() => copyCode(easing.value)}
+               onclick={() => copyCode(easing.value)}
 														>
 															Copy Value
 														</button>
@@ -622,7 +622,7 @@ use:jellyHover={{
 														<div
 															class="w-8 h-8 bg-blue-500 rounded-full mx-auto cursor-pointer"
 															style="animation: pulse-{duration.name} {duration.value} ease-in-out infinite;"
-               on:click={() => {}}
+               onclick={() => {}}
 														></div>
 													</div>
 												</div>

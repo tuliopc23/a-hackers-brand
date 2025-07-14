@@ -24,7 +24,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	let canvasRef: HTMLCanvasElement;
+	let canvasRef = $state<HTMLCanvasElement>();
 	let gl: WebGLRenderingContext;
 	let program: WebGLProgram;
 	let animationId: number;
@@ -245,9 +245,9 @@
 
 	// Convert color hex to RGB
 	const hexToRgb = (hex: string): [number, number, number] => {
-		const r = parseInt(hex().slice(1, 3), 16) / 255;
-		const g = parseInt(hex().slice(3, 5), 16) / 255;
-		const b = parseInt(hex().slice(5, 7), 16) / 255;
+		const r = parseInt(hex.slice(1, 3), 16) / 255;
+		const g = parseInt(hex.slice(3, 5), 16) / 255;
+		const b = parseInt(hex.slice(5, 7), 16) / 255;
 		return [r, g, b];
 	};
 
@@ -290,9 +290,9 @@
 		gl.uniform1f(gl.getUniformLocation(program, 'u_interactive'), interactive ? 1.0 : 0.0);
 
 		// Set color uniforms
-		const [r1, g1, b1] = hexToRgb(colors()[0]);
-		const [r2, g2, b2] = hexToRgb(colors()[1]);
-		const [r3, g3, b3] = hexToRgb(colors()[2]);
+		const [r1, g1, b1] = hexToRgb(colors[0]);
+		const [r2, g2, b2] = hexToRgb(colors[1]);
+		const [r3, g3, b3] = hexToRgb(colors[2]);
 
 		gl.uniform3f(gl.getUniformLocation(program, 'u_color1'), r1, g1, b1);
 		gl.uniform3f(gl.getUniformLocation(program, 'u_color2'), r2, g2, b2);

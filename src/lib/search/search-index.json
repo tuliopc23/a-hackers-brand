@@ -3575,7 +3575,7 @@
       ],
       "content": "A Hacker's Brand Overview Design System A jaw-dropping fusion of Apple's liquid glass design language with terminal hacker aesthetics . Professional, innovative, and magnetic. $ npm install @tulio/liquid-glass-system copyCommand('npm install @tulio/liquid-glass-system')} title=\"Copy command\" > ▓ Installing liquid glass components... ✓ Components installed successfully ✓ Design tokens configured ✓ Ready to build jaw-dropping interfaces $ npm run dev ▓ Explore the System Comprehensive documentation and interactive examples Explore Quick Start 1. Install the package 2. Import components 3. Start building Deploy to Production \" language=\"svelte\" /> Built with ♥ by Tulio Pinheiro Cunha Liquid Glass Terminal Fusion Design System v0.2.0",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.827Z"
+      "lastModified": "2025-07-11T01:11:43.479Z"
     },
     {
       "id": "docs-components-liquidterminal",
@@ -4201,7 +4201,7 @@
       ],
       "content": "A Hacker's Brand Motion System Motion System Fluid, responsive animations that bring the liquid glass terminal fusion aesthetic to life. (selectedMotion = key)} data-magnetic > Duration: triggerDemo(preset.name)} use:presets[preset.name] > ⚡ triggerDemo(preset.name)} > Play Demo Implementation copyCode(preset.demo)} > Copy Code Liquid Blur Transitions Smooth liquid-inspired blur effects that create depth and fluidity. Hover to see different blur intensities Usage Examples Glass Fade Transitions Elegant entrance and exit animations with directional movement. Fade Directional Options Spring Pop Transitions Elastic spring-based animations for interactive feedback. Bouncy Press Scale Up Spring Configurations Magnetic Hover Elements subtly follow cursor movement creating magnetic attraction. Hover over elements to see magnetic effect Implementation Jelly Motion Elastic jelly-like deformations for playful interactions. 🍮 🌊 Hover for jelly effects Jelly Variants Easing Functions Animation Preview CSS: copyCode(easing.value)} > Copy Value Duration Scale } > Reduced Motion Support Automatically respects user's motion preferences for accessibility. ✓ Automatic Detection All motion components automatically detect and respect prefers-reduced-motion ⚡ Graceful Degradation Animations fade to instant or minimal transitions when reduced motion is preferred Implementation Performance Optimization Smart Defaults • Hardware acceleration when beneficial • Automatic cleanup on unmount • Optimized for 60fps on modern devices • Progressive enhancement approach Best Practices `} language=\"css\" /> Motion that enhances the liquid glass terminal fusion experience",
       "type": "component",
-      "lastModified": "2025-07-10T17:37:22.811Z"
+      "lastModified": "2025-07-14T04:24:48.947Z"
     },
     {
       "id": "docs-components-multiselect",
@@ -4727,7 +4727,7 @@
       ],
       "content": "Interactive Playground Experiment with A Hacker's Brand components in real-time. Edit the code on the left and see the results on the right. playgroundStore.formatCode()} /> Loading playground... else if (e.key === 'ArrowRight') }} >",
       "type": "component",
-      "lastModified": "2025-07-10T17:38:41.507Z"
+      "lastModified": "2025-07-14T04:24:48.970Z"
     },
     {
       "id": "docs-components-portfoliocard",
@@ -6562,7 +6562,7 @@
     "svelte",
     "ui"
   ],
-  "lastUpdated": "2025-07-10T21:25:53.885Z",
+  "lastUpdated": "2025-07-14T04:29:11.185Z",
   "version": "1.0.0",
   "stats": {
     "totalDocuments": 75,

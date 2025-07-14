@@ -22,8 +22,8 @@
 		onOpenChange?: (open: boolean) => void;
 	}
 
-	const {
-open = false,
+	let {
+		open = $bindable(false),
 		type = 'info',
 		variant = 'glass',
 		position = 'top-right',
@@ -39,8 +39,7 @@ open = false,
 		children,
 		onOpenChange,
 		...restProps
-	
-}: Props = $props();
+	}: Props = $props();
 
 	let toastElement = $state<HTMLDivElement>();
 	let timeoutId: NodeJS.Timeout | null = null;

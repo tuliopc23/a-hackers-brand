@@ -35,7 +35,7 @@
 		class?: string;
 	}
 
-	const {
+	let {
 		options,
 		value = $bindable(),
 		placeholder = 'Select an option...',
@@ -351,7 +351,7 @@
 						{searchQuery ? 'No options found' : 'No options available'}
 					</div>
 				{:else}
-					{#each Object.entries(groupedOptions) as [groupName, groupOptions] (groupOptions])}
+					{#each Object.entries(groupedOptions) as [groupName, groupOptions] (groupName)}
 						{#if groupName && Object.keys(groupedOptions).length > 1}
 							<div class="px-4 py-2 text-xs font-semibold opacity-60 border-b border-white/5">
 								{groupName}
@@ -371,7 +371,7 @@
 									isHighlighted && 'bg-white/5'
 								)}
 								onclick={() => selectOption(option)} onkeydown={(e) => e.key === "Enter" && selectOption(option)} 
-								role="option" tabindex="0" tabindex="0" tabindex="0" tabindex="0"
+								role="option" tabindex="0"
 								aria-selected={isSelected}
 							>
 								<div class="flex-1">

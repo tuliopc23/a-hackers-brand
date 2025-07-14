@@ -53,9 +53,9 @@ options = [],
 		search: string;
 	}>();
 
-	let containerRef: HTMLDivElement;
-	let searchInputRef: HTMLInputElement = $state()!;
-	let dropdownRef: HTMLDivElement = $state()!;
+	let containerRef = $state<HTMLDivElement>();
+	let searchInputRef = $state<HTMLInputElement>();
+	let dropdownRef = $state<HTMLDivElement>();
 	let isOpen = $state(false);
 	let searchTerm = $state('');
 	let selectedValues = $state<string[]>([...value]);

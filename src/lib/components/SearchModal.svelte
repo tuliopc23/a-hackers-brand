@@ -4,7 +4,7 @@ https://svelte.dev/e/component_invalid_directive -->
 	import { cn } from '$lib/utils.js';
 	import { magneticHover, springPop, glassFade } from '$lib/motion';
 	import { fade, fly } from 'svelte/transition';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { SearchIndex, debounce, type SearchDocument, type SearchSuggestion } from '$lib/utils/search.js';
 	import GlassCard from './liquidify/GlassCard.svelte';
 	import GlassInput from './liquidify/GlassInput.svelte';
@@ -25,8 +25,8 @@ https://svelte.dev/e/component_invalid_directive -->
 		children?: Snippet;
 	}
 
-	const {
-isOpen = $bindable(false),
+	let {
+		isOpen = $bindable(false),
 		title = 'Search Components',
 		placeholder = 'Type to search...',
 		class: className = '',
@@ -37,8 +37,7 @@ isOpen = $bindable(false),
 		onClose,
 		onSelect,
 		children
-	
-}: Props = $props();
+	}: Props = $props();
 
 	const dispatch = createEventDispatcher();
 
@@ -86,7 +85,7 @@ isOpen = $bindable(false),
 		setTimeout(() => {
 			const searchResults = searchIndex.search(query).slice(0, maxResults);
 			results = searchResults;
-			isEmpty = query.trim() !== '' && searchResults().length === 0;
+			isEmpty = query.trim() !== '' && searchResults.length === 0;
 			selectedIndex = 0;
 			isLoading = false;
 		}, 150); // Simulate loading delay
@@ -141,11 +140,11 @@ isOpen = $bindable(false),
 
 	// Navigate suggestions
 	const navigateSuggestions = (direction: 1 | -1) => {
-		selectedSuggestionIndex = (selectedSuggestionIndex + direction + suggestions().length) % suggestions().length;
+		selectedSuggestionIndex = (selectedSuggestionIndex + direction + suggestions.length) % suggestions.length;
 	};
 
 	const selectSuggestion = (index: number) => {
-		const suggestion = suggestions()[index] || suggestions()[0];
+		const suggestion = suggestions[index] || suggestions[0];
 		if (suggestion) {
 			console.log('Selected suggestion:', suggestion.text);
 			dispatch('select', suggestion.text);
@@ -163,7 +162,7 @@ isOpen = $bindable(false),
 				break;
 			case 'ArrowDown':
 				e.preventDefault();
-				selectedIndex = Math.min(selectedIndex + 1, results().length - 1);
+				selectedIndex = Math.min(selectedIndex + 1, results.length - 1);
 				scrollToSelected();
 				break;
 			case 'ArrowUp':
@@ -173,8 +172,8 @@ isOpen = $bindable(false),
 				break;
 			case 'Enter':
 				e.preventDefault();
-				if (results()[selectedIndex]) {
-					selectResult(results()[selectedIndex]);
+				if (results[selectedIndex]) {
+					selectResult(results[selectedIndex]);
 				}
 				break;
 		}
@@ -183,7 +182,7 @@ isOpen = $bindable(false),
 	// Scroll selected item into view
 	const scrollToSelected = () => {
 		if (!resultsRef) return;
-		const selectedElement = resultsRef.children()[selectedIndex] as HTMLElement;
+		const selectedElement = resultsRef.children[selectedIndex] as HTMLElement;
 		if (selectedElement) {
 			selectedElement.scrollIntoView({
 				block: 'nearest',
@@ -243,6 +242,14 @@ isOpen = $bindable(false),
 			document.removeEventListener('keydown', handleGlobalKeydown);
 		};
 	});
+
+	// Highlight search terms in text
+	const highlightText = (text: string, query: string) => {
+		if (!query.trim()) return text;
+		
+		const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+		return text.replace(regex, '<mark>$1</mark>');
+	};
 </script>
 
 {#if isOpen}
@@ -265,23 +272,23 @@ isOpen = $bindable(false),
 		</div>
 
 		<!-- Modal container -->
-		<GlassCard
-			bind:this={modalRef}
-			variant="elevated"
-			hover={false}
-			class={cn(
-				'relative w-full max-w-2xl max-h-[80vh] overflow-hidden',
-				'border-terminal-green/30 shadow-2xl shadow-terminal-green/10',
-				className
-			)}
-			role="dialog"
-			aria-modal="true"
-			aria-labelledby={title ? 'search-modal-title' : undefined}
-			tabindex="-1"
-			transition:fly={{ y: -20, duration: 400, opacity: 0 }}
-			onclick={(e) => e.stopPropagation()}
-			onkeydown={(e) => e.key === 'Enter' && handleAction()}
-		>
+		<div transition:fly={{ y: -20, duration: 400, opacity: 0 }}>
+			<GlassCard
+				bind:this={modalRef}
+				variant="elevated"
+				hover={false}
+				class={cn(
+					'relative w-full max-w-2xl max-h-[80vh] overflow-hidden',
+					'border-terminal-green/30 shadow-2xl shadow-terminal-green/10',
+					className
+				)}
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby={title ? 'search-modal-title' : undefined}
+				tabindex="-1"
+				onclick={(e) => e.stopPropagation()}
+				onkeydown={(e) => e.key === 'Enter' && e.stopPropagation()}
+			>
 			<!-- Header with terminal styling -->
 			<div class="relative z-10 flex items-center gap-3 p-6 border-b border-white/10">
 				<!-- Terminal prompt indicator -->
@@ -351,14 +358,14 @@ isOpen = $bindable(false),
 						<p class="text-white/60 font-mono mb-2">No results found</p>
 						<p class="text-white/40 text-sm font-mono">Try a different search term or check your spelling</p>
 					</div>
-				{:else if results().length > 0}
+				{:else if results.length > 0}
 					<!-- Results list -->
 					<div
 						bind:this={resultsRef}
 						class="max-h-96 overflow-y-auto px-2 pb-4"
 						style="scrollbar-width: thin; scrollbar-color: rgba(48, 209, 88, 0.3) transparent;"
 					>
-						{#each results() as result, index (index)}
+						{#each results as result, index (index)}
 							<button
 								type="button"
 								class={cn(
@@ -400,7 +407,7 @@ isOpen = $bindable(false),
 
 										<!-- Description with highlights -->
 										<p class="text-sm text-white/60 group-hover:text-white/80 transition-colors line-clamp-2 font-mono">
-											{@html highlightText(result.content().slice(0, 120) + '...', searchQuery)}
+											{@html highlightText(result.content.slice(0, 120) + '...', searchQuery)}
 										</p>
 
 										<!-- Path -->
@@ -445,14 +452,14 @@ isOpen = $bindable(false),
 						</div>
 					</div>
 					<div class="text-terminal-green">
-						{results().length} result{results().length !== 1 ? 's' : ''}
+						{results.length} result{results.length !== 1 ? 's' : ''}
 					</div>
 				</div>
 			</div>
 
-			{#if children}{@render children()}{/if}
-			{/if}
-		</GlassCard>
+				{#if children}{@render children()}{/if}
+			</GlassCard>
+		</div>
 	</div>
 {/if}
 

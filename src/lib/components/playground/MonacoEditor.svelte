@@ -3,15 +3,7 @@
 	import { browser } from '$app/environment';
 	import { playgroundStore } from '$lib/stores/playground';
 
-	interface Props {
-		container?: HTMLElement | undefined;
-	}
-
-	const {
-container = $bindable(undefined) 
-}: Props = $props();
-
-	let editorContainer: HTMLElement = $state()!;
+	let editorElement: HTMLElement;
 	let editor: any;
 	let isLoading = $state(true);
 
@@ -105,7 +97,7 @@ container = $bindable(undefined)
 			});
 
 			// Create the editor
-			editor = monacoInstance.editor.create(editorContainer, {
+			editor = monacoInstance.editor.create(editorElement, {
 				value: $playgroundStore.code,
 				language: 'svelte',
 				theme: 'vs-dark',
@@ -195,7 +187,7 @@ container = $bindable(undefined)
 		</div>
 	{/if}
 
-	<div class="h-full" bind:this={editorContainer} bind:this={container}></div>
+	<div class="h-full" bind:this={editorElement}></div>
 </div>
 
 <style>

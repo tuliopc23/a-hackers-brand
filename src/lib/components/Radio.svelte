@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { cn } from '$lib/utils.js';
 	import { magneticHover, breathing } from '$lib/motion';
-	import { jellyHover } from '$lib/actions/jellyHover';
+	import { jellyHover } from '$lib/motion';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	interface RadioOption {
@@ -25,10 +25,9 @@
 		class?: string;
 		onchange?: (value: string) => void;
 	}
-
-	const {
-options,
+let {
 		value = $bindable(),
+		options,
 		name,
 		variant = 'glass',
 		size = 'md',
@@ -40,8 +39,7 @@ options,
 		class: className = '',
 		onchange,
 		...restProps
-	
-}: Props = $props();
+	}: Props = $props();
 
 	const handleChange = (optionValue: string) => {
 		value = optionValue;

@@ -118,8 +118,8 @@
 
 <svelte:window 
 	bind:innerWidth={windowWidth}
-	on:mousemove={handleDragMove} 
-	on:mouseup={handleDragEnd} 
+	onmousemove={handleDragMove} 
+	onmouseup={handleDragEnd} 
 />
 
 <svelte:head>
@@ -138,9 +138,9 @@
 	</div>
 
 	<PlaygroundToolbar 
-		on:share={sharePlayground}
-		on:reset={resetPlayground}
-		on:format={() => playgroundStore.formatCode()}
+		onshare={sharePlayground}
+		onreset={resetPlayground}
+		onformat={() => playgroundStore.formatCode()}
 	/>
 
 	{#if isLoading}
@@ -156,10 +156,10 @@
 				<!-- Mobile: Stack vertically -->
 				<div class="flex flex-col h-screen">
 					<div class="flex-1 border-b border-white/10">
-						<MonacoEditor bind:container={editorContainer} />
+						<MonacoEditor />
 					</div>
 					<div class="flex-1">
-						<CodePreview bind:container={previewContainer} />
+						<CodePreview />
 					</div>
 				</div>
 			{:else}
@@ -176,11 +176,11 @@
 					<!-- Resizer -->
 					<div 
 						class="w-1 bg-white/10 hover:bg-blue-400/50 cursor-col-resize transition-colors"
-						on:mousedown={handleDragStart}
+						onmousedown={handleDragStart}
 						role="separator"
 						aria-label="Resize panels"
 						tabindex="0"
-						on:keydown={(e) => {
+						onkeydown={(e) => {
 							if (e.key === 'ArrowLeft') {
 								splitPanePosition = Math.max(splitPanePosition - 5, 20);
 							} else if (e.key === 'ArrowRight') {

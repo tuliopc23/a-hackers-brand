@@ -231,14 +231,14 @@
 			positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
 			positions[i * 3 + 2] = radius * Math.cos(phi);
 
-			scales()[i] = Math.random() * 0.5 + 0.5;
-			phases()[i] = Math.random() * Math.PI * 2;
+			scales[i] = Math.random() * 0.5 + 0.5;
+			phases[i] = Math.random() * Math.PI * 2;
 
 			velocities[i * 3] = (Math.random() - 0.5) * 0.02;
 			velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.02;
 			velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.02;
 
-			lives()[i] = Math.random();
+			lives[i] = Math.random();
 		}
 
 		geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -313,10 +313,10 @@
 			if (geometryRef) {
 				// Update particle life cycles
 				const lives = geometryRef.attributes.aLife.array as Float32Array;
-				for (let i = 0; i < lives().length; i++) {
-					lives()[i] -= delta * 0.1;
-					if (lives()[i] <= 0) {
-						lives()[i] = 1.0;
+				for (let i = 0; i < lives.length; i++) {
+					lives[i] -= delta * 0.1;
+					if (lives[i] <= 0) {
+						lives[i] = 1.0;
 					}
 				}
 				geometryRef.attributes.aLife.needsUpdate = true;

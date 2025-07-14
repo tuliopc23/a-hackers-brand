@@ -42,8 +42,8 @@
 		close: void;
 	}>();
 
-	let inputRef: HTMLInputElement;
-	let calendarRef: HTMLDivElement = $state()!;
+	let inputRef = $state<HTMLInputElement>();
+	let calendarRef = $state<HTMLDivElement>();
 	let isOpen = $state(false);
 	let inputValue = $state('');
 	const currentDate = $state(new Date());
@@ -87,8 +87,8 @@
 		lg: 'h-12 px-4 text-base'
 	};
 
-	const currentVariant = $derived(variants()[variant]);
-	const currentSize = $derived(sizes()[size]);
+	const currentVariant = $derived(variants[variant]);
+	const currentSize = $derived(sizes[size]);
 
 	// Date formatting functions
 	function formatDate(date: Date): string {
@@ -112,19 +112,19 @@
 		if (!str) return null;
 
 		const parts = str.split(/[/-]/);
-		if (parts().length !== 3) return null;
+		if (parts.length !== 3) return null;
 
 		let day: number, month: number, year: number;
 
 		switch (format) {
 			case 'dd/MM/yyyy':
-				[day, month, year] = parts().map(Number);
+				[day, month, year] = parts.map(Number);
 				break;
 			case 'yyyy-MM-dd':
-				[year, month, day] = parts().map(Number);
+				[year, month, day] = parts.map(Number);
 				break;
 			default:
-				[month, day, year] = parts().map(Number);
+				[month, day, year] = parts.map(Number);
 		}
 
 		const date = new Date(year, month - 1, day);
@@ -397,7 +397,7 @@
 				</button>
 
 				<h3 class="text-lg font-semibold {currentVariant.header} font-mono" aria-live="polite">
-					{monthNames()[viewMonth]}
+					{monthNames[viewMonth]}
 					{viewYear}
 				</h3>
 
@@ -415,7 +415,7 @@
 
 			<!-- Day Headers -->
 			<div class="grid grid-cols-7 gap-1 mb-2" role="row">
-				{#each dayNames() as day (day.id || day)}
+				{#each dayNames as day (day)}
 					<div class="p-2 text-center text-xs font-semibold {currentVariant.header} font-mono" role="columnheader">
 						{day}
 					</div>
@@ -424,7 +424,7 @@
 
 			<!-- Calendar Days -->
 			<div class="grid grid-cols-7 gap-1" role="grid" aria-label="Calendar dates">
-				{#each getCalendarDays() as day (day.id || day)}
+				{#each getCalendarDays() as day (day)}
 					{#if day}
 						{@const isSelected = isSameDate(day, selectedDate)}
 						{@const isTodayDay = isToday(day)}

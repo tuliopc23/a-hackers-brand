@@ -31,7 +31,7 @@
 		class: className = ''
 	}: Props = $props();
 
-	let canvasRef: HTMLElement;
+	let canvasRef = $state<HTMLElement>();
 	let mouseX = $state(0);
 	let mouseY = $state(0);
 	let time = $state(0);

@@ -4,7 +4,7 @@
 	import { fade } from 'svelte/transition';
 	import { brandColors } from '$lib/tokens';
 	import { createEventDispatcher } from 'svelte';
-	import { X, ChevronLeft, ChevronRight, Menu } from 'lucide-svelte';
+import { X, ChevronLeft, ChevronRight, ChevronDown, Menu } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	export interface SidebarItem {
@@ -32,8 +32,8 @@
 		class?: string;
 	}
 
-	const {
-header,
+	let {
+		header,
 		footer,
 		items = [],
 		width = 'md',
@@ -46,8 +46,7 @@ header,
 		showToggle = true,
 		class: className = '',
 		...restProps
-	
-}: Props = $props();
+	}: Props = $props();
 
 	const dispatch = createEventDispatcher();
 
@@ -92,7 +91,7 @@ header,
 		}
 	};
 
-	const currentVariant = variants()[variant];
+	const currentVariant = variants[variant];
 
 	function toggleSidebar() {
 		collapsed = !collapsed;
@@ -182,7 +181,7 @@ header,
 <aside
 	class={cn(
 		'flex flex-col h-full border-r transition-all duration-300 ease-in-out',
-		widths()[width],
+		widths[width],
 		currentVariant.sidebar,
 		position === 'right' && 'border-r-0 border-l',
 		overlay && 'fixed top-0 z-50',
