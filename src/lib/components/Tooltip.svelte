@@ -157,7 +157,7 @@
 				animated && 'transition-all duration-200',
 				className
 			)}
-			style="left: {tooltipPosition.x}px; top: {tooltipPosition.y}px;"
+			style:left="{tooltipPosition.x}px" style:top="{tooltipPosition.y}px"
 			transition:glassFade={{ duration: 200 }}
 			role="tooltip"
 		>

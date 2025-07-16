@@ -363,7 +363,7 @@ https://svelte.dev/e/component_invalid_directive -->
 					<div
 						bind:this={resultsRef}
 						class="max-h-96 overflow-y-auto px-2 pb-4"
-						style="scrollbar-width: thin; scrollbar-color: rgba(48, 209, 88, 0.3) transparent;"
+						style:scrollbar-width="thin" style:scrollbar-color="rgba(48, 209, 88, 0.3) transparent"
 					>
 						{#each results as result, index (index)}
 							<button

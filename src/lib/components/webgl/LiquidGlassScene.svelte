@@ -66,18 +66,11 @@
 <div
 	bind:this={canvasRef}
 	class="liquid-glass-scene {className}"
-	style="
-		width: 100%;
-		height: 100%;
-		position: relative;
-		overflow: hidden;
-		border-radius: 16px;
-		background: linear-gradient(135deg, 
+	style:width="100%" style:height="100%" style:overflow="hidden" style:background="linear-gradient(135deg, 
 			rgba(0, 0, 0, 0.9) 0%, 
 			rgba(26, 26, 46, 0.8) 50%, 
 			rgba(22, 33, 62, 0.7) 100%
-		);
-	"
+		)" style:border-radius="16px" style:position="relative"
 >
 	<Canvas
 		shadows
@@ -156,37 +149,26 @@
 	<!-- HUD Overlay -->
 	<div
 		class="hud-overlay"
-		style="
-		position: absolute;
-		top: 20px;
-		left: 20px;
-		right: 20px;
-		pointer-events: none;
-		color: {colorPrimary};
-		font-family: 'PP Supply Mono', monospace;
-		font-size: 12px;
-		text-shadow: 0 0 10px {colorPrimary};
-		z-index: 10;
-	"
+		style:position="absolute" style:top="20px" style:right="20px" style:color="{colorPrimary}" style:font-size="12px" style:z-index="10" style:text-shadow="0 0 10px {colorPrimary}" style:font-family="'PP Supply Mono', monospace" style:pointer-events="none" style:left="20px"
 	>
-		<div style="display: flex; justify-content: space-between; align-items: flex-start;">
+		<div style:display="flex" style:justify-content="space-between" style:align-items="flex-start">
 			<div>
 				<div>LIQUID GLASS SYSTEM</div>
-				<div style="opacity: 0.7; margin-top: 4px;">
+				<div style:opacity="0.7" style:margin-top="4px">
 					Mode: {variant.toUpperCase()}
 				</div>
-				<div style="opacity: 0.7; margin-top: 2px;">
+				<div style:opacity="0.7" style:margin-top="2px">
 					FPS: {Math.round(60 * liquidSpeed)}
 				</div>
 			</div>
 
-			<div style="text-align: right;">
+			<div style:text-align="right">
 				<div>WebGL Active</div>
-				<div style="opacity: 0.7; margin-top: 4px;">
+				<div style:opacity="0.7" style:margin-top="4px">
 					Glow: {Math.round(glowIntensity * 100)}%
 				</div>
 				{#if interactive}
-					<div style="opacity: 0.7; margin-top: 2px;">Interactive Mode</div>
+					<div style:opacity="0.7" style:margin-top="2px">Interactive Mode</div>
 				{/if}
 			</div>
 		</div>
@@ -195,19 +177,7 @@
 	<!-- Performance indicator -->
 	<div
 		class="performance-indicator"
-		style="
-		position: absolute;
-		bottom: 20px;
-		right: 20px;
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background: {colorPrimary};
-		box-shadow: 0 0 10px {colorPrimary};
-		animation: pulse 2s ease-in-out infinite;
-		pointer-events: none;
-		z-index: 10;
-	"
+		style:position="absolute" style:bottom="20px" style:width="8px" style:border-radius="50%" style:box-shadow="0 0 10px {colorPrimary}" style:pointer-events="none" style:z-index="10" style:animation="pulse 2s ease-in-out infinite" style:background="{colorPrimary}" style:height="8px" style:right="20px"
 	></div>
 </div>
 

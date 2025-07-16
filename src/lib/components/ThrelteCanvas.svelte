@@ -48,7 +48,7 @@
 		</Canvas>
 	</div>
 {:else}
-	<div class={`threlte-canvas-loading ${className}`} style="min-height: {height}px;">
+	<div class={`threlte-canvas-loading ${className}`} style:min-height="{height}px">
 		<div class="loading-content">
 			<div class="animate-spin w-8 h-8 border-2 border-terminal-green border-t-transparent rounded-full"></div>
 			<span class="text-terminal-green font-mono">Loading 3D Scene...</span>

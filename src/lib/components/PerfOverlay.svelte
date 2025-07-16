@@ -215,7 +215,7 @@
 					{#each vitals as vital (vital.id || vital)}
 						<div class="vital">
 							<span class="vital-name">{vital.name}:</span>
-							<span class="vital-value" style="color: {getVitalColor(vital.rating)}">
+							<span class="vital-value" style:color="{getVitalColor(vital.rating)}">
 								{formatValue(vital.name, vital.value)}
 							</span>
 							<span class="vital-rating">({vital.rating})</span>

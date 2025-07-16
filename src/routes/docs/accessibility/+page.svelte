@@ -485,7 +485,7 @@
 													<div class="text-center">
 														<div
 															class="h-16 rounded-lg flex items-center justify-center font-semibold relative overflow-hidden"
-															style="background-color: {combo.background}; color: {combo.foreground};"
+															style:background-color="{combo.background}" style:color="{combo.foreground}"
 														>
 															Sample Text
 														</div>

@@ -12,46 +12,26 @@
 
 <div
 	class="showcase-page"
-	style="
-	background: {brandColors.backgrounds.primary};
-	min-height: 100vh;
-	color: {brandColors.text.primary};
-"
+	style:background="{brandColors.backgrounds.primary}" style:min-height="100vh" style:color="{brandColors.text.primary}"
 >
 	{#if activeSection === 'showcase'}
 		<!-- Hero Section -->
 		<section
 			class="hero"
-			style="
-				text-align: center;
-				background: {brandColors.gradients.terminal};
-				position: relative;
-			"
+			style:text-align="center" style:background="{brandColors.gradients.terminal}" style:position="relative"
 		>
-			<div style="margin-bottom: 40px;">
+			<div style:margin-bottom="40px">
 				<RetroText text="TULIO BRAND SYSTEM" variant="matrix" size="2xl" animated={true} glow={true} />
 			</div>
 
-			<div style="margin-bottom: 60px;">
+			<div style:margin-bottom="60px">
 				<RetroText text="Advanced Liquid Glass Terminal Fusion" variant="neon" size="lg" animated={true} />
 			</div>
 
-			<div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 80px;">
+			<div style:display="flex" style:justify-content="center" style:margin-bottom="80px" style:gap="20px">
 				<button
 					onclick={() => (activeSection = 'styleguide')}
-					style="
-						background: {brandColors.glass.primary};
-						border: 1px solid {brandColors.glass.border};
-						border-radius: 12px;
-						padding: 16px 32px;
-						color: {brandColors.text.primary};
-						font-family: 'PP Supply Mono', monospace;
-						font-size: 16px;
-						font-weight: 600;
-						cursor: pointer;
-						backdrop-filter: blur(20px);
-						transition: all 0.3s ease;
-					"
+					style:background="{brandColors.glass.primary}" style:border="1px solid {brandColors.glass.border}" style:padding="16px 32px" style:font-family="'PP Supply Mono', monospace" style:font-weight="600" style:backdrop-filter="blur(20px)" style:transition="all 0.3s ease" style:cursor="pointer" style:font-size="16px" style:color="{brandColors.text.primary}" style:border-radius="12px"
 					onmouseenter={(e) => {
 						const target = e.target as HTMLElement;
 						target.style.background = brandColors.glass.secondary;
@@ -72,7 +52,7 @@
 			<!-- Demo Components Grid -->
 			<div class="demo-grid">
 				<!-- Terminal Demo -->
-				<div style="height: 400px;" class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
+				<div style:height="400px" class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
 					<div class="text-terminal-green font-mono">
 						<div class="mb-2 text-white/70">Matrix Terminal</div>
 						<div>$ echo "Welcome to the future"</div>
@@ -89,7 +69,7 @@
 				</div>
 
 				<!-- System Demo -->
-				<div style="display: flex; justify-content: center; align-items: center;">
+				<div style:display="flex" style:justify-content="center" style:align-items="center">
 					<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-8">
 						<div class="text-terminal-green font-mono">
 							<div>SYSTEM BOOT SEQUENCE</div>
@@ -107,23 +87,14 @@
 		<!-- Portfolio Cards Section -->
 		<section
 			class="portfolio-demo"
-			style="
-			padding: 100px 40px;
-			background: {brandColors.backgrounds.secondary};
-		"
+			style:padding="100px 40px" style:background="{brandColors.backgrounds.secondary}"
 		>
-			<div style="text-align: center; margin-bottom: 60px;">
+			<div style:text-align="center" style:margin-bottom="60px">
 				<RetroText text="PORTFOLIO COMPONENTS" variant="cyberpunk" size="xl" animated={true} />
 			</div>
 
 			<div
-				style="
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-				gap: 30px;
-				max-width: 1200px;
-				margin: 0 auto;
-			"
+				style:display="grid" style:grid-template-columns="repeat(auto-fit, minmax(350px, 1fr))" style:max-width="1200px" style:margin="0 auto" style:gap="30px"
 			>
 				<div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-white/10 p-6">
 					<h3 class="text-xl font-bold mb-3">Neural Network Visualizer</h3>
@@ -167,45 +138,35 @@
 		<!-- Text Effects Showcase -->
 		<section
 			class="text-effects"
-			style="
-			padding: 100px 40px;
-			background: {brandColors.backgrounds.tertiary};
-			text-align: center;
-		"
+			style:padding="100px 40px" style:background="{brandColors.backgrounds.tertiary}" style:text-align="center"
 		>
-			<div style="margin-bottom: 60px;">
+			<div style:margin-bottom="60px">
 				<RetroText text="TEXT EFFECTS SHOWCASE" variant="hologram" size="xl" animated={true} />
 			</div>
 
 			<div
-				style="
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-				gap: 40px;
-				max-width: 1000px;
-				margin: 0 auto;
-			"
+				style:display="grid" style:grid-template-columns="repeat(auto-fit, minmax(300px, 1fr))" style:max-width="1000px" style:margin="0 auto" style:gap="40px"
 			>
 				<div>
-					<div style="margin-bottom: 20px;">
+					<div style:margin-bottom="20px">
 						<RetroText text="MATRIX MODE" variant="matrix" size="lg" animated={true} scanlines={true} />
 					</div>
-					<div style="margin-bottom: 20px;">
+					<div style:margin-bottom="20px">
 						<RetroText text="NEON GLOW" variant="neon" size="lg" animated={false} glow={true} />
 					</div>
-					<div style="margin-bottom: 20px;">
+					<div style:margin-bottom="20px">
 						<RetroText text="CYBERPUNK STYLE" variant="cyberpunk" size="lg" animated={true} />
 					</div>
 				</div>
 
 				<div>
-					<div style="margin-bottom: 20px;">
+					<div style:margin-bottom="20px">
 						<RetroText text="HOLOGRAM PROJECTION" variant="hologram" size="lg" animated={false} />
 					</div>
-					<div style="margin-bottom: 20px;">
+					<div style:margin-bottom="20px">
 						<RetroText text="GLITCH EFFECT" variant="glitch" size="lg" animated={true} />
 					</div>
-					<div style="margin-bottom: 20px;">
+					<div style:margin-bottom="20px">
 						<RetroText text="TERMINAL CLASSIC" variant="terminal" size="lg" animated={false} />
 					</div>
 				</div>
@@ -215,32 +176,15 @@
 		<!-- Call to Action -->
 		<section
 			class="cta"
-			style="
-			padding: 100px 40px;
-			text-align: center;
-			background: {brandColors.gradients.cyberpunk};
-		"
+			style:padding="100px 40px" style:text-align="center" style:background="{brandColors.gradients.cyberpunk}"
 		>
-			<div style="margin-bottom: 40px;">
+			<div style:margin-bottom="40px">
 				<RetroText text="READY TO BUILD THE FUTURE?" variant="neon" size="xl" animated={true} glow={true} />
 			</div>
 
 			<button
 				onclick={() => (activeSection = 'styleguide')}
-				style="
-					background: {brandColors.glass.primary};
-					border: 2px solid {brandColors.terminal.cyan};
-					border-radius: 16px;
-					padding: 20px 40px;
-					color: {brandColors.text.primary};
-					font-family: 'PP Supply Mono', monospace;
-					font-size: 18px;
-					font-weight: 700;
-					cursor: pointer;
-					backdrop-filter: blur(20px);
-					transition: all 0.4s ease;
-					text-shadow: 0 0 10px {brandColors.terminal.cyan};
-				"
+				style:background="{brandColors.glass.primary}" style:border="2px solid {brandColors.terminal.cyan}" style:padding="20px 40px" style:font-family="'PP Supply Mono', monospace" style:font-weight="700" style:backdrop-filter="blur(20px)" style:text-shadow="0 0 10px {brandColors.terminal.cyan}" style:transition="all 0.4s ease" style:cursor="pointer" style:font-size="18px" style:color="{brandColors.text.primary}" style:border-radius="16px"
 				onmouseenter={(e) => {
 					const target = e.target as HTMLElement;
 					target.style.background = brandColors.terminal.cyan;
@@ -272,22 +216,7 @@
 		<!-- Back button -->
 		<button
 			onclick={() => (activeSection = 'showcase')}
-			style="
-				position: fixed;
-				top: 30px;
-				right: 30px;
-				background: {brandColors.glass.primary};
-				border: 1px solid {brandColors.glass.border};
-				border-radius: 12px;
-				padding: 12px 20px;
-				color: {brandColors.text.primary};
-				font-family: 'PP Supply Mono', monospace;
-				font-size: 14px;
-				cursor: pointer;
-				backdrop-filter: blur(20px);
-				z-index: 1000;
-				transition: all 0.3s ease;
-			"
+			style:position="fixed" style:top="30px" style:background="{brandColors.glass.primary}" style:border-radius="12px" style:color="{brandColors.text.primary}" style:font-size="14px" style:backdrop-filter="blur(20px)" style:transition="all 0.3s ease" style:z-index="1000" style:cursor="pointer" style:font-family="'PP Supply Mono', monospace" style:padding="12px 20px" style:border="1px solid {brandColors.glass.border}" style:right="30px"
 			onmouseenter={(e) => {
 				const target = e.target as HTMLElement;
 				target.style.background = brandColors.glass.secondary;

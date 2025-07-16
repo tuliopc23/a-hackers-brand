@@ -582,7 +582,7 @@ use:jellyHover={{
 														<div class="h-16 bg-black/20 rounded-lg relative overflow-hidden">
 															<div
 																class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded"
-																style="animation: curve-{easing.name} 2s {easing.value} infinite;"
+																style:animation="curve-{easing.name} 2s {easing.value} infinite"
 															></div>
 														</div>
 														<div class="text-center text-xs text-white/60 mt-2">Animation Preview</div>
@@ -621,7 +621,7 @@ use:jellyHover={{
 													<div class="text-center">
 														<div
 															class="w-8 h-8 bg-blue-500 rounded-full mx-auto cursor-pointer"
-															style="animation: pulse-{duration.name} {duration.value} ease-in-out infinite;"
+															style:animation="pulse-{duration.name} {duration.value} ease-in-out infinite"
                onclick={() => {}}
 														></div>
 													</div>

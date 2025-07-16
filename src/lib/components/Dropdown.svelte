@@ -218,7 +218,7 @@
 				animated && 'transform-gpu will-change-transform',
 				menuClass
 			)}
-			style="left: {menuPosition.x}px; top: {menuPosition.y}px;"
+			style:left="{menuPosition.x}px" style:top="{menuPosition.y}px"
 			transition:glassFade={{ duration: animated ? 200 : 0 }}
 			role="listbox"
 			aria-label="Options"

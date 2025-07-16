@@ -252,7 +252,7 @@
 	<div
 		bind:this={terminalRef}
 		class="relative z-10 p-4 h-96 overflow-y-auto font-mono text-sm leading-relaxed terminal-scroll"
-		style="scrollbar-width: thin;"
+		style:scrollbar-width="thin"
 	>
 		<!-- Welcome Message -->
 		<div class="mb-4 text-current/80">

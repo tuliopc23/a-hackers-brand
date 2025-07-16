@@ -133,7 +133,7 @@
 							<div class="w-20 font-mono text-terminal-cyan text-sm">{space.name}</div>
 							<div
 								class="h-8 bg-terminal-green/30 rounded-md mr-6 border border-terminal-green/50"
-								style="width: {space.value}"
+								style:width="{space.value}"
 							></div>
 							<div class="text-sm">
 								<div class="font-mono text-white">{space.value} / {space.rem}</div>

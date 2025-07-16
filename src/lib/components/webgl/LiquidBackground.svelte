@@ -354,7 +354,7 @@
 	bind:this={canvasRef}
 	class={cn('absolute inset-0 pointer-events-none', className)}
 	onmousemove={handleMouseMove}
-	style="z-index: -1;"
+	style:z-index="-1"
 ></canvas>
 
 <style>

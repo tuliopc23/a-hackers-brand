@@ -179,7 +179,7 @@
 											>
 												<div
 													class="h-16 rounded-lg mb-3 border border-white/10 relative overflow-hidden"
-													style="background-color: {color};"
+													style:background-color="{color}"
 												>
 													<div
 														class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20"
@@ -207,7 +207,7 @@
 											>
 												<div
 													class="h-16 rounded-lg mb-3 border border-white/10 relative overflow-hidden"
-													style="background-color: {color};"
+													style:background-color="{color}"
 												>
 													<div
 														class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20"
@@ -241,7 +241,7 @@
 														>
 															<div
 																class="h-12 rounded-lg mb-2 border border-white/10 relative overflow-hidden backdrop-blur-sm"
-																style="background-color: {color};"
+																style:background-color="{color}"
 															>
 																<div
 																	class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20"
@@ -278,7 +278,7 @@
 													<h4 class="text-lg font-semibold capitalize">{name}</h4>
 													<span class="text-xs text-white/60">Click to copy</span>
 												</div>
-												<div class="text-2xl mb-2" style="font-family: {family.join(', ')}">
+												<div class="text-2xl mb-2" style:font-family="{family.join(', ')}">
 													The quick brown fox jumps over the lazy dog
 												</div>
 												<div class="text-xs text-white/60 font-mono">{family.join(', ')}</div>
@@ -302,7 +302,7 @@
 												<div class="flex items-center justify-between">
 													<div class="flex items-center space-x-6">
 														<div class="text-sm font-mono text-white/70 w-12">{size}</div>
-														<div style="font-size: {fontSize}; line-height: {properties.lineHeight};">Sample Text</div>
+														<div style:font-size="{fontSize}" style:line-height="{properties.lineHeight}">Sample Text</div>
 													</div>
 													<div class="text-xs text-white/60 font-mono">{fontSize}</div>
 												</div>
@@ -327,7 +327,7 @@
 												<div class="flex items-center justify-between">
 													<div class="flex items-center space-x-6">
 														<div class="text-sm font-mono text-white/70 w-8">{scale}</div>
-														<div class="bg-blue-500/30 rounded" style="width: {value}; height: 16px;"></div>
+														<div class="bg-blue-500/30 rounded" style:width="{value}" style:height="16px"></div>
 														<div class="text-sm text-white/90">{value}</div>
 													</div>
 													<div class="text-xs text-white/60">Click to copy</div>
@@ -354,7 +354,7 @@
 											>
 												<div
 													class="h-24 bg-white/10 rounded-lg mb-3 backdrop-blur-sm border border-white/10 relative"
-													style="box-shadow: {shadow};"
+													style:box-shadow="{shadow}"
 												>
 													<div
 														class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
@@ -384,7 +384,7 @@
 											>
 												<div
 													class="h-16 bg-white/10 rounded-lg mb-3 backdrop-blur-sm border border-white/10 relative"
-													style="box-shadow: {shadow};"
+													style:box-shadow="{shadow}"
 												>
 													<div
 														class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
@@ -420,7 +420,7 @@
 														<div class="w-32 h-4 bg-white/10 rounded overflow-hidden">
 															<div
 																class="h-full bg-blue-500 rounded animate-pulse"
-																style="animation-duration: {duration};"
+																style:animation-duration="{duration}"
 															></div>
 														</div>
 														<div class="text-sm text-white/90">{duration}</div>
@@ -474,7 +474,7 @@
 												>
 													<div
 														class="absolute inset-0 backdrop-blur-sm border border-white/10 rounded-lg"
-														style="backdrop-filter: blur({blur});"
+														style:backdrop-filter="blur({blur})"
 													>
 														<div
 															class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
