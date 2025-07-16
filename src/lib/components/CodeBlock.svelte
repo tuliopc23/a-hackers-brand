@@ -167,7 +167,7 @@
 		<pre
 			class="p-4 bg-slate-900/90 backdrop-blur-sm text-sm font-mono overflow-x-auto {maxHeight
 				? `max-h-[${maxHeight}]`
-				: ''} {title || showCopy ? '' : 'rounded-lg'} {title || showCopy ? 'rounded-b-lg' : ''}"><code
+				: ''}" class:rounded-b-lg={title || showCopy} class:rounded-lg={!(title || showCopy)}><code
 				class="text-white/90"
 				>{#if showLineNumbers}
 					{#each codeLines() as line, index (index)}

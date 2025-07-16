@@ -164,7 +164,7 @@
 	<div class="absolute inset-0 opacity-10 pointer-events-none">
 		<div
 			class="w-full h-full"
-			style="background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, currentColor 2px, currentColor 4px);"
+			style:background-image="repeating-linear-gradient(0deg, transparent, transparent 2px, currentColor 2px, currentColor 4px)"
 		></div>
 	</div>
 
@@ -212,7 +212,7 @@
 				<div class="flex-1 h-1 bg-gray-800 rounded-full overflow-hidden">
 					<div
 						class={cn('h-full transition-all duration-300 rounded-full', currentVariant.success)}
-						style="width: {progress}%; background-color: currentColor;"
+						style:width="{progress}%" style:background-color="currentColor"
 					></div>
 				</div>
 				<span class={currentVariant.text}>{Math.round(progress)}%</span>
@@ -222,7 +222,7 @@
 
 	<!-- Ambient glow -->
 	<div class="absolute inset-0 pointer-events-none">
-		<div class="w-full h-full opacity-[0.02] blur-2xl" style="background-color: currentColor;"></div>
+		<div class="w-full h-full opacity-[0.02] blur-2xl" style:background-color="currentColor"></div>
 	</div>
 </div>
 

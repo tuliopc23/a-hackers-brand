@@ -123,7 +123,7 @@
 		{#if activeTabData}
 			<div
 				class="glass-panel bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-6 min-h-[200px]"
-				style="animation: fadeIn 0.3s ease-out;"
+				style:animation="fadeIn 0.3s ease-out"
 			>
 				{@render activeTabData.content()}
 			</div>

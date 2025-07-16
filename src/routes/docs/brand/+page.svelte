@@ -167,7 +167,7 @@
 			<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
 				{#each terminalColors as color (color.id || color)}
 					<div class="glass-subtle p-4 rounded-xl">
-						<div class="w-full h-24 rounded-lg mb-3" style="background-color: {color.value}"></div>
+						<div class="w-full h-24 rounded-lg mb-3" style:background-color="{color.value}"></div>
 						<p class="font-semibold text-sm">{color.name}</p>
 						<code class="text-xs text-white/60">{color.hex}</code>
 					</div>
@@ -183,7 +183,7 @@
 					<div class="glass-subtle p-4 rounded-xl">
 						<div
 							class="w-full h-24 rounded-lg mb-3 border border-white/20"
-							style="background-color: {color.value}"
+							style:background-color="{color.value}"
 						></div>
 						<p class="font-semibold text-sm">{color.name}</p>
 						<code class="text-xs text-white/60">{color.opacity} opacity</code>
@@ -233,7 +233,7 @@
 				{#each spacingScale as space (space.id || space)}
 					<div class="glass-subtle p-4 rounded-xl flex items-center">
 						<div class="w-20 font-mono text-terminal-cyan">{space.name}</div>
-						<div class="h-8 bg-terminal-green/30 rounded mr-4" style="width: {space.px}"></div>
+						<div class="h-8 bg-terminal-green/30 rounded mr-4" style:width="{space.px}"></div>
 						<code class="text-sm text-white/60">{space.rem} / {space.px}</code>
 					</div>
 				{/each}

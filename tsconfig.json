@@ -35,7 +35,6 @@
 		// === ENHANCED TYPE CHECKING ===
 		"verbatimModuleSyntax": true,
 		"isolatedModules": true,
-		"preserveValueImports": true,
 
 		// === SVELTE 5 COMPATIBILITY ===
 		"useDefineForClassFields": true,

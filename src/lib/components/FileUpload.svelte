@@ -485,7 +485,7 @@
 								<div class="w-full bg-gray-700 rounded-full h-2">
 									<div
 										class="h-2 rounded-full {currentVariant.progressBar} transition-all duration-300"
-										style="width: {file.progress}%"
+										style:width="{file.progress}%"
 									></div>
 								</div>
 							</div>

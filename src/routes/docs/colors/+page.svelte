@@ -190,7 +190,7 @@
 					<div class="flex items-start gap-4">
 						<div
 							class="w-24 h-24 rounded-lg shrink-0 shadow-lg"
-							style="background-color: {color.value}; box-shadow: 0 0 20px {color.value}40"
+							style:background-color="{color.value}" style:box-shadow="0 0 20px {color.value}40"
 						></div>
 						<div class="flex-1">
 							<h3 class="font-semibold text-lg mb-1">{color.name}</h3>
@@ -218,7 +218,7 @@
 			{#each glassPalette as glass (glass.id || glass)}
 				<div
 					class="p-6 rounded-xl border border-white/20"
-					style="background-color: {glass.value}; backdrop-filter: blur(12px)"
+					style:background-color="{glass.value}" style:backdrop-filter="blur(12px)"
 				>
 					<div class="flex items-center justify-between">
 						<div>
@@ -260,7 +260,7 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 			{#each gradients as gradient (gradient.id || gradient)}
 				<div class="glass-subtle p-6 rounded-xl">
-					<div class="w-full h-32 rounded-lg mb-4" style="background: {gradient.value}"></div>
+					<div class="w-full h-32 rounded-lg mb-4" style:background="{gradient.value}"></div>
 					<h3 class="font-semibold mb-1">{gradient.name}</h3>
 					<p class="text-sm text-white/70 mb-2">{gradient.usage}</p>
 					<code class="text-xs font-mono text-white/60">brandColors.gradients.{gradient.name.toLowerCase()}</code>
@@ -280,7 +280,7 @@
 			{#each semanticColors as color (color.id || color)}
 				<div class="glass-subtle p-6 rounded-xl">
 					<div class="flex items-center gap-4">
-						<div class="w-16 h-16 rounded-lg" style="background-color: {color.value}"></div>
+						<div class="w-16 h-16 rounded-lg" style:background-color="{color.value}"></div>
 						<div>
 							<h3 class="font-semibold mb-1">{color.name}</h3>
 							<p class="text-sm text-white/70">{color.usage}</p>
@@ -301,7 +301,7 @@
 
 		<div class="space-y-4">
 			{#each backgroundColors as bg (bg.id || bg)}
-				<div class="p-8 rounded-xl border border-white/10" style="background-color: {bg.value}">
+				<div class="p-8 rounded-xl border border-white/10" style:background-color="{bg.value}">
 					<div class="flex items-center justify-between">
 						<div>
 							<h3 class="font-semibold text-lg mb-1">{bg.name} Background</h3>
@@ -357,16 +357,16 @@
 		<div class="glass-subtle p-6 rounded-xl mt-6">
 			<h3 class="mb-4">Example Combinations</h3>
 			<div class="space-y-3">
-				<div class="flex items-center justify-between p-3 rounded" style="background: #0a0a0f">
-					<span style="color: #00ff41">Terminal Green on Primary Background</span>
+				<div class="flex items-center justify-between p-3 rounded" style:background="#0a0a0f">
+					<span style:color="#00ff41">Terminal Green on Primary Background</span>
 					<span class="text-sm font-mono text-white/60">8.5:1 ✓</span>
 				</div>
-				<div class="flex items-center justify-between p-3 rounded" style="background: #1a1a2e">
-					<span style="color: #00ffff">Electric Cyan on Secondary Background</span>
+				<div class="flex items-center justify-between p-3 rounded" style:background="#1a1a2e">
+					<span style:color="#00ffff">Electric Cyan on Secondary Background</span>
 					<span class="text-sm font-mono text-white/60">9.2:1 ✓</span>
 				</div>
-				<div class="flex items-center justify-between p-3 rounded" style="background: #16213e">
-					<span style="color: #ff6b35">Neon Orange on Tertiary Background</span>
+				<div class="flex items-center justify-between p-3 rounded" style:background="#16213e">
+					<span style:color="#ff6b35">Neon Orange on Tertiary Background</span>
 					<span class="text-sm font-mono text-white/60">5.8:1 ✓</span>
 				</div>
 			</div>

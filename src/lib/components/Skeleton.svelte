@@ -124,7 +124,7 @@
 					rounded && 'rounded-lg',
 					animated && 'transform-gpu will-change-transform'
 				)}
-				style="width: {width || lineWidth}"
+				style:width="{width || lineWidth}"
 				use:breathing={{ enabled: animated && variant === 'liquid', intensity: 0.02, speed: 3000 }}
 				transition:glassFade={{ duration: 200, delay: i * 50 }}
 			>

@@ -79,12 +79,12 @@
 	)}
 	onmousemove={handleMouseMove}
 	onmouseleave={handleMouseLeave}
-	style="perspective: 1000px;"
+	style:perspective="1000px"
 >
 	<!-- Glass shimmer effect -->
 	<div
 		class="absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-500 hover:opacity-100 pointer-events-none"
-		style="background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%); background-size: 200% 200%; animation: shimmer 3s ease-in-out infinite;"
+		style:background="linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)" style:background-size="200% 200%" style:animation="shimmer 3s ease-in-out infinite"
 	></div>
 
 	<!-- Content -->

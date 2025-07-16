@@ -107,7 +107,7 @@ https://svelte.dev/e/js_parse_error -->
 					<div class="space-y-2">
 						<div
 							class="w-full h-20 rounded-brand border border-gray-200"
-							style="background-color: {color.value}; color: {getTextColor(color.value)}"
+							style:background-color="{color.value}" style:color="{getTextColor(color.value)}"
 						>
 							<div class="p-2 h-full flex items-end">
 								<span class="text-xs font-mono">{color.name}</span>
@@ -128,7 +128,7 @@ https://svelte.dev/e/js_parse_error -->
 					<div class="space-y-2">
 						<div
 							class="w-full h-20 rounded-brand border border-gray-200"
-							style="background-color: {color.value}; color: {getTextColor(color.value)}"
+							style:background-color="{color.value}" style:color="{getTextColor(color.value)}"
 						>
 							<div class="p-2 h-full flex items-end">
 								<span class="text-xs font-mono">{color.name}</span>
@@ -149,7 +149,7 @@ https://svelte.dev/e/js_parse_error -->
 					<div class="space-y-2">
 						<div
 							class="w-full h-16 rounded-brand border border-gray-200 flex items-center px-4"
-							style="background-color: {color.value}; color: {getTextColor(color.value)}"
+							style:background-color="{color.value}" style:color="{getTextColor(color.value)}"
 						>
 							<span class="font-medium">{color.name}</span>
 						</div>
@@ -173,7 +173,7 @@ https://svelte.dev/e/js_parse_error -->
 						</div>
 						<div
 							class="font-sans"
-							style="font-size: {font.size}; line-height: {font.lineHeight}; letter-spacing: {font.letterSpacing}"
+							style:font-size="{font.size}" style:line-height="{font.lineHeight}" style:letter-spacing="{font.letterSpacing}"
 						>
 							The quick brown fox jumps over the lazy dog
 						</div>
@@ -193,7 +193,7 @@ https://svelte.dev/e/js_parse_error -->
 						<div class="flex items-center gap-2">
 							<div
 								class="bg-blue-200 border border-blue-300 rounded"
-								style="width: {spacing.value}; height: 1rem"
+								style:width="{spacing.value}" style:height="1rem"
 							></div>
 							<span class="text-sm font-mono text-gray-600">{spacing.value}</span>
 						</div>
@@ -209,7 +209,7 @@ https://svelte.dev/e/js_parse_error -->
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
 				{#each borderRadiusTokens as radius (radius.id || radius)}
 					<div class="space-y-2">
-						<div class="w-16 h-16 bg-brand-primary border border-gray-200" style="border-radius: {radius.value}"></div>
+						<div class="w-16 h-16 bg-brand-primary border border-gray-200" style:border-radius="{radius.value}"></div>
 						<div class="text-sm font-mono">
 							<div class="font-medium">{radius.name}</div>
 							<div class="text-gray-600">{radius.value}</div>

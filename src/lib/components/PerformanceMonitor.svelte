@@ -237,7 +237,7 @@
 						'h-1.5 rounded-full transition-all duration-300',
 						$fps >= 55 ? 'bg-green-400' : $fps >= 30 ? 'bg-yellow-400' : 'bg-red-400'
 					)}
-					style="width: {Math.min(($fps / 60) * 100, 100)}%"
+					style:width="{Math.min(($fps / 60) * 100, 100)}%"
 				></div>
 			</div>
 		</div>
@@ -263,7 +263,7 @@
 						'h-1.5 rounded-full transition-all duration-300',
 						$memory.percentage < 70 ? 'bg-green-400' : $memory.percentage < 85 ? 'bg-yellow-400' : 'bg-red-400'
 					)}
-					style="width: {$memory.percentage}%"
+					style:width="{$memory.percentage}%"
 				></div>
 			</div>
 		</div>

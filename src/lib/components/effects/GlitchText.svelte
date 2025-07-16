@@ -127,12 +127,7 @@
 	bind:this={glitchRef}
 	class={cn('relative inline-block font-mono', isGlitching && 'glitching', className)}
 	data-text={text}
-	style="
-		--glitch-color-1: {colors()[0] || '#ff0000'};
-		--glitch-color-2: {colors()[1] || '#00ffff'};
-		--glitch-color-3: {colors()[2] || '#ff00ff'};
-		--glitch-distortion: {config.distortion}px;
-	"
+	style:--glitch-color-1="{colors()[0] || '#ff0000'}" style:--glitch-color-2="{colors()[1] || '#00ffff'}" style:--glitch-distortion="{config.distortion}px" style:--glitch-color-3="{colors()[2] || '#ff00ff'}"
 >
 	{#if isGlitching && intensity === 'extreme'}
 		{getGlitchedText(text, 20)}

@@ -318,8 +318,7 @@ options = [],
 	<!-- Dropdown Arrow -->
 	<div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
 		<svg
-			class="w-4 h-4 transition-transform duration-200 {isOpen ? 'rotate-180' : ''} 
-			       {currentVariant.option}"
+			class="w-4 h-4 transition-transform duration-200 {currentVariant.option}" class:rotate-180={isOpen}
 			fill="none"
 			stroke="currentColor"
 			viewBox="0 0 24 24"

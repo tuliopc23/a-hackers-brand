@@ -245,7 +245,7 @@
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
 		{...restProps}
 	>
-		<span class={combinedClasses} style="filter: {currentVariant.filter}">
+		<span class={combinedClasses} style:filter="{currentVariant.filter}">
 			{typewriter ? displayText : text}
 			{#if typewriter && showCursor}
 				<span class="animate-pulse">|</span>
@@ -267,7 +267,7 @@
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
 		{...restProps}
 	>
-		<span class={combinedClasses} style="filter: {currentVariant.filter}">
+		<span class={combinedClasses} style:filter="{currentVariant.filter}">
 			{typewriter ? displayText : text}
 			{#if typewriter && showCursor}
 				<span class="animate-pulse">|</span>
@@ -289,7 +289,7 @@
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
 		{...restProps}
 	>
-		<span class={combinedClasses} style="filter: {currentVariant.filter}">
+		<span class={combinedClasses} style:filter="{currentVariant.filter}">
 			{typewriter ? displayText : text}
 			{#if typewriter && showCursor}
 				<span class="animate-pulse">|</span>
@@ -311,7 +311,7 @@
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
 		{...restProps}
 	>
-		<span class={combinedClasses} style="filter: {currentVariant.filter}">
+		<span class={combinedClasses} style:filter="{currentVariant.filter}">
 			{typewriter ? displayText : text}
 			{#if typewriter && showCursor}
 				<span class="animate-pulse">|</span>
@@ -333,7 +333,7 @@
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
 		{...restProps}
 	>
-		<span class={combinedClasses} style="filter: {currentVariant.filter}">
+		<span class={combinedClasses} style:filter="{currentVariant.filter}">
 			{typewriter ? displayText : text}
 			{#if typewriter && showCursor}
 				<span class="animate-pulse">|</span>
@@ -355,7 +355,7 @@
 		use:breathing={{ enabled: breathingProp, intensity: 0.01, speed: 3000 }}
 		{...restProps}
 	>
-		<span class={combinedClasses} style="filter: {currentVariant.filter}">
+		<span class={combinedClasses} style:filter="{currentVariant.filter}">
 			{typewriter ? displayText : text}
 			{#if typewriter && showCursor}
 				<span class="animate-pulse">|</span>

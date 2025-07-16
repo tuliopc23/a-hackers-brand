@@ -374,7 +374,7 @@
 										<div class="w-16 text-terminal-cyan font-mono text-sm">{size.name}</div>
 										<div
 											class="flex items-center justify-center bg-terminal-green/20 rounded-lg border border-terminal-green/30"
-											style="width: {size.size}; height: {size.size};"
+											style:width="{size.size}" style:height="{size.size}"
 										>
 											<Terminal size={parseInt(size.size)} class="text-terminal-green" />
 										</div>

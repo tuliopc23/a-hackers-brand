@@ -167,7 +167,7 @@
 				<div class="flex h-screen">
 					<div 
 						class="transition-all duration-200"
-						style="width: {splitPanePosition}%"
+						style:width="{splitPanePosition}%"
 						bind:this={editorContainer}
 					>
 						<MonacoEditor />
@@ -191,7 +191,7 @@
 
 					<div 
 						class="transition-all duration-200"
-						style="width: {100 - splitPanePosition}%"
+						style:width="{100 - splitPanePosition}%"
 						bind:this={previewContainer}
 					>
 						<CodePreview />

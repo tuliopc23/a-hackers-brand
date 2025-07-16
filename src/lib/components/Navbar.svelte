@@ -230,8 +230,7 @@
 								</span>
 							{/if}
 							<svg
-								class="ml-1 w-4 h-4 transition-transform duration-200
-								       {openDropdowns.has(item.id) ? 'rotate-180' : ''}"
+								class="ml-1 w-4 h-4 transition-transform duration-200" class:rotate-180={openDropdowns.has(item.id)}
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
@@ -357,8 +356,7 @@
 									{/if}
 								</span>
 								<svg
-									class="w-5 h-5 transition-transform duration-200
-									       {openDropdowns.has(item.id) ? 'rotate-180' : ''}"
+									class="w-5 h-5 transition-transform duration-200" class:rotate-180={openDropdowns.has(item.id)}
 									fill="none"
 									stroke="currentColor"
 									viewBox="0 0 24 24"

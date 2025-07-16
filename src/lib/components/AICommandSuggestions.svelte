@@ -291,9 +291,9 @@
 				<span class="text-sm font-bold">🤖 AI SUGGESTIONS</span>
 				{#if isThinking}
 					<div class="flex gap-1">
-						<div class="w-1 h-1 bg-current rounded-full animate-bounce" style="animation-delay: 0ms;"></div>
-						<div class="w-1 h-1 bg-current rounded-full animate-bounce" style="animation-delay: 150ms;"></div>
-						<div class="w-1 h-1 bg-current rounded-full animate-bounce" style="animation-delay: 300ms;"></div>
+						<div class="w-1 h-1 bg-current rounded-full animate-bounce" style:animation-delay="0ms"></div>
+						<div class="w-1 h-1 bg-current rounded-full animate-bounce" style:animation-delay="150ms"></div>
+						<div class="w-1 h-1 bg-current rounded-full animate-bounce" style:animation-delay="300ms"></div>
 					</div>
 				{/if}
 			</div>
@@ -352,7 +352,7 @@
 												'h-full rounded-full transition-all duration-300',
 												getConfidenceColor(suggestion.confidence).replace('text-', 'bg-')
 											)}
-											style="width: {suggestion.confidence * 100}%"
+											style:width="{suggestion.confidence * 100}%"
 										></div>
 									</div>
 								</div>

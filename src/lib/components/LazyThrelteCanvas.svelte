@@ -84,7 +84,7 @@
 	}
 </script>
 
-<div bind:this={canvasContainer} class={`threlte-canvas-container ${className}`} style="min-height: {height}px;">
+<div bind:this={canvasContainer} class={`threlte-canvas-container ${className}`} style:min-height="{height}px">
 	{#if !enable3D}
 		<div class="threlte-canvas-disabled">
 			<div class="disabled-content">
