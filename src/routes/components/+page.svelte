@@ -90,7 +90,7 @@
 		<!-- Navigation Section -->
 		<section>
 			<h2 class="text-2xl font-semibold mb-4">Navigation</h2>
-			<nav role="navigation" aria-label="Main navigation">
+			<nav aria-label="Main navigation">
 				<ul class="flex space-x-4">
 					<li><a href="/" class="text-blue-600 hover:text-blue-800">Home</a></li>
 					<li><a href="/docs" class="text-blue-600 hover:text-blue-800">Docs</a></li>

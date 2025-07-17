@@ -76,6 +76,8 @@ export default defineConfig(({ mode }) => ({
 					if (id.includes('src/routes')) {
 						return 'routes';
 					}
+					// Default: let Rollup decide
+					return undefined;
 				},
 				// Optimize chunk names
 				chunkFileNames: 'chunks/[name]-[hash].js',

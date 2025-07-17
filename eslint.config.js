@@ -87,7 +87,7 @@ export default [
 			'svelte/no-at-debug-tags': 'error',
 			'svelte/no-reactive-functions': 'error',
 			'svelte/no-reactive-literals': 'error',
-			'svelte/prefer-destructuring-props': 'warn',
+      // 'svelte/prefer-destructuring-props': 'error',
 			'svelte/require-store-reactive-access': 'error',
 			'svelte/valid-compile': 'error',
 			'svelte/no-unused-svelte-ignore': 'error',
