@@ -108,3 +108,53 @@ export const presets = {
 			flowDirection: 'up'
 		})
 } as const;
+
+
+
+// === UTILITY FUNCTIONS ===
+
+/**
+ * Hook to detect if user prefers reduced motion
+ * @returns {boolean} True if reduced motion is preferred
+ */
+export function useReducedMotion() {
+	if (typeof window === 'undefined') {
+		return false;
+	}
+
+	const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+	return mediaQuery.matches;
+}
+
+/**
+ * Creates motion-safe animations that respect user preferences
+ * @param animation - Animation configuration
+ * @param fallback - Fallback for reduced motion
+ * @returns Safe animation configuration
+ */
+export function motionSafe(animation: any, fallback: any = {}) {
+	return useReducedMotion() ? fallback : animation;
+}
+
+/**
+ * Performance-optimized motion utilities
+ */
+export const motionUtils = {
+	useReducedMotion,
+	motionSafe,
+
+	// Create optimized transitions
+	createTransition: (duration = 300, easing = 'cubic-bezier(0.4, 0, 0.2, 1)') => ({
+		duration,
+		easing,
+		willChange: 'transform, opacity'
+	}),
+
+	// Hardware acceleration hints
+	enableHardwareAcceleration: (element: any) => {
+		if (element && element.style) {
+			element.style.transform = element.style.transform || 'translateZ(0)';
+			element.style.willChange = 'transform';
+		}
+	}
+};

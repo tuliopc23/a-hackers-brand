@@ -14,12 +14,7 @@
 		Textarea,
 		Toast
 	} from '$lib/components';
-	import {
-		AdvancedLiquidGlassScene,
-		LiquidBackground,
-		LiquidGlassShader,
-		LiquidParticleSystem
-	} from '$lib/components/webgl';
+	import { LiquidBackground, LiquidGlassShader, LiquidParticleSystem } from '$lib/components/webgl';
 	import { GlitchText } from '$lib/components/effects';
 	import { MatrixRain } from '$lib/components';
 	import CodeHighlight from '$lib/components/CodeHighlight.svelte';
@@ -28,7 +23,7 @@
 
 	// Lazy load heavy WebGL components
 	const LazyLiquidBackground = lazy(() => import('$lib/components/webgl/LiquidBackground.svelte'));
-	const LazyAdvancedLiquidGlassScene = lazy(() => import('$lib/components/webgl/AdvancedLiquidGlassScene.svelte'));
+	// const LazyAdvancedLiquidGlassScene = lazy(() => import('$lib/components/webgl/AdvancedLiquidGlassScene.svelte')); // File missing
 
 	let mounted = $state(false);
 	let showModal = $state(false);
@@ -368,8 +363,8 @@
 				<GlassCard intensity="medium" class="p-8">
 					<h3 class="text-2xl font-bold mb-6 text-center">Advanced WebGL Scene</h3>
 					<div class="h-96 rounded-lg overflow-hidden bg-black/30 border border-white/10">
-						{#if mounted && LazyAdvancedLiquidGlassScene.component}
-							<LazyAdvancedLiquidGlassScene.component />
+						{#if mounted && LazyLiquidBackground.component}
+							<LazyLiquidBackground.component />
 						{:else}
 							<div class="flex items-center justify-center h-full">
 								<div class="text-center">

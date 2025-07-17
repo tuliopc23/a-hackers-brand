@@ -18,11 +18,11 @@ export default defineConfig(({ mode }) => ({
 		}),
 		// Compression for production
 		mode === 'production' && compression({
-			algorithm: 'gzip',
+			algorithms: ['gzip'],
 			exclude: [/\.(br)$/, /\.(gz)$/]
 		}),
 		mode === 'production' && compression({
-			algorithm: 'brotliCompress',
+			algorithms: ['brotliCompress'],
 			exclude: [/\.(br)$/, /\.(gz)$/]
 		})
 	].filter(Boolean),
@@ -76,6 +76,8 @@ export default defineConfig(({ mode }) => ({
 					if (id.includes('src/routes')) {
 						return 'routes';
 					}
+					// Default: let Rollup decide
+					return undefined;
 				},
 				// Optimize chunk names
 				chunkFileNames: 'chunks/[name]-[hash].js',
@@ -131,7 +133,7 @@ export default defineConfig(({ mode }) => ({
 	define: {
 		__DEV__: mode === 'development',
 		__PROD__: mode === 'production',
-		__VERSION__: JSON.stringify(process.env.npm_package_version || '1.0.0'),
+		__VERSION__: JSON.stringify(process.env['npm_package_version'] || '1.0.0'),
 		__BUILD_TIME__: JSON.stringify(new Date().toISOString())
 	}
 }));

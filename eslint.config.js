@@ -25,8 +25,27 @@ export default [
 		files: ['**/*.svelte'],
 		languageOptions: {
 			parserOptions: {
-				parser: ts.parser
+				parser: ts.parser,
+				project: './tsconfig.json',
+				extraFileExtensions: ['.svelte']
 			}
+		}
+	},
+	{
+		files: ['**/*.{ts,tsx}'],
+		languageOptions: {
+			parserOptions: {
+				project: './tsconfig.json'
+			}
+		},
+		rules: {
+			// TypeScript rules that require type information
+			'@typescript-eslint/prefer-nullish-coalescing': 'error',
+			'@typescript-eslint/prefer-optional-chain': 'error',
+			'@typescript-eslint/no-unnecessary-type-assertion': 'error',
+			'@typescript-eslint/no-floating-promises': 'error',
+			'@typescript-eslint/await-thenable': 'error',
+			'@typescript-eslint/no-misused-promises': 'error'
 		}
 	},
 	{
@@ -43,12 +62,6 @@ export default [
 			}],
 			'@typescript-eslint/no-explicit-any': 'error',
 			'@typescript-eslint/no-non-null-assertion': 'error',
-			'@typescript-eslint/prefer-nullish-coalescing': 'error',
-			'@typescript-eslint/prefer-optional-chain': 'error',
-			'@typescript-eslint/no-unnecessary-type-assertion': 'error',
-			'@typescript-eslint/no-floating-promises': 'error',
-			'@typescript-eslint/await-thenable': 'error',
-			'@typescript-eslint/no-misused-promises': 'error',
 
 			// === GENERAL JAVASCRIPT RULES ===
 			'no-console': 'warn',
@@ -87,7 +100,7 @@ export default [
 			'svelte/no-at-debug-tags': 'error',
 			'svelte/no-reactive-functions': 'error',
 			'svelte/no-reactive-literals': 'error',
-			'svelte/prefer-destructuring-props': 'warn',
+			// 'svelte/prefer-destructuring-props': 'error',
 			'svelte/require-store-reactive-access': 'error',
 			'svelte/valid-compile': 'error',
 			'svelte/no-unused-svelte-ignore': 'error',

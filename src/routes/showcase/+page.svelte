@@ -29,11 +29,11 @@
 			"
 		>
 			<div style="margin-bottom: 40px;">
-				<RetroText text="TULIO BRAND SYSTEM" variant="matrix" size="2xl" animated={true} glow={true} />
+				<RetroText text="TULIO BRAND SYSTEM" variant="terminal" size="2xl" glow={true} />
 			</div>
 
 			<div style="margin-bottom: 60px;">
-				<RetroText text="Advanced Liquid Glass Terminal Fusion" variant="neon" size="lg" animated={true} />
+				<RetroText text="Advanced Liquid Glass Terminal Fusion" variant="vintage" size="lg" />
 			</div>
 
 			<div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 80px;">
@@ -113,7 +113,7 @@
 		"
 		>
 			<div style="text-align: center; margin-bottom: 60px;">
-				<RetroText text="PORTFOLIO COMPONENTS" variant="cyberpunk" size="xl" animated={true} />
+				<RetroText text="PORTFOLIO COMPONENTS" variant="terminal" size="xl" animated={true} glow={true} />
 			</div>
 
 			<div
@@ -174,7 +174,7 @@
 		"
 		>
 			<div style="margin-bottom: 60px;">
-				<RetroText text="TEXT EFFECTS SHOWCASE" variant="hologram" size="xl" animated={true} />
+				<RetroText text="TEXT EFFECTS SHOWCASE" variant="commodore" size="xl" animated={true} />
 			</div>
 
 			<div
@@ -188,13 +188,13 @@
 			>
 				<div>
 					<div style="margin-bottom: 20px;">
-						<RetroText text="MATRIX MODE" variant="matrix" size="lg" animated={true} scanlines={true} />
+						<RetroText text="MATRIX MODE" variant="terminal" size="lg" animated={true} scanlines={true} />
 					</div>
 					<div style="margin-bottom: 20px;">
-						<RetroText text="NEON GLOW" variant="neon" size="lg" animated={false} glow={true} />
+						<RetroText text="NEON GLOW" variant="vintage" size="lg" animated={true} glow={true} />
 					</div>
 					<div style="margin-bottom: 20px;">
-						<RetroText text="CYBERPUNK STYLE" variant="cyberpunk" size="lg" animated={true} />
+						<RetroText text="CYBERPUNK STYLE" variant="commodore" size="lg" animated={true} />
 					</div>
 				</div>
 

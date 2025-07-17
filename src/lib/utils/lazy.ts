@@ -61,8 +61,6 @@ export function lazyWithRetry<T = unknown>(
 	return async function loadComponentWithRetry() {
 		if (!browser) return null;
 
-		let lastError: Error | null = null;
-
 		for (let attempt = 0; attempt <= maxRetries; attempt++) {
 			try {
 				const module = await loadFn();

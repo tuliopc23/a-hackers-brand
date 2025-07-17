@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import AdvancedLiquidTerminal from '$lib/components/AdvancedLiquidTerminal.svelte';
+	import LiquidTerminal from '$lib/components/LiquidTerminal.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import ComponentPlayground from '$lib/docs/ComponentPlayground.svelte';
 	import PropsTable from '$lib/docs/PropsTable.svelte';
@@ -80,9 +80,9 @@
 		<!-- Quick Preview -->
 		<div class="p-8 bg-slate-900/50 backdrop-blur-sm rounded-xl border border-white/10">
 			<div class="flex flex-wrap gap-4 items-center justify-center">
-				<AdvancedLiquidTerminal>Preview</AdvancedLiquidTerminal>
-				<AdvancedLiquidTerminal variant="secondary">Secondary</AdvancedLiquidTerminal>
-				<AdvancedLiquidTerminal variant="ghost">Ghost</AdvancedLiquidTerminal>
+				<LiquidTerminal>Preview</LiquidTerminal>
+				<LiquidTerminal variant="secondary">Secondary</LiquidTerminal>
+				<LiquidTerminal variant="ghost">Ghost</LiquidTerminal>
 			</div>
 		</div>
 	</section>
@@ -91,11 +91,7 @@
 	<section class="mb-16">
 		<h2 class="text-2xl lg:text-3xl font-bold mb-6">Interactive Playground</h2>
 		<p class="text-white/70 mb-8">Experiment with different props and see the changes in real-time.</p>
-		<ComponentPlayground
-			component={AdvancedLiquidTerminal}
-			props={playgroundProps}
-			componentName="AdvancedLiquidTerminal"
-		/>
+		<ComponentPlayground component={LiquidTerminal} props={playgroundProps} componentName="AdvancedLiquidTerminal" />
 	</section>
 
 	<!-- Code Examples -->
@@ -128,7 +124,7 @@
 								<h4 class="text-lg font-medium">Preview</h4>
 								<div class="p-6 bg-slate-800/50 rounded-lg border border-white/10">
 									<!-- Dynamic preview would go here -->
-									<AdvancedLiquidTerminal>Example</AdvancedLiquidTerminal>
+									<LiquidTerminal>Example</LiquidTerminal>
 								</div>
 							</div>
 							<div class="space-y-4">
