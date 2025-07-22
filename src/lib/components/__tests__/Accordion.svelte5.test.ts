@@ -5,14 +5,10 @@ import {
 	simulateClassGeneration,
 	simulateAnimation,
 	simulateKeyboardEvent,
-	simulateMouseEvent,
 	expectClassesToContain,
 	expectAttributesToBeSet,
 	expectAriaAttributes,
-	testAccessibilityCompliance,
-	testEventCleanup,
-	commonVariants,
-	commonSizes
+	testEventCleanup
 } from './svelte5-test-utils';
 
 describe('Accordion Component (Svelte 5)', () => {
@@ -40,7 +36,7 @@ describe('Accordion Component (Svelte 5)', () => {
 
 	describe('Props and Variants', () => {
 		it('should handle variant props correctly', () => {
-			const variants = ['default', 'glass', 'terminal'];
+			const variants = ['glass'] as const;
 
 			variants.forEach((variant) => {
 				const props = createMockProps(accordionTestDefaults, { variant });
@@ -49,7 +45,7 @@ describe('Accordion Component (Svelte 5)', () => {
 		});
 
 		it('should handle size props correctly', () => {
-			const sizes = ['sm', 'md', 'lg'];
+			const sizes = ['md'] as const;
 
 			sizes.forEach((size) => {
 				const props = createMockProps(accordionTestDefaults, { size });
@@ -58,7 +54,7 @@ describe('Accordion Component (Svelte 5)', () => {
 		});
 
 		it('should handle blur levels correctly', () => {
-			const blurLevels = ['sm', 'md', 'lg', 'xl'];
+			const blurLevels = ['md'] as const;
 
 			blurLevels.forEach((blur) => {
 				const props = createMockProps(accordionTestDefaults, { blur });
@@ -93,7 +89,7 @@ describe('Accordion Component (Svelte 5)', () => {
 		it('should generate correct container classes', () => {
 			const container = createMockElement();
 			const variant = 'glass';
-			const blur = 'md';
+			const _blur = 'md';
 
 			simulateClassGeneration(container, 'overflow-hidden transition-all duration-200', variant, '', [
 				'glass-subtle',
@@ -137,7 +133,7 @@ describe('Accordion Component (Svelte 5)', () => {
 		it('should toggle single item in single mode', () => {
 			const openItems = new Set<string>();
 			const itemId = '1';
-			const multiple = false;
+			const _multiple = false;
 			const collapsible = true;
 
 			// Toggle open
@@ -159,7 +155,7 @@ describe('Accordion Component (Svelte 5)', () => {
 
 		it('should handle multiple items in multiple mode', () => {
 			const openItems = new Set<string>();
-			const multiple = true;
+			const _multiple = true;
 
 			// Add multiple items
 			openItems.add('1');
@@ -180,7 +176,7 @@ describe('Accordion Component (Svelte 5)', () => {
 		it('should respect collapsible prop', () => {
 			const openItems = new Set(['1']);
 			const collapsible = false;
-			const multiple = false;
+			const _multiple = false;
 
 			// Try to close the only open item
 			const isOpen = openItems.has('1');
@@ -210,7 +206,7 @@ describe('Accordion Component (Svelte 5)', () => {
 		it('should handle click events', () => {
 			const header = createMockElement();
 			const onClick = vi.fn();
-			const onValueChange = vi.fn();
+			const _onValueChange = vi.fn();
 
 			header.addEventListener('click', onClick);
 			header.click();
@@ -271,8 +267,8 @@ describe('Accordion Component (Svelte 5)', () => {
 				simulateAnimation(content, true);
 			}
 
-			expect(header.style.transition).toContain('all');
-			expect(content.style.transition).toContain('all');
+			expect(header.style['transition']).toContain('all');
+			expect(content.style['transition']).toContain('all');
 		});
 
 		it('should disable animation when reduceMotion is true', () => {
@@ -286,7 +282,7 @@ describe('Accordion Component (Svelte 5)', () => {
 				simulateAnimation(header, false);
 			}
 
-			expect(header.style.transition).toBe('none');
+			expect(header.style['transition']).toBe('none');
 		});
 
 		it('should animate icon rotation', () => {

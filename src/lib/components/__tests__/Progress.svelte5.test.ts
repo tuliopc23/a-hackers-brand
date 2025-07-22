@@ -129,7 +129,7 @@ describe('Progress Component (Svelte 5)', () => {
 			const container = createMockElement();
 			const variant = 'glass';
 			const size = 'md';
-			const type = 'linear';
+			const _type = 'linear';
 
 			simulateClassGeneration(container, 'relative w-full overflow-hidden', variant, size, [
 				'glass-subtle',
@@ -147,10 +147,10 @@ describe('Progress Component (Svelte 5)', () => {
 
 			simulateClassGeneration(fill, 'absolute h-full transition-all', variant, '', ['glass-heavy', 'rounded-full']);
 
-			fill.style.width = `${percentage}%`;
+			fill.style['width'] = `${percentage}%`;
 
 			expectClassesToContain(fill, ['absolute', 'h-full', 'transition-all']);
-			expect(fill.style.width).toBe('75%');
+			expect(fill.style['width']).toBe('75%');
 		});
 
 		it('should apply indeterminate animation classes', () => {
@@ -169,7 +169,7 @@ describe('Progress Component (Svelte 5)', () => {
 		it('should generate correct container classes for circular', () => {
 			const container = createMockElement();
 			const size = 'md';
-			const type = 'circular';
+			const _type = 'circular';
 
 			simulateClassGeneration(container, 'relative inline-flex', '', size, ['w-12', 'h-12']);
 
@@ -177,7 +177,7 @@ describe('Progress Component (Svelte 5)', () => {
 		});
 
 		it('should calculate SVG stroke properties', () => {
-			const svg = createMockElement();
+			const _svg = createMockElement();
 			const circle = createMockElement();
 			const radius = 20;
 			const strokeWidth = 4;
@@ -186,13 +186,13 @@ describe('Progress Component (Svelte 5)', () => {
 
 			circle.setAttribute('r', String(radius));
 			circle.setAttribute('stroke-width', String(strokeWidth));
-			circle.style.strokeDasharray = String(circumference);
-			circle.style.strokeDashoffset = String(circumference - (percentage / 100) * circumference);
+			circle.style['strokeDasharray'] = String(circumference);
+			circle.style['strokeDashoffset'] = String(circumference - (percentage / 100) * circumference);
 
 			expect(circle.setAttribute).toHaveBeenCalledWith('r', '20');
 			expect(circle.setAttribute).toHaveBeenCalledWith('stroke-width', '4');
-			expect(circle.style.strokeDasharray).toBe(String(circumference));
-			expect(parseFloat(circle.style.strokeDashoffset)).toBeCloseTo(circumference * 0.25);
+			expect(circle.style['strokeDasharray']).toBe(String(circumference));
+			expect(parseFloat(circle.style['strokeDashoffset'])).toBeCloseTo(circumference * 0.25);
 		});
 	});
 
@@ -255,7 +255,7 @@ describe('Progress Component (Svelte 5)', () => {
 				simulateAnimation(fill, true);
 			}
 
-			expect(fill.style.transition).toContain('all');
+			expect(fill.style['transition']).toContain('all');
 		});
 
 		it('should apply liquid blur effect', () => {
@@ -276,10 +276,10 @@ describe('Progress Component (Svelte 5)', () => {
 			const animate = true;
 
 			if (indeterminate && animate) {
-				fill.style.animation = 'progress-indeterminate 1.5s ease-in-out infinite';
+				fill.style['animation'] = 'progress-indeterminate 1.5s ease-in-out infinite';
 			}
 
-			expect(fill.style.animation).toContain('progress-indeterminate');
+			expect(fill.style['animation']).toContain('progress-indeterminate');
 		});
 
 		it('should animate circular progress smoothly', () => {
@@ -288,10 +288,10 @@ describe('Progress Component (Svelte 5)', () => {
 			const type = 'circular';
 
 			if (type === 'circular' && animate) {
-				circle.style.transition = 'stroke-dashoffset 300ms ease-in-out';
+				circle.style['transition'] = 'stroke-dashoffset 300ms ease-in-out';
 			}
 
-			expect(circle.style.transition).toContain('stroke-dashoffset');
+			expect(circle.style['transition']).toContain('stroke-dashoffset');
 		});
 	});
 
@@ -327,7 +327,7 @@ describe('Progress Component (Svelte 5)', () => {
 
 			if (indeterminate) {
 				progress.setAttribute('aria-busy', 'true');
-				progress.removeAttribute('aria-valuenow');
+				progress['removeAttribute']('aria-valuenow');
 			}
 
 			expectAttributesToBeSet(progress, {
@@ -381,10 +381,10 @@ describe('Progress Component (Svelte 5)', () => {
 			for (let i = 0; i <= 100; i++) {
 				value = i;
 				const percentage = (value / 100) * 100;
-				fill.style.width = `${percentage}%`;
+				fill.style['width'] = `${percentage}%`;
 			}
 
-			expect(fill.style.width).toBe('100%');
+			expect(fill.style['width']).toBe('100%');
 		});
 
 		it('should cleanup animation frames for circular progress', () => {

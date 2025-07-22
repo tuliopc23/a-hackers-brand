@@ -36,7 +36,7 @@ async function globalTeardown(config: FullConfig): Promise<void> {
 		const consolidatedReport: ConsolidatedReport = {
 			timestamp: new Date().toISOString(),
 			testRun: {
-				environment: process.env.NODE_ENV || 'test',
+				environment: process.env['NODE_ENV'] || 'test',
 				nodeVersion: process.version,
 				platform: process.platform
 			},
@@ -110,7 +110,7 @@ async function globalTeardown(config: FullConfig): Promise<void> {
 		}
 
 		// Archive old test results if in CI
-		if (process.env.CI) {
+		if (process.env['CI']) {
 			const archiveDir = path.join(resultsDir, 'archive');
 			const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
 			const archivePath = path.join(archiveDir, `test-run-${timestamp}`);
@@ -146,7 +146,7 @@ async function globalTeardown(config: FullConfig): Promise<void> {
 		}
 
 		// Set process exit code for CI
-		if (process.env.CI) {
+		if (process.env['CI']) {
 			process.exitCode = exitCode;
 		}
 	} catch (error) {

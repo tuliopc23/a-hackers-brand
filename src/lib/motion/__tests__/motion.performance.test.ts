@@ -145,8 +145,8 @@ describe('Motion System Performance Tests', () => {
 			const executionTime = measureTime(() => {
 				for (let i = 0; i < 100; i++) {
 					// Simulate mouse movement calculation
-					const x = Math.random() * 200;
-					const y = Math.random() * 200;
+					const _x = Math.random() * 200;
+					const _y = Math.random() * 200;
 					// The actual magnetic calculation would happen here
 				}
 			});

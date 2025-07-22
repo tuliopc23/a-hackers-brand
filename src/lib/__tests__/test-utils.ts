@@ -1,6 +1,5 @@
 import { render, type RenderResult } from '@testing-library/svelte';
 import { vi } from 'vitest';
-import type { ComponentType } from 'svelte';
 
 // === ENHANCED TEST UTILITIES FOR 90%+ COVERAGE ===
 
@@ -22,11 +21,11 @@ export const mockMatchMedia = (matches: boolean = false) => {
 };
 
 // Helper to render component with default props
-export const renderComponent = <T extends Record<string, any>>(
-	Component: ComponentType<T>,
-	props: Partial<T> = {} as Partial<T>
+export const renderComponent = <TProps extends Record<string, any> = Record<string, any>>(
+	Component: any,
+	props: Partial<TProps> = {} as Partial<TProps>
 ): RenderResult<any> => {
-	return render(Component as any, { props });
+	return render(Component, { props });
 };
 
 // Wait for animations to complete
@@ -54,8 +53,6 @@ export const mockResizeObserver = () => {
 
 // Test all component variants
 export const testAllVariants = async (
-	Component: any,
-	baseProps: Record<string, any> = {},
 	testFn: (variant: string) => Promise<void> | void
 ) => {
 	const variants = ['glass', 'terminal', 'liquid', 'neon'];
@@ -66,8 +63,6 @@ export const testAllVariants = async (
 
 // Test all component sizes
 export const testAllSizes = async (
-	Component: any,
-	baseProps: Record<string, any> = {},
 	testFn: (size: string) => Promise<void> | void
 ) => {
 	const sizes = ['sm', 'md', 'lg'];

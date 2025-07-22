@@ -119,11 +119,11 @@ describe('Table Component (Svelte 5)', () => {
 			]);
 
 			if (maxHeight) {
-				wrapper.style.maxHeight = maxHeight;
+				wrapper.style['maxHeight'] = maxHeight;
 			}
 
 			expectClassesToContain(wrapper, ['relative', 'w-full', 'overflow-auto']);
-			expect(wrapper.style.maxHeight).toBe('400px');
+			expect(wrapper.style['maxHeight']).toBe('400px');
 		});
 
 		it('should generate correct table classes', () => {
@@ -196,10 +196,10 @@ describe('Table Component (Svelte 5)', () => {
 			const column = { key: 'id', label: 'ID', width: '100px' };
 
 			if (column.width) {
-				th.style.width = column.width;
+				th.style['width'] = column['width'];
 			}
 
-			expect(th.style.width).toBe('100px');
+			expect(th.style['width']).toBe('100px');
 		});
 
 		it('should format cell values', () => {
@@ -494,12 +494,12 @@ describe('Table Component (Svelte 5)', () => {
 			const visibleRows = 10;
 
 			if (virtualScrolling) {
-				wrapper.style.height = `${rowHeight * visibleRows}px`;
-				wrapper.style.overflowY = 'auto';
+				wrapper.style['height'] = `${rowHeight * visibleRows}px`;
+				wrapper.style['overflowY'] = 'auto';
 			}
 
-			expect(wrapper.style.height).toBe('480px');
-			expect(wrapper.style.overflowY).toBe('auto');
+			expect(wrapper.style['height']).toBe('480px');
+			expect(wrapper.style['overflowY']).toBe('auto');
 		});
 	});
 });

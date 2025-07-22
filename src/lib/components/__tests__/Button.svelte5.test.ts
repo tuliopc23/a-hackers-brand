@@ -165,11 +165,11 @@ describe('Button Component (Svelte 5)', () => {
 
 			if (animated && jelly) {
 				// Simulate jelly hover effect setup
-				element.style.transition = `transform ${DURATIONS.fast}ms ${EASINGS.spring}`;
+				element.style['transition'] = `transform ${DURATIONS.fast}ms ${EASINGS.spring}`;
 			}
 
-			expect(element.style.transition).toContain('transform');
-			expect(element.style.transition).toContain(DURATIONS.fast.toString());
+			expect(element.style['transition']).toContain('transform');
+			expect(element.style['transition']).toContain(DURATIONS.fast.toString());
 		});
 
 		it('should handle reduced motion preferences', () => {
@@ -186,10 +186,10 @@ describe('Button Component (Svelte 5)', () => {
 			});
 
 			if (respectReducedMotion && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-				element.style.transition = 'none';
+				element.style['transition'] = 'none';
 			}
 
-			expect(element.style.transition).toBe('none');
+			expect(element.style['transition']).toBe('none');
 		});
 	});
 

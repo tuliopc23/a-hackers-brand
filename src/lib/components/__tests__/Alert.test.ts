@@ -294,7 +294,7 @@ describe('Alert Component', () => {
 			});
 
 			// Alerts should have appropriate role for screen readers
-			const alert = container.querySelector('[role="alert"]');
+			const _alert = container.querySelector('[role="_alert"]');
 			// Note: role="alert" is implicit for alert components
 		});
 	});

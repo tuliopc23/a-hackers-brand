@@ -112,7 +112,7 @@ export function liquidJelly(_node: Element, config: LiquidJellyConfig = {}): Tra
 
 			// Flow translation
 			const flowTransform = flowTransforms[flowDirection];
-			const flowIntensity = (1 - adjustedT) * 0.3;
+			const _flowIntensity = (1 - adjustedT) * 0.3;
 
 			return `
 				transform: scale(${scaleX}, ${scaleY}) ${flowTransform} translateZ(0);

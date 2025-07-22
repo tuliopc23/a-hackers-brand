@@ -123,16 +123,16 @@ describe('Textarea Component (Svelte 5)', () => {
 			const resize = 'vertical';
 
 			if (resize === 'none') {
-				textarea.style.resize = 'none';
+				textarea.style['resize'] = 'none';
 			} else if (resize === 'both') {
-				textarea.style.resize = 'both';
+				textarea.style['resize'] = 'both';
 			} else if (resize === 'horizontal') {
-				textarea.style.resize = 'horizontal';
+				textarea.style['resize'] = 'horizontal';
 			} else if (resize === 'vertical') {
-				textarea.style.resize = 'vertical';
+				textarea.style['resize'] = 'vertical';
 			}
 
-			expect(textarea.style.resize).toBe('vertical');
+			expect(textarea.style['resize']).toBe('vertical');
 		});
 
 		it('should apply disabled styles', () => {
@@ -174,12 +174,12 @@ describe('Textarea Component (Svelte 5)', () => {
 			Object.defineProperty(textarea, 'scrollHeight', { value: 150, writable: true });
 
 			if (autoResize) {
-				textarea.style.height = 'auto';
-				const newHeight = Math.max(minHeight, Math.min(textarea.scrollHeight, maxHeight));
-				textarea.style.height = `${newHeight}px`;
+				textarea.style['height'] = 'auto';
+				const newHeight = Math.max(minHeight, Math.min(textarea['scrollHeight'], maxHeight));
+				textarea.style['height'] = `${newHeight}px`;
 			}
 
-			expect(textarea.style.height).toBe('150px');
+			expect(textarea.style['height']).toBe('150px');
 		});
 
 		it('should respect minHeight constraint', () => {
@@ -192,11 +192,11 @@ describe('Textarea Component (Svelte 5)', () => {
 			Object.defineProperty(textarea, 'scrollHeight', { value: 50 });
 
 			if (autoResize) {
-				const newHeight = Math.max(minHeight, Math.min(textarea.scrollHeight, maxHeight));
-				textarea.style.height = `${newHeight}px`;
+				const newHeight = Math.max(minHeight, Math.min(textarea['scrollHeight'], maxHeight));
+				textarea.style['height'] = `${newHeight}px`;
 			}
 
-			expect(textarea.style.height).toBe('80px');
+			expect(textarea.style['height']).toBe('80px');
 		});
 
 		it('should respect maxHeight constraint', () => {
@@ -209,11 +209,11 @@ describe('Textarea Component (Svelte 5)', () => {
 			Object.defineProperty(textarea, 'scrollHeight', { value: 500 });
 
 			if (autoResize) {
-				const newHeight = Math.max(minHeight, Math.min(textarea.scrollHeight, maxHeight));
-				textarea.style.height = `${newHeight}px`;
+				const newHeight = Math.max(minHeight, Math.min(textarea['scrollHeight'], maxHeight));
+				textarea.style['height'] = `${newHeight}px`;
 			}
 
-			expect(textarea.style.height).toBe('300px');
+			expect(textarea.style['height']).toBe('300px');
 		});
 
 		it('should add scrollbar when exceeding maxHeight', () => {
@@ -222,10 +222,10 @@ describe('Textarea Component (Svelte 5)', () => {
 			const maxHeight = 300;
 
 			if (scrollHeight > maxHeight) {
-				textarea.style.overflowY = 'auto';
+				textarea.style['overflowY'] = 'auto';
 			}
 
-			expect(textarea.style.overflowY).toBe('auto');
+			expect(textarea.style['overflowY']).toBe('auto');
 		});
 	});
 
@@ -233,7 +233,7 @@ describe('Textarea Component (Svelte 5)', () => {
 		it('should handle input events', () => {
 			const textarea = createMockElement();
 			const onInput = vi.fn();
-			const onValueChange = vi.fn();
+			const _onValueChange = vi.fn();
 
 			textarea.addEventListener('input', onInput);
 
@@ -248,7 +248,7 @@ describe('Textarea Component (Svelte 5)', () => {
 
 		it('should handle focus events', () => {
 			const textarea = createMockElement();
-			let isFocused = false;
+			let _isFocused = false;
 
 			textarea.addEventListener('focus', () => {
 				isFocused = true;
@@ -300,7 +300,7 @@ describe('Textarea Component (Svelte 5)', () => {
 				simulateAnimation(textarea, true);
 			}
 
-			expect(textarea.style.transition).toContain('all');
+			expect(textarea.style['transition']).toContain('all');
 		});
 
 		it('should apply liquid blur on focus', () => {
@@ -322,10 +322,10 @@ describe('Textarea Component (Svelte 5)', () => {
 			const animate = true;
 
 			if (autoResize && animate) {
-				textarea.style.transition = 'height 200ms ease-out';
+				textarea.style['transition'] = 'height 200ms ease-out';
 			}
 
-			expect(textarea.style.transition).toContain('height');
+			expect(textarea.style['transition']).toContain('height');
 		});
 	});
 
@@ -391,27 +391,27 @@ describe('Textarea Component (Svelte 5)', () => {
 			const textarea = createMockElement();
 			const multiLineText = 'Line 1\nLine 2\nLine 3';
 
-			textarea.value = multiLineText;
+			textarea['value'] = multiLineText;
 
-			expect(textarea.value).toBe(multiLineText);
+			expect(textarea['value']).toBe(multiLineText);
 		});
 
 		it('should preserve whitespace', () => {
 			const textarea = createMockElement();
 			const textWithSpaces = '  Indented text\n    More indentation';
 
-			textarea.value = textWithSpaces;
+			textarea['value'] = textWithSpaces;
 
-			expect(textarea.value).toBe(textWithSpaces);
+			expect(textarea['value']).toBe(textWithSpaces);
 		});
 
 		it('should handle emoji and special characters', () => {
 			const textarea = createMockElement();
 			const specialText = 'Hello 👋 World! 🌍 Special chars: @#$%^&*()';
 
-			textarea.value = specialText;
+			textarea['value'] = specialText;
 
-			expect(textarea.value).toBe(specialText);
+			expect(textarea['value']).toBe(specialText);
 		});
 	});
 
@@ -448,9 +448,9 @@ describe('Textarea Component (Svelte 5)', () => {
 			const textarea = createMockElement();
 			const largeText = 'x'.repeat(10000);
 
-			textarea.value = largeText;
+			textarea['value'] = largeText;
 
-			expect(textarea.value.length).toBe(10000);
+			expect(textarea['value'].length).toBe(10000);
 		});
 	});
 });
