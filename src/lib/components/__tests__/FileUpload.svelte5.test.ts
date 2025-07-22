@@ -238,7 +238,7 @@ describe('FileUpload Component (Svelte 5)', () => {
 			let _isDragging = true;
 
 			dropzone.addEventListener('dragleave', () => {
-				isDragging = false;
+				_isDragging = false;
 			});
 
 			dropzone.addEventListener.mock.calls[0][1]();
