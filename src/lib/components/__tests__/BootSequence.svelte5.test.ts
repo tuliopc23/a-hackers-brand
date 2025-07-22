@@ -162,10 +162,10 @@ describe('BootSequence Component (Svelte 5)', () => {
 			const hasProgress = true;
 
 			if (hasProgress) {
-				progressElement.innerHTML = '<span class="dots">...</span>';
+				progressElement['innerHTML'] = '<span class="dots">...</span>';
 			}
 
-			expect(progressElement.innerHTML).toContain('dots');
+			expect(progressElement['innerHTML']).toContain('dots');
 		});
 	});
 
@@ -323,10 +323,10 @@ describe('BootSequence Component (Svelte 5)', () => {
 			const variant = 'modern';
 
 			if (variant === 'modern') {
-				messageElement.style.animation = 'fadeInUp 0.3s ease-out';
+				messageElement.style['animation'] = 'fadeInUp 0.3s ease-out';
 			}
 
-			expect(messageElement.style.animation).toContain('fadeInUp');
+			expect(messageElement.style['animation']).toContain('fadeInUp');
 		});
 
 		it('should apply matrix-style effects', () => {
@@ -345,10 +345,10 @@ describe('BootSequence Component (Svelte 5)', () => {
 			const showCursor = true;
 
 			if (showCursor) {
-				cursor.style.animation = 'blink 1s step-end infinite';
+				cursor.style['animation'] = 'blink 1s step-end infinite';
 			}
 
-			expect(cursor.style.animation).toContain('blink');
+			expect(cursor.style['animation']).toContain('blink');
 		});
 	});
 
@@ -387,12 +387,12 @@ describe('BootSequence Component (Svelte 5)', () => {
 			const prefersReducedMotion = true;
 
 			if (prefersReducedMotion) {
-				container.style.animation = 'none';
-				container.style.transition = 'none';
+				container.style['animation'] = 'none';
+				container.style['transition'] = 'none';
 			}
 
-			expect(container.style.animation).toBe('none');
-			expect(container.style.transition).toBe('none');
+			expect(container.style['animation']).toBe('none');
+			expect(container.style['transition']).toBe('none');
 		});
 	});
 

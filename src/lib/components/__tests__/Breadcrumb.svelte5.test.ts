@@ -278,10 +278,10 @@ describe('Breadcrumb Component (Svelte 5)', () => {
 			const homeIcon = '🏠';
 			const homeLabel = 'Home';
 
-			homeButton.innerHTML = `${homeIcon} <span class="sr-only">${homeLabel}</span>`;
+			homeButton['innerHTML'] = `${homeIcon} <span class="sr-only">${homeLabel}</span>`;
 
-			expect(homeButton.innerHTML).toContain(homeIcon);
-			expect(homeButton.innerHTML).toContain(homeLabel);
+			expect(homeButton['innerHTML']).toContain(homeIcon);
+			expect(homeButton['innerHTML']).toContain(homeLabel);
 		});
 
 		it('should show item icons when provided', () => {
@@ -289,13 +289,13 @@ describe('Breadcrumb Component (Svelte 5)', () => {
 			const itemElement = createMockElement();
 
 			if (item.icon) {
-				itemElement.innerHTML = `${item.icon} ${item.label}`;
+				itemElement['innerHTML'] = `${item.icon} ${item.label}`;
 			} else {
 				itemElement.textContent = item.label;
 			}
 
-			expect(itemElement.innerHTML).toContain('📦');
-			expect(itemElement.innerHTML).toContain('Products');
+			expect(itemElement['innerHTML']).toContain('📦');
+			expect(itemElement['innerHTML']).toContain('Products');
 		});
 	});
 
@@ -372,10 +372,10 @@ describe('Breadcrumb Component (Svelte 5)', () => {
 			const hasHover = true;
 
 			if (hasHover) {
-				item.style.transition = 'all 200ms ease-in-out';
+				item.style['transition'] = 'all 200ms ease-in-out';
 			}
 
-			expect(item.style.transition).toContain('all');
+			expect(item.style['transition']).toContain('all');
 		});
 	});
 

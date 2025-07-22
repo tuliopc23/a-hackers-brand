@@ -191,7 +191,7 @@
       ],
       "content": "Brand Guidelines The comprehensive guide to the Tulio Brand System — a liquid glass terminal fusion design language that merges Apple's sophisticated glass aesthetics with hacker terminal culture. Brand Identity Our Philosophy The Tulio Brand System represents the intersection of elegance and power. We believe that developer tools should be both beautiful and functional, combining the visual sophistication of modern design with the raw efficiency of terminal interfaces. Sophisticated Clean, refined aesthetics inspired by Apple's design philosophy Powerful Terminal-inspired functionality that developers love Innovative Cutting-edge WebGL effects and liquid animations Typography Font Families Our typography system is built on PP Supply, a modern geometric typeface that perfectly balances technical precision with visual elegance. PP Supply Mono The quick brown fox jumps over the lazy dog Used for: Code, terminal interfaces, technical content, data displays PP Supply Sans The quick brown fox jumps over the lazy dog Used for: Headings, UI elements, marketing content, body text Type Scale Heading 1 - 2.25rem (36px) text-4xl Heading 2 - 1.875rem (30px) text-3xl Heading 3 - 1.5rem (24px) text-2xl Heading 4 - 1.25rem (20px) text-xl Body Large - 1.125rem (18px) text-lg Body Default - 1rem (16px) text-base Body Small - 0.875rem (14px) text-sm Typography Rules Do's ✓ • Use PP Supply Sans for all UI text • Use PP Supply Mono for code and data • Maintain consistent hierarchy • Ensure 4.5:1 contrast ratio minimum • Use proper line heights (1.5 for body) Don'ts ✗ • Don't mix font families in headings • Don't use less than 14px for body text • Don't stretch or compress fonts • Don't use all caps for long text • Don't override system font settings Color System Terminal Colors Our primary palette draws inspiration from classic terminal interfaces and cyberpunk aesthetics. Glass System Our glass morphism effects use carefully calibrated opacity levels for depth and hierarchy. opacity Color Usage Guidelines Accessibility ✓ Always ensure a minimum contrast ratio of 4.5:1 for normal text ✓ Use 3:1 contrast ratio for large text (18pt+ or 14pt+ bold) ✓ Test color combinations with accessibility tools ✓ Provide alternative visual cues beyond color alone Spacing & Layout 8-Point Grid System Our spacing system is based on an 8-point grid, ensuring consistent and harmonious layouts across all interfaces. / Layout Principles Component Spacing • Use 16px (md) for component internal padding • Use 24px (lg) between related components • Use 48px (2xl) between sections • Maintain consistent spacing ratios Responsive Breakpoints • Mobile: 0-639px • Tablet: 640px-1023px • Desktop: 1024px-1279px • Wide: 1280px+ Motion & Animation Animation Principles Motion in the Tulio Brand System should feel liquid, smooth, and purposeful. Every animation serves to enhance the user experience, not distract from it. • Liquid: Animations should flow like water • Responsive: React immediately to user input • Subtle: Enhance, don't overwhelm • Consistent: Use standard timing and easing Standard Timings 150ms Fast Micro-interactions 300ms Normal Most transitions 500ms Slow Page transitions 750ms Slower Complex animations Voice & Tone Brand Voice The Tulio brand speaks with confidence and technical expertise while remaining approachable and human. We're the friend who knows their stuff but never talks down to you. We Are • Technical but clear • Confident but humble • Modern but timeless • Helpful but concise We're Not • Jargon-heavy • Arrogant • Trendy • Verbose We Sound Like • A skilled mentor • A trusted colleague • A passionate creator • A problem solver Writing Examples ❌ Don't say: \"An error has occurred in the system. Please contact the administrator.\" ✓ Do say: \"Something went wrong. Try refreshing, or let us know if it persists.\" Implementation Quick Start To use the Tulio Brand System in your project:",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.827Z"
+      "lastModified": "2025-07-22T21:08:03.987Z"
     },
     {
       "id": "docs-colors",
@@ -319,7 +319,7 @@
       ],
       "content": "Color System Our color system combines cyberpunk terminal aesthetics with modern glass morphism, creating a unique visual language that's both futuristic and functional. Color Philosophy The Tulio color system is inspired by classic terminal interfaces, cyberpunk aesthetics, and modern glass design. Each color serves a specific purpose and creates a cohesive visual hierarchy. Terminal Heritage Classic phosphor greens meet modern neons Glass Clarity Translucent layers create depth Neon Accents Bold colors for emphasis and delight Terminal Palette Our primary palette draws from classic terminal phosphors and cyberpunk neons, each color carefully chosen for optimal contrast and visual impact. brandColors.terminal. Glass System Our glass morphism system uses carefully calibrated opacity levels to create depth and hierarchy while maintaining readability. opacity Glass Effect Implementation Gradients Dynamic gradients add energy and movement to the interface, reinforcing the liquid terminal aesthetic. brandColors.gradients. Semantic Colors Consistent semantic colors help users understand system states and actions at a glance. Background System Our background colors create depth and hierarchy while maintaining the dark, sophisticated aesthetic. Background brandColors.background. Accessibility All color combinations meet WCAG AA standards for contrast ratios, ensuring readability for all users. Contrast Requirements ✓ Normal text: 4.5:1 minimum ✓ Large text: 3:1 minimum ✓ UI components: 3:1 minimum Testing Tools • WebAIM Contrast Checker • Chrome DevTools Accessibility • Stark Figma Plugin • Polypane Browser Example Combinations Terminal Green on Primary Background 8.5:1 ✓ Electric Cyan on Secondary Background 9.2:1 ✓ Neon Orange on Tertiary Background 5.8:1 ✓ Color Usage Guidelines Do's ✓ ✓ Use terminal colors for interactive elements and emphasis ✓ Apply glass effects to create depth and hierarchy ✓ Test color combinations for accessibility ✓ Use semantic colors consistently ✓ Apply gradients sparingly for impact Don'ts ✗ ✗ Mix too many bright colors in one view ✗ Use pure white on dark backgrounds ✗ Apply glass effects to text ✗ Use color as the only indicator ✗ Override semantic color meanings Implementation Using Design Tokens Tailwind Classes Success message Glass container Gradient element `} language=\"html\" />",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.827Z"
+      "lastModified": "2025-07-22T21:08:03.987Z"
     },
     {
       "id": "docs-spacing",
@@ -447,7 +447,7 @@
       ],
       "content": "Spacing & Layout Our spacing system is built on an 8-point grid that ensures consistent, harmonious layouts across all interfaces while maintaining the liquid glass aesthetic. Spacing Philosophy The Tulio spacing system creates rhythm and hierarchy through careful use of whitespace. Every measurement is based on multiples of 8px, creating a mathematical harmony that feels both technical and organic. 8 8-Point Grid Mathematical foundation for all spacing ≈ Proportional Consistent ratios across all components ⚡ Responsive Adapts fluidly across all screen sizes Spacing Scale Our spacing scale provides a comprehensive range of sizes for all layout needs, from micro-spacing to major page sections. / Layout Grid System Our responsive grid system adapts from single-column mobile layouts to complex multi-column desktop interfaces while maintaining visual harmony. Grid Columns Column grid-cols- Responsive Breakpoints Our breakpoint system ensures optimal layouts across all device sizes, from mobile phones to ultra-wide monitors. Min Width Max Width Container Breakpoint Usage Responsive padding `} language=\"css\" /> Component Spacing Patterns Standard spacing patterns for common components ensure consistency across the design system. Internal Padding: External Margin: Layout Principles Do's ✓ ✓ Use consistent spacing ratios throughout your layout ✓ Maintain the 8-point grid system for all measurements ✓ Test layouts across all breakpoints ✓ Use whitespace to create visual hierarchy ✓ Group related elements with consistent spacing ✓ Follow responsive-first design principles Don'ts ✗ ✗ Use arbitrary spacing values outside the scale ✗ Create inconsistent gaps between similar elements ✗ Forget to test mobile layouts thoroughly ✗ Overcrowd interfaces with insufficient spacing ✗ Use fixed pixel values instead of responsive units ✗ Break the grid system for one-off solutions Container Layouts Standard Containers Responsive Container Example Card 1 Card 2 Card 3 `} language=\"html\" /> Implementation Using Design Tokens Tailwind Classes Content with responsive spacing Responsive container content Section Title Multiple content blocks with consistent spacing `} language=\"html\" />",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.842Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-typography",
@@ -570,7 +570,7 @@
       ],
       "content": "Typography Typography is the foundation of our design language. The PP Supply font family provides the perfect balance of technical precision and visual elegance. Font Families PP Supply Sans Primary typeface for UI and marketing Download Font Weights Available Regular (400) font-normal Medium (500) font-medium Semibold (600) font-semibold Bold (700) font-bold Best Used For • Headlines and titles • Body text • UI components • Marketing materials • Documentation PP Supply Mono Monospace for code and terminal interfaces Download Font Weights Available Regular (400) font-normal Medium (500) font-medium Bold (700) font-bold Best Used For • Code blocks • Terminal interfaces • Data displays • Technical documentation • System messages Type Scale Our type scale follows a harmonious progression, ensuring clear hierarchy and readability across all screen sizes. Display Large text-5xl 3rem / 48px • Line height: 1 Display text-4xl 2.25rem / 36px • Line height: 1.25 Heading 1 text-3xl 1.875rem / 30px • Line height: 1.25 Heading 2 text-2xl 1.5rem / 24px • Line height: 1.5 Heading 3 text-xl 1.25rem / 20px • Line height: 1.5 Heading 4 text-lg 1.125rem / 18px • Line height: 1.5 Body text-base 1rem / 16px • Line height: 1.5 Small text-sm 0.875rem / 14px • Line height: 1.5 Extra Small text-xs 0.75rem / 12px • Line height: 1.5 Font Pairing Effective font pairing creates visual interest and hierarchy. Here are recommended combinations for different contexts. • • Beautiful Terminal Interfaces • • Line Height Proper line height ensures readability and visual comfort across different text sizes and contexts. Tight (1.25) leading-tight Normal (1.5) leading-normal Relaxed (1.75) leading-relaxed Typography Guidelines Best Practices ✓ ✓ Use PP Supply Sans for all UI text and headings ✓ Reserve PP Supply Mono for code, data, and terminal interfaces ✓ Maintain consistent type scales across similar elements ✓ Use proper semantic HTML tags (h1-h6, p, etc.) ✓ Ensure minimum 16px font size for body text ✓ Test readability on different screen sizes Common Mistakes ✗ ✗ Mixing too many font sizes in one section ✗ Using all caps for long passages of text ✗ Insufficient contrast between text and background ✗ Line lengths exceeding 75 characters ✗ Using system fonts as fallbacks without testing ✗ Ignoring responsive typography needs Implementation CSS Variables Tailwind Classes Welcome to Tulio Build beautiful terminal-inspired interfaces npm install tulio-brand-system `} language=\"html\" />",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.843Z"
+      "lastModified": "2025-07-22T21:08:04.003Z"
     },
     {
       "id": "docs-accessibility",
@@ -723,7 +723,7 @@
       ],
       "content": "A Hacker's Brand Accessibility Guidelines Accessibility Guidelines Building inclusive experiences that work for everyone, everywhere. (selectedSection = key)} data-magnetic > WCAG Compliance Levels Key Requirements: • Our Accessibility Commitment ✓ What We Provide • WCAG 2.1 AA compliance by default • Automatic reduced motion support • Semantic HTML structure • Keyboard navigation support • Screen reader compatibility • High contrast color combinations 🎯 Testing Coverage • Automated accessibility testing in CI/CD • Manual screen reader testing • Keyboard-only navigation validation • Color contrast ratio verification • User testing with disabled users • Mobile accessibility validation Color Contrast Testing Ratio: Sample Text FG: BG: Contrast Requirements 4.5:1 Normal Text Regular text under 18pt or 14pt bold 3:1 Large Text Text 18pt+ or 14pt+ bold 3:1 UI Components Buttons, form controls, focus indicators Motion Preferences Implementation: Test Your Motion Preference Check Motion Setting Current setting: Implementation Examples CSS Media Query JavaScript Detection else });`} language=\"javascript\" /> Keyboard Navigation Patterns Keys: Behavior: Focus: Focus Management Focus Indicators Visible Focus Ring Background Change Border + Shadow Focus CSS Implementation ARIA Implementation Examples Interactive Elements ... Menu ... Password Must be at least 8 characters `} language=\"html\" /> Dynamic Content Status: Form submitted successfully 32% complete Click to sort by name `} language=\"html\" /> Accessibility Testing Tools Features: • → Accessibility Testing Checklist Automated Testing Run axe-core accessibility tests Validate HTML semantics Check color contrast ratios Test with Lighthouse audit Validate ARIA attributes Manual Testing Navigate using only keyboard Test with screen reader Verify reduced motion support Test at 200% zoom level Validate mobile accessibility CI/CD Integration GitHub Actions Workflow Building inclusive experiences that work for everyone",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.827Z"
+      "lastModified": "2025-07-22T21:08:03.987Z"
     },
     {
       "id": "docs-components-accordion",
@@ -806,7 +806,7 @@
       ],
       "content": "Accordion v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.828Z"
+      "lastModified": "2025-07-22T21:08:03.987Z"
     },
     {
       "id": "docs-components-advancedliquidterminal",
@@ -889,7 +889,7 @@
       ],
       "content": "AdvancedLiquidTerminal v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-16T21:40:53.421Z"
+      "lastModified": "2025-07-22T21:08:03.987Z"
     },
     {
       "id": "docs-components-advancedterminal",
@@ -972,7 +972,7 @@
       ],
       "content": "AdvancedTerminal v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.828Z"
+      "lastModified": "2025-07-22T21:08:03.987Z"
     },
     {
       "id": "docs-components-aicommandsuggestions",
@@ -1055,7 +1055,7 @@
       ],
       "content": "AICommandSuggestions v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.829Z"
+      "lastModified": "2025-07-22T21:08:03.987Z"
     },
     {
       "id": "docs-components-alert",
@@ -1138,7 +1138,7 @@
       ],
       "content": "Alert v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.829Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-asyncerrorboundary",
@@ -1221,7 +1221,7 @@
       ],
       "content": "AsyncErrorBoundary v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.829Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-badge",
@@ -1304,7 +1304,7 @@
       ],
       "content": "Badge v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.829Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-bootsequence",
@@ -1387,7 +1387,7 @@
       ],
       "content": "BootSequence v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.830Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-guidelines",
@@ -1620,7 +1620,7 @@
       ],
       "content": "A Hacker's Brand Brand Guidelines Brand Guidelines The definitive guide to the liquid glass terminal fusion design system. Learn the principles, rules, and best practices. (selectedSection = key)} data-magnetic > Core Principles Brand Equation Apple Minimalism + Terminal Culture = Liquid Glass Terminal Fusion Apple Minimalism Clean interfaces Refined interactions Premium materials System fonts Terminal Culture Monospace typography Command-line patterns Hacker aesthetics Terminal colors Liquid Glass Fusion Translucent layers Magnetic micro-interactions Fluid animations Glass morphism Brand Personality Professional yet Approachable Innovative but Familiar Powerful yet Elegant Voice & Tone Tone • Confident • Knowledgeable • Subtly playful Voice • Direct • Precise • Occasionally technical Emotion • Curiosity • Mastery • Satisfaction Primary Typeface: PP Supply Sans Usage • Headers and body text • UI elements • Marketing materials • Documentation Characteristics • Geometric and modern • Highly legible • Professional appearance • Excellent readability The quick brown fox jumps over the lazy dog PP Supply Sans Secondary Typeface: PP Supply Mono Usage • Code blocks • Terminal interfaces • Technical content • Data displays Characteristics • Monospaced • Terminal-authentic • Excellent for code • Clear character distinction The quick brown fox jumps over the lazy dog PP Supply Mono Color Usage Rules Primary Blue (#007aff) • Primary buttons and CTAs • Focus states and selection • Links and interactive elements • Loading states and progress Terminal Green (#30d158) • Success states and confirmations • Terminal prompts and active states • Positive feedback • Command execution indicators Accessibility Requirements Text contrast ratio 4.5:1 minimum Large text contrast ratio 3:1 minimum UI elements contrast ratio 3:1 minimum Glass Effect Guidelines ✅ Do • Layer glass components for depth • Use blur effects strategically • Maintain consistent opacity levels • Test readability over various backgrounds • Use subtle transparency for elegance ❌ Don't • Overuse heavy glass effects • Mix glass with solid backgrounds • Stack more than 3 glass layers • Ignore accessibility contrast requirements • Use glass for critical text content Glass Intensity Levels Motion Principles Fluid & Natural Animations feel organic and physics-based Purposeful Every animation serves a functional purpose Subtle Motion enhances, never distracts Responsive Animations adapt to user preferences Signature Effects Magnetic Hover Elements subtly respond to cursor proximity Glass Ripple Click interactions create expanding glass ripples Do's and Don'ts ✅ Do • ❌ Don't • Usage Examples ✅ Correct ❌ Incorrect Why: Accessibility Standards Color Contrast • Text: 4.5:1 contrast ratio minimum • Large text: 3:1 contrast ratio minimum • UI elements: 3:1 contrast ratio minimum • Test with various backdrop images Motion & Animation • Respect prefers-reduced-motion • Provide alternative static states • Avoid seizure-inducing effects • Keep animations under 5 seconds Implementation Guidelines Reduced Motion Focus Management Code copied to clipboard! Follow these guidelines to maintain design system consistency and quality",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.841Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-brandstyleguide",
@@ -1703,7 +1703,7 @@
       ],
       "content": "BrandStyleguide v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.830Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-breadcrumb",
@@ -1786,7 +1786,7 @@
       ],
       "content": "Breadcrumb v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.830Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-button",
@@ -1869,7 +1869,7 @@
       ],
       "content": "Button v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.830Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-card",
@@ -1952,7 +1952,7 @@
       ],
       "content": "Card v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.830Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-carousel",
@@ -2035,7 +2035,7 @@
       ],
       "content": "Carousel v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.830Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-checkbox",
@@ -2118,7 +2118,7 @@
       ],
       "content": "Checkbox v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.831Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-codehighlight",
@@ -2201,7 +2201,7 @@
       ],
       "content": "CodeHighlight v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.831Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-commandblock",
@@ -2284,7 +2284,7 @@
       ],
       "content": "CommandBlock v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.831Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components",
@@ -2347,7 +2347,7 @@
       ],
       "content": "A Hacker's Brand Components Component Library Interactive showcase of all liquid glass components with live demos, code examples, and usage guidelines. (selectedTab = key)} data-magnetic > Code Example Live Demo Deploy to Production Secondary Ghost Danger Terminal Output $ npm run build ✓ Build completed in 1.2s (showModal = true)}>Open Modal Confirm Deployment Are you sure you want to deploy to production? (showModal = false)}>Deploy (showModal = false)}>Cancel Code Preview Docs $ npm run dev > Ready in 2.3s ✓ Local server running Primary Secondary Success Warning Danger Value: Enable notifications (showToast = true)}>Show Toast (showToast = false)} /> 🚧 Demo coming soon Advanced WebGL Scene Loading WebGL scene... Component library built with liquid glass design principles",
       "type": "component",
-      "lastModified": "2025-07-16T21:30:41.551Z"
+      "lastModified": "2025-07-22T21:08:03.987Z"
     },
     {
       "id": "docs-components-datagrid",
@@ -2430,7 +2430,7 @@
       ],
       "content": "DataGrid v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.831Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-datatable",
@@ -2513,7 +2513,7 @@
       ],
       "content": "DataTable v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.831Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-datepicker",
@@ -2596,7 +2596,7 @@
       ],
       "content": "DatePicker v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.832Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-tokens",
@@ -2689,7 +2689,7 @@
       ],
       "content": "A Hacker's Brand Design Tokens Design Tokens The foundational design decisions that drive the entire liquid glass terminal fusion system. (selectedTokenCategory = key)} data-magnetic > Primary Colors copyToken(`primary-$ `, color)} onkeydown= `, color)} aria-label= color $ `} tabindex=\"0\" > Click to copy primary- Terminal Colors copyToken(`terminal-$ `, color)} onkeydown= `, color)} aria-label= color $ `} tabindex=\"0\" > Click to copy terminal- Glass Colors Glass copyToken(`glass-$ -$ `, color)} onkeydown= -$ `, color)} aria-label= $ color $ `} tabindex=\"0\" > Copy Font Families copyToken(`font-$ `, family.join(', '))} onkeydown= `, family.join(', '))} aria-label= : $ `} tabindex=\"0\" > Click to copy The quick brown fox jumps over the lazy dog Font Sizes copyToken(`text-$ `, fontSize)} onkeydown= `, fontSize)} aria-label= : $ `} tabindex=\"0\" > Sample Text Spacing Scale copyToken(`spacing-$ `, value)} onkeydown= `, value)} aria-label= : $ `} tabindex=\"0\" > Click to copy Glass Shadows copyToken(`shadow-glass-$ `, shadow)} onkeydown= `, shadow)} aria-label= `} tabindex=\"0\" > Click to copy glass- Focus Shadows copyToken(`shadow-focus-$ `, shadow)} onkeydown= `, shadow)} aria-label= `} tabindex=\"0\" > Click to copy focus- Animation Duration copyToken(`duration-$ `, duration)} onkeydown= `, duration)} aria-label= : $ `} tabindex=\"0\" > Click to copy Easing Functions copyToken(`ease-$ `, easing)} onkeydown= `, easing)} aria-label= : $ `} tabindex=\"0\" > Click to copy Blur Levels copyToken(`blur-$ `, blur)} onkeydown= `, blur)} aria-label= : $ `} tabindex=\"0\" > Click to copy Tokens copyToken(`$ -$ -$ `, value)} onkeydown= -$ -$ `, value)} aria-label= $ $ : $ `} tabindex=\"0\" > Token copied to clipboard! Design tokens that define the liquid glass terminal fusion aesthetic",
       "type": "component",
-      "lastModified": "2025-07-10T17:49:40.047Z"
+      "lastModified": "2025-07-22T21:08:04.003Z"
     },
     {
       "id": "docs-+layout.svelte",
@@ -2717,7 +2717,7 @@
       ],
       "content": "A Hacker's Brand Search documentation... ⌘K Documentation }} role=\"presentation\" aria-hidden=\"true\" > Documentation Menu",
       "type": "component",
-      "lastModified": "2025-07-10T13:40:34.970Z"
+      "lastModified": "2025-07-22T21:08:03.987Z"
     },
     {
       "id": "docs-components-drawer",
@@ -2800,7 +2800,7 @@
       ],
       "content": "Drawer v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.832Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-dropdown",
@@ -2883,7 +2883,7 @@
       ],
       "content": "Dropdown v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.832Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-errorboundary",
@@ -2966,7 +2966,7 @@
       ],
       "content": "ErrorBoundary v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.833Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-fileupload",
@@ -3049,7 +3049,7 @@
       ],
       "content": "FileUpload v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.833Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-formerrorboundary",
@@ -3132,7 +3132,7 @@
       ],
       "content": "FormErrorBoundary v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.833Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-glassscene",
@@ -3215,7 +3215,7 @@
       ],
       "content": "GlassScene v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.833Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-iconography",
@@ -3273,7 +3273,7 @@
       ],
       "content": "A Hacker's Brand Iconography Iconography System SF Symbols-inspired icons with CLI aesthetics and liquid glass integration. Every icon tells a story in the language of hackers and terminal interfaces. (selectedCategory = key)} data-magnetic > Design Principles Size Scale Our icon sizing follows a consistent scale that ensures optimal readability and visual hierarchy across all interface elements. / size= Implementation Basic Usage `} language=\"svelte\" /> With Liquid Glass Effects `} language=\"svelte\" /> Interactive States `} language=\"svelte\" /> copyIconCode(icon.name)} data-magnetic title=\"Click to copy code\" > Copied!",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.841Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-input",
@@ -3356,7 +3356,7 @@
       ],
       "content": "Input v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.833Z"
+      "lastModified": "2025-07-22T21:08:03.991Z"
     },
     {
       "id": "docs-components-lazyterminalwindow",
@@ -3439,7 +3439,7 @@
       ],
       "content": "LazyTerminalWindow v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.834Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-lazythreltecanvas",
@@ -3522,7 +3522,7 @@
       ],
       "content": "LazyThrelteCanvas v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.834Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-",
@@ -3575,7 +3575,7 @@
       ],
       "content": "A Hacker's Brand Overview Design System A jaw-dropping fusion of Apple's liquid glass design language with terminal hacker aesthetics . Professional, innovative, and magnetic. $ npm install @tulio/liquid-glass-system copyCommand('npm install @tulio/liquid-glass-system')} title=\"Copy command\" > ▓ Installing liquid glass components... ✓ Components installed successfully ✓ Design tokens configured ✓ Ready to build jaw-dropping interfaces $ npm run dev ▓ Explore the System Comprehensive documentation and interactive examples Explore Quick Start 1. Install the package 2. Import components 3. Start building Deploy to Production \" language=\"svelte\" /> Built with ♥ by Tulio Pinheiro Cunha Liquid Glass Terminal Fusion Design System v0.2.0",
       "type": "component",
-      "lastModified": "2025-07-11T01:11:43.478Z"
+      "lastModified": "2025-07-22T21:08:03.987Z"
     },
     {
       "id": "docs-components-liquidterminal",
@@ -3658,7 +3658,7 @@
       ],
       "content": "LiquidTerminal v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.834Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-list",
@@ -3741,7 +3741,7 @@
       ],
       "content": "List v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.834Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-matrixrain",
@@ -3824,7 +3824,7 @@
       ],
       "content": "MatrixRain v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.834Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-menu",
@@ -3907,7 +3907,7 @@
       ],
       "content": "Menu v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.835Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-metricscard",
@@ -3990,7 +3990,7 @@
       ],
       "content": "MetricsCard v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.835Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-modal",
@@ -4073,7 +4073,7 @@
       ],
       "content": "Modal v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.835Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-motion",
@@ -4201,7 +4201,7 @@
       ],
       "content": "A Hacker's Brand Motion System Motion System Fluid, responsive animations that bring the liquid glass terminal fusion aesthetic to life. (selectedMotion = key)} data-magnetic > Duration: triggerDemo(preset.name)} use:presets[preset.name] > ⚡ triggerDemo(preset.name)} > Play Demo Implementation copyCode(preset.demo)} > Copy Code Liquid Blur Transitions Smooth liquid-inspired blur effects that create depth and fluidity. Hover to see different blur intensities Usage Examples Glass Fade Transitions Elegant entrance and exit animations with directional movement. Fade Directional Options Spring Pop Transitions Elastic spring-based animations for interactive feedback. Bouncy Press Scale Up Spring Configurations Magnetic Hover Elements subtly follow cursor movement creating magnetic attraction. Hover over elements to see magnetic effect Implementation Jelly Motion Elastic jelly-like deformations for playful interactions. 🍮 🌊 Hover for jelly effects Jelly Variants Easing Functions Animation Preview CSS: copyCode(easing.value)} > Copy Value Duration Scale } > Reduced Motion Support Automatically respects user's motion preferences for accessibility. ✓ Automatic Detection All motion components automatically detect and respect prefers-reduced-motion ⚡ Graceful Degradation Animations fade to instant or minimal transitions when reduced motion is preferred Implementation Performance Optimization Smart Defaults • Hardware acceleration when beneficial • Automatic cleanup on unmount • Optimized for 60fps on modern devices • Progressive enhancement approach Best Practices `} language=\"css\" /> Motion that enhances the liquid glass terminal fusion experience",
       "type": "component",
-      "lastModified": "2025-07-14T04:24:48.947Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-multiselect",
@@ -4284,7 +4284,7 @@
       ],
       "content": "MultiSelect v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.835Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-navbar",
@@ -4367,7 +4367,7 @@
       ],
       "content": "Navbar v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.835Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-pagination",
@@ -4450,7 +4450,7 @@
       ],
       "content": "Pagination v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.835Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-performancedashboard",
@@ -4533,7 +4533,7 @@
       ],
       "content": "PerformanceDashboard v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.836Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-performancemonitor",
@@ -4616,7 +4616,7 @@
       ],
       "content": "PerformanceMonitor v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.836Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-perfoverlay",
@@ -4699,7 +4699,7 @@
       ],
       "content": "PerfOverlay v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.836Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-playground",
@@ -4727,7 +4727,7 @@
       ],
       "content": "Interactive Playground Experiment with A Hacker's Brand components in real-time. Edit the code on the left and see the results on the right. playgroundStore.formatCode()} /> Loading playground... else if (e.key === 'ArrowRight') }} >",
       "type": "component",
-      "lastModified": "2025-07-14T04:24:48.970Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-portfoliocard",
@@ -4810,7 +4810,7 @@
       ],
       "content": "PortfolioCard v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.836Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-progress",
@@ -4893,7 +4893,7 @@
       ],
       "content": "Progress v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.836Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-radio",
@@ -4976,7 +4976,7 @@
       ],
       "content": "Radio v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.837Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-responsivedemo",
@@ -5059,7 +5059,7 @@
       ],
       "content": "ResponsiveDemo v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.837Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-retrofuturistictext",
@@ -5142,7 +5142,7 @@
       ],
       "content": "RetroFuturisticText v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.837Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-retrotext",
@@ -5225,7 +5225,7 @@
       ],
       "content": "RetroText v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.837Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-select",
@@ -5308,7 +5308,7 @@
       ],
       "content": "Select v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.838Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-selectadvanced",
@@ -5391,7 +5391,7 @@
       ],
       "content": "SelectAdvanced v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.838Z"
+      "lastModified": "2025-07-22T21:08:03.995Z"
     },
     {
       "id": "docs-components-sidebar",
@@ -5474,7 +5474,7 @@
       ],
       "content": "Sidebar v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.838Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-skeleton",
@@ -5557,7 +5557,7 @@
       ],
       "content": "Skeleton v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.838Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-slider",
@@ -5640,7 +5640,7 @@
       ],
       "content": "Slider v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.838Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-switch",
@@ -5723,7 +5723,7 @@
       ],
       "content": "Switch v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.839Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-table",
@@ -5806,7 +5806,7 @@
       ],
       "content": "Table v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.839Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-tabs",
@@ -5889,7 +5889,7 @@
       ],
       "content": "Tabs v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.839Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-terminalorbit",
@@ -5972,7 +5972,7 @@
       ],
       "content": "TerminalOrbit v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.839Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-terminalstartup",
@@ -6055,7 +6055,7 @@
       ],
       "content": "TerminalStartup v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.839Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-terminalwindow",
@@ -6138,7 +6138,7 @@
       ],
       "content": "TerminalWindow v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.840Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-textarea",
@@ -6221,7 +6221,7 @@
       ],
       "content": "Textarea v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.840Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-threltecanvas",
@@ -6304,7 +6304,7 @@
       ],
       "content": "ThrelteCanvas v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.840Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-toast",
@@ -6387,7 +6387,7 @@
       ],
       "content": "Toast v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.840Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-tooltip",
@@ -6470,7 +6470,7 @@
       ],
       "content": "Tooltip v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.840Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     },
     {
       "id": "docs-components-vintagemacscreen",
@@ -6553,7 +6553,7 @@
       ],
       "content": "VintageMacScreen v Preview Secondary Ghost Interactive Playground Experiment with different props and see the changes in real-time. Examples (activeExample = tab.id)} > Usage Preview Example Code API Reference Props Events Accessibility Built-in Features • Keyboard navigation support • Focus management with visible indicators • Screen reader compatible • ARIA attributes and roles Related Components Button Interactive buttons with effects",
       "type": "component",
-      "lastModified": "2025-07-10T00:02:37.841Z"
+      "lastModified": "2025-07-22T21:08:03.999Z"
     }
   ],
   "categories": [],
@@ -6562,7 +6562,7 @@
     "svelte",
     "ui"
   ],
-  "lastUpdated": "2025-07-17T17:31:04.034Z",
+  "lastUpdated": "2025-07-22T21:44:22.051Z",
   "version": "1.0.0",
   "stats": {
     "totalDocuments": 75,

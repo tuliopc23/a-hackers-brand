@@ -96,8 +96,8 @@ describe('Toast Component (Svelte 5)', () => {
 		it('should generate correct container classes', () => {
 			const container = createMockElement();
 			const variant = 'glass';
-			const type = 'info';
-			const blur = 'md';
+			const _type = 'info';
+			const _blur = 'md';
 
 			simulateClassGeneration(container, 'pointer-events-auto max-w-sm w-full', variant, '', [
 				'glass-heavy',
@@ -253,7 +253,7 @@ describe('Toast Component (Svelte 5)', () => {
 
 		it('should handle mouse enter to pause timer', () => {
 			const toast = createMockElement();
-			let isPaused = false;
+			let _isPaused = false;
 
 			toast.addEventListener('mouseenter', () => {
 				isPaused = true;
@@ -266,7 +266,7 @@ describe('Toast Component (Svelte 5)', () => {
 
 		it('should handle mouse leave to resume timer', () => {
 			const toast = createMockElement();
-			let isPaused = true;
+			let _isPaused = true;
 
 			toast.addEventListener('mouseleave', () => {
 				isPaused = false;
@@ -290,13 +290,13 @@ describe('Toast Component (Svelte 5)', () => {
 
 				// Position-based animation direction
 				if (position.includes('top')) {
-					toast.style.transform = 'translateY(-100%)';
+					toast.style['transform'] = 'translateY(-100%)';
 				} else {
-					toast.style.transform = 'translateY(100%)';
+					toast.style['transform'] = 'translateY(100%)';
 				}
 			}
 
-			expect(toast.style.transform).toBe('translateY(-100%)');
+			expect(toast.style['transform']).toBe('translateY(-100%)');
 		});
 
 		it('should apply exit animation', () => {
@@ -305,12 +305,12 @@ describe('Toast Component (Svelte 5)', () => {
 			const open = false;
 
 			if (animate && !open) {
-				toast.style.opacity = '0';
-				toast.style.transform = 'scale(0.95)';
+				toast.style['opacity'] = '0';
+				toast.style['transform'] = 'scale(0.95)';
 			}
 
-			expect(toast.style.opacity).toBe('0');
-			expect(toast.style.transform).toBe('scale(0.95)');
+			expect(toast.style['opacity']).toBe('0');
+			expect(toast.style['transform']).toBe('scale(0.95)');
 		});
 
 		it('should apply spring pop on action click', () => {
@@ -318,20 +318,20 @@ describe('Toast Component (Svelte 5)', () => {
 			const animate = true;
 
 			if (animate) {
-				actionButton.style.transform = 'scale(0.95)';
+				actionButton.style['transform'] = 'scale(0.95)';
 				setTimeout(() => {
-					actionButton.style.transform = 'scale(1)';
+					actionButton.style['transform'] = 'scale(1)';
 				}, 100);
 			}
 
-			expect(actionButton.style.transform).toBe('scale(0.95)');
+			expect(actionButton.style['transform']).toBe('scale(0.95)');
 		});
 	});
 
 	describe('Accessibility', () => {
 		it('should have proper ARIA attributes', () => {
 			const toast = createMockElement();
-			const type = 'success';
+			const _type = 'success';
 
 			expectAttributesToBeSet(toast, {
 				role: 'alert'

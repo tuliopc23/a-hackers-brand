@@ -216,7 +216,7 @@ describe('Select Component (Svelte 5)', () => {
 		it('should handle option click', () => {
 			const option = createMockElement();
 			const onOptionClick = vi.fn();
-			const onValueChange = vi.fn();
+			const _onValueChange = vi.fn();
 
 			option.addEventListener('click', onOptionClick);
 			option.click();
@@ -322,7 +322,7 @@ describe('Select Component (Svelte 5)', () => {
 				simulateAnimation(dropdown, true);
 			}
 
-			expect(dropdown.style.transition).toContain('all');
+			expect(dropdown.style['transition']).toContain('all');
 		});
 	});
 
@@ -330,7 +330,7 @@ describe('Select Component (Svelte 5)', () => {
 		it('should have proper ARIA attributes on trigger', () => {
 			const trigger = createMockElement();
 			const isOpen = false;
-			const value = '2';
+			const _value = '2';
 			const selectedOption = { value: '2', label: 'Option 2' };
 
 			expectAriaAttributes(trigger, {
@@ -356,7 +356,7 @@ describe('Select Component (Svelte 5)', () => {
 
 		it('should have proper ARIA attributes on options', () => {
 			const option = createMockElement();
-			const optionData = { value: '1', label: 'Option 1' };
+			const _optionData = { value: '1', label: 'Option 1' };
 			const isSelected = true;
 
 			expectAttributesToBeSet(option, {

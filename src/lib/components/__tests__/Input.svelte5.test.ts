@@ -39,7 +39,7 @@ describe('Input Component (Svelte 5)', () => {
 
 		it('renders all variants correctly', () => {
 			commonVariants.forEach((variant) => {
-				const props = createMockProps(inputTestDefaults, { variant });
+				const _props = createMockProps(inputTestDefaults, { variant });
 				const element = createMockElement();
 
 				simulateClassGeneration(element, 'input', variant);
@@ -49,7 +49,7 @@ describe('Input Component (Svelte 5)', () => {
 
 		it('renders all sizes correctly', () => {
 			commonSizes.forEach((size) => {
-				const props = createMockProps(inputTestDefaults, { size });
+				const _props = createMockProps(inputTestDefaults, { size });
 				const element = createMockElement();
 
 				simulateClassGeneration(element, 'input', undefined, size);
@@ -61,7 +61,7 @@ describe('Input Component (Svelte 5)', () => {
 			const types = ['text', 'email', 'password', 'number', 'tel', 'url'];
 
 			types.forEach((type) => {
-				const props = createMockProps(inputTestDefaults, { type });
+				const _props = createMockProps(inputTestDefaults, { type });
 				const element = createMockElement();
 
 				element.setAttribute('type', type);
@@ -145,11 +145,11 @@ describe('Input Component (Svelte 5)', () => {
 
 			if (props.glow) {
 				element.classList.add('glow');
-				element.style.boxShadow = '0 0 10px currentColor';
+				element.style['boxShadow'] = '0 0 10px currentColor';
 			}
 
 			expect(element.classList.add).toHaveBeenCalledWith('glow');
-			expect(element.style.boxShadow).toBe('0 0 10px currentColor');
+			expect(element.style['boxShadow']).toBe('0 0 10px currentColor');
 		});
 
 		it('applies liquid effects when liquid is true', () => {
@@ -171,17 +171,17 @@ describe('Input Component (Svelte 5)', () => {
 
 			if (props.blur) {
 				element.classList.add(`blur-${props.blur}`);
-				element.style.backdropFilter = 'blur(8px)';
+				element.style['backdropFilter'] = 'blur(8px)';
 			}
 
 			expect(element.classList.add).toHaveBeenCalledWith('blur-md');
-			expect(element.style.backdropFilter).toBe('blur(8px)');
+			expect(element.style['backdropFilter']).toBe('blur(8px)');
 		});
 	});
 
 	describe('Interactions', () => {
 		it('handles focus events', () => {
-			const props = createMockProps(inputTestDefaults);
+			const _props = createMockProps(inputTestDefaults);
 			const element = createMockElement();
 			const onFocus = vi.fn();
 
@@ -192,7 +192,7 @@ describe('Input Component (Svelte 5)', () => {
 		});
 
 		it('handles blur events', () => {
-			const props = createMockProps(inputTestDefaults);
+			const _props = createMockProps(inputTestDefaults);
 			const element = createMockElement();
 			const onBlur = vi.fn();
 
@@ -203,7 +203,7 @@ describe('Input Component (Svelte 5)', () => {
 		});
 
 		it('handles input events', () => {
-			const props = createMockProps(inputTestDefaults);
+			const _props = createMockProps(inputTestDefaults);
 			const element = createMockElement();
 			const onInput = vi.fn();
 
@@ -323,7 +323,7 @@ describe('Input Component (Svelte 5)', () => {
 
 			simulateAnimation(element, props.animated);
 
-			expect(element.style.transition).toBe('none');
+			expect(element.style['transition']).toBe('none');
 		});
 
 		it('applies focus transition effects', () => {
@@ -343,7 +343,7 @@ describe('Input Component (Svelte 5)', () => {
 
 	describe('Accessibility', () => {
 		it('has proper ARIA attributes', () => {
-			const props = createMockProps(inputTestDefaults);
+			const _props = createMockProps(inputTestDefaults);
 			const element = createMockElement();
 
 			element.setAttribute('role', 'textbox');
@@ -356,7 +356,7 @@ describe('Input Component (Svelte 5)', () => {
 		});
 
 		it('supports keyboard navigation', () => {
-			const props = createMockProps(inputTestDefaults);
+			const _props = createMockProps(inputTestDefaults);
 			const element = createMockElement();
 			const onKeyDown = vi.fn();
 
@@ -440,7 +440,7 @@ describe('Input Component (Svelte 5)', () => {
 		});
 
 		it('debounces validation checks', () => {
-			const element = createMockElement();
+			const _element = createMockElement();
 			const validateFn = vi.fn();
 			let debounceTimer: NodeJS.Timeout;
 

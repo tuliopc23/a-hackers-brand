@@ -12,7 +12,7 @@ interface ComponentSize {
 const componentSizes: Map<string, ComponentSize> = new Map();
 
 export function sizeOf(componentName: string, size: 'small' | 'medium' | 'large'): void {
-	if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+	if (typeof window !== 'undefined' && process.env['NODE_ENV'] === 'development') {
 		const sizeInfo: ComponentSize = {
 			name: componentName,
 			size,

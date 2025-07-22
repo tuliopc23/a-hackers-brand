@@ -173,7 +173,7 @@ describe('Slider Component (Svelte 5)', () => {
 
 		it('should snap to step increments', () => {
 			const step = 10;
-			const min = 0;
+			const _min = 0;
 
 			// Test snapping
 			let value = 23;
@@ -246,37 +246,37 @@ describe('Slider Component (Svelte 5)', () => {
 			const bigStep = 10;
 
 			// Arrow Right/Up
-			const rightEvent = simulateKeyboardEvent(slider, 'ArrowRight', () => {
+			const _rightEvent = simulateKeyboardEvent(slider, 'ArrowRight', () => {
 				value += step;
 			});
 			expect(value).toBe(51);
 
 			// Arrow Left/Down
-			const leftEvent = simulateKeyboardEvent(slider, 'ArrowLeft', () => {
+			const _leftEvent = simulateKeyboardEvent(slider, 'ArrowLeft', () => {
 				value -= step;
 			});
 			expect(value).toBe(50);
 
 			// Page Up (big step)
-			const pageUpEvent = simulateKeyboardEvent(slider, 'PageUp', () => {
+			const _pageUpEvent = simulateKeyboardEvent(slider, 'PageUp', () => {
 				value += bigStep;
 			});
 			expect(value).toBe(60);
 
 			// Page Down (big step)
-			const pageDownEvent = simulateKeyboardEvent(slider, 'PageDown', () => {
+			const _pageDownEvent = simulateKeyboardEvent(slider, 'PageDown', () => {
 				value -= bigStep;
 			});
 			expect(value).toBe(50);
 
 			// Home (min value)
-			const homeEvent = simulateKeyboardEvent(slider, 'Home', () => {
+			const _homeEvent = simulateKeyboardEvent(slider, 'Home', () => {
 				value = 0;
 			});
 			expect(value).toBe(0);
 
 			// End (max value)
-			const endEvent = simulateKeyboardEvent(slider, 'End', () => {
+			const _endEvent = simulateKeyboardEvent(slider, 'End', () => {
 				value = 100;
 			});
 			expect(value).toBe(100);
@@ -317,7 +317,7 @@ describe('Slider Component (Svelte 5)', () => {
 				simulateAnimation(thumb, true);
 			}
 
-			expect(thumb.style.transition).toContain('all');
+			expect(thumb.style['transition']).toContain('all');
 		});
 
 		it('should animate fill bar', () => {
@@ -328,7 +328,7 @@ describe('Slider Component (Svelte 5)', () => {
 				simulateAnimation(fill, true);
 			}
 
-			expect(fill.style.transition).toContain('all');
+			expect(fill.style['transition']).toContain('all');
 		});
 
 		it('should apply spring pop on value change', () => {
@@ -336,13 +336,13 @@ describe('Slider Component (Svelte 5)', () => {
 			const animate = true;
 
 			if (animate) {
-				thumb.style.transform = 'scale(1.1)';
+				thumb.style['transform'] = 'scale(1.1)';
 				setTimeout(() => {
-					thumb.style.transform = 'scale(1)';
+					thumb.style['transform'] = 'scale(1)';
 				}, 100);
 			}
 
-			expect(thumb.style.transform).toBe('scale(1.1)');
+			expect(thumb.style['transform']).toBe('scale(1.1)');
 		});
 	});
 
@@ -398,14 +398,14 @@ describe('Slider Component (Svelte 5)', () => {
 	describe('Marks and Labels', () => {
 		it('should render marks when showMarks is true', () => {
 			const marks = [0, 25, 50, 75, 100];
-			const showMarks = true;
+			const _showMarks = true;
 
 			marks.forEach((mark) => {
 				const markElement = createMockElement();
 				const position = mark; // percentage
 
-				markElement.style.left = `${position}%`;
-				expect(markElement.style.left).toBe(`${position}%`);
+				markElement.style['left'] = `${position}%`;
+				expect(markElement.style['left']).toBe(`${position}%`);
 			});
 		});
 
@@ -425,11 +425,11 @@ describe('Slider Component (Svelte 5)', () => {
 			const valueLabel = createMockElement();
 			const thumbPosition = 75; // percentage
 
-			valueLabel.style.left = `${thumbPosition}%`;
-			valueLabel.style.transform = 'translateX(-50%)';
+			valueLabel.style['left'] = `${thumbPosition}%`;
+			valueLabel.style['transform'] = 'translateX(-50%)';
 
-			expect(valueLabel.style.left).toBe('75%');
-			expect(valueLabel.style.transform).toBe('translateX(-50%)');
+			expect(valueLabel.style['left']).toBe('75%');
+			expect(valueLabel.style['transform']).toBe('translateX(-50%)');
 		});
 	});
 

@@ -79,13 +79,13 @@
 	],
 	"scripts": {
 		"dev": "vite dev",
-		"build": "bun run build:search-index && vite build && bun run build:package",
+		"build": "npm run build:search-index && vite build && npm run build:package",
 		"build:app": "vite build",
-		"build:search-index": "bun scripts/build-search-index.js",
+		"build:search-index": "node scripts/build-search-index.js",
 		"build:package": "svelte-kit sync && svelte-package && publint",
 		"preview": "vite preview",
 		"package": "svelte-kit sync && svelte-package",
-		"prepublishOnly": "bun run package",
+		"prepublishOnly": "npm run package",
 		"prepare": "husky",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -120,7 +120,7 @@
 		"test:a11y:ui": "playwright test tests/accessibility --ui",
 		"test:a11y:wcag": "playwright test tests/accessibility/wcag-compliance.spec.ts",
 		"test:a11y:report": "playwright test tests/accessibility --reporter=html",
-		"test:all": "bun run test:run && bun run test:visual && bun run test:a11y",
+		"test:all": "npm run test:run && npm run test:visual && npm run test:a11y",
 		"lint": "eslint . --max-warnings 0",
 		"lint:fix": "eslint . --fix --max-warnings 0",
 		"lint:report": "eslint . --format html --output-file eslint-report.html",
@@ -128,8 +128,8 @@
 		"format:check": "prettier --check .",
 		"style": "stylelint '**/*.{css,scss,svelte}' --fix",
 		"style:check": "stylelint '**/*.{css,scss,svelte}'",
-		"quality": "bun run lint && bun run format:check && bun run style:check && bun run check",
-		"quality:fix": "bun run lint:fix && bun run format && bun run style",
+		"quality": "npm run lint && npm run format:check && npm run style:check && npm run check",
+		"quality:fix": "npm run lint:fix && npm run format && npm run style",
 		"analyze": "vite build --mode analyze",
 		"analyze:bundle": "bun run build && bunx vite-bundle-analyzer dist",
 		"size": "size-limit",
@@ -261,5 +261,6 @@
 		"tailwind-merge": "^3.3.1",
 		"tailwind-variants": "^1.0.0",
 		"three": "^0.170.0"
-	}
+	},
+	"packageManager": "pnpm@8.15.9+sha512.499434c9d8fdd1a2794ebf4552b3b25c0a633abcee5bb15e7b5de90f32f47b513aca98cd5cfd001c31f0db454bc3804edccd578501e4ca293a6816166bbd9f81"
 }

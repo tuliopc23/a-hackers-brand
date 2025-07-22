@@ -109,7 +109,7 @@ describe('Grid Component (Svelte 5)', () => {
 		it('should generate correct base grid classes', () => {
 			const grid = createMockElement();
 			const cols = 3;
-			const gap = 'md';
+			const _gap = 'md';
 
 			simulateClassGeneration(grid, 'grid', '', '', [`grid-cols-${cols}`, 'gap-4']);
 
@@ -122,10 +122,10 @@ describe('Grid Component (Svelte 5)', () => {
 			const minColWidth = '200px';
 
 			if (autoFit) {
-				grid.style.gridTemplateColumns = `repeat(auto-fit, minmax(${minColWidth}, 1fr))`;
+				grid.style['gridTemplateColumns'] = `repeat(auto-fit, minmax(${minColWidth}, 1fr))`;
 			}
 
-			expect(grid.style.gridTemplateColumns).toBe('repeat(auto-fit, minmax(200px, 1fr))');
+			expect(grid.style['gridTemplateColumns']).toBe('repeat(auto-fit, minmax(200px, 1fr))');
 		});
 
 		it('should handle auto-fill columns', () => {
@@ -135,10 +135,10 @@ describe('Grid Component (Svelte 5)', () => {
 			const maxColWidth = '1fr';
 
 			if (autoFill) {
-				grid.style.gridTemplateColumns = `repeat(auto-fill, minmax(${minColWidth}, ${maxColWidth}))`;
+				grid.style['gridTemplateColumns'] = `repeat(auto-fill, minmax(${minColWidth}, ${maxColWidth}))`;
 			}
 
-			expect(grid.style.gridTemplateColumns).toBe('repeat(auto-fill, minmax(150px, 1fr))');
+			expect(grid.style['gridTemplateColumns']).toBe('repeat(auto-fill, minmax(150px, 1fr))');
 		});
 
 		it('should apply gap classes correctly', () => {
@@ -267,11 +267,11 @@ describe('Grid Component (Svelte 5)', () => {
 			const rowStart = 1;
 			const rowEnd = 3;
 
-			gridItem.style.gridColumn = `${colStart} / ${colEnd}`;
-			gridItem.style.gridRow = `${rowStart} / ${rowEnd}`;
+			gridItem.style['gridColumn'] = `${colStart} / ${colEnd}`;
+			gridItem.style['gridRow'] = `${rowStart} / ${rowEnd}`;
 
-			expect(gridItem.style.gridColumn).toBe('2 / 4');
-			expect(gridItem.style.gridRow).toBe('1 / 3');
+			expect(gridItem.style['gridColumn']).toBe('2 / 4');
+			expect(gridItem.style['gridRow']).toBe('1 / 3');
 		});
 
 		it('should handle grid area names', () => {
@@ -279,11 +279,11 @@ describe('Grid Component (Svelte 5)', () => {
 			const gridItem = createMockElement();
 			const areas = ['"header header header"', '"sidebar main main"', '"footer footer footer"'];
 
-			grid.style.gridTemplateAreas = areas.join(' ');
-			gridItem.style.gridArea = 'header';
+			grid.style['gridTemplateAreas'] = areas.join(' ');
+			gridItem.style['gridArea'] = 'header';
 
-			expect(grid.style.gridTemplateAreas).toContain('header header header');
-			expect(gridItem.style.gridArea).toBe('header');
+			expect(grid.style['gridTemplateAreas']).toContain('header header header');
+			expect(gridItem.style['gridArea']).toBe('header');
 		});
 	});
 
@@ -303,7 +303,7 @@ describe('Grid Component (Svelte 5)', () => {
 		});
 
 		it('should handle dynamic item addition', () => {
-			const grid = createMockElement();
+			const _grid = createMockElement();
 			const itemCount = 3;
 			const items: any[] = [];
 
@@ -348,9 +348,9 @@ describe('Grid Component (Svelte 5)', () => {
 		it('should use CSS Grid instead of flexbox for better performance', () => {
 			const grid = createMockElement();
 
-			grid.style.display = 'grid';
+			grid.style['display'] = 'grid';
 
-			expect(grid.style.display).toBe('grid');
+			expect(grid.style['display']).toBe('grid');
 		});
 
 		it('should optimize for large numbers of items', () => {
@@ -359,10 +359,10 @@ describe('Grid Component (Svelte 5)', () => {
 			const shouldVirtualize = itemCount > 100;
 
 			if (shouldVirtualize) {
-				grid.style.contain = 'layout style paint';
+				grid.style['contain'] = 'layout style paint';
 			}
 
-			expect(grid.style.contain).toBe('layout style paint');
+			expect(grid.style['contain']).toBe('layout style paint');
 		});
 
 		it('should use transform for animations', () => {
@@ -370,12 +370,12 @@ describe('Grid Component (Svelte 5)', () => {
 			const animate = true;
 
 			if (animate) {
-				gridItem.style.transform = 'translateZ(0)';
-				gridItem.style.willChange = 'transform';
+				gridItem.style['transform'] = 'translateZ(0)';
+				gridItem.style['willChange'] = 'transform';
 			}
 
-			expect(gridItem.style.transform).toBe('translateZ(0)');
-			expect(gridItem.style.willChange).toBe('transform');
+			expect(gridItem.style['transform']).toBe('translateZ(0)');
+			expect(gridItem.style['willChange']).toBe('transform');
 		});
 	});
 
@@ -444,12 +444,12 @@ describe('Grid Component (Svelte 5)', () => {
 			const itemCount = 0;
 
 			if (itemCount === 0) {
-				grid.style.minHeight = '100px';
-				grid.innerHTML = '<div class="empty-state">No items to display</div>';
+				grid.style['minHeight'] = '100px';
+				grid['innerHTML'] = '<div class="empty-state">No items to display</div>';
 			}
 
-			expect(grid.style.minHeight).toBe('100px');
-			expect(grid.innerHTML).toContain('No items to display');
+			expect(grid.style['minHeight']).toBe('100px');
+			expect(grid['innerHTML']).toContain('No items to display');
 		});
 
 		it('should handle single item grid', () => {
@@ -458,10 +458,10 @@ describe('Grid Component (Svelte 5)', () => {
 			const cols = 'auto';
 
 			if (itemCount === 1 && cols === 'auto') {
-				grid.style.gridTemplateColumns = '1fr';
+				grid.style['gridTemplateColumns'] = '1fr';
 			}
 
-			expect(grid.style.gridTemplateColumns).toBe('1fr');
+			expect(grid.style['gridTemplateColumns']).toBe('1fr');
 		});
 
 		it('should handle overflow items', () => {
@@ -470,13 +470,13 @@ describe('Grid Component (Svelte 5)', () => {
 			const cols = 4;
 			const expectedRows = Math.ceil(itemCount / cols);
 
-			grid.style.gridTemplateRows = `repeat(${expectedRows}, minmax(auto, 1fr))`;
+			grid.style['gridTemplateRows'] = `repeat(${expectedRows}, minmax(auto, 1fr))`;
 
-			expect(grid.style.gridTemplateRows).toBe('repeat(4, minmax(auto, 1fr))');
+			expect(grid.style['gridTemplateRows']).toBe('repeat(4, minmax(auto, 1fr))');
 		});
 
 		it('should handle mixed content types', () => {
-			const grid = createMockElement();
+			const _grid = createMockElement();
 			const items = [
 				{ type: 'text', content: 'Hello' },
 				{ type: 'image', content: 'image.jpg' },

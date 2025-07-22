@@ -9,9 +9,9 @@ globalThis.location = globalThis.location || { href: 'http://localhost:3000' };
 
 // Force browser environment variables
 if (typeof process !== 'undefined') {
-	process.env.NODE_ENV = 'test';
-	process.env.BROWSER = 'true';
-	process.env.VITEST = 'true';
+	process.env['NODE_ENV'] = 'test';
+	process.env['BROWSER'] = 'true';
+	process.env['VITEST'] = 'true';
 }
 
 // Mock CSS custom properties for motion system

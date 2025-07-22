@@ -82,7 +82,7 @@ describe('AsyncErrorBoundary Component (Svelte 5)', () => {
 	describe('Promise State Management', () => {
 		it('should handle pending promise state', () => {
 			const state = 'pending';
-			const promise = new Promise((resolve) => {
+			const _promise = new Promise((resolve) => {
 				setTimeout(() => resolve('success'), 1000);
 			});
 
@@ -95,7 +95,7 @@ describe('AsyncErrorBoundary Component (Svelte 5)', () => {
 			const promise = Promise.resolve('success');
 
 			try {
-				const result = await promise;
+				const _result = await promise;
 				state = 'resolved';
 			} catch (error) {
 				state = 'rejected';
@@ -260,11 +260,11 @@ describe('AsyncErrorBoundary Component (Svelte 5)', () => {
 				if (hasCustomLoading) {
 					loadingElement.textContent = 'Custom loading...';
 				} else {
-					loadingElement.innerHTML = '<div class="spinner"></div><p>Loading...</p>';
+					loadingElement['innerHTML'] = '<div class="spinner"></div><p>Loading...</p>';
 				}
 			}
 
-			expect(loadingElement.textContent || loadingElement.innerHTML).toContain('loading');
+			expect(loadingElement.textContent || loadingElement['innerHTML']).toContain('loading');
 		});
 
 		it('should render error content', () => {
@@ -277,7 +277,7 @@ describe('AsyncErrorBoundary Component (Svelte 5)', () => {
 				if (hasCustomFallback) {
 					errorElement.textContent = 'Custom error message';
 				} else {
-					errorElement.innerHTML = `
+					errorElement['innerHTML'] = `
 						<h3>Something went wrong</h3>
 						<p>${error.message}</p>
 						<button>Retry</button>
@@ -285,8 +285,8 @@ describe('AsyncErrorBoundary Component (Svelte 5)', () => {
 				}
 			}
 
-			expect(errorElement.innerHTML).toContain('Something went wrong');
-			expect(errorElement.innerHTML).toContain('Network error');
+			expect(errorElement['innerHTML']).toContain('Something went wrong');
+			expect(errorElement['innerHTML']).toContain('Network error');
 		});
 
 		it('should render success content', () => {
@@ -354,7 +354,7 @@ describe('AsyncErrorBoundary Component (Svelte 5)', () => {
 				simulateAnimation(container, true);
 			}
 
-			expect(container.style.transition).toContain('all');
+			expect(container.style['transition']).toContain('all');
 		});
 
 		it('should animate error appearance', () => {
@@ -362,10 +362,10 @@ describe('AsyncErrorBoundary Component (Svelte 5)', () => {
 			const animate = true;
 
 			if (animate) {
-				errorContainer.style.animation = 'shake 0.5s ease-in-out';
+				errorContainer.style['animation'] = 'shake 0.5s ease-in-out';
 			}
 
-			expect(errorContainer.style.animation).toContain('shake');
+			expect(errorContainer.style['animation']).toContain('shake');
 		});
 	});
 

@@ -23,9 +23,9 @@ globalThis.location = globalThis.location || { href: 'http://localhost:3000' };
 
 // Critical: Override environment variables early
 if (typeof process !== 'undefined') {
-	process.env.NODE_ENV = 'test';
-	process.env.BROWSER = 'true';
-	process.env.VITEST = 'true';
+	process.env['NODE_ENV'] = 'test';
+	process.env['BROWSER'] = 'true';
+	process.env['VITEST'] = 'true';
 }
 
 // Force client-side environment for Svelte 5

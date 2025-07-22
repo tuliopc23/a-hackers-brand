@@ -294,10 +294,10 @@ describe('MultiSelect Component (Svelte 5)', () => {
 				'shadow-2xl'
 			]);
 
-			dropdown.style.maxHeight = `${maxHeight}px`;
+			dropdown.style['maxHeight'] = `${maxHeight}px`;
 
 			expectClassesToContain(dropdown, ['absolute', 'w-full', 'mt-2', 'z-50']);
-			expect(dropdown.style.maxHeight).toBe('300px');
+			expect(dropdown.style['maxHeight']).toBe('300px');
 		});
 
 		it('should generate correct tag classes', () => {
@@ -353,7 +353,7 @@ describe('MultiSelect Component (Svelte 5)', () => {
 
 		it('should close dropdown on escape key', () => {
 			let isOpen = true;
-			const escapeEvent = simulateKeyboardEvent(createMockElement(), 'Escape', () => {
+			const _escapeEvent = simulateKeyboardEvent(createMockElement(), 'Escape', () => {
 				isOpen = false;
 			});
 
@@ -424,7 +424,7 @@ describe('MultiSelect Component (Svelte 5)', () => {
 				simulateAnimation(dropdown, true);
 			}
 
-			expect(dropdown.style.transition).toContain('all');
+			expect(dropdown.style['transition']).toContain('all');
 		});
 
 		it('should animate tag changes', () => {
@@ -432,10 +432,10 @@ describe('MultiSelect Component (Svelte 5)', () => {
 			const animate = true;
 
 			if (animate) {
-				tag.style.animation = 'slideInRight 0.2s ease-out';
+				tag.style['animation'] = 'slideInRight 0.2s ease-out';
 			}
 
-			expect(tag.style.animation).toContain('slideInRight');
+			expect(tag.style['animation']).toContain('slideInRight');
 		});
 
 		it('should respect reduced motion', () => {
@@ -446,10 +446,10 @@ describe('MultiSelect Component (Svelte 5)', () => {
 			if (animate && !reduceMotion) {
 				simulateAnimation(dropdown, true);
 			} else {
-				dropdown.style.transition = 'none';
+				dropdown.style['transition'] = 'none';
 			}
 
-			expect(dropdown.style.transition).toBe('none');
+			expect(dropdown.style['transition']).toBe('none');
 		});
 	});
 

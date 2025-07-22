@@ -98,7 +98,7 @@ describe('GlassButton Component (Svelte 5)', () => {
 			const button = createMockElement();
 			const variant = 'glass';
 			const size = 'md';
-			const blur = 'md';
+			const _blur = 'md';
 
 			simulateClassGeneration(button, 'relative inline-flex items-center justify-center', variant, size, [
 				'glass-morphism',
@@ -232,11 +232,11 @@ describe('GlassButton Component (Svelte 5)', () => {
 					const x = e.clientX - rect.left - rect.width / 2;
 					const y = e.clientY - rect.top - rect.height / 2;
 
-					button.style.transform = `translate(${x * magneticStrength}px, ${y * magneticStrength}px)`;
+					button.style['transform'] = `translate(${x * magneticStrength}px, ${y * magneticStrength}px)`;
 				});
 
 				button.addEventListener('mouseleave', () => {
-					button.style.transform = 'translate(0, 0)';
+					button.style['transform'] = 'translate(0, 0)';
 				});
 			}
 
@@ -258,8 +258,8 @@ describe('GlassButton Component (Svelte 5)', () => {
 					const x = e.clientX - rect.left;
 					const y = e.clientY - rect.top;
 
-					rippleElement.style.left = `${x}px`;
-					rippleElement.style.top = `${y}px`;
+					rippleElement.style['left'] = `${x}px`;
+					rippleElement.style['top'] = `${y}px`;
 				});
 			}
 
@@ -272,13 +272,13 @@ describe('GlassButton Component (Svelte 5)', () => {
 
 			if (liquid) {
 				button.addEventListener('mouseenter', () => {
-					button.style.filter = 'blur(0.5px) contrast(1.1) saturate(1.2)';
-					button.style.transform = 'scale(1.02)';
+					button.style['filter'] = 'blur(0.5px) contrast(1.1) saturate(1.2)';
+					button.style['transform'] = 'scale(1.02)';
 				});
 
 				button.addEventListener('mouseleave', () => {
-					button.style.filter = 'none';
-					button.style.transform = 'scale(1)';
+					button.style['filter'] = 'none';
+					button.style['transform'] = 'scale(1)';
 				});
 			}
 
@@ -295,13 +295,13 @@ describe('GlassButton Component (Svelte 5)', () => {
 
 			if (animate && !reduceMotion) {
 				button.addEventListener('mouseenter', () => {
-					button.style.transform = 'translateY(-2px) scale(1.02)';
-					button.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+					button.style['transform'] = 'translateY(-2px) scale(1.02)';
+					button.style['boxShadow'] = '0 10px 25px rgba(0,0,0,0.2)';
 				});
 
 				button.addEventListener('mouseleave', () => {
-					button.style.transform = 'translateY(0) scale(1)';
-					button.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+					button.style['transform'] = 'translateY(0) scale(1)';
+					button.style['boxShadow'] = '0 4px 15px rgba(0,0,0,0.1)';
 				});
 			}
 
@@ -317,11 +317,11 @@ describe('GlassButton Component (Svelte 5)', () => {
 
 			if (animate) {
 				button.addEventListener('mousedown', () => {
-					button.style.transform = 'scale(0.98)';
+					button.style['transform'] = 'scale(0.98)';
 				});
 
 				button.addEventListener('mouseup', () => {
-					button.style.transform = 'scale(1)';
+					button.style['transform'] = 'scale(1)';
 				});
 			}
 
@@ -337,12 +337,12 @@ describe('GlassButton Component (Svelte 5)', () => {
 			if (animate && !reduceMotion) {
 				simulateAnimation(button, true);
 			} else {
-				button.style.transition = 'none';
-				button.style.animation = 'none';
+				button.style['transition'] = 'none';
+				button.style['animation'] = 'none';
 			}
 
-			expect(button.style.transition).toBe('none');
-			expect(button.style.animation).toBe('none');
+			expect(button.style['transition']).toBe('none');
+			expect(button.style['animation']).toBe('none');
 		});
 	});
 
@@ -362,10 +362,10 @@ describe('GlassButton Component (Svelte 5)', () => {
 					'border-t-white',
 					'rounded-full'
 				);
-				button.appendChild(spinner);
+				button['appendChild'](spinner);
 			}
 
-			expect(button.appendChild).toHaveBeenCalled();
+			expect(button['appendChild']).toHaveBeenCalled();
 		});
 
 		it('should disable interaction when loading', () => {
@@ -391,12 +391,12 @@ describe('GlassButton Component (Svelte 5)', () => {
 			const loading = true;
 
 			if (loading) {
-				buttonText.style.opacity = '0';
+				buttonText.style['opacity'] = '0';
 			} else {
-				buttonText.style.opacity = '1';
+				buttonText.style['opacity'] = '1';
 			}
 
-			expect(buttonText.style.opacity).toBe('0');
+			expect(buttonText.style['opacity']).toBe('0');
 		});
 	});
 
@@ -510,16 +510,16 @@ describe('GlassButton Component (Svelte 5)', () => {
 			const optimizeAnimations = true;
 
 			if (optimizeAnimations) {
-				button.style.transform = 'translate3d(0, 0, 0)';
-				button.style.willChange = 'transform';
+				button.style['transform'] = 'translate3d(0, 0, 0)';
+				button.style['willChange'] = 'transform';
 			}
 
-			expect(button.style.transform).toContain('translate3d');
-			expect(button.style.willChange).toBe('transform');
+			expect(button.style['transform']).toContain('translate3d');
+			expect(button.style['willChange']).toBe('transform');
 		});
 
 		it('should debounce rapid interactions', () => {
-			const button = createMockElement();
+			const _button = createMockElement();
 			const interactionHandler = vi.fn();
 			let debounceTimeout: number;
 

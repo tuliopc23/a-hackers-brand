@@ -26,12 +26,12 @@ describe('Modal Component (Svelte 5)', () => {
 			const overlay = createMockElement();
 
 			if (props.open) {
-				element.style.display = 'block';
+				element.style['display'] = 'block';
 				overlay.classList.add('modal-overlay');
 				simulateClassGeneration(element, 'modal', props.variant, props.size);
 			}
 
-			expect(element.style.display).toBe('block');
+			expect(element.style['display']).toBe('block');
 			expect(overlay.classList.add).toHaveBeenCalledWith('modal-overlay');
 			expectClassesToContain(element, ['modal', 'modal-glass', 'modal-md']);
 		});
@@ -41,10 +41,10 @@ describe('Modal Component (Svelte 5)', () => {
 			const element = createMockElement();
 
 			if (!props.open) {
-				element.style.display = 'none';
+				element.style['display'] = 'none';
 			}
 
-			expect(element.style.display).toBe('none');
+			expect(element.style['display']).toBe('none');
 		});
 
 		it('renders all sizes correctly', () => {
@@ -75,10 +75,10 @@ describe('Modal Component (Svelte 5)', () => {
 			const headerElement = createMockElement();
 
 			if (!props.showHeader) {
-				headerElement.style.display = 'none';
+				headerElement.style['display'] = 'none';
 			}
 
-			expect(headerElement.style.display).toBe('none');
+			expect(headerElement.style['display']).toBe('none');
 		});
 	});
 
@@ -91,14 +91,14 @@ describe('Modal Component (Svelte 5)', () => {
 
 			if (props.closable) {
 				closeButton.addEventListener('click', () => {
-					element.style.display = 'none';
+					element.style['display'] = 'none';
 					onClose();
 				});
 
 				closeButton.click();
 			}
 
-			expect(element.style.display).toBe('none');
+			expect(element.style['display']).toBe('none');
 			expect(onClose).toHaveBeenCalled();
 		});
 
@@ -110,14 +110,14 @@ describe('Modal Component (Svelte 5)', () => {
 
 			if (props.closeOnOverlay) {
 				overlay.addEventListener('click', () => {
-					element.style.display = 'none';
+					element.style['display'] = 'none';
 					onClose();
 				});
 
 				overlay.click();
 			}
 
-			expect(element.style.display).toBe('none');
+			expect(element.style['display']).toBe('none');
 			expect(onClose).toHaveBeenCalled();
 		});
 
@@ -128,17 +128,17 @@ describe('Modal Component (Svelte 5)', () => {
 
 			if (props.closeOnEscape) {
 				// Simulate Escape key behavior directly
-				element.style.display = 'none';
+				element.style['display'] = 'none';
 				onClose();
 			}
 
-			expect(element.style.display).toBe('none');
+			expect(element.style['display']).toBe('none');
 			expect(onClose).toHaveBeenCalled();
 		});
 
 		it('does not close when closeOnOverlay is false', () => {
 			const props = createMockProps(modalTestDefaults, { open: true, closeOnOverlay: false });
-			const element = createMockElement();
+			const _element = createMockElement();
 			const overlay = createMockElement();
 			const onClose = vi.fn();
 
@@ -213,11 +213,11 @@ describe('Modal Component (Svelte 5)', () => {
 			const overlay = createMockElement();
 
 			if (props.backdrop === 'blur') {
-				overlay.style.backdropFilter = 'blur(8px)';
+				overlay.style['backdropFilter'] = 'blur(8px)';
 				overlay.classList.add('backdrop-blur');
 			}
 
-			expect(overlay.style.backdropFilter).toBe('blur(8px)');
+			expect(overlay.style['backdropFilter']).toBe('blur(8px)');
 			expect(overlay.classList.add).toHaveBeenCalledWith('backdrop-blur');
 		});
 
@@ -226,13 +226,13 @@ describe('Modal Component (Svelte 5)', () => {
 			const element = createMockElement();
 
 			if (props.variant === 'glass') {
-				element.style.backdropFilter = 'blur(20px) saturate(180%)';
-				element.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+				element.style['backdropFilter'] = 'blur(20px) saturate(180%)';
+				element.style['backgroundColor'] = 'rgba(255, 255, 255, 0.1)';
 				element.classList.add('glass-morphism');
 			}
 
-			expect(element.style.backdropFilter).toBe('blur(20px) saturate(180%)');
-			expect(element.style.backgroundColor).toBe('rgba(255, 255, 255, 0.1)');
+			expect(element.style['backdropFilter']).toBe('blur(20px) saturate(180%)');
+			expect(element.style['backgroundColor']).toBe('rgba(255, 255, 255, 0.1)');
 			expect(element.classList.add).toHaveBeenCalledWith('glass-morphism');
 		});
 
@@ -254,11 +254,11 @@ describe('Modal Component (Svelte 5)', () => {
 			const element = createMockElement();
 
 			if (props.glow) {
-				element.style.boxShadow = '0 0 40px rgba(139, 92, 246, 0.5)';
+				element.style['boxShadow'] = '0 0 40px rgba(139, 92, 246, 0.5)';
 				element.classList.add('glow-effect');
 			}
 
-			expect(element.style.boxShadow).toBe('0 0 40px rgba(139, 92, 246, 0.5)');
+			expect(element.style['boxShadow']).toBe('0 0 40px rgba(139, 92, 246, 0.5)');
 			expect(element.classList.add).toHaveBeenCalledWith('glow-effect');
 		});
 	});
@@ -296,7 +296,7 @@ describe('Modal Component (Svelte 5)', () => {
 
 			simulateAnimation(element, props.animated);
 
-			expect(element.style.transition).toBe('none');
+			expect(element.style['transition']).toBe('none');
 		});
 
 		it('applies liquid glass fade transition', () => {
@@ -319,7 +319,7 @@ describe('Modal Component (Svelte 5)', () => {
 
 	describe('Accessibility', () => {
 		it('has proper ARIA attributes', () => {
-			const props = createMockProps(modalTestDefaults, { open: true, title: 'Test Modal' });
+			const _props = createMockProps(modalTestDefaults, { open: true, title: 'Test Modal' });
 			const element = createMockElement();
 
 			element.setAttribute('role', 'dialog');
@@ -336,7 +336,7 @@ describe('Modal Component (Svelte 5)', () => {
 		});
 
 		it('sets aria-hidden correctly when closed', () => {
-			const props = createMockProps(modalTestDefaults, { open: false });
+			const _props = createMockProps(modalTestDefaults, { open: false });
 			const element = createMockElement();
 
 			element.setAttribute('aria-hidden', 'true');
@@ -347,7 +347,7 @@ describe('Modal Component (Svelte 5)', () => {
 		});
 
 		it('supports screen reader announcements', () => {
-			const props = createMockProps(modalTestDefaults, {
+			const _props = createMockProps(modalTestDefaults, {
 				open: true,
 				title: 'Important Notice',
 				description: 'Please read this carefully'
@@ -364,7 +364,7 @@ describe('Modal Component (Svelte 5)', () => {
 		});
 
 		it('handles keyboard navigation correctly', () => {
-			const props = createMockProps(modalTestDefaults, { open: true });
+			const _props = createMockProps(modalTestDefaults, { open: true });
 			const element = createMockElement();
 			const onKeyDown = vi.fn();
 
@@ -447,7 +447,7 @@ describe('Modal Component (Svelte 5)', () => {
 
 			const toggle = () => {
 				isOpen = !isOpen;
-				element.style.display = isOpen ? 'block' : 'none';
+				element.style['display'] = isOpen ? 'block' : 'none';
 			};
 
 			// Rapid toggle test
@@ -455,7 +455,7 @@ describe('Modal Component (Svelte 5)', () => {
 				toggle();
 			}
 
-			expect(element.style.display).toBe('none'); // Should end up closed
+			expect(element.style['display']).toBe('none'); // Should end up closed
 		});
 
 		it('cleans up event listeners when closed', () => {

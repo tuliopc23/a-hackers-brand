@@ -117,7 +117,7 @@ describe('TerminalWindow Component (Svelte 5)', () => {
 		it('should generate correct window container classes', () => {
 			const container = createMockElement();
 			const variant = 'modern';
-			const theme = 'dark';
+			const _theme = 'dark';
 			const size = 'md';
 
 			simulateClassGeneration(container, 'rounded-lg overflow-hidden', variant, size, [
@@ -134,7 +134,7 @@ describe('TerminalWindow Component (Svelte 5)', () => {
 
 		it('should generate correct header classes', () => {
 			const header = createMockElement();
-			const theme = 'dark';
+			const _theme = 'dark';
 
 			simulateClassGeneration(header, 'flex items-center justify-between', '', '', [
 				'bg-gray-800',
@@ -149,7 +149,7 @@ describe('TerminalWindow Component (Svelte 5)', () => {
 
 		it('should generate correct content area classes', () => {
 			const content = createMockElement();
-			const theme = 'matrix';
+			const _theme = 'matrix';
 			const maxHeight = 600;
 
 			simulateClassGeneration(content, 'p-4 overflow-auto', '', '', [
@@ -159,10 +159,10 @@ describe('TerminalWindow Component (Svelte 5)', () => {
 				'scrollbar-track-transparent'
 			]);
 
-			content.style.maxHeight = `${maxHeight}px`;
+			content.style['maxHeight'] = `${maxHeight}px`;
 
 			expectClassesToContain(content, ['p-4', 'overflow-auto', 'bg-black']);
-			expect(content.style.maxHeight).toBe('600px');
+			expect(content.style['maxHeight']).toBe('600px');
 		});
 
 		it('should apply theme-specific colors', () => {
@@ -248,10 +248,10 @@ describe('TerminalWindow Component (Svelte 5)', () => {
 
 			// Split by newlines and create separate elements
 			const lines = command.output.split('\n');
-			outputElement.innerHTML = lines.map((line) => `<div>${line}</div>`).join('');
+			outputElement['innerHTML'] = lines.map((line) => `<div>${line}</div>`).join('');
 
-			expect(outputElement.innerHTML).toContain('<div>Line 1</div>');
-			expect(outputElement.innerHTML).toContain('<div>Line 2</div>');
+			expect(outputElement['innerHTML']).toContain('<div>Line 1</div>');
+			expect(outputElement['innerHTML']).toContain('<div>Line 2</div>');
 		});
 	});
 
@@ -324,14 +324,14 @@ describe('TerminalWindow Component (Svelte 5)', () => {
 
 		it('should position cursor correctly', () => {
 			const cursor = createMockElement();
-			const currentLine = createMockElement();
+			const _currentLine = createMockElement();
 
 			// Position cursor at end of current line
-			cursor.style.position = 'absolute';
-			cursor.style.right = '0';
+			cursor.style['position'] = 'absolute';
+			cursor.style['right'] = '0';
 
-			expect(cursor.style.position).toBe('absolute');
-			expect(cursor.style.right).toBe('0');
+			expect(cursor.style['position']).toBe('absolute');
+			expect(cursor.style['right']).toBe('0');
 		});
 
 		it('should handle cursor during typing', () => {
@@ -339,12 +339,12 @@ describe('TerminalWindow Component (Svelte 5)', () => {
 			const isTyping = true;
 
 			if (isTyping) {
-				cursor.style.opacity = '1';
+				cursor.style['opacity'] = '1';
 			} else {
-				cursor.style.opacity = '0.5';
+				cursor.style['opacity'] = '0.5';
 			}
 
-			expect(cursor.style.opacity).toBe('1');
+			expect(cursor.style['opacity']).toBe('1');
 		});
 	});
 
@@ -357,7 +357,7 @@ describe('TerminalWindow Component (Svelte 5)', () => {
 			if (interactive) {
 				input.addEventListener('keydown', (e: any) => {
 					if (e.key === 'Enter') {
-						userCommand = input.value || 'test command';
+						userCommand = input['value'] || 'test command';
 					}
 				});
 
@@ -416,10 +416,10 @@ describe('TerminalWindow Component (Svelte 5)', () => {
 			const scrollOnOutput = true;
 
 			if (scrollOnOutput) {
-				container.scrollTop = container.scrollHeight || 1000;
+				container['scrollTop'] = container['scrollHeight'] || 1000;
 			}
 
-			expect(container.scrollTop).toBe(1000);
+			expect(container['scrollTop']).toBe(1000);
 		});
 
 		it('should not auto-scroll when user is scrolling', () => {
@@ -428,11 +428,11 @@ describe('TerminalWindow Component (Svelte 5)', () => {
 			const scrollOnOutput = true;
 
 			if (scrollOnOutput && !userIsScrolling) {
-				container.scrollTop = container.scrollHeight || 1000;
+				container['scrollTop'] = container['scrollHeight'] || 1000;
 			}
 
 			// Should not scroll because user is actively scrolling
-			expect(container.scrollTop).toBe(0);
+			expect(container['scrollTop']).toBe(0);
 		});
 	});
 

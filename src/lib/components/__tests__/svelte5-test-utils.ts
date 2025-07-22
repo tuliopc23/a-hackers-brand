@@ -140,14 +140,14 @@ export function simulateAnimation(
 	easing: string = 'ease-out'
 ) {
 	if (animated) {
-		element.style.transition = `all ${duration}ms ${easing}`;
+		element.style['transition'] = `all ${duration}ms ${easing}`;
 		element.classList.add('animated');
 		// Also update className to reflect added class
 		if (!element.className.includes('animated')) {
 			element.className = element.className ? `${element.className} animated` : 'animated';
 		}
 	} else {
-		element.style.transition = 'none';
+		element.style['transition'] = 'none';
 		element.classList.remove('animated');
 		element.className = element.className.replace(/\banimated\b/g, '').trim();
 	}

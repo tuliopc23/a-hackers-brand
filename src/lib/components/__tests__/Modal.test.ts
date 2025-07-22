@@ -164,7 +164,7 @@ describe('Modal Component', () => {
 				}
 			});
 
-			const firstButton = container.querySelector('#first') as HTMLElement;
+			const _firstButton = container.querySelector('#first') as HTMLElement;
 			const lastButton = container.querySelector('#third') as HTMLElement;
 
 			// Focus last element and tab - should go to first

@@ -97,7 +97,7 @@ describe('FileUpload Component (Svelte 5)', () => {
 		it('should generate correct dropzone classes', () => {
 			const dropzone = createMockElement();
 			const variant = 'glass';
-			const isDragging = false;
+			const _isDragging = false;
 
 			simulateClassGeneration(dropzone, 'relative border-2 border-dashed rounded-lg', variant, '', [
 				'glass-subtle',
@@ -165,7 +165,7 @@ describe('FileUpload Component (Svelte 5)', () => {
 		});
 
 		it('should validate file type', () => {
-			const accept = 'image/*';
+			const _accept = 'image/*';
 			const file1 = createMockFile('image.jpg', 1024, 'image/jpeg');
 			const file2 = createMockFile('document.pdf', 1024, 'application/pdf');
 
@@ -202,7 +202,7 @@ describe('FileUpload Component (Svelte 5)', () => {
 	describe('Drag and Drop', () => {
 		it('should handle drag enter', () => {
 			const dropzone = createMockElement();
-			let isDragging = false;
+			let _isDragging = false;
 
 			dropzone.addEventListener('dragenter', (e: any) => {
 				e.preventDefault();
@@ -235,10 +235,10 @@ describe('FileUpload Component (Svelte 5)', () => {
 
 		it('should handle drag leave', () => {
 			const dropzone = createMockElement();
-			let isDragging = true;
+			let _isDragging = true;
 
 			dropzone.addEventListener('dragleave', () => {
-				isDragging = false;
+				_isDragging = false;
 			});
 
 			dropzone.addEventListener.mock.calls[0][1]();

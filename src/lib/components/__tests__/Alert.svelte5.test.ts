@@ -47,7 +47,7 @@ describe('Alert Component (Svelte 5)', () => {
 
 		it('renders all variants correctly', () => {
 			alertVariants.forEach((variant) => {
-				const props = createMockProps(alertTestDefaults, { variant });
+				const _props = createMockProps(alertTestDefaults, { variant });
 				const element = createMockElement();
 
 				simulateClassGeneration(element, 'alert', variant);
@@ -108,14 +108,14 @@ describe('Alert Component (Svelte 5)', () => {
 
 			if (props.closable) {
 				closeButton.addEventListener('click', () => {
-					element.style.display = 'none';
+					element.style['display'] = 'none';
 					onClose();
 				});
 
 				closeButton.click();
 			}
 
-			expect(element.style.display).toBe('none');
+			expect(element.style['display']).toBe('none');
 			expect(onClose).toHaveBeenCalled();
 		});
 
@@ -167,11 +167,11 @@ describe('Alert Component (Svelte 5)', () => {
 
 			if (props.glow) {
 				element.classList.add('glow');
-				element.style.boxShadow = '0 0 20px currentColor';
+				element.style['boxShadow'] = '0 0 20px currentColor';
 			}
 
 			expect(element.classList.add).toHaveBeenCalledWith('glow');
-			expect(element.style.boxShadow).toBe('0 0 20px currentColor');
+			expect(element.style['boxShadow']).toBe('0 0 20px currentColor');
 		});
 
 		it('applies jelly hover effect when jelly is true', () => {
@@ -195,7 +195,7 @@ describe('Alert Component (Svelte 5)', () => {
 				simulateAnimation(iconElement, true);
 			}
 
-			expect(iconElement.style.transition).toContain('all');
+			expect(iconElement.style['transition']).toContain('all');
 		});
 	});
 
@@ -219,25 +219,25 @@ describe('Alert Component (Svelte 5)', () => {
 
 			simulateAnimation(element, props.animated);
 
-			expect(element.style.transition).toBe('none');
+			expect(element.style['transition']).toBe('none');
 		});
 	});
 
 	describe('Content Structure', () => {
 		it('renders only title when description is not provided', () => {
 			const props = createMockProps(alertTestDefaults, { description: undefined });
-			const element = createMockElement();
+			const _element = createMockElement();
 			const titleElement = createMockElement();
 			const descElement = createMockElement();
 
 			titleElement.textContent = props.title;
 
 			if (!props.description) {
-				descElement.style.display = 'none';
+				descElement.style['display'] = 'none';
 			}
 
 			expect(titleElement.textContent).toBe(props.title);
-			expect(descElement.style.display).toBe('none');
+			expect(descElement.style['display']).toBe('none');
 		});
 
 		it('renders both title and description', () => {
@@ -262,18 +262,18 @@ describe('Alert Component (Svelte 5)', () => {
 			};
 
 			alertVariants.forEach((variant) => {
-				const props = createMockProps(alertTestDefaults, { variant });
+				const _props = createMockProps(alertTestDefaults, { variant });
 				const element = createMockElement();
 
-				element.style.color = colorMap[variant] || colorMap.success;
-				expect(element.style.color).toBe(colorMap[variant] || colorMap.success);
+				element.style['color'] = colorMap[variant] || colorMap.success;
+				expect(element.style['color']).toBe(colorMap[variant] || colorMap.success);
 			});
 		});
 	});
 
 	describe('Accessibility', () => {
 		it('has proper ARIA attributes', () => {
-			const props = createMockProps(alertTestDefaults);
+			const _props = createMockProps(alertTestDefaults);
 			const element = createMockElement();
 
 			element.setAttribute('role', 'alert');
@@ -288,7 +288,7 @@ describe('Alert Component (Svelte 5)', () => {
 		});
 
 		it('supports keyboard navigation for close button', () => {
-			const props = createMockProps(alertTestDefaults, { closable: true });
+			const _props = createMockProps(alertTestDefaults, { closable: true });
 			const closeButton = createMockElement();
 			const onClose = vi.fn();
 
@@ -303,7 +303,7 @@ describe('Alert Component (Svelte 5)', () => {
 		});
 
 		it('announces alert to screen readers', () => {
-			const props = createMockProps(alertTestDefaults);
+			const _props = createMockProps(alertTestDefaults);
 			const element = createMockElement();
 
 			// Alert should be announced automatically due to role="alert"
@@ -348,7 +348,7 @@ describe('Alert Component (Svelte 5)', () => {
 
 			const toggle = () => {
 				visible = !visible;
-				element.style.display = visible ? 'block' : 'none';
+				element.style['display'] = visible ? 'block' : 'none';
 			};
 
 			// Rapid toggle test
@@ -356,7 +356,7 @@ describe('Alert Component (Svelte 5)', () => {
 				toggle();
 			}
 
-			expect(element.style.display).toBe('none'); // Should end up hidden
+			expect(element.style['display']).toBe('none'); // Should end up hidden
 		});
 	});
 });

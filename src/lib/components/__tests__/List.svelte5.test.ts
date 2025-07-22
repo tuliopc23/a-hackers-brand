@@ -217,8 +217,8 @@ describe('List Component (Svelte 5)', () => {
 
 		it('should generate correct item classes', () => {
 			const item = createMockElement();
-			const variant = 'glass';
-			const size = 'md';
+			const _variant = 'glass';
+			const _size = 'md';
 			const isSelected = false;
 			const isDisabled = false;
 
@@ -265,14 +265,14 @@ describe('List Component (Svelte 5)', () => {
 			const enabledItems = items.filter((item) => !item.disabled);
 
 			// Arrow Down
-			const arrowDownEvent = simulateKeyboardEvent(createMockElement(), 'ArrowDown', () => {
+			const _arrowDownEvent = simulateKeyboardEvent(createMockElement(), 'ArrowDown', () => {
 				focusedIndex = Math.min(focusedIndex + 1, enabledItems.length - 1);
 			});
 
 			expect(focusedIndex).toBe(1);
 
 			// Arrow Up
-			const arrowUpEvent = simulateKeyboardEvent(createMockElement(), 'ArrowUp', () => {
+			const _arrowUpEvent = simulateKeyboardEvent(createMockElement(), 'ArrowUp', () => {
 				focusedIndex = Math.max(focusedIndex - 1, 0);
 			});
 
@@ -337,7 +337,7 @@ describe('List Component (Svelte 5)', () => {
 			});
 
 			// Simulate scroll
-			container.scrollTop = newScrollTop;
+			container['scrollTop'] = newScrollTop;
 			const scrollEvent = { target: { scrollTop: newScrollTop } };
 			container.addEventListener.mock.calls[0][1](scrollEvent);
 
@@ -355,7 +355,7 @@ describe('List Component (Svelte 5)', () => {
 				simulateAnimation(item, true);
 			}
 
-			expect(item.style.transition).toContain('all');
+			expect(item.style['transition']).toContain('all');
 		});
 
 		it('should apply staggered animations', () => {
@@ -366,9 +366,9 @@ describe('List Component (Svelte 5)', () => {
 				if (animate) {
 					const delay = index * 50; // 50ms stagger
 					const itemElement = createMockElement();
-					itemElement.style.animationDelay = `${delay}ms`;
+					itemElement.style['animation']Delay = `${delay}ms`;
 
-					expect(itemElement.style.animationDelay).toBe(`${delay}ms`);
+					expect(itemElement.style['animation']Delay).toBe(`${delay}ms`);
 				}
 			});
 		});
@@ -462,7 +462,7 @@ describe('List Component (Svelte 5)', () => {
 
 		it('should optimize search performance', () => {
 			const searchPerformance = vi.fn();
-			const query = 'test';
+			const _query = 'test';
 			let debounceTimeout: number;
 
 			const debouncedSearch = (searchQuery: string) => {
