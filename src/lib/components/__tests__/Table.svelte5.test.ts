@@ -196,7 +196,7 @@ describe('Table Component (Svelte 5)', () => {
 			const column = { key: 'id', label: 'ID', width: '100px' };
 
 			if (column.width) {
-				th.style['width'] = column['width'];
+				th.style['width'] = column.width;
 			}
 
 			expect(th.style['width']).toBe('100px');
