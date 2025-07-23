@@ -34,9 +34,9 @@ export { default as LiquidTerminal } from './components/LiquidTerminal.svelte';
 export { default as AdvancedTerminal } from './components/AdvancedTerminal.svelte';
 
 // === UTILITIES (Tree-shakable) ===
-export { cn } from './utils/index.js';
-export { lazy, lazyWithRetry, lazyWithIntersection, preload } from './utils/lazy.js';
-export { responsive } from './utils/responsive.js';
+export { cn } from './utils';
+export { lazy, lazyWithRetry, lazyWithIntersection, preload } from './utils/lazy';
+export { responsive } from './utils/responsive';
 
 // === MOTION SYSTEM (Tree-shakable) ===
 export {
@@ -49,13 +49,13 @@ export {
 	liquidResponsive,
 	breathing,
 	useReducedMotion
-} from './motion/index.js';
+} from './motion';
 
 // === DESIGN TOKENS (Tree-shakable) ===
-export { brandColors } from './tokens/colors.js';
-export { brandSpacing } from './tokens/spacing.js';
-export { brandTypography } from './tokens/typography.js';
-export { brandShadows } from './tokens/shadows.js';
+export { brandColors } from './tokens/colors';
+export { brandSpacing } from './tokens/spacing';
+export { brandTypography } from './tokens/typography';
+export { brandShadows } from './tokens/shadows';
 
 // === LAZY LOADING (Tree-shakable) ===
 export {
@@ -65,7 +65,7 @@ export {
 	LazyDataTable,
 	preloadCriticalComponents,
 	preload3DComponents
-} from './components/lazy/index.js';
+} from './components/lazy';
 
 // === PERFORMANCE UTILITIES ===
-export { sizeOf } from './utils/bundle-size.js';
+export { sizeOf } from './utils/bundle-size';

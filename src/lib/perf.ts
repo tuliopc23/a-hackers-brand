@@ -181,16 +181,19 @@ class PerformanceMonitor {
 		navigation?: PerformanceNavigationTiming;
 		paint?: { [key: string]: number };
 	} {
-		const summary = {
+		const summary: {
+			marks: { name: string; startTime: number; detail?: any }[];
+			measures: { name: string; duration: number; startMark: string; endMark: string }[];
+			navigation?: PerformanceNavigationTiming;
+			paint?: { [key: string]: number };
+		} = {
 			marks: Array.from(this.marks.values()),
 			measures: Array.from(this.measures.values()).map((m) => ({
 				name: m.name,
 				duration: m.duration,
 				startMark: m.startMark,
 				endMark: m.endMark
-			})),
-			navigation: undefined as PerformanceNavigationTiming | undefined,
-			paint: {} as { [key: string]: number }
+			}))
 		};
 
 		// Get navigation timing
@@ -202,8 +205,11 @@ class PerformanceMonitor {
 
 			// Get paint timing
 			const paintEntries = performance.getEntriesByType('paint');
-			for (const entry of paintEntries) {
-				summary.paint[entry.name] = entry.startTime;
+			if (paintEntries.length > 0) {
+				summary.paint = {};
+				for (const entry of paintEntries) {
+					summary.paint[entry.name] = entry.startTime;
+				}
 			}
 		}
 

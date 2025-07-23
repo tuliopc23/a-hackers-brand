@@ -1,7 +1,7 @@
 // A Hacker's Brand - Component Exports
 
 // === LAZY LOADING EXPORTS ===
-export * from './lazy/index.js';
+export * from './lazy';
 
 // Core Glass Components
 export { default as Button } from './Button.svelte';
