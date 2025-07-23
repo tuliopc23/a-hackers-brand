@@ -8,11 +8,11 @@
 	import PlaygroundToolbar from '$lib/components/playground/PlaygroundToolbar.svelte';
 	import { playgroundStore } from '$lib/stores/playground';
 
-	let editorContainer: HTMLElement;
-	let previewContainer: HTMLElement;
-	let isLoading = true;
-	let splitPanePosition = 50; // percentage
-	let isDragging = false;
+	let editorContainer = $state<HTMLElement>();
+	let previewContainer = $state<HTMLElement>();
+	let isLoading = $state(true);
+	let splitPanePosition = $state(50); // percentage
+	let isDragging = $state(false);
 
 	// Default Svelte code template
 	const defaultCode = `<${"script"}>
@@ -107,7 +107,7 @@
 	}
 
 	// Handle window resize for mobile layout
-	let windowWidth = 0;
+	let windowWidth = $state(0);
 	const isMobile = $derived(() => windowWidth < 768);
 	$effect(() => {
 		if (isMobile) {

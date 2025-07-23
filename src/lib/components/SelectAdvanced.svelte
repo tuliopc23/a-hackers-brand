@@ -60,9 +60,9 @@
 
 	let isOpen = $state(false);
 	let searchQuery = $state('');
-	let selectElement: HTMLDivElement;
-	let dropdownElement: HTMLDivElement;
-	let searchInputElement: HTMLInputElement;
+	let selectElement = $state<HTMLDivElement>();
+	let dropdownElement = $state<HTMLDivElement>();
+	let searchInputElement = $state<HTMLInputElement>();
 	let highlightedIndex = $state(-1);
 
 	const uniqueId = `select-${Math.random().toString(36).substr(2, 9)}`;

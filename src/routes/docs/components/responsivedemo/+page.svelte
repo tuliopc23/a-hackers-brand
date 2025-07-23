@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import ResponsiveDemo from '$lib/components/ResponsiveDemo.svelte';
+	import { Grid as ResponsiveDemo } from '$lib/components/responsive';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import ComponentPlayground from '$lib/docs/ComponentPlayground.svelte';
 	import PropsTable from '$lib/docs/PropsTable.svelte';

@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { GlassButton, GlassCard, GlassInput, GlassModal, GlassTabs } from '$lib/components/liquidify';
+	import { GlassButton, GlassCard, GlassTabs } from '$lib/components/liquidify';
 	import {
 		TerminalWindow,
 		Badge,
@@ -43,8 +43,8 @@
 			components: [
 				{ name: 'GlassButton', description: 'Magnetic buttons with glass morphism effects' },
 				{ name: 'GlassCard', description: 'Layered glass cards with depth and blur' },
-				{ name: 'GlassInput', description: 'Floating glass input fields with ripple effects' },
-				{ name: 'GlassModal', description: 'Modal dialogs with backdrop blur and glass overlay' },
+				{ name: 'Input', description: 'Glass input fields with liquid effects' },
+				{ name: 'Modal', description: 'Modal dialogs with liquid glass effects' },
 				{ name: 'GlassTabs', description: 'Tab navigation with smooth glass transitions' }
 			]
 		},
@@ -125,8 +125,8 @@
 	const codeExamples = {
 		GlassButton: `<GlassButton variant="primary" size="md" magnetic ripple>Deploy to Production</GlassButton>`,
 		GlassCard: `<GlassCard intensity="medium" class="p-6"><h3>Terminal Output</h3><pre>$ npm run build</pre></GlassCard>`,
-		GlassInput: `<GlassInput placeholder="Enter command..." bind:value={inputValue} ripple />`,
-		GlassModal: `<GlassModal bind:show={showModal}><h2>Confirm Deployment</h2><p>Are you sure you want to deploy?</p></GlassModal>`,
+		Input: `<Input placeholder="Enter command..." bind:value={inputValue} variant="glass" />`,
+		Modal: `<Modal bind:show={showModal}><h2>Confirm Deployment</h2><p>Are you sure you want to deploy?</p></Modal>`,
 		GlassTabs: `<GlassTabs bind:selected={selectedTab}><tab id="code">Code</tab><tab id="preview">Preview</tab></GlassTabs>`,
 		TerminalWindow: `<TerminalWindow title="zsh"><div class="font-mono"><span class="text-green-400">$</span> npm run dev</div></TerminalWindow>`
 	};
@@ -257,19 +257,19 @@
 															✓ Build completed in 1.2s
 														</div>
 													</GlassCard>
-												{:else if component.name === 'GlassInput'}
-													<GlassInput placeholder="Enter command..." bind:value={inputValue} ripple />
-												{:else if component.name === 'GlassModal'}
+												{:else if component.name === 'Input'}
+													<Input placeholder="Enter command..." bind:value={inputValue} variant="glass" />
+												{:else if component.name === 'Modal'}
 													<div class="space-y-4">
-														<GlassButton variant="primary" onclick={() => (showModal = true)}>Open Modal</GlassButton>
-														<GlassModal bind:show={showModal}>
+														<Button variant="glass" onclick={() => (showModal = true)}>Open Modal</Button>
+														<Modal bind:show={showModal}>
 															<h3 class="text-xl font-bold mb-4">Confirm Deployment</h3>
 															<p class="text-white/80 mb-6">Are you sure you want to deploy to production?</p>
 															<div class="flex gap-3">
-																<GlassButton variant="primary" onclick={() => (showModal = false)}>Deploy</GlassButton>
-																<GlassButton variant="ghost" onclick={() => (showModal = false)}>Cancel</GlassButton>
+																<Button variant="glass" onclick={() => (showModal = false)}>Deploy</Button>
+																<Button variant="outline" onclick={() => (showModal = false)}>Cancel</Button>
 															</div>
-														</GlassModal>
+														</Modal>
 													</div>
 												{:else if component.name === 'GlassTabs'}
 													<GlassTabs bind:selected={selectedTab}>

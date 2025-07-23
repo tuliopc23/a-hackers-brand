@@ -138,7 +138,6 @@ isOpen = $bindable(false),
 			<!-- Content -->
 			<div class={cn('relative z-10 p-6 overflow-y-auto', !title && 'pt-8', contentClassName)}>
 				{#if children}{@render children()}{/if}
-				{/if}
 			</div>
 		</div>
 	</div>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import Checkbox from '$lib/components/Checkbox.svelte';
+	import { Checkbox } from '$lib/components';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import ComponentPlayground from '$lib/docs/ComponentPlayground.svelte';
 	import PropsTable from '$lib/docs/PropsTable.svelte';

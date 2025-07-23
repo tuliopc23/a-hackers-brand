@@ -148,8 +148,11 @@ checked = $bindable(false),
 		const target = event.target as HTMLInputElement;
 		const newChecked = target.checked;
 
-		checked = newChecked;
-		indeterminate = false;
+		// Update through the input element to trigger reactivity
+		if (checkboxElement) {
+			checkboxElement.checked = newChecked;
+			checkboxElement.indeterminate = false;
+		}
 
 		onCheckedChange?.(newChecked);
 	}
