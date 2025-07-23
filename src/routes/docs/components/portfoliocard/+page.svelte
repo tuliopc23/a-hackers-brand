@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import PortfolioCard from '$lib/components/PortfolioCard.svelte';
+	import { ProjectCard as PortfolioCard } from '$lib/components';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import ComponentPlayground from '$lib/docs/ComponentPlayground.svelte';
 	import PropsTable from '$lib/docs/PropsTable.svelte';

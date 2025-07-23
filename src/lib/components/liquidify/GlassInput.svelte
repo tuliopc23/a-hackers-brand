@@ -56,8 +56,11 @@ variant = 'default',
 	};
 
 	const handleClear = () => {
-		value = '';
-		inputRef.focus();
+		if (inputRef) {
+			inputRef.value = '';
+			inputRef.dispatchEvent(new Event('input', { bubbles: true }));
+			inputRef.focus();
+		}
 		dispatch('clear');
 	};
 
@@ -132,7 +135,7 @@ variant = 'default',
 			<!-- Input -->
 			<input
 				bind:this={inputRef}
-				bind:value
+				bind:value={value}
 				{...restProps}
 				{type}
 				{placeholder}

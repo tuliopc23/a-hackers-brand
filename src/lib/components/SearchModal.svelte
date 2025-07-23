@@ -7,7 +7,7 @@ https://svelte.dev/e/component_invalid_directive -->
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { SearchIndex, debounce, type SearchDocument, type SearchSuggestion } from '$lib/utils/search.js';
 	import GlassCard from './liquidify/GlassCard.svelte';
-	import GlassInput from './liquidify/GlassInput.svelte';
+	import Input from './Input.svelte';
 	import Badge from './Badge.svelte';
 	import type { Snippet } from 'svelte';
 
@@ -319,10 +319,9 @@ https://svelte.dev/e/component_invalid_directive -->
 
 			<!-- Search input with terminal styling -->
 			<div class="relative z-10 p-6 pb-4">
-				<GlassInput
-					bind:inputRef
+				<Input
 					bind:value={searchQuery}
-					variant="search"
+					variant="glass"
 					{placeholder}
 					class="font-mono text-terminal-green placeholder:text-terminal-green/50"
 					clearable={true}

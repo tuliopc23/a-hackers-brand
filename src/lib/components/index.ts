@@ -68,7 +68,7 @@ export { default as TerminalStartup } from './TerminalStartup.svelte';
 export { default as MatrixRain } from './MatrixRain.svelte';
 export { default as RetroText } from './RetroText.svelte';
 export { default as RetroFuturisticText } from './RetroFuturisticText.svelte';
-// export { default as VintageMacScreen } from './VintageMacScreen.svelte';
+export { default as VintageMacScreen } from './VintageMacScreen.svelte';
 
 // 3D/WebGL Components
 export { default as ThrelteCanvas } from './ThrelteCanvas.svelte';

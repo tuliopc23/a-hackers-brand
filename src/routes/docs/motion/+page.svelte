@@ -301,14 +301,22 @@
 											<div class="text-center">
 												<div class="relative">
 													<!-- Demo Element -->
-													<div
-														class="w-32 h-32 mx-auto bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-lg border border-white/20 flex items-center justify-center cursor-pointer transform transition-transform duration-300 hover:scale-105"
+													<button
+														type="button"
+														class="w-32 h-32 mx-auto bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-lg border border-white/20 flex items-center justify-center cursor-pointer transform transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400/50"
 														class:animate-pulse={playingDemo === preset.name}
 														onclick={() => triggerDemo(preset.name)}
+														onkeydown={(e) => {
+															if (e.key === 'Enter' || e.key === ' ') {
+																e.preventDefault();
+																triggerDemo(preset.name);
+															}
+														}}
 														use:presets[preset.name]
+														aria-label={`Trigger ${preset.name} animation demo`}
 													>
 														<span class="text-2xl">⚡</span>
-													</div>
+													</button>
 													<button
 														class="mt-4 px-4 py-2 bg-blue-500/20 border border-blue-500/30 rounded-lg hover:bg-blue-500/30 transition-colors text-sm"
 														onclick={() => triggerDemo(preset.name)}
@@ -618,13 +626,20 @@ use:jellyHover={{
 													</div>
 													<div class="font-mono text-terminal-cyan text-center">{duration.value}</div>
 													<div class="text-white/70 text-sm">{duration.usage}</div>
-													<div class="text-center">
-														<div
-															class="w-8 h-8 bg-blue-500 rounded-full mx-auto cursor-pointer"
-															style="animation: pulse-{duration.name} {duration.value} ease-in-out infinite;"
-               onclick={() => {}}
-														></div>
-													</div>
+														<div class="text-center">
+															<button
+																type="button"
+																class="w-8 h-8 bg-blue-500 rounded-full mx-auto cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400/50"
+																style="animation: pulse-{duration.name} {duration.value} ease-in-out infinite;"
+																onclick={() => {}}
+																onkeydown={(e) => {
+																	if (e.key === 'Enter' || e.key === ' ') {
+																		e.preventDefault();
+																	}
+																}}
+																aria-label={`${duration.name} duration demo`}
+															></button>
+														</div>
 												</div>
 											</div>
 										{/each}

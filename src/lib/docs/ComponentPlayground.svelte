@@ -100,7 +100,8 @@
 			<h4 class="text-lg font-medium text-white mb-4">Preview</h4>
 			<div class="p-4 rounded-lg bg-neutral-900/50 border border-neutral-700">
 				{#if component}
-					<svelte:component this={component} {...currentProps} />
+					{@const Component = component}
+					<Component {...currentProps} />
 				{:else}
 					<div class="text-neutral-500 text-center py-8">No component provided</div>
 				{/if}

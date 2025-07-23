@@ -22,7 +22,7 @@
 
 	const {
 		variant = 'medium',
-		effect = 'jelly',
+		effect: liquidEffect = 'jelly',
 		interactive = true,
 		animate = true,
 		customClass = '',
@@ -51,7 +51,7 @@
 	// Computed classes
 	const baseClass = $derived(variant === 'terminal' ? 'liquid-terminal' : 'liquid-glass');
 	const variantClass = $derived(variant !== 'terminal' && variant !== 'medium' ? `liquid-glass-${variant}` : '');
-	const effectClass = $derived(effect !== 'none' ? `liquid-${effect}` : '');
+	const effectClass = $derived(liquidEffect !== 'none' ? `liquid-${liquidEffect}` : '');
 	const glowClass = $derived(glow ? 'liquid-glow' : '');
 	const terminalGlowClass = $derived(terminalGlow ? 'liquid-terminal-glow' : '');
 	const interactiveClass = $derived(interactive ? 'cursor-pointer' : '');
@@ -92,9 +92,9 @@
 			}
 
 			// Auto animations based on effect
-			if (effect === 'morph' && !prefersReducedMotion) {
+			if (liquidEffect === 'morph' && !prefersReducedMotion) {
 				setupMorphAnimation();
-			} else if (effect === 'breathe' && !prefersReducedMotion) {
+			} else if (liquidEffect === 'breathe' && !prefersReducedMotion) {
 				setupBreatheAnimation();
 			}
 		}, element);
@@ -111,7 +111,7 @@
 		const animationScale = prefersReducedMotion ? 0.5 : 1;
 		const baseDuration = prefersReducedMotion ? 0.15 : 0.3;
 
-		switch (effect) {
+		switch (liquidEffect) {
 			case 'jelly':
 				tl.to(element, {
 					scale: 1 + 0.02 * animationScale,
@@ -231,7 +231,7 @@
 	}
 
 	function createRipple(event: MouseEvent) {
-		if (effect !== 'ripple' || !element) return;
+		if (liquidEffect !== 'ripple' || !element) return;
 
 		const rect = element.getBoundingClientRect();
 		const x = event.clientX - rect.left;
@@ -269,7 +269,7 @@
 
 	// Event handlers
 	function handleClick(event: MouseEvent) {
-		if (effect === 'ripple') {
+		if (liquidEffect === 'ripple') {
 			createRipple(event);
 		}
 		dispatch('click', event);
