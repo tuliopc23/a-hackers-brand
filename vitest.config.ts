@@ -1,9 +1,9 @@
 import { defineConfig } from 'vitest/config';
 import { sveltekit } from '@sveltejs/kit/vite';
-import { vitestSvelteKitFix } from './scripts/vitest-sveltekit-fix';
+import path from 'path';
 
 export default defineConfig({
-	plugins: [sveltekit(), vitestSvelteKitFix()],
+	plugins: [sveltekit()],
 	define: {
 		// Force browser environment
 		'process.env.BROWSER': 'true',
@@ -14,12 +14,13 @@ export default defineConfig({
 	test: {
 		globals: true,
 		environment: 'jsdom',
-		setupFiles: ['./src/lib/motion/__tests__/setup.ts'],
 		include: ['src/**/*.{test,spec}.{js,ts,svelte}'],
-		pool: 'forks',
+		// Bun-optimized pool configuration
+		pool: 'threads',
 		poolOptions: {
-			forks: {
-				singleFork: true
+			threads: {
+				singleThread: true,
+				isolate: true
 			}
 		},
 		environmentOptions: {
@@ -69,9 +70,32 @@ export default defineConfig({
 		},
 		resolve: {
 			alias: {
-				$lib: new URL('./src/lib', import.meta.url).pathname
+				$lib: path.resolve('./src/lib')
 			}
 		},
-		reporter: ['default']
+		reporter: ['default'],
+		// Bun-specific optimizations
+		testTimeout: 10000,
+		hookTimeout: 10000,
+		// Disable file parallelism for better Bun compatibility
+		fileParallelism: false,
+		// Use native Bun modules
+		deps: {
+			moduleDirectories: ['node_modules'],
+			optimizer: {
+				web: {
+					enabled: true
+				},
+				ssr: {
+					enabled: true
+				}
+			}
+		}
+	},
+	// Bun-compatible resolve configuration
+	resolve: {
+		conditions: ['browser', 'import', 'module', 'svelte'],
+		mainFields: ['svelte', 'browser', 'module', 'main'],
+		extensions: ['.js', '.ts', '.jsx', '.tsx', '.svelte', '.json']
 	}
 });

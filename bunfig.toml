@@ -1,0 +1,84 @@
+# Bun configuration file
+
+# Install configuration
+[install]
+# Lockfile settings
+lockfile.print = "yarn"
+
+# Auto-install peer dependencies
+peer = true
+
+# Use hardlinks for faster installs
+hardlinks = true
+
+# Global cache directory
+globalDir = "~/.bun/install/global"
+
+# Cache directory
+cache = "~/.bun/install/cache"
+
+# Dev dependencies installation
+dev = true
+
+# Optional dependencies
+optional = true
+
+# Exact versions
+exact = false
+
+# Save workspace protocol
+saveWorkspaceProtocol = true
+
+# Registry configuration
+[install.registry]
+# Use the default registry
+default = "https://registry.npmjs.org"
+
+# Install behaviors
+[install.scopes]
+# Scope-specific configurations can go here
+
+# Workspace configuration
+[workspaces]
+# Define workspace packages if needed
+packages = []
+
+# Test configuration
+[test]
+# Root directory for tests
+root = "./"
+
+# Test file patterns
+pattern = "**/*.{test,spec}.{js,ts,tsx}"
+
+# Coverage options
+coverage = true
+coverageReporter = ["text", "lcov"]
+coverageThreshold = 0.8
+
+# Runtime configuration
+[runtime]
+# JSX settings
+jsx = "react"
+jsxFactory = "React.createElement"
+jsxFragment = "React.Fragment"
+
+# Bundle configuration  
+[bundle]
+# External packages
+external = []
+
+# Source maps
+sourcemap = "external"
+
+# Minification
+minify = false
+
+# Macro configuration
+[macro]
+# Define macros if needed
+
+# Debug configuration
+[debug]
+# Enable source maps
+sourceMap = true

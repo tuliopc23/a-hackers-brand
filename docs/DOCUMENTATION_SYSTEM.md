@@ -59,17 +59,17 @@ Each component documentation page includes:
 
 ```bash
 # Generate documentation for all components
-npm run docs:generate
+bun run docs:generate
 
 # Alternative command
-npm run generate:docs
+bun run generate:docs
 ```
 
 ### Manual Script Execution
 
 ```bash
 # Run the documentation generator directly
-node scripts/generate-docs.js
+bun scripts/generate-docs.js
 ```
 
 ## File Structure
@@ -164,7 +164,7 @@ const COMPONENT_METADATA = {
 
 1. Export your component in `src/lib/components/index.ts`
 2. Build the project to generate TypeScript definitions
-3. Run `npm run docs:generate`
+3. Run `bun run docs:generate`
 
 ### Custom Metadata
 
@@ -222,8 +222,8 @@ const COMPONENT_METADATA = {
 If TypeScript definitions are missing:
 
 ```bash
-npm run build:package
-npm run docs:generate
+bun run build:package
+bun run docs:generate
 ```
 
 ### Component Not Found

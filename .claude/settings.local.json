@@ -1,6 +1,18 @@
 {
-	"permissions": {
-		"allow": ["Bash(find:*)"],
-		"deny": []
-	}
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(bun install:*)",
+      "Bash(rm:*)",
+      "Bash(bunx knip:*)",
+      "Bash(bun add:*)",
+      "Bash(mkdir:*)",
+      "Bash(bun run:*)",
+      "Bash(git restore:*)",
+      "Bash(cp:*)",
+      "Bash(true)",
+      "Bash(touch:*)"
+    ],
+    "deny": []
+  }
 }

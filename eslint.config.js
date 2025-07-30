@@ -17,7 +17,8 @@ export default [
 		languageOptions: {
 			globals: {
 				...globals.browser,
-				...globals.node
+				...globals.node,
+				Bun: 'readonly'
 			}
 		}
 	},
@@ -35,7 +36,9 @@ export default [
 		files: ['**/*.{ts,tsx}'],
 		languageOptions: {
 			parserOptions: {
-				project: './tsconfig.json'
+				project: './tsconfig.json',
+				ecmaVersion: 'latest',
+				sourceType: 'module'
 			}
 		},
 		rules: {
@@ -170,11 +173,13 @@ export default [
 			'package-lock.json',
 			'pnpm-lock.yaml',
 			'yarn.lock',
+			'bun.lockb',
 			'**/*.min.js',
 			'**/*.min.css',
 			'**/generated/**',
 			'**/build/**',
-			'**/output/**'
+			'**/output/**',
+			'scripts/*.js' // Bun scripts use shebang
 		]
 	}
 ];

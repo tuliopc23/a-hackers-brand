@@ -17,7 +17,7 @@ The `build-search-index.js` script generates a searchable JSON index of all docu
 ### Manual Build
 
 ```bash
-npm run build:search-index
+bun run build:search-index
 ```
 
 ### Automatic Build
@@ -25,7 +25,7 @@ npm run build:search-index
 The search index is automatically built as part of the main build process:
 
 ```bash
-npm run build
+bun run build
 ```
 
 ## Output Files
@@ -144,4 +144,4 @@ The script is written in ES modules and uses only Node.js built-in modules for m
 - Ensure the `/src/routes/docs` directory exists
 - Check that documentation files have proper frontmatter (for markdown) or metadata objects (for Svelte)
 - Verify write permissions for output directories
-- Run with `node scripts/build-search-index.js` for detailed error messages
+- Run with `bun scripts/build-search-index.js` for detailed error messages

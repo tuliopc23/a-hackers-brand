@@ -406,5 +406,10 @@ export default {
 			}
 		}
 	},
-	plugins: [containerQueries, aspectRatio]
+	plugins: [containerQueries, aspectRatio],
+	// Bun-specific optimizations
+	future: {
+		hoverOnlyWhenSupported: true,
+		respectDefaultRingColorOpacity: true
+	}
 };

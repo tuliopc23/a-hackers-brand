@@ -1,0 +1,1 @@
+{"version":3,"file":"PerformanceDashboard.svelte.d.ts","sourceRoot":"","sources":["../../src/lib/components/PerformanceDashboard.svelte.ts"],"names":[],"mappings":"AAUC,UAAU,KAAK;IACd,KAAK,CAAC,EAAE,MAAM,CAAC;CACf;AAuQF,QAAA,MAAM,oBAAoB,2CAAwC,CAAC;AACnE,KAAK,oBAAoB,GAAG,UAAU,CAAC,OAAO,oBAAoB,CAAC,CAAC;AACpE,eAAe,oBAAoB,CAAC"}

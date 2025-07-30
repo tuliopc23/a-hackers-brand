@@ -128,7 +128,39 @@ export default defineConfig(({ mode }) => ({
 	define: {
 		__DEV__: mode === 'development',
 		__PROD__: mode === 'production',
-		__VERSION__: JSON.stringify(process.env['npm_package_version'] || '1.0.0'),
-		__BUILD_TIME__: JSON.stringify(new Date().toISOString())
+__VERSION__: JSON.stringify(process.env.npm_package_version || '1.0.0'),
+		__BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+		// Bun-specific globals
+		'process.env.NODE_ENV': JSON.stringify(mode),
+		'import.meta.env.SSR': 'false'
+	},
+
+	// === BUN-SPECIFIC OPTIMIZATIONS ===
+	resolve: {
+		// Prefer Bun's built-in modules
+		preferBuiltins: true,
+		// Optimize module resolution
+		extensions: ['.ts', '.tsx', '.js', '.jsx', '.svelte', '.json'],
+		mainFields: ['svelte', 'browser', 'module', 'main']
+	},
+
+	// Worker configuration for Bun
+	worker: {
+		format: 'es',
+		plugins: () => []
+	},
+
+	// ESBuild configuration (Bun uses ESBuild internally)
+	esbuild: {
+		// Use Bun's JSX transform
+		jsx: 'automatic',
+		// Target modern browsers
+		target: 'esnext',
+		// Keep names for better debugging
+		keepNames: true,
+		// Platform-specific optimizations
+		platform: 'browser',
+		// Tree-shaking
+		treeShaking: true
 	}
 }));

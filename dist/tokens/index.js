@@ -1,4 +1,4 @@
-// Tulio Brand System - Design Tokens
+// A Hacker's Brand - Design Tokens
 // Advanced Hacker Color Palette - Retro Futuristic
 export const brandColors = {
     // Core Hacker Terminal Colors
