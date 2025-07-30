@@ -9,22 +9,25 @@ export default defineConfig(({ mode }) => ({
 		sveltekit(),
 		inspect(),
 		// Bundle analyzer for production builds
-		mode === 'analyze' && visualizer({
-			filename: 'dist/bundle-analysis.html',
-			open: true,
-			gzipSize: true,
-			brotliSize: true,
-			template: 'treemap'
-		}),
+		mode === 'analyze' &&
+			visualizer({
+				filename: 'dist/bundle-analysis.html',
+				open: true,
+				gzipSize: true,
+				brotliSize: true,
+				template: 'treemap'
+			}),
 		// Compression for production
-		mode === 'production' && compression({
-			algorithms: ['gzip'],
-			exclude: [/\.(br)$/, /\.(gz)$/]
-		}),
-		mode === 'production' && compression({
-			algorithms: ['brotliCompress'],
-			exclude: [/\.(br)$/, /\.(gz)$/]
-		})
+		mode === 'production' &&
+			compression({
+				algorithms: ['gzip'],
+				exclude: [/\.(br)$/, /\.(gz)$/]
+			}),
+		mode === 'production' &&
+			compression({
+				algorithms: ['brotliCompress'],
+				exclude: [/\.(br)$/, /\.(gz)$/]
+			})
 	].filter(Boolean),
 
 	// === PERFORMANCE OPTIMIZATIONS ===
@@ -102,19 +105,8 @@ export default defineConfig(({ mode }) => ({
 
 	// === DEPENDENCY OPTIMIZATION ===
 	optimizeDeps: {
-		include: [
-			'lucide-svelte',
-			'clsx',
-			'tailwind-merge',
-			'class-variance-authority',
-			'web-vitals'
-		],
-		exclude: [
-			'@threlte/core',
-			'@threlte/extras',
-			'monaco-editor',
-			'three'
-		],
+		include: ['lucide-svelte', 'clsx', 'tailwind-merge', 'class-variance-authority', 'web-vitals'],
+		exclude: ['@threlte/core', '@threlte/extras', 'monaco-editor', 'three'],
 		// Force optimization of problematic dependencies
 		force: mode === 'development'
 	},
@@ -123,9 +115,12 @@ export default defineConfig(({ mode }) => ({
 	css: {
 		devSourcemap: mode === 'development',
 		postcss: {
-			plugins: mode === 'production' ? [
-				// Additional PostCSS optimizations for production
-			] : []
+			plugins:
+				mode === 'production'
+					? [
+							// Additional PostCSS optimizations for production
+						]
+					: []
 		}
 	},
 

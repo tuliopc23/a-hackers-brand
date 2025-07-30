@@ -81,7 +81,7 @@ A HACKER'S BRAND
 
 ### Logo Usage Guidelines
 
-#### ✅ Do:
+#### ✅ Do
 
 - Use on dark backgrounds for maximum impact
 - Maintain proper spacing (minimum 1/2 logo height clearance)
@@ -89,7 +89,7 @@ A HACKER'S BRAND
 - Use monospace font for ASCII versions
 - Respect minimum size requirements
 
-#### ❌ Don't:
+#### ❌ Don't
 
 - Use on light backgrounds without proper contrast
 - Stretch, skew, or distort the logo proportions

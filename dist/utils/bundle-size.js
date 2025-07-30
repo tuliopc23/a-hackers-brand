@@ -15,9 +15,9 @@ export function sizeOf(componentName, size) {
         console.log(`📦 Bundle: ${componentName} (${size})`);
     }
 }
-export function getBundleSizes() {
+function getBundleSizes() {
     return Array.from(componentSizes.values());
 }
-export function clearBundleSizes() {
+function clearBundleSizes() {
     componentSizes.clear();
 }
