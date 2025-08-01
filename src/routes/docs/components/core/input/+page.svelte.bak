@@ -33,7 +33,7 @@
 	
 	const basicExample = `<Input />`;
 	
-	const advancedExample = `<!-- Advanced example disabled -->`;
+	const advancedExample = `<script>
 	  import { Input } from 'a-hackers-brand';
 	</script>
 

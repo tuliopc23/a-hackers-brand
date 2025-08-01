@@ -29,14 +29,14 @@
 	
 	const basicExample = `<Tabs />`;
 	
-	const advancedExample = `<script>
-  import { Tabs } from 'a-hackers-brand';
-  
-  let value = $state('');
+	const advancedExample = `<!-- Advanced example disabled -->`;
+	  import { Tabs } from 'a-hackers-brand';
+	</script>
+
+	<Tabs />`;
 </script>
 
-<Tabs />
-`;
+<Tabs />`;
 </script>
 
 <svelte:head>

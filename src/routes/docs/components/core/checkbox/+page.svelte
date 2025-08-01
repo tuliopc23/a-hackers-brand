@@ -33,14 +33,14 @@
 	
 	const basicExample = `<Checkbox />`;
 	
-	const advancedExample = `<script>
-  import { Checkbox } from 'a-hackers-brand';
-  
-  let value = $state('');
+	const advancedExample = `<!-- Advanced example disabled -->`;
+	  import { Checkbox } from 'a-hackers-brand';
+	</script>
+
+	<Checkbox />`;
 </script>
 
-<Checkbox />
-`;
+<Checkbox />`;
 </script>
 
 <svelte:head>

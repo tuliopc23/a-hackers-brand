@@ -33,14 +33,7 @@
 	
 	const basicExample = `<Tooltip />`;
 	
-	const advancedExample = `<script>
-  import { Tooltip } from 'a-hackers-brand';
-  
-  let value = $state('');
-</script>
-
-<Tooltip />
-`;
+	const advancedExample = `<!-- Advanced example disabled -->`;
 </script>
 
 <svelte:head>

@@ -33,14 +33,14 @@
 	
 	const basicExample = `<Progress />`;
 	
-	const advancedExample = `<script>
-  import { Progress } from 'a-hackers-brand';
-  
-  let value = $state('');
+	const advancedExample = `<!-- Advanced example disabled -->`;
+	  import { Progress } from 'a-hackers-brand';
+	</script>
+
+	<Progress />`;
 </script>
 
-<Progress />
-`;
+<Progress />`;
 </script>
 
 <svelte:head>

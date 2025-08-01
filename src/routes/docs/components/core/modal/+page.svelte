@@ -29,14 +29,14 @@
 	
 	const basicExample = `<Modal />`;
 	
-	const advancedExample = `<script>
-  import { Modal } from 'a-hackers-brand';
-  
-  let value = $state('');
+	const advancedExample = `<!-- Advanced example disabled -->`;
+	  import { Modal } from 'a-hackers-brand';
+	</script>
+
+	<Modal />`;
 </script>
 
-<Modal />
-`;
+<Modal />`;
 </script>
 
 <svelte:head>

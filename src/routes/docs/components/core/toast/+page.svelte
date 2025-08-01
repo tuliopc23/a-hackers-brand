@@ -29,14 +29,14 @@
 	
 	const basicExample = `<Toast />`;
 	
-	const advancedExample = `<script>
-  import { Toast } from 'a-hackers-brand';
-  
-  let value = $state('');
+	const advancedExample = `<!-- Advanced example disabled -->`;
+	  import { Toast } from 'a-hackers-brand';
+	</script>
+
+	<Toast />`;
 </script>
 
-<Toast />
-`;
+<Toast />`;
 </script>
 
 <svelte:head>

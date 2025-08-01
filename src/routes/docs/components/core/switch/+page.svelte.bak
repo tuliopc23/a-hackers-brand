@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input } from '$lib/components';
+	import { Switch } from '$lib/components';
 	import ComponentPlayground from '$lib/docs/ComponentPlayground.svelte';
 	import PropsTable from '$lib/docs/PropsTable.svelte';
 	import EventsTable from '$lib/docs/EventsTable.svelte';
@@ -7,8 +7,8 @@
 	import { Badge, Alert } from '$lib/components';
 	
 	const componentMeta = {
-		name: 'Input',
-		description: 'Text input field with validation support',
+		name: 'Switch',
+		description: 'Toggle switch for on/off states',
 		category: 'core',
 		complexity: 'simple',
 		since: '0.2.0'
@@ -31,16 +31,16 @@
 		
 	];
 	
-	const basicExample = `<Input />`;
+	const basicExample = `<Switch />`;
 	
-	const advancedExample = `<!-- Advanced example disabled -->`;
-	  import { Input } from 'a-hackers-brand';
+	const advancedExample = `<script>
+	  import { Switch } from 'a-hackers-brand';
 	</script>
 
-	<Input />`;
+	<Switch />`;
 </script>
 
-<Input />`;
+<Switch />`;
 </script>
 
 <svelte:head>
@@ -70,7 +70,7 @@
 	<section class="mb-12">
 		<h2 class="text-2xl font-semibold mb-4 text-green-400">Preview</h2>
 		<div class="p-8 border border-green-500/20 rounded-lg bg-black/50 flex items-center justify-center min-h-[200px]">
-			<Input />
+			<Switch />
 		</div>
 	</section>
 	
@@ -79,8 +79,8 @@
 		<section class="mb-12">
 			<h2 class="text-2xl font-semibold mb-4 text-green-400">Interactive Playground</h2>
 			<ComponentPlayground 
-				componentName="Input"
-				component={Input} 
+				componentName="Switch"
+				component={Switch} 
 				props={playgroundProps} 
 			/>
 		</section>

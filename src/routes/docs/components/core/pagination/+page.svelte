@@ -29,14 +29,14 @@
 	
 	const basicExample = `<Pagination />`;
 	
-	const advancedExample = `<script>
-  import { Pagination } from 'a-hackers-brand';
-  
-  let value = $state('');
+	const advancedExample = `<!-- Advanced example disabled -->`;
+	  import { Pagination } from 'a-hackers-brand';
+	</script>
+
+	<Pagination />`;
 </script>
 
-<Pagination />
-`;
+<Pagination />`;
 </script>
 
 <svelte:head>

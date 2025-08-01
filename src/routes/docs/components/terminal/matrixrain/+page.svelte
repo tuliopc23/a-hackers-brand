@@ -29,14 +29,7 @@
 	
 	const basicExample = `<MatrixRain />`;
 	
-	const advancedExample = `<script>
-  import { MatrixRain } from 'a-hackers-brand';
-  
-  let value = $state('');
-</script>
-
-<MatrixRain />
-`;
+	const advancedExample = `<!-- Advanced example disabled -->`;
 </script>
 
 <svelte:head>

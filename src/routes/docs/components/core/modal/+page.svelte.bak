@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input } from '$lib/components';
+	import { Modal } from '$lib/components';
 	import ComponentPlayground from '$lib/docs/ComponentPlayground.svelte';
 	import PropsTable from '$lib/docs/PropsTable.svelte';
 	import EventsTable from '$lib/docs/EventsTable.svelte';
@@ -7,19 +7,15 @@
 	import { Badge, Alert } from '$lib/components';
 	
 	const componentMeta = {
-		name: 'Input',
-		description: 'Text input field with validation support',
+		name: 'Modal',
+		description: 'Overlay dialog for focused content and interactions',
 		category: 'core',
-		complexity: 'simple',
+		complexity: 'medium',
 		since: '0.2.0'
 	};
 	
 	// TODO: Extract these from TypeScript definitions
 	const props = [
-		
-		{ name: 'class', type: 'string', defaultValue: "''", description: 'Additional CSS classes' },
-		{ name: 'style', type: 'string', defaultValue: "''", description: 'Inline styles' },
-		{ name: 'id', type: 'string', defaultValue: 'undefined', description: 'DOM element ID' }
 		
 	];
 	
@@ -31,16 +27,16 @@
 		
 	];
 	
-	const basicExample = `<Input />`;
+	const basicExample = `<Modal />`;
 	
-	const advancedExample = `<!-- Advanced example disabled -->`;
-	  import { Input } from 'a-hackers-brand';
+	const advancedExample = `<script>
+	  import { Modal } from 'a-hackers-brand';
 	</script>
 
-	<Input />`;
+	<Modal />`;
 </script>
 
-<Input />`;
+<Modal />`;
 </script>
 
 <svelte:head>
@@ -54,7 +50,7 @@
 			<h1 class="text-4xl font-bold text-green-400 inline-block">
 				{componentMeta.name}
 			</h1>
-			<Badge variant="success">
+			<Badge variant="warning">
 				{componentMeta.complexity}
 			</Badge>
 			<Badge variant="default">
@@ -70,7 +66,7 @@
 	<section class="mb-12">
 		<h2 class="text-2xl font-semibold mb-4 text-green-400">Preview</h2>
 		<div class="p-8 border border-green-500/20 rounded-lg bg-black/50 flex items-center justify-center min-h-[200px]">
-			<Input />
+			<Modal />
 		</div>
 	</section>
 	
@@ -79,8 +75,8 @@
 		<section class="mb-12">
 			<h2 class="text-2xl font-semibold mb-4 text-green-400">Interactive Playground</h2>
 			<ComponentPlayground 
-				componentName="Input"
-				component={Input} 
+				componentName="Modal"
+				component={Modal} 
 				props={playgroundProps} 
 			/>
 		</section>

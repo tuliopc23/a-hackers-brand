@@ -33,14 +33,14 @@
 	
 	const basicExample = `<Switch />`;
 	
-	const advancedExample = `<script>
-  import { Switch } from 'a-hackers-brand';
-  
-  let value = $state('');
+	const advancedExample = `<!-- Advanced example disabled -->`;
+	  import { Switch } from 'a-hackers-brand';
+	</script>
+
+	<Switch />`;
 </script>
 
-<Switch />
-`;
+<Switch />`;
 </script>
 
 <svelte:head>

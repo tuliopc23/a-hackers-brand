@@ -206,9 +206,10 @@
 		"typecheck": "bun run check"
 	},
 	"sideEffects": [
-		"**/*.css",
-		"**/*.scss",
-		"src/lib/styles/**",
+		"src/app.css",
+		"src/lib/styles/index.css",
+		"src/lib/styles/radius.css",
+		"dist/styles/index.css",
 		"src/lib/components/**/*.svelte"
 	],
 	"type": "module",

@@ -29,14 +29,14 @@
 	
 	const basicExample = `<Slider />`;
 	
-	const advancedExample = `<script>
-  import { Slider } from 'a-hackers-brand';
-  
-  let value = $state('');
+	const advancedExample = `<!-- Advanced example disabled -->`;
+	  import { Slider } from 'a-hackers-brand';
+	</script>
+
+	<Slider />`;
 </script>
 
-<Slider />
-`;
+<Slider />`;
 </script>
 
 <svelte:head>
