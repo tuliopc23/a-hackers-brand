@@ -20,7 +20,7 @@
 	}
 
 	const {
-		variant = 'default',
+		variant = 'auto',
 		size = 'md',
 		label = '',
 		error = '',
@@ -93,7 +93,7 @@
 		{#if animate && liquid}
 			<input
 				{id}
-				class={combinedClasses}
+				class={combinedClasses()}
 				in:liquidBlur={{ duration: 300, blur: 'sm', scale: 0.98 }}
 				use:magneticHover={magnetic ? { strength: 0.1, distance: 50 } : undefined}
 				use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
@@ -102,7 +102,7 @@
 		{:else if animate}
 			<input
 				id={uniqueId}
-				class={combinedClasses}
+				class={combinedClasses()}
 				aria-label={ariaLabel}
 				aria-invalid={!!error}
 				aria-describedby={errorId}
@@ -114,7 +114,7 @@
 		{:else}
 			<input
 				id={uniqueId}
-				class={combinedClasses}
+				class={combinedClasses()}
 				aria-label={ariaLabel}
 				aria-invalid={!!error}
 				aria-describedby={errorId}

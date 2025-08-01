@@ -36,17 +36,65 @@ export default {
 					accent: '#FF3B30',
 					neutral: '#8E8E93'
 				},
-				// Terminal colors for CLI-inspired components
+				// Bubble Tea TUI colors (WCAG AA/AAA compliant)
+				'bubble-tea': {
+					// Enhanced colors for better contrast
+					pink: '#ff85b3',       // Improved from #ff6b9d
+					purple: '#d666ff',     // Improved from #c44af2
+					blue: '#66c3ff',       // Improved from #4fa8ff
+					cyan: '#4dd8da',
+					green: '#6bcf7f',
+					yellow: '#ffd23a',
+					orange: '#ff8c42',
+					red: '#ff8585',        // Improved from #ff6b6b
+					// Theme colors
+					primary: '#ff85b3',    // WCAG AA compliant
+					secondary: '#d666ff',  // WCAG AA compliant
+					accent: '#66c3ff',     // WCAG AA compliant
+					success: '#6bcf7f',
+					warning: '#ffd23a',
+					error: '#ff8585',      // WCAG AA compliant
+					info: '#4dd8da',
+					background: '#1a1a2e',
+					surface: '#16213e',
+					panel: '#0f1419',
+					// High contrast variants for accessibility
+					'hc-pink': '#ff99c7',     // High contrast mode
+					'hc-purple': '#e099ff',   // High contrast mode
+					'hc-blue': '#80d4ff',     // High contrast mode
+					'hc-cyan': '#66e6ea',     // High contrast mode
+					'hc-green': '#80dd99',    // High contrast mode
+					'hc-yellow': '#ffe066',   // High contrast mode
+					'hc-orange': '#ffad66',   // High contrast mode
+					'hc-red': '#ff9999',      // High contrast mode
+					// Legacy glow variants (now used for high contrast)
+					'glow-pink': '#ff99c7',
+					'glow-purple': '#e099ff',
+					'glow-blue': '#80d4ff',
+					'glow-cyan': '#66e6ea',
+					'glow-green': '#80dd99',
+					'glow-yellow': '#ffe066',
+					'glow-orange': '#ffad66',
+					'glow-red': '#ff9999'
+				},
+				// Terminal colors for CLI-inspired components (WCAG compliant)
 				terminal: {
 					bg: '#1D1D1F',
 					fg: '#F5F5F7',
 					green: '#30D158',
-					blue: '#007AFF',
+					blue: '#66b3ff',       // Improved contrast
 					yellow: '#FFD60A',
-					red: '#FF453A',
+					red: '#ff6666',        // Improved contrast
 					purple: '#BF5AF2',
 					cyan: '#5AC8FA',
-					output: '#007AFF'
+					output: '#66b3ff',     // Improved contrast
+					// High contrast variants
+					'hc-green': '#33ff66',
+					'hc-blue': '#80ccff',
+					'hc-yellow': '#ffdd33',
+					'hc-red': '#ff8080',
+					'hc-purple': '#d888ff',
+					'hc-cyan': '#40ffff'
 				},
 				// Apple-inspired liquid glass colors
 				glass: {
@@ -82,11 +130,52 @@ export default {
 					accent: 'linear-gradient(135deg, #FF3B30 0%, #BF5AF2 100%)',
 					terminal: 'linear-gradient(135deg, #1D1D1F 0%, #2D2D2F 100%)',
 					glass: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)'
+				},
+				// Bubble Tea gradients (WCAG AA compliant)
+				'bubble-tea-gradient': {
+					primary: 'linear-gradient(135deg, #ff85b3 0%, #d666ff 100%)', // WCAG AA compliant
+					secondary: 'linear-gradient(135deg, #66c3ff 0%, #4dd8da 100%)', // WCAG AA compliant
+					accent: 'linear-gradient(135deg, #6bcf7f 0%, #ffd23a 100%)',
+					warm: 'linear-gradient(135deg, #ff8c42 0%, #ff85b3 100%)', // WCAG AA compliant
+					cool: 'linear-gradient(135deg, #4dd8da 0%, #d666ff 100%)', // WCAG AA compliant
+					rainbow: 'linear-gradient(135deg, #ff85b3 0%, #d666ff 25%, #66c3ff 50%, #4dd8da 75%, #6bcf7f 100%)', // WCAG AA
+					sunset: 'linear-gradient(135deg, #ffd23a 0%, #ff8c42 50%, #ff85b3 100%)', // WCAG AA compliant
+					ocean: 'linear-gradient(135deg, #4dd8da 0%, #66c3ff 50%, #d666ff 100%)', // WCAG AA compliant
+					forest: 'linear-gradient(135deg, #6bcf7f 0%, #4dd8da 50%, #66c3ff 100%)', // WCAG AA compliant
+					background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%)'
 				}
 			},
 			fontFamily: {
-				sans: ['PP Supply Sans', 'SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
-				mono: ['PP Supply Mono', 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'monospace']
+				// Modern sans-serif fonts for UI elements
+				sans: [
+					'PP Supply Sans',
+					'SF Pro Display',
+					'Inter',
+					'system-ui',
+					'-apple-system',
+					'BlinkMacSystemFont',
+					'sans-serif'
+				],
+				// Professional monospace fonts for terminal/code environments
+				mono: [
+					'IBM Plex Mono',
+					'JetBrains Mono',
+					'SF Mono',
+					'PP Supply Mono',
+					'Consolas',
+					'Monaco',
+					'Cascadia Code',
+					'Fira Code',
+					'monospace'
+				],
+				// Display fonts for headings and special text
+				display: [
+					'SF Pro Display',
+					'PP Supply Sans',
+					'Inter',
+					'system-ui',
+					'sans-serif'
+				]
 			},
 			spacing: {
 				18: '4.5rem',
@@ -104,7 +193,13 @@ export default {
 				'liquid-lg': '32px',
 				'liquid-xl': '40px',
 				'liquid-2xl': '48px',
-				'liquid-full': '9999px'
+				'liquid-full': '9999px',
+				// Bubble Tea theme radius (more rounded)
+				'bubble-tea': '16px',
+				'bubble-tea-sm': '12px',
+				'bubble-tea-lg': '24px',
+				'bubble-tea-xl': '32px',
+				'bubble-tea-2xl': '40px'
 			},
 			// Backdrop filters for glass morphism
 			backdropBlur: {
@@ -134,7 +229,23 @@ export default {
 				// Liquid morphism shadows
 				liquid: '0 8px 32px rgba(0, 122, 255, 0.1), 0 4px 16px rgba(0, 122, 255, 0.05)',
 				'liquid-lg': '0 16px 64px rgba(0, 122, 255, 0.15), 0 8px 32px rgba(0, 122, 255, 0.1)',
-				'liquid-glow': '0 0 32px rgba(0, 122, 255, 0.3), 0 0 64px rgba(0, 122, 255, 0.1)'
+				'liquid-glow': '0 0 32px rgba(0, 122, 255, 0.3), 0 0 64px rgba(0, 122, 255, 0.1)',
+				// Bubble Tea glow shadows
+				'bubble-tea-pink-glow': '0 0 20px rgba(255, 133, 179, 0.6)',
+				'bubble-tea-purple-glow': '0 0 20px rgba(214, 102, 255, 0.6)',
+				'bubble-tea-blue-glow': '0 0 20px rgba(102, 195, 255, 0.6)',
+				'bubble-tea-cyan-glow': '0 0 20px rgba(102, 230, 234, 0.6)',
+				'bubble-tea-green-glow': '0 0 20px rgba(133, 217, 155, 0.6)',
+				'bubble-tea-yellow-glow': '0 0 20px rgba(255, 229, 102, 0.6)',
+				'bubble-tea-orange-glow': '0 0 20px rgba(255, 173, 102, 0.6)',
+				'bubble-tea-red-glow': '0 0 20px rgba(255, 133, 133, 0.6)',
+				// Intense glow effects
+				'bubble-tea-pink-intense': '0 0 30px rgba(255, 133, 179, 0.8), 0 0 60px rgba(255, 133, 179, 0.4)',
+				'bubble-tea-purple-intense': '0 0 30px rgba(214, 102, 255, 0.8), 0 0 60px rgba(214, 102, 255, 0.4)',
+				'bubble-tea-blue-intense': '0 0 30px rgba(102, 195, 255, 0.8), 0 0 60px rgba(102, 195, 255, 0.4)',
+				'bubble-tea-cyan-intense': '0 0 30px rgba(102, 230, 234, 0.8), 0 0 60px rgba(102, 230, 234, 0.4)',
+				'bubble-tea-green-intense': '0 0 30px rgba(133, 217, 155, 0.8), 0 0 60px rgba(133, 217, 155, 0.4)',
+				'bubble-tea-orange-intense': '0 0 30px rgba(255, 173, 102, 0.8), 0 0 60px rgba(255, 173, 102, 0.4)'
 			},
 			animation: {
 				// Base animations

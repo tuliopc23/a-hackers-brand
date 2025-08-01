@@ -1,0 +1,7 @@
+# Netlify Redirects Configuration
+
+# Redirect www to non-www
+https://www.hackersbrand.design/* https://hackersbrand.design/:splat 301!
+
+# Handle SPA routing - must be last
+/*    /index.html   200

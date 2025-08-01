@@ -1,10 +1,22 @@
 <script lang="ts">
-	import { cn } from '../utils.js';
+	import { cn } from '../utils/index.js';
 	import { magneticHover, liquidBlur, jellyHover, liquidResponsive, breathing as breathingMotion } from '../motion';
+	import { themeConfig } from '../stores/theme.js';
+	import { getThemeAwareCardVariant, getThemeAwareBorderRadius, getThemeAwareFocusRing } from '../utils/theme-aware.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLAttributes<HTMLDivElement> {
-		variant?: 'default' | 'glass' | 'glass-subtle' | 'glass-heavy' | 'terminal' | 'liquid' | 'jelly';
+		variant?:
+			| 'auto'
+			| 'theme'
+			| 'default'
+			| 'glass'
+			| 'glass-subtle'
+			| 'glass-heavy'
+			| 'terminal'
+			| 'liquid'
+			| 'jelly'
+			| 'bubbleTea';
 		blur?: 'sm' | 'md' | 'lg' | 'xl';
 		interactive?: boolean;
 		animate?: boolean;
@@ -16,7 +28,7 @@
 	}
 
 	const {
-		variant = 'default',
+		variant = 'auto',
 		blur = 'md',
 		interactive = false,
 		animate = true,
@@ -28,6 +40,14 @@
 		...restProps
 	}: Props = $props();
 
+	// Reactive theme-aware variant resolution
+	const currentVariant = $derived(() => {
+		if (variant === 'auto' || variant === 'theme') {
+			return getThemeAwareCardVariant(variant);
+		}
+		return variants[variant as keyof typeof variants] || variants.default;
+	});
+
 	const variants = {
 		default: 'glass-subtle border border-white/20 shadow-lg hover:shadow-xl',
 		glass: 'glass-medium border border-white/30 shadow-xl hover:shadow-2xl',
@@ -37,7 +57,9 @@
 			'bg-terminal-bg border-2 border-terminal-green/30 shadow-lg shadow-terminal-green/10 hover:border-terminal-green/50 hover:shadow-terminal-green/20',
 		liquid:
 			'glass-medium border border-terminal-cyan/30 shadow-2xl shadow-terminal-cyan/10 hover:border-terminal-cyan/50 backdrop-blur-xl',
-		jelly: 'glass-subtle border border-terminal-purple/20 shadow-lg hover:shadow-xl hover:border-terminal-purple/40'
+		jelly: 'glass-subtle border border-terminal-purple/20 shadow-lg hover:shadow-xl hover:border-terminal-purple/40',
+		bubbleTea:
+			'bg-gradient-to-br from-bubble-tea-pink/10 to-bubble-tea-purple/10 border border-bubble-tea-purple/30 shadow-bubble-tea-purple-glow hover:border-bubble-tea-glow-purple/50 hover:shadow-bubble-tea-purple-intense backdrop-blur-sm rounded-bubble-tea-lg font-mono'
 	};
 
 	const blurLevels = {
@@ -47,22 +69,48 @@
 		xl: 'backdrop-blur-xl'
 	};
 
-	const baseClasses = 'rounded-2xl p-6 transition-all duration-300 will-change-transform';
+	// Theme-aware border radius
+	const currentBorderRadius = $derived(() => {
+		if (variant === 'auto' || variant === 'theme') {
+			return getThemeAwareBorderRadius(variant) || 'rounded-2xl';
+		}
+		if (variant === 'bubbleTea') {
+			return 'rounded-bubble-tea-lg';
+		}
+		return 'rounded-2xl';
+	});
+
+	// Theme-aware focus ring for interactive cards
+	const currentFocusRing = $derived(() => {
+		if (interactive) {
+			if (variant === 'auto' || variant === 'theme') {
+				return getThemeAwareFocusRing();
+			}
+			return 'focus-visible:ring-2 focus-visible:ring-terminal-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-transparent';
+		}
+		return '';
+	});
+
+	const baseClasses = 'p-6 transition-all duration-300 will-change-transform';
 	const interactiveClasses = interactive ? 'cursor-pointer' : '';
 
-	const combinedClasses = cn(
-		baseClasses,
-		variants[variant],
-		variant.includes('glass') && blurLevels[blur],
-		interactiveClasses,
-		className
+	const combinedClasses = $derived(() =>
+		cn(
+			baseClasses,
+			currentVariant(),
+			currentBorderRadius(),
+			typeof variant === 'string' && variant.includes('glass') && blurLevels[blur],
+			interactiveClasses,
+			currentFocusRing(),
+			className
+		)
 	);
 </script>
 
 {#if animate}
 	{#if interactive}
 		<div
-			class={combinedClasses}
+			class={combinedClasses()}
 			role="button"
 			tabindex="0"
 			onkeydown={(e) => {
@@ -74,8 +122,8 @@
 			use:jellyHover={{
 				enabled: jelly,
 				duration: 250,
-				scale: variant === 'liquid' ? 1.08 : variant === 'jelly' ? 1.06 : 1.03,
-				borderRadius: variant === 'liquid' ? '32px' : variant === 'jelly' ? '28px' : '20px',
+				scale: variant === 'liquid' ? 1.08 : variant === 'jelly' ? 1.06 : variant === 'bubbleTea' ? 1.04 : 1.03,
+				borderRadius: 'var(--radius-2xl)',
 				responsiveness: 'medium'
 			}}
 			use:liquidResponsive={{
@@ -94,12 +142,12 @@
 		</div>
 	{:else}
 		<div
-			class={combinedClasses}
+			class={combinedClasses()}
 			use:jellyHover={{
 				enabled: jelly && interactive,
 				duration: 300,
 				scale: 1.02,
-				borderRadius: '24px',
+				borderRadius: 'var(--radius-xl)',
 				responsiveness: 'subtle'
 			}}
 			use:breathingMotion={{ enabled: breathing, intensity: 0.01, speed: 4000 }}
@@ -113,7 +161,7 @@
 	{/if}
 {:else if interactive}
 	<div
-		class={combinedClasses}
+		class={combinedClasses()}
 		role="button"
 		tabindex="0"
 		onkeydown={(e) => {
@@ -126,7 +174,7 @@
 			enabled: jelly,
 			duration: 250,
 			scale: variant === 'liquid' ? 1.08 : variant === 'jelly' ? 1.06 : 1.03,
-			borderRadius: variant === 'liquid' ? '32px' : variant === 'jelly' ? '28px' : '20px',
+			borderRadius: 'var(--radius-2xl)',
 			responsiveness: 'medium'
 		}}
 		use:liquidResponsive={{
@@ -144,7 +192,7 @@
 	</div>
 {:else}
 	<div
-		class={combinedClasses}
+		class={combinedClasses()}
 		use:breathingMotion={{ enabled: breathing, intensity: 0.01, speed: 4000 }}
 		{...restProps}
 	>

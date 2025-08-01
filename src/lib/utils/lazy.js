@@ -7,17 +7,16 @@ import { browser } from '$app/environment';
  * @returns A function that can be used to create a lazy component instance
  */
 export function lazy(loadFn) {
-    return async function loadComponent() {
-        if (!browser) {
-            return null;
-        }
-        try {
-            const module = await loadFn();
-            return module.default;
-        }
-        catch (err) {
-            console.error('Failed to load component:', err);
-            return null;
-        }
-    };
+	return async function loadComponent() {
+		if (!browser) {
+			return null;
+		}
+		try {
+			const module = await loadFn();
+			return module.default;
+		} catch (err) {
+			console.error('Failed to load component:', err);
+			return null;
+		}
+	};
 }

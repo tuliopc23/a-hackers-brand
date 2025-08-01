@@ -1,0 +1,44 @@
+# Netlify Headers Configuration
+# This file works alongside netlify.toml for additional header control
+
+/*
+  # Security Headers
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com
+
+/assets/*
+  # Cache static assets for 1 year
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  # Cache fonts for 1 year
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+/_app/*
+  # Cache app bundles for 1 year (they have hashes)
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  # Cache JS files
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  # Cache CSS files
+  Cache-Control: public, max-age=31536000, immutable
+
+/
+  # Don't cache the home page
+  Cache-Control: public, max-age=0, must-revalidate
+
+/docs/*
+  # Don't cache documentation pages (they may update frequently)
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.html
+  # Don't cache HTML files
+  Cache-Control: public, max-age=0, must-revalidate

@@ -3,6 +3,9 @@
 /* Import base styles */
 @import '../../../src/app.css';
 
+/* Theme-aware radius system */
+@import './radius.css';
+
 /* Design Tokens as CSS Custom Properties */
 :root {
 	/* Brand Colors */
@@ -124,6 +127,7 @@
 	from {
 		box-shadow: 0 0 5px currentColor;
 	}
+
 	to {
 		box-shadow:
 			0 0 20px currentColor,
@@ -140,10 +144,12 @@
 }
 
 @keyframes float {
+
 	0%,
 	100% {
 		transform: translateY(0px);
 	}
+
 	50% {
 		transform: translateY(-10px);
 	}
@@ -196,8 +202,31 @@
 	outline-offset: 2px;
 }
 
+/* Layout Utilities for StatusBar */
+.with-status-bar {
+	padding-bottom: var(--status-bar-height, 2.5rem);
+}
+
+.with-status-bar-sm {
+	padding-bottom: calc(var(--status-bar-height, 2.5rem) + var(--space-2));
+}
+
+.with-status-bar-md {
+	padding-bottom: calc(var(--status-bar-height, 2.5rem) + var(--space-4));
+}
+
+.with-status-bar-lg {
+	padding-bottom: calc(var(--status-bar-height, 2.5rem) + var(--space-6));
+}
+
+/* Container variant for status bar layouts */
+.container-with-status-bar {
+	min-height: calc(100vh - var(--status-bar-height, 2.5rem));
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
+
 	*,
 	*::before,
 	*::after {

@@ -23,11 +23,11 @@ export { glassFade as fade } from './glassFade.js';
 export { springPop as pop } from './springPop.js';
 
 // Export from jellyMotion
-export { 
-    jelly, 
-    liquidJelly, 
-    jellyHover, 
-    liquidResponsive, 
-    breathing, 
-    breathing as breathingMotion 
+export {
+	jelly,
+	liquidJelly,
+	jellyHover,
+	liquidResponsive,
+	breathing,
+	breathing as breathingMotion
 } from './jellyMotion.js';

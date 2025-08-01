@@ -30,15 +30,15 @@ const testCases = [
 
 async function testTreeShaking() {
 	console.log('🌳 Testing tree-shaking effectiveness...\n');
-	
+
 	const results = [];
-	
+
 	for (const testCase of testCases) {
 		console.log(`📦 Testing: ${testCase.name}`);
-		
+
 		const testFile = join(rootDir, 'tree-shake-test.js');
 		await writeFile(testFile, testCase.code);
-		
+
 		try {
 			const result = await build({
 				entryPoints: [testFile],
@@ -52,20 +52,19 @@ async function testTreeShaking() {
 				treeShaking: true,
 				metafile: true
 			});
-			
+
 			const output = result.outputFiles[0].text;
 			const size = output.length;
 			const gzipSize = gzipSync(output).length;
-			
+
 			results.push({
 				name: testCase.name,
 				size,
 				gzipSize,
 				output: output.substring(0, 200) + '...'
 			});
-			
+
 			console.log(`  ✓ Bundle size: ${formatSize(size)} (${formatSize(gzipSize)} gzipped)`);
-			
 		} catch (error) {
 			console.error(`  ✗ Error: ${error.message}`);
 			results.push({
@@ -73,33 +72,33 @@ async function testTreeShaking() {
 				error: error.message
 			});
 		}
-		
+
 		// Clean up
 		await rm(testFile, { force: true });
 	}
-	
+
 	// Analyze results
 	console.log('\n📊 Tree-shaking Analysis:');
 	console.log('========================\n');
-	
+
 	const singleImportSize = results[0]?.gzipSize || 0;
 	const multiImportSize = results[1]?.gzipSize || 0;
 	const fullImportSize = results[2]?.gzipSize || 0;
-	
+
 	if (singleImportSize && fullImportSize) {
-		const efficiency = ((fullImportSize - singleImportSize) / fullImportSize * 100).toFixed(1);
+		const efficiency = (((fullImportSize - singleImportSize) / fullImportSize) * 100).toFixed(1);
 		console.log(`🎯 Tree-shaking efficiency: ${efficiency}%`);
 		console.log(`   Single component: ${formatSize(singleImportSize)} gzipped`);
 		console.log(`   Full library:     ${formatSize(fullImportSize)} gzipped`);
 		console.log(`   Savings:          ${formatSize(fullImportSize - singleImportSize)}`);
 	}
-	
+
 	// Check if tree-shaking is working
 	if (multiImportSize && singleImportSize) {
 		const overhead = multiImportSize - singleImportSize;
 		console.log(`\n📈 Multi-import overhead: ${formatSize(overhead)} per additional component`);
 	}
-	
+
 	// Recommendations
 	console.log('\n💡 Recommendations:');
 	if (fullImportSize > singleImportSize * 10) {
@@ -112,19 +111,26 @@ async function testTreeShaking() {
 		console.log('   - Ensure proper ESM exports');
 		console.log('   - Review bundler configuration');
 	}
-	
+
 	// Save detailed report
 	const reportPath = join(rootDir, 'reports', 'tree-shaking-analysis.json');
-	await writeFile(reportPath, JSON.stringify({
-		timestamp: new Date().toISOString(),
-		results,
-		analysis: {
-			efficiency: ((fullImportSize - singleImportSize) / fullImportSize * 100).toFixed(1) + '%',
-			singleComponentSize: formatSize(singleImportSize),
-			fullLibrarySize: formatSize(fullImportSize)
-		}
-	}, null, 2));
-	
+	await writeFile(
+		reportPath,
+		JSON.stringify(
+			{
+				timestamp: new Date().toISOString(),
+				results,
+				analysis: {
+					efficiency: (((fullImportSize - singleImportSize) / fullImportSize) * 100).toFixed(1) + '%',
+					singleComponentSize: formatSize(singleImportSize),
+					fullLibrarySize: formatSize(fullImportSize)
+				}
+			},
+			null,
+			2
+		)
+	);
+
 	console.log(`\n📄 Detailed report saved to: reports/tree-shaking-analysis.json`);
 }
 

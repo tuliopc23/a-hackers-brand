@@ -1,9 +1,9 @@
-version: "1"
+version: '1'
 
 # Code coverage configuration
 coverage:
   enable: all
-  threshold: 
+  threshold:
     statements: 80
     branches: 75
     functions: 80
@@ -26,12 +26,12 @@ checks:
 
 # Language-specific configurations
 typescript:
-  version: "5.8.3"
+  version: '5.8.3'
   strict: true
-  
+
 javascript:
   ecmaVersion: 2022
-  
+
 svelte:
   enable: true
 
@@ -48,38 +48,38 @@ plugins:
 rules:
   # Enforce Bun usage
   - id: no-npm-commands
-    message: "Use Bun instead of npm/yarn/pnpm"
-    pattern: "npm |yarn |pnpm "
+    message: 'Use Bun instead of npm/yarn/pnpm'
+    pattern: 'npm |yarn |pnpm '
     severity: error
     include:
-      - "**/*.json"
-      - "**/*.md"
-      - "**/*.yml"
-      - "**/*.yaml"
-      - "**/*.sh"
-  
+      - '**/*.json'
+      - '**/*.md'
+      - '**/*.yml'
+      - '**/*.yaml'
+      - '**/*.sh'
+
   # Enforce consistent imports
   - id: consistent-imports
-    message: "Use consistent import patterns"
+    message: 'Use consistent import patterns'
     severity: warning
 
 # Ignore patterns
 ignore:
-  - "**/node_modules/**"
-  - "**/dist/**"
-  - "**/.svelte-kit/**"
-  - "**/coverage/**"
-  - "**/reports/**"
-  - "**/*.min.js"
-  - "**/*.min.css"
+  - '**/node_modules/**'
+  - '**/dist/**'
+  - '**/.svelte-kit/**'
+  - '**/coverage/**'
+  - '**/reports/**'
+  - '**/*.min.js'
+  - '**/*.min.css'
 
 # Reporting
 reports:
-  format: 
+  format:
     - console
     - html
     - json
-  output: "./reports/qlty"
+  output: './reports/qlty'
 
 # Integrations
 integrations:
@@ -93,8 +93,8 @@ integrations:
 # Performance budget
 performance:
   bundle_size:
-    warning: 150000  # 150KB
-    error: 200000    # 200KB
+    warning: 150000 # 150KB
+    error: 200000 # 200KB
   first_load:
-    warning: 3000    # 3s
-    error: 5000      # 5s
+    warning: 3000 # 3s
+    error: 5000 # 5s

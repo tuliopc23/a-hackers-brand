@@ -128,7 +128,7 @@ export default defineConfig(({ mode }) => ({
 	define: {
 		__DEV__: mode === 'development',
 		__PROD__: mode === 'production',
-__VERSION__: JSON.stringify(process.env.npm_package_version || '1.0.0'),
+		__VERSION__: JSON.stringify(process.env.npm_package_version || '1.0.0'),
 		__BUILD_TIME__: JSON.stringify(new Date().toISOString()),
 		// Bun-specific globals
 		'process.env.NODE_ENV': JSON.stringify(mode),

@@ -1,10 +1,27 @@
 <script lang="ts">
-	import { cn } from '../utils.js';
+	import { cn } from '../utils/index.js';
 	import { magneticHover, springPop, jellyHover, liquidResponsive } from '../motion';
+	import { themeConfig } from '../stores/theme.js';
+	import {
+		getThemeAwareButtonVariant,
+		getThemeAwareBorderRadius,
+		getThemeAwareFocusRing
+	} from '../utils/theme-aware.js';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLButtonAttributes {
-		variant?: 'default' | 'secondary' | 'outline' | 'ghost' | 'glass' | 'glass-dark' | 'terminal' | 'liquid';
+		variant?:
+			| 'auto'
+			| 'theme'
+			| 'default'
+			| 'secondary'
+			| 'outline'
+			| 'ghost'
+			| 'glass'
+			| 'glass-dark'
+			| 'terminal'
+			| 'liquid'
+			| 'bubbleTea';
 		size?: 'sm' | 'md' | 'lg' | 'xl';
 		loading?: boolean;
 		icon?: boolean;
@@ -18,7 +35,7 @@
 	}
 
 	const {
-		variant = 'default',
+		variant = 'auto',
 		size = 'md',
 		loading = false,
 		icon = false,
@@ -32,6 +49,14 @@
 		'aria-describedby': ariaDescribedBy,
 		...restProps
 	}: Props = $props();
+
+	// Reactive theme-aware variant resolution
+	const currentVariant = $derived(() => {
+		if (variant === 'auto' || variant === 'theme') {
+			return getThemeAwareButtonVariant(variant);
+		}
+		return variants[variant as keyof typeof variants] || variants.default;
+	});
 
 	const variants = {
 		default:
@@ -47,7 +72,9 @@
 		terminal:
 			'bg-terminal-bg border-2 border-terminal-green text-terminal-green font-mono hover:bg-terminal-green/5 hover:border-terminal-green/80 shadow-lg hover:shadow-terminal-green/20',
 		liquid:
-			'bg-gradient-to-br from-terminal-cyan/20 via-terminal-blue/20 to-terminal-purple/20 border border-white/30 text-white backdrop-blur-lg hover:from-terminal-cyan/30 hover:via-terminal-blue/30 hover:to-terminal-purple/30'
+			'bg-gradient-to-br from-terminal-cyan/20 via-terminal-blue/20 to-terminal-purple/20 border border-white/30 text-white backdrop-blur-lg hover:from-terminal-cyan/30 hover:via-terminal-blue/30 hover:to-terminal-purple/30',
+		bubbleTea:
+			'bg-gradient-to-r from-bubble-tea-pink to-bubble-tea-purple hover:from-bubble-tea-glow-pink hover:to-bubble-tea-glow-purple text-white shadow-bubble-tea-pink-glow hover:shadow-bubble-tea-purple-intense border border-bubble-tea-purple/20 rounded-bubble-tea backdrop-blur-sm font-mono'
 	};
 
 	const sizes = {
@@ -57,24 +84,54 @@
 		xl: 'px-10 py-5 text-xl rounded-3xl'
 	};
 
+	// Theme-aware border radius
+	const currentBorderRadius = $derived(() => {
+		if (variant === 'auto' || variant === 'theme') {
+			return getThemeAwareBorderRadius(variant, size);
+		}
+		if (variant === 'bubbleTea') {
+			return (
+				{
+					sm: 'rounded-bubble-tea-sm',
+					md: 'rounded-bubble-tea',
+					lg: 'rounded-bubble-tea-lg',
+					xl: 'rounded-bubble-tea-xl'
+				}[size] || ''
+			);
+		}
+		return '';
+	});
+
+	// Theme-aware focus ring
+	const currentFocusRing = $derived(() => {
+		if (variant === 'auto' || variant === 'theme') {
+			return getThemeAwareFocusRing();
+		}
+		return 'focus-visible:ring-2 focus-visible:ring-terminal-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-transparent';
+	});
+
 	const baseClasses =
-		'inline-flex items-center justify-center gap-2 font-medium transition-all duration-300 focus-visible:ring-2 focus-visible:ring-terminal-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-transparent disabled:opacity-50 disabled:pointer-events-none will-change-transform';
+		'inline-flex items-center justify-center gap-2 font-medium transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none will-change-transform';
 
 	const iconClasses = icon ? 'aspect-square !p-0' : '';
 
-	const combinedClasses = cn(
-		baseClasses,
-		variants[variant],
-		sizes[size],
-		iconClasses,
-		loading && 'cursor-wait',
-		className
+	const combinedClasses = $derived(() =>
+		cn(
+			baseClasses,
+			currentVariant(),
+			sizes[size],
+			currentBorderRadius(),
+			currentFocusRing(),
+			iconClasses,
+			loading && 'cursor-wait',
+			className
+		)
 	);
 </script>
 
 {#if animate}
 	<button
-		class={combinedClasses}
+		class={combinedClasses()}
 		{disabled}
 		aria-label={ariaLabel}
 		aria-describedby={ariaDescribedBy}
@@ -83,7 +140,7 @@
 			enabled: !disabled && !loading && jelly,
 			duration: 200,
 			scale: variant === 'liquid' ? 1.08 : 1.05,
-			borderRadius: variant === 'liquid' ? '24px' : '16px',
+			borderRadius: 'var(--radius-lg)',
 			responsiveness: 'medium'
 		}}
 		use:liquidResponsive={{
@@ -107,7 +164,7 @@
 	</button>
 {:else}
 	<button
-		class={combinedClasses}
+		class={combinedClasses()}
 		{disabled}
 		aria-label={ariaLabel}
 		aria-describedby={ariaDescribedBy}
@@ -115,8 +172,8 @@
 		use:jellyHover={{
 			enabled: !disabled && !loading && jelly,
 			duration: 200,
-			scale: variant === 'liquid' ? 1.08 : 1.05,
-			borderRadius: variant === 'liquid' ? '24px' : '16px',
+			scale: variant === 'liquid' ? 1.08 : variant === 'bubbleTea' ? 1.06 : 1.05,
+			borderRadius: 'var(--radius-lg)',
 			responsiveness: 'medium'
 		}}
 		use:liquidResponsive={{

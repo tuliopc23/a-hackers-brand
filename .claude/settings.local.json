@@ -11,7 +11,8 @@
       "Bash(git restore:*)",
       "Bash(cp:*)",
       "Bash(true)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(bun scripts/generate-docs.js:*)"
     ],
     "deny": []
   }

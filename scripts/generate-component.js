@@ -94,33 +94,24 @@ const storyTemplate = `<script lang="ts">
 async function generateComponent() {
 	try {
 		const componentDir = join(rootDir, 'src', 'lib', 'components', componentName);
-		
+
 		// Create component directory
 		await mkdir(componentDir, { recursive: true });
-		
+
 		// Write component file
-		await writeFile(
-			join(componentDir, `${componentName}.svelte`),
-			componentTemplate
-		);
-		
+		await writeFile(join(componentDir, `${componentName}.svelte`), componentTemplate);
+
 		// Write test file
-		await writeFile(
-			join(componentDir, `${componentName}.test.ts`),
-			testTemplate
-		);
-		
+		await writeFile(join(componentDir, `${componentName}.test.ts`), testTemplate);
+
 		// Write story file
-		await writeFile(
-			join(componentDir, `${componentName}.story.svelte`),
-			storyTemplate
-		);
-		
+		await writeFile(join(componentDir, `${componentName}.story.svelte`), storyTemplate);
+
 		// Update barrel export
 		const indexPath = join(rootDir, 'src', 'lib', 'components', 'index.ts');
 		try {
 			let indexContent = await readFile(indexPath, 'utf-8');
-			
+
 			// Add export if not already present
 			if (!indexContent.includes(`${componentName}.svelte`)) {
 				indexContent += `\nexport { default as ${componentName} } from './${componentName}/${componentName}.svelte';`;
@@ -133,7 +124,7 @@ async function generateComponent() {
 				`export { default as ${componentName} } from './${componentName}/${componentName}.svelte';`
 			);
 		}
-		
+
 		console.log(`✅ Component "${componentName}" generated successfully!`);
 		console.log(`\n📁 Files created:`);
 		console.log(`  - src/lib/components/${componentName}/${componentName}.svelte`);
@@ -144,7 +135,6 @@ async function generateComponent() {
 		console.log(`  2. Add tests`);
 		console.log(`  3. Create story variants`);
 		console.log(`  4. Run tests: bun run test`);
-		
 	} catch (error) {
 		console.error('❌ Error generating component:', error);
 		process.exit(1);

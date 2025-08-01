@@ -1,0 +1,306 @@
+/**
+ * Theme-Aware Border Radius Classes
+ * 
+ * These classes automatically apply the correct border radius
+ * based on the currently active theme using CSS custom properties.
+ */
+
+/* Base radius classes using CSS custom properties */
+.radius-none {
+    border-radius: var(--radius-none, 0) !important;
+}
+
+.radius-xs {
+    border-radius: var(--radius-xs, 0.125rem) !important;
+}
+
+.radius-sm {
+    border-radius: var(--radius-sm, 0.375rem) !important;
+}
+
+.radius-md {
+    border-radius: var(--radius-md, 0.5rem) !important;
+}
+
+.radius-lg {
+    border-radius: var(--radius-lg, 0.75rem) !important;
+}
+
+.radius-xl {
+    border-radius: var(--radius-xl, 1rem) !important;
+}
+
+.radius-2xl {
+    border-radius: var(--radius-2xl, 1.5rem) !important;
+}
+
+.radius-3xl {
+    border-radius: var(--radius-3xl, 2rem) !important;
+}
+
+.radius-4xl {
+    border-radius: var(--radius-4xl, 2.5rem) !important;
+}
+
+.radius-full {
+    border-radius: var(--radius-full, 9999px) !important;
+}
+
+/* Component-specific radius classes */
+/* Button radius */
+.button-radius-sm {
+    border-radius: var(--radius-sm, 0.375rem) !important;
+}
+
+.button-radius-md {
+    border-radius: var(--radius-md, 0.5rem) !important;
+}
+
+.button-radius-lg {
+    border-radius: var(--radius-lg, 0.75rem) !important;
+}
+
+.button-radius-xl {
+    border-radius: var(--radius-xl, 1rem) !important;
+}
+
+/* Card radius */
+.card-radius-sm {
+    border-radius: var(--radius-lg, 0.75rem) !important;
+}
+
+.card-radius-md {
+    border-radius: var(--radius-xl, 1rem) !important;
+}
+
+.card-radius-lg {
+    border-radius: var(--radius-2xl, 1.5rem) !important;
+}
+
+.card-radius-xl {
+    border-radius: var(--radius-3xl, 2rem) !important;
+}
+
+/* Modal radius */
+.modal-radius-sm {
+    border-radius: var(--radius-xl, 1rem) !important;
+}
+
+.modal-radius-md {
+    border-radius: var(--radius-2xl, 1.5rem) !important;
+}
+
+.modal-radius-lg {
+    border-radius: var(--radius-3xl, 2rem) !important;
+}
+
+.modal-radius-xl {
+    border-radius: var(--radius-4xl, 2.5rem) !important;
+}
+
+/* Input radius */
+.input-radius-sm {
+    border-radius: var(--radius-sm, 0.375rem) !important;
+}
+
+.input-radius-md {
+    border-radius: var(--radius-md, 0.5rem) !important;
+}
+
+.input-radius-lg {
+    border-radius: var(--radius-lg, 0.75rem) !important;
+}
+
+.input-radius-xl {
+    border-radius: var(--radius-xl, 1rem) !important;
+}
+
+/* Avatar radius */
+.avatar-radius-sm {
+    border-radius: var(--radius-sm, 0.375rem) !important;
+}
+
+.avatar-radius-md {
+    border-radius: var(--radius-md, 0.5rem) !important;
+}
+
+.avatar-radius-lg {
+    border-radius: var(--radius-lg, 0.75rem) !important;
+}
+
+.avatar-radius-xl {
+    border-radius: var(--radius-xl, 1rem) !important;
+}
+
+.avatar-radius-full {
+    border-radius: var(--radius-full, 9999px) !important;
+}
+
+/* Badge radius */
+.badge-radius-sm {
+    border-radius: var(--radius-sm, 0.375rem) !important;
+}
+
+.badge-radius-md {
+    border-radius: var(--radius-md, 0.5rem) !important;
+}
+
+.badge-radius-lg {
+    border-radius: var(--radius-lg, 0.75rem) !important;
+}
+
+.badge-radius-pill {
+    border-radius: var(--radius-full, 9999px) !important;
+}
+
+/* Tab radius */
+.tab-radius-sm {
+    border-radius: var(--radius-sm, 0.375rem) !important;
+}
+
+.tab-radius-md {
+    border-radius: var(--radius-md, 0.5rem) !important;
+}
+
+.tab-radius-lg {
+    border-radius: var(--radius-lg, 0.75rem) !important;
+}
+
+/* Utility classes for specific sides */
+.radius-t-sm {
+    border-top-left-radius: var(--radius-sm, 0.375rem) !important;
+    border-top-right-radius: var(--radius-sm, 0.375rem) !important;
+}
+
+.radius-t-md {
+    border-top-left-radius: var(--radius-md, 0.5rem) !important;
+    border-top-right-radius: var(--radius-md, 0.5rem) !important;
+}
+
+.radius-t-lg {
+    border-top-left-radius: var(--radius-lg, 0.75rem) !important;
+    border-top-right-radius: var(--radius-lg, 0.75rem) !important;
+}
+
+.radius-t-xl {
+    border-top-left-radius: var(--radius-xl, 1rem) !important;
+    border-top-right-radius: var(--radius-xl, 1rem) !important;
+}
+
+.radius-b-sm {
+    border-bottom-left-radius: var(--radius-sm, 0.375rem) !important;
+    border-bottom-right-radius: var(--radius-sm, 0.375rem) !important;
+}
+
+.radius-b-md {
+    border-bottom-left-radius: var(--radius-md, 0.5rem) !important;
+    border-bottom-right-radius: var(--radius-md, 0.5rem) !important;
+}
+
+.radius-b-lg {
+    border-bottom-left-radius: var(--radius-lg, 0.75rem) !important;
+    border-bottom-right-radius: var(--radius-lg, 0.75rem) !important;
+}
+
+.radius-b-xl {
+    border-bottom-left-radius: var(--radius-xl, 1rem) !important;
+    border-bottom-right-radius: var(--radius-xl, 1rem) !important;
+}
+
+.radius-l-sm {
+    border-top-left-radius: var(--radius-sm, 0.375rem) !important;
+    border-bottom-left-radius: var(--radius-sm, 0.375rem) !important;
+}
+
+.radius-l-md {
+    border-top-left-radius: var(--radius-md, 0.5rem) !important;
+    border-bottom-left-radius: var(--radius-md, 0.5rem) !important;
+}
+
+.radius-l-lg {
+    border-top-left-radius: var(--radius-lg, 0.75rem) !important;
+    border-bottom-left-radius: var(--radius-lg, 0.75rem) !important;
+}
+
+.radius-l-xl {
+    border-top-left-radius: var(--radius-xl, 1rem) !important;
+    border-bottom-left-radius: var(--radius-xl, 1rem) !important;
+}
+
+.radius-r-sm {
+    border-top-right-radius: var(--radius-sm, 0.375rem) !important;
+    border-bottom-right-radius: var(--radius-sm, 0.375rem) !important;
+}
+
+.radius-r-md {
+    border-top-right-radius: var(--radius-md, 0.5rem) !important;
+    border-bottom-right-radius: var(--radius-md, 0.5rem) !important;
+}
+
+.radius-r-lg {
+    border-top-right-radius: var(--radius-lg, 0.75rem) !important;
+    border-bottom-right-radius: var(--radius-lg, 0.75rem) !important;
+}
+
+.radius-r-xl {
+    border-top-right-radius: var(--radius-xl, 1rem) !important;
+    border-bottom-right-radius: var(--radius-xl, 1rem) !important;
+}
+
+/* Responsive radius utilities */
+@media (max-width: 640px) {
+    .radius-responsive {
+        border-radius: var(--radius-sm, 0.375rem) !important;
+    }
+
+    .card-radius-responsive {
+        border-radius: var(--radius-lg, 0.75rem) !important;
+    }
+
+    .modal-radius-responsive {
+        border-radius: var(--radius-xl, 1rem) !important;
+    }
+}
+
+@media (min-width: 641px) {
+    .radius-responsive {
+        border-radius: var(--radius-md, 0.5rem) !important;
+    }
+
+    .card-radius-responsive {
+        border-radius: var(--radius-xl, 1rem) !important;
+    }
+
+    .modal-radius-responsive {
+        border-radius: var(--radius-2xl, 1.5rem) !important;
+    }
+}
+
+/* Animation-friendly radius transitions */
+.radius-transition {
+    transition: border-radius 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.radius-transition-fast {
+    transition: border-radius 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.radius-transition-slow {
+    transition: border-radius 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* Hover states for interactive elements */
+.radius-hover:hover {
+    border-radius: calc(var(--radius-md, 0.5rem) * 1.2) !important;
+    transition: border-radius 200ms ease-out !important;
+}
+
+.card-radius-hover:hover {
+    border-radius: calc(var(--radius-xl, 1rem) * 1.1) !important;
+    transition: border-radius 200ms ease-out !important;
+}
+
+.button-radius-hover:hover {
+    border-radius: calc(var(--radius-md, 0.5rem) * 1.3) !important;
+    transition: border-radius 200ms ease-out !important;
+}

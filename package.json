@@ -7,13 +7,14 @@
 		"url": "https://github.com/tuliopc23/a-hackers-brand/issues"
 	},
 	"dependencies": {},
-	"description": "A Hacker's Brand Design System - A cutting-edge design system combining Apple's liquid glass aesthetics with terminal/CLI hacker aesthetics",
+	"description": "A Hacker's Brand Design System - A cutting-edge design system with dual themes: terminal hacker aesthetics and modern Bubble Tea TUI design",
 	"devDependencies": {
 		"@eslint/js": "^9.32.0",
 		"@lhci/cli": "^0.15.1",
-		"@sveltejs/adapter-auto": "^3.3.1",
 		"@playwright/test": "^1.54.1",
 		"@size-limit/preset-app": "^11.2.0",
+		"@sveltejs/adapter-auto": "^3.3.1",
+		"@sveltejs/adapter-netlify": "^5.1.0",
 		"@sveltejs/kit": "^2.26.1",
 		"@sveltejs/vite-plugin-svelte": "^6.1.0",
 		"@tailwindcss/aspect-ratio": "^0.4.2",
@@ -80,6 +81,10 @@
 		"terminal",
 		"cli",
 		"hacker-aesthetics",
+		"bubble-tea",
+		"tui",
+		"modern-terminal",
+		"theme-switching",
 		"brand-system",
 		"ui-components",
 		"webgl",
@@ -125,10 +130,12 @@
 		"url": "git+https://github.com/tuliopc23/a-hackers-brand.git"
 	},
 	"scripts": {
-		"prepare": "bun run check && bun run build:package",
+		"prepare": "bun run barrel:generate && bun run check && bun run build:package",
 		"prepublishOnly": "bun run test:run && bun run lint && bun run build:package",
 		"analyze": "bunx --bun vite build --mode analyze",
-		"build:package": "bunx --bun svelte-kit sync && bunx --bun svelte-package && bunx --bun publint",
+		"barrel:generate": "bun scripts/generate-barrel.js",
+		"barrel:watch": "node scripts/generate-barrel.js --watch",
+		"build:package": "bun run barrel:generate && bunx --bun svelte-kit sync && bunx --bun svelte-package && bunx --bun publint",
 		"check": "bunx --bun svelte-kit sync && bunx --bun svelte-check --tsconfig ./tsconfig.check.json",
 		"check:watch": "bunx --bun svelte-kit sync && bunx --bun svelte-check --tsconfig ./tsconfig.check.json --watch",
 		"css:build": "bun run build:package && bun run css:extract",
@@ -199,9 +206,11 @@
 		"typecheck": "bun run check"
 	},
 	"sideEffects": [
-		"**/*.css"
+		"**/*.css",
+		"**/*.scss",
+		"src/lib/styles/**",
+		"src/lib/components/**/*.svelte"
 	],
-	"svelte": "./dist/index.js",
 	"type": "module",
 	"types": "./dist/index.d.ts",
 	"typesVersions": {
@@ -217,5 +226,5 @@
 			]
 		}
 	},
-	"version": "0.2.0"
+	"version": "0.3.0"
 }

@@ -8,7 +8,7 @@
 	interface Props extends HTMLAttributes<HTMLDivElement> {
 		open?: boolean;
 		size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-		variant?: 'glass' | 'terminal' | 'liquid' | 'neon';
+		variant?: 'glass' | 'terminal' | 'liquid' | 'neon' | 'bubbleTea';
 		blur?: 'sm' | 'md' | 'lg' | 'xl';
 		closeOnOutsideClick?: boolean;
 		closeOnEscape?: boolean;
@@ -75,6 +75,11 @@
 			bg: 'bg-black/90 border-pink-500/40',
 			overlay: 'bg-black/60',
 			glow: 'shadow-[0_0_50px_rgba(236,72,153,0.6)]'
+		},
+		bubbleTea: {
+			bg: 'bg-gradient-to-br from-bubble-tea-pink/15 to-bubble-tea-purple/15 border-bubble-tea-purple/30',
+			overlay: 'bg-gradient-to-br from-black/40 via-bubble-tea-purple/10 to-black/40',
+			glow: 'shadow-[0_0_60px_rgba(255,107,157,0.4)]'
 		}
 	};
 
@@ -93,9 +98,15 @@
 		blurLevels[blur]
 	);
 
+	// Use semantic modal radius
+	const getRadiusClass = () => {
+		return 'modal-radius-lg';
+	};
+
 	const modalClasses = cn(
-		'relative w-full rounded-2xl p-6 backdrop-blur-xl border transition-all duration-300',
+		'relative w-full p-6 backdrop-blur-xl border transition-all duration-300',
 		'transform-gpu will-change-transform',
+		getRadiusClass(),
 		sizes[size],
 		currentVariant.bg,
 		glow && currentVariant.glow,
@@ -218,7 +229,7 @@
 				enabled: jelly && animate && !reduceMotion,
 				scale: 1.001,
 				duration: 300,
-				borderRadius: '16px'
+				borderRadius: 'var(--radius-xl)'
 			}}
 			use:breathingMotion={{
 				enabled: breathing && animate && !reduceMotion,

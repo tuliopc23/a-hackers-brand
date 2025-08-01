@@ -14,7 +14,7 @@
 	interface Props extends HTMLAttributes<HTMLDivElement> {
 		tabs: Tab[];
 		activeTab?: string;
-		variant?: 'default' | 'glass' | 'terminal';
+		variant?: 'default' | 'glass' | 'terminal' | 'bubbleTea';
 		size?: 'sm' | 'md' | 'lg';
 		orientation?: 'horizontal' | 'vertical';
 		blur?: 'sm' | 'md' | 'lg' | 'xl';
@@ -67,6 +67,11 @@
 			list: 'bg-terminal-green/10 border border-terminal-green/30',
 			tab: 'text-terminal-green/70 hover:text-terminal-green/90',
 			activeTab: 'text-terminal-green bg-terminal-green/20'
+		},
+		bubbleTea: {
+			list: 'bg-gradient-to-r from-bubble-tea-pink/5 to-bubble-tea-purple/5 border border-bubble-tea-purple/20 rounded-bubble-tea backdrop-blur-sm',
+			tab: 'text-bubble-tea-purple/70 hover:text-bubble-tea-purple/90 hover:bg-bubble-tea-purple/10 rounded-bubble-tea-sm',
+			activeTab: 'text-white bg-gradient-to-r from-bubble-tea-pink to-bubble-tea-purple rounded-bubble-tea-sm shadow-lg'
 		}
 	};
 
@@ -79,15 +84,27 @@
 
 	const isHorizontal = orientation === 'horizontal';
 
+	// Use semantic tab radius
+	const getRadiusClass = () => {
+		return 'tab-radius-md';
+	};
+
 	const listClasses = cn(
-		'flex rounded-brand-lg p-1',
+		'flex p-1',
+		getRadiusClass(),
 		isHorizontal ? 'flex-row' : 'flex-col min-w-max',
 		variants[variant].list,
-		variant === 'glass' && blurLevels[blur]
+		(variant === 'glass' || variant === 'bubbleTea') && blurLevels[blur]
 	);
 
+	// Use semantic tab item radius
+	const getTabRadiusClass = () => {
+		return 'tab-radius-sm';
+	};
+
 	const tabClasses = cn(
-		'relative flex-1 rounded-brand-md transition-all duration-200',
+		'relative flex-1 transition-all duration-200',
+		getTabRadiusClass(),
 		'focus:outline-none focus:ring-2 focus:ring-blue-400/50',
 		'font-medium whitespace-nowrap cursor-pointer',
 		sizes[size],
