@@ -1,42 +1,43 @@
 <script lang="ts">
-	import { Accordion } from '$lib/components';
-	import ComponentPlayground from '$lib/docs/ComponentPlayground.svelte';
-	import PropsTable from '$lib/docs/PropsTable.svelte';
-	import EventsTable from '$lib/docs/EventsTable.svelte';
-	import CodeBlock from '$lib/docs/CodeBlock.svelte';
-	import { Badge, Alert } from '$lib/components';
-	
-	const componentMeta = {
-		name: 'Accordion',
-		description: 'Collapsible content sections',
-		category: 'core',
-		complexity: 'medium',
-		since: '0.2.0'
-	};
-	
-	// TODO: Extract these from TypeScript definitions
-	const props = [
-		
-	];
-	
-	const events = [
-		{ name: 'click', type: 'MouseEvent', description: 'Fired when the component is clicked' }
-	];
-	
-	const playgroundProps = [
-		
-	];
-	
-	const basicExample = `<Accordion />`;
-	
-	const advancedExample = `<script>
-  import { Accordion } from 'a-hackers-brand';
-  
-  let value = $state('');
+import { Alert, Badge } from '$lib/components';
+import { Accordion } from '$lib/components';
+import CodeBlock from '$lib/docs/CodeBlock.svelte';
+import ComponentPlayground from '$lib/docs/ComponentPlayground.svelte';
+import EventsTable from '$lib/docs/EventsTable.svelte';
+import PropsTable from '$lib/docs/PropsTable.svelte';
+
+const componentMeta = {
+	name: 'Accordion',
+	description: 'Collapsible content sections',
+	category: 'core',
+	complexity: 'medium',
+	since: '0.2.0'
+};
+
+// TODO: Extract these from TypeScript definitions
+const props = [
+
+];
+
+const events = [
+	{ name: 'click', type: 'MouseEvent', description: 'Fired when the component is clicked' }
+];
+
+const playgroundProps = [
+
+];
+
+const basicExample = `<Accordion />`;
+
+const advancedExample = `<script>
+	import { Accordion } from 'a-hackers-brand';
+
+	let value = $state('');
 </script>
 
+<Accordion />`;
+
 <Accordion />
-`;
 </script>
 
 <svelte:head>
@@ -61,7 +62,7 @@
 			{componentMeta.description}
 		</p>
 	</header>
-	
+
 	<!-- Preview Section -->
 	<section class="mb-12">
 		<h2 class="text-2xl font-semibold mb-4 text-green-400">Preview</h2>
@@ -69,46 +70,46 @@
 			<Accordion />
 		</div>
 	</section>
-	
+
 	<!-- Interactive Playground -->
 	{#if playgroundProps.length > 0}
 		<section class="mb-12">
 			<h2 class="text-2xl font-semibold mb-4 text-green-400">Interactive Playground</h2>
-			<ComponentPlayground 
+			<ComponentPlayground
 				componentName="Accordion"
-				component={Accordion} 
-				props={playgroundProps} 
+				component={Accordion}
+				props={playgroundProps}
 			/>
 		</section>
 	{/if}
-	
+
 	<!-- Code Examples -->
 	<section class="mb-12">
 		<h2 class="text-2xl font-semibold mb-4 text-green-400">Examples</h2>
-		
+
 		<div class="space-y-6">
 			<div>
 				<h3 class="text-lg font-semibold mb-2">Basic Usage</h3>
 				<CodeBlock code={basicExample} language="svelte" />
 			</div>
-			
+
 			<div>
 				<h3 class="text-lg font-semibold mb-2">Advanced Usage</h3>
 				<CodeBlock code={advancedExample} language="svelte" />
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- API Reference -->
 	<section class="mb-12">
 		<h2 class="text-2xl font-semibold mb-4 text-green-400">API Reference</h2>
-		
+
 		<div class="space-y-6">
 			<div>
 				<h3 class="text-lg font-semibold mb-2">Props</h3>
 				<PropsTable {props} />
 			</div>
-			
+
 			{#if events.length > 0}
 				<div>
 					<h3 class="text-lg font-semibold mb-2">Events</h3>
@@ -117,7 +118,7 @@
 			{/if}
 		</div>
 	</section>
-	
+
 	<!-- Accessibility -->
 	<section class="mb-12">
 		<h2 class="text-2xl font-semibold mb-4 text-green-400">Accessibility</h2>
@@ -131,7 +132,7 @@
 			<li>Color contrast ratios meet WCAG standards</li>
 		</ul>
 	</section>
-	
+
 	<!-- Related Components -->
 	<section>
 		<h2 class="text-2xl font-semibold mb-4 text-green-400">Related Components</h2>
