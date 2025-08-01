@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2025-08-01
+
+### Fixed
+- Resolved dependency resolution conflicts between Vite 7 and @sveltejs/vite-plugin-svelte
+- Added missing devDependencies for @threlte/core, @threlte/extras, three, and @lucide/svelte
+- Fixed compilation failures caused by missing Threlte and Three.js packages
+- Forced exact version for @sveltejs/vite-plugin-svelte to prevent downgrade to incompatible 5.x
+
+### Changed
+- Updated installation instructions to use Bun package manager
+- Improved dependency resolution stability
+- Added troubleshooting section to README for dependency conflicts
+
+### Technical
+- Added missing peerDependency for @lucide/svelte for consistency
+- Enhanced development setup documentation with Bun commands
+- Improved cache clearing instructions for dependency conflicts
+
+### Migration Notes
+- Existing users should clear their cache and reinstall dependencies after updating
+- Run `rm -rf node_modules bun.lockb && bun install` to resolve any conflicts
+- No breaking changes to component APIs or theme system
+
 ## [0.3.0] - 2024-12-01
 
 ### Added

@@ -4,7 +4,7 @@
 	import PropsTable from '$lib/docs/PropsTable.svelte';
 	import EventsTable from '$lib/docs/EventsTable.svelte';
 	import CodeBlock from '$lib/docs/CodeBlock.svelte';
-	import { Badge, Alert } from '$lib/components';
+import { Alert } from '$lib/components';
 	
 	const componentMeta = {
 		name: 'Badge',

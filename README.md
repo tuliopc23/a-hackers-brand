@@ -1,7 +1,7 @@
 # A Hacker's Brand Design System
 
 <div align="center">
-  <img src="https://img.shields.io/badge/version-0.3.0-green.svg" alt="Version" />
+  <img src="https://img.shields.io/badge/version-0.3.1-green.svg" alt="Version" />
   <img src="https://img.shields.io/badge/svelte-5.0-orange.svg" alt="Svelte 5" />
   <img src="https://img.shields.io/badge/typescript-5.0-blue.svg" alt="TypeScript" />
   <img src="https://img.shields.io/badge/themes-2-purple.svg" alt="Dual Themes" />
@@ -45,14 +45,15 @@ Modern TUI design featuring:
 ## 🚀 Quick Start
 
 ```bash
-# Install the package
-npm install a-hackers-brand
-
-# Or with pnpm
-pnpm add a-hackers-brand
-
-# Or with bun
+# Install with Bun (recommended)
 bun add a-hackers-brand
+
+# Install peer dependencies
+bun add @threlte/core @threlte/extras three @lucide/svelte
+
+# Or with npm/pnpm
+npm install a-hackers-brand
+pnpm add a-hackers-brand
 ```
 
 ```svelte
@@ -242,6 +243,38 @@ Inspired by classic hacker culture, command-line interfaces, and retro computing
 
 ### Bubble Tea Theme
 Modern TUI aesthetics inspired by contemporary terminal applications like Charm's Bubble Tea framework. Emphasizes approachability, color, and contemporary design patterns.
+
+## 💻 Development Setup
+
+```bash
+# Clone and install
+git clone https://github.com/tuliopc23/a-hackers-brand.git
+cd a-hackers-brand
+bun install
+
+# Start development
+bun run dev
+
+# Build
+bun run build
+```
+
+## 🔧 Troubleshooting
+
+### Dependency Conflicts
+If you encounter dependency resolution conflicts:
+
+```bash
+# Clear cache and reinstall
+rm -rf node_modules bun.lockb
+bun install
+```
+
+### Requirements
+- **Package Manager**: Bun 1.2+ (recommended) or npm/pnpm
+- **Node.js**: 18+ required
+- **Peer Dependencies**: @threlte/core, @threlte/extras, three, @lucide/svelte
+- **Build Tools**: Vite 7+, SvelteKit 2+
 
 ## 🤝 Contributing
 
