@@ -1,0 +1,92 @@
+---
+title: 'Modal'
+description: 'Cyberpunk-styled overlay dialogs with glass effects and animations'
+---
+
+# Modal
+
+Immersive overlay dialogs that command attention in true cyberpunk style. Features glass morphism, animated entrances, and terminal-inspired layouts.
+
+## Import
+
+```svelte
+import { Modal } from 'bubble-tea-party'
+```
+
+## Basic Usage
+
+```svelte
+<script>
+  import { Modal, Button } from 'bubble-tea-party'
+  
+  let showModal = false
+</script>
+
+<Button onClick={() => showModal = true}>
+  Open Modal
+</Button>
+
+<Modal bind:open={showModal} title="System Alert">
+  <p>Unauthorized access detected. Initiate countermeasures?</p>
+  
+  <svelte:fragment slot="actions">
+    <Button variant="ghost" onClick={() => showModal = false}>
+      Cancel
+    </Button>
+    <Button variant="neon" onClick={() => showModal = false}>
+      Execute
+    </Button>
+  </svelte:fragment>
+</Modal>
+```
+
+## Variants
+
+<Tabs>
+  <Tab title="Default">
+    ```svelte
+    <Modal title="Default Modal">
+      Standard modal with clean styling.
+    </Modal>
+    ```
+  </Tab>
+  
+  <Tab title="Cyberpunk">
+    ```svelte
+    <Modal variant="cyberpunk" title="Cyber Modal">
+      Full cyberpunk treatment with neon effects.
+    </Modal>
+    ```
+  </Tab>
+  
+  <Tab title="Terminal">
+    ```svelte
+    <Modal variant="terminal" title="root@matrix:~$">
+      Terminal-style modal with command interface.
+    </Modal>
+    ```
+  </Tab>
+  
+  <Tab title="Glass">
+    ```svelte
+    <Modal variant="glass" title="Glass Modal">
+      Glass morphism with backdrop blur.
+    </Modal>
+    ```
+  </Tab>
+</Tabs>
+
+## Props
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `open` | `boolean` | `false` | Modal visibility state |
+| `title` | `string` | `''` | Modal header title |
+| `variant` | `'default' \| 'cyberpunk' \| 'terminal' \| 'glass'` | `'default'` | Modal style |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Modal size |
+| `closable` | `boolean` | `true` | Show close button |
+| `backdrop` | `boolean` | `true` | Enable backdrop click to close |
+
+---
+
+Command attention with cyberpunk-styled modals! 📱⚡

@@ -1,0 +1,273 @@
+---
+title: 'Button'
+description: 'Cyberpunk-styled interactive buttons with neon effects and animations'
+---
+
+# Button
+
+The cornerstone of any cyberpunk interface. Our Button component delivers that authentic terminal feel with customizable neon glows, hover effects, and multiple variants.
+
+## Import
+
+```svelte
+import { Button } from 'bubble-tea-party'
+```
+
+## Basic Usage
+
+<CodeGroup>
+
+```svelte Default
+<script>
+  import { Button } from 'bubble-tea-party'
+</script>
+
+<Button>Click me</Button>
+```
+
+```svelte Cyberpunk
+<Button variant="cyberpunk">
+  Hack the Gibson
+</Button>
+```
+
+```svelte Neon
+<Button variant="neon" color="cyan">
+  Access Granted
+</Button>
+```
+
+</CodeGroup>
+
+<iframe 
+  src="/playground/button-basic" 
+  width="100%" 
+  height="300"
+  className="border border-green-500 rounded-lg mb-6"
+/>
+
+## Variants
+
+<Tabs>
+  <Tab title="Default">
+    Standard button with subtle cyberpunk styling.
+    ```svelte
+    <Button>Default</Button>
+    ```
+  </Tab>
+  
+  <Tab title="Cyberpunk">
+    Full cyberpunk aesthetic with neon borders and glow effects.
+    ```svelte
+    <Button variant="cyberpunk">Cyberpunk</Button>
+    ```
+  </Tab>
+  
+  <Tab title="Neon">
+    Bright neon styling with customizable colors.
+    ```svelte
+    <Button variant="neon" color="pink">Neon</Button>
+    ```
+  </Tab>
+  
+  <Tab title="Ghost">
+    Transparent background with border effects.
+    ```svelte
+    <Button variant="ghost">Ghost</Button>
+    ```
+  </Tab>
+  
+  <Tab title="Glitch">
+    Animated glitch effects on hover.
+    ```svelte
+    <Button variant="glitch">Glitch</Button>
+    ```
+  </Tab>
+</Tabs>
+
+## Sizes
+
+<CardGroup cols={3}>
+  <Card title="Small">
+    ```svelte
+    <Button size="sm">Small</Button>
+    ```
+  </Card>
+  <Card title="Medium (Default)">
+    ```svelte
+    <Button size="md">Medium</Button>
+    ```
+  </Card>
+  <Card title="Large">
+    ```svelte
+    <Button size="lg">Large</Button>
+    ```
+  </Card>
+</CardGroup>
+
+## Colors
+
+Customize the neon glow color:
+
+```svelte
+<Button variant="neon" color="green">Matrix Green</Button>
+<Button variant="neon" color="cyan">Cyber Cyan</Button>
+<Button variant="neon" color="pink">Hot Pink</Button>
+<Button variant="neon" color="purple">Electric Purple</Button>
+<Button variant="neon" color="yellow">Warning Yellow</Button>
+<Button variant="neon" color="red">Danger Red</Button>
+```
+
+## Interactive Demo
+
+<iframe 
+  src="/playground/button-demo" 
+  width="100%" 
+  height="500"
+  className="border border-green-500 rounded-lg mb-6"
+/>
+
+## Advanced Examples
+
+### Loading State
+
+```svelte
+<script>
+  import { Button, Spinner } from 'bubble-tea-party'
+  
+  let loading = false
+  
+  async function handleClick() {
+    loading = true
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    loading = false
+  }
+</script>
+
+<Button 
+  variant="cyberpunk" 
+  {loading}
+  onClick={handleClick}
+>
+  {#if loading}
+    <Spinner size="sm" />
+    Hacking...
+  {:else}
+    Initiate Hack
+  {/if}
+</Button>
+```
+
+### With Icons
+
+```svelte
+<script>
+  import { Button, Icon } from 'bubble-tea-party'
+</script>
+
+<Button variant="neon">
+  <Icon name="terminal" />
+  Open Terminal
+</Button>
+
+<Button variant="cyberpunk">
+  Access Database
+  <Icon name="arrow-right" />
+</Button>
+```
+
+### Button Group
+
+```svelte
+<script>
+  import { Button, ButtonGroup } from 'bubble-tea-party'
+</script>
+
+<ButtonGroup>
+  <Button variant="ghost">Cancel</Button>
+  <Button variant="neon">Execute</Button>
+  <Button variant="cyberpunk">Deploy</Button>
+</ButtonGroup>
+```
+
+## Props
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `variant` | `'default' \| 'cyberpunk' \| 'neon' \| 'ghost' \| 'glitch'` | `'default'` | Button style variant |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size |
+| `color` | `string` | `'green'` | Neon glow color for neon variant |
+| `disabled` | `boolean` | `false` | Disable button interaction |
+| `loading` | `boolean` | `false` | Show loading state |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | HTML button type |
+| `href` | `string` | `undefined` | If provided, renders as link |
+| `onClick` | `function` | `undefined` | Click handler function |
+
+## Events
+
+| Event | Description |
+|-------|-------------|
+| `click` | Fired when button is clicked |
+| `focus` | Fired when button receives focus |
+| `blur` | Fired when button loses focus |
+| `mouseenter` | Fired when mouse enters button |
+| `mouseleave` | Fired when mouse leaves button |
+
+## Accessibility
+
+- Full keyboard navigation support
+- Screen reader compatible
+- ARIA labels and roles
+- Focus management
+- High contrast mode support
+
+## Styling
+
+### CSS Variables
+
+```css
+:root {
+  --btn-border-radius: 4px;
+  --btn-font-weight: 500;
+  --btn-transition: all 0.3s ease;
+  --btn-neon-glow: 0 0 20px currentColor;
+  --btn-cyberpunk-border: 2px solid var(--neon-green);
+}
+```
+
+### Custom Styling
+
+```svelte
+<Button 
+  class="custom-button"
+  style="--neon-color: #ff6b35;"
+>
+  Custom Style
+</Button>
+
+<style>
+  :global(.custom-button) {
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+</style>
+```
+
+## Best Practices
+
+<Tip>
+Use `variant="cyberpunk"` for primary actions and `variant="ghost"` for secondary actions to maintain visual hierarchy.
+</Tip>
+
+<Warning>
+Avoid using too many neon buttons in one interface - it can be overwhelming. Mix variants for better UX.
+</Warning>
+
+<Info>
+The button automatically adjusts its contrast based on the background color for accessibility compliance.
+</Info>
+
+---
+
+Ready to add some cyberpunk flair to your interfaces? The Button component is your gateway to the digital underground! 🔗⚡

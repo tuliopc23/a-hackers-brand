@@ -1,0 +1,395 @@
+---
+title: 'Theme Customization'
+description: 'Deep dive into creating custom cyberpunk themes'
+---
+
+# Theme Customization
+
+Create your own unique cyberpunk aesthetic with our powerful theme customization system. Build custom color schemes, effects, and styling that perfectly match your vision.
+
+## Custom Theme Structure
+
+```javascript
+// themes/my-custom-theme.js
+export const myCustomTheme = {
+  name: 'Cyber Neon',
+  id: 'cyber-neon',
+  
+  // Base colors
+  colors: {
+    primary: '#ff0080',        // Hot pink
+    secondary: '#00d4ff',      // Cyber cyan
+    accent: '#8a2be2',         // Blue violet
+    background: '#0a0a0a',     // Deep black
+    surface: '#1a1a1a',       // Dark grey
+    surfaceVariant: '#2a2a2a', // Medium grey
+    text: '#ffffff',           // White
+    textSecondary: '#cccccc',  // Light grey
+    textMuted: '#888888',      // Medium grey
+    border: '#333333',         // Dark border
+    success: '#00ff41',        // Matrix green
+    warning: '#ffff00',        // Bright yellow
+    error: '#ff0040',          // Neon red
+    info: '#00ffff'            // Cyan
+  },
+  
+  // Effect configurations
+  effects: {
+    glowIntensity: 'high',     // low | medium | high | maximum
+    animationSpeed: 'fast',    // slow | normal | fast
+    particleEffects: true,     // Enable particle systems
+    scanLines: true,           // Terminal scan line effects
+    matrixRain: true,          // Matrix rain backgrounds
+    glitchEffects: false,      // Glitch/distortion effects
+    chromaShift: true,         // RGB chromatic aberration
+    bloomEffect: true          // Glow bloom post-processing
+  },
+  
+  // Typography settings
+  typography: {
+    fontFamily: {
+      primary: '"Orbitron", "Courier New", monospace',
+      secondary: '"Rajdhani", sans-serif',
+      mono: '"Fira Code", "Consolas", monospace'
+    },
+    fontSize: {
+      xs: '0.75rem',   // 12px
+      sm: '0.875rem',  // 14px
+      base: '1rem',    // 16px
+      lg: '1.125rem',  // 18px
+      xl: '1.25rem',   // 20px
+      '2xl': '1.5rem', // 24px
+      '3xl': '1.875rem', // 30px
+      '4xl': '2.25rem'   // 36px
+    },
+    fontWeight: {
+      normal: '400',
+      medium: '500',
+      semibold: '600',
+      bold: '700'
+    },
+    lineHeight: {
+      tight: '1.25',
+      normal: '1.5',
+      relaxed: '1.75'
+    }
+  },
+  
+  // Spacing and layout
+  spacing: {
+    xs: '0.25rem',   // 4px
+    sm: '0.5rem',    // 8px
+    md: '1rem',      // 16px
+    lg: '1.5rem',    // 24px
+    xl: '2rem',      // 32px
+    xxl: '3rem'      // 48px
+  },
+  
+  // Border radius values
+  radius: {
+    none: '0',
+    sm: '0.125rem',  // 2px
+    md: '0.25rem',   // 4px
+    lg: '0.5rem',    // 8px
+    xl: '0.75rem',   // 12px
+    full: '9999px'
+  },
+  
+  // Shadow and glow effects
+  shadows: {
+    sm: '0 1px 2px rgba(0, 255, 65, 0.1)',
+    md: '0 4px 6px rgba(0, 255, 65, 0.2)',
+    lg: '0 10px 15px rgba(0, 255, 65, 0.3)',
+    xl: '0 20px 25px rgba(0, 255, 65, 0.4)',
+    neon: '0 0 20px currentColor',
+    neonLarge: '0 0 40px currentColor, 0 0 80px currentColor'
+  },
+  
+  // Animation and transition values
+  motion: {
+    duration: {
+      fast: '150ms',
+      normal: '300ms',
+      slow: '500ms',
+      slower: '1000ms'
+    },
+    easing: {
+      linear: 'linear',
+      ease: 'ease',
+      easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+      easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
+      easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      cyberpunk: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+      glitch: 'steps(4, jump-end)'
+    }
+  }
+}
+```
+
+## Installing Custom Themes
+
+```svelte
+<!-- +layout.svelte -->
+<script>
+  import { ThemeProvider } from 'bubble-tea-party'
+  import { themeStore } from 'bubble-tea-party/stores'
+  import { myCustomTheme } from './themes/my-custom-theme.js'
+  
+  // Register custom theme
+  themeStore.registerTheme(myCustomTheme)
+  
+  // Set as default
+  themeStore.set(myCustomTheme)
+</script>
+
+<ThemeProvider theme={$themeStore}>
+  <slot />
+</ThemeProvider>
+```
+
+## Dynamic Theme Generation
+
+Create themes programmatically:
+
+```javascript
+import { createTheme } from 'bubble-tea-party/theme'
+
+function generateTheme(primaryColor, name) {
+  return createTheme({
+    name,
+    colors: {
+      primary: primaryColor,
+      // Auto-generate complementary colors
+      secondary: calculateComplement(primaryColor),
+      accent: calculateTriadic(primaryColor)[0],
+      // ... other colors derived from primary
+    },
+    effects: {
+      glowIntensity: 'high',
+      animationSpeed: 'normal'
+    }
+  })
+}
+
+// Usage
+const hotPinkTheme = generateTheme('#ff1493', 'Hot Pink Cyber')
+const electricBlueTheme = generateTheme('#0080ff', 'Electric Blue')
+```
+
+## Component-Specific Theming
+
+Override theme values for specific components:
+
+```svelte
+<script>
+  import { Button } from 'bubble-tea-party'
+</script>
+
+<!-- Global theme override -->
+<Button 
+  style="
+    --btn-primary-color: #ff6b35;
+    --btn-glow-color: #ff6b35;
+    --btn-bg-opacity: 0.8;
+    --btn-border-width: 2px;
+  "
+>
+  Custom Themed Button
+</Button>
+
+<!-- Using CSS classes -->
+<Button class="orange-cyber-btn">
+  Orange Cyber Button
+</Button>
+
+<style>
+  :global(.orange-cyber-btn) {
+    --btn-primary-color: #ff8c00;
+    --btn-secondary-color: #ff4500;
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+</style>
+```
+
+## Advanced Customization
+
+### CSS Custom Properties
+
+All theme values are available as CSS custom properties:
+
+```css
+.my-custom-component {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  font-family: var(--font-primary);
+  transition: all var(--duration-normal) var(--easing-ease);
+}
+
+.my-custom-component:hover {
+  box-shadow: var(--shadow-neon);
+  transform: translateY(-2px);
+}
+```
+
+### Theme Variants
+
+Create multiple variants of the same base theme:
+
+```javascript
+import { createThemeVariant } from 'bubble-tea-party/theme'
+
+const baseTheme = myCustomTheme
+
+// Dark variant
+const darkVariant = createThemeVariant(baseTheme, {
+  name: 'Cyber Neon Dark',
+  colors: {
+    background: '#000000',
+    surface: '#0a0a0a',
+    text: '#ffffff'
+  }
+})
+
+// Light variant (for accessibility)
+const lightVariant = createThemeVariant(baseTheme, {
+  name: 'Cyber Neon Light',
+  colors: {
+    background: '#ffffff',
+    surface: '#f5f5f5',
+    text: '#000000',
+    primary: '#8a2be2', // Darker for contrast
+    secondary: '#0066cc'
+  }
+})
+```
+
+## Theme Switching UI
+
+Build a theme selector:
+
+```svelte
+<script>
+  import { themeStore } from 'bubble-tea-party/stores'
+  import { ThemeSelector, Button, Modal } from 'bubble-tea-party'
+  
+  let showThemeModal = false
+  
+  const availableThemes = [
+    { id: 'cyberpunk-classic', name: 'Classic', preview: '#00ff41' },
+    { id: 'neon-nights', name: 'Neon Nights', preview: '#ff0080' },
+    { id: 'cyber-neon', name: 'Cyber Neon', preview: '#8a2be2' },
+    // ... your custom themes
+  ]
+  
+  function selectTheme(themeId) {
+    themeStore.setById(themeId)
+    showThemeModal = false
+  }
+</script>
+
+<Button onClick={() => showThemeModal = true}>
+  Customize Theme
+</Button>
+
+<Modal bind:open={showThemeModal} title="Choose Theme">
+  <div class="theme-grid">
+    {#each availableThemes as theme}
+      <button 
+        class="theme-card"
+        style="--preview-color: {theme.preview}"
+        on:click={() => selectTheme(theme.id)}
+      >
+        <div class="theme-preview"></div>
+        <span>{theme.name}</span>
+      </button>
+    {/each}
+  </div>
+</Modal>
+
+<style>
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .theme-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    cursor: pointer;
+    transition: all var(--duration-normal);
+  }
+  
+  .theme-card:hover {
+    border-color: var(--preview-color);
+    box-shadow: 0 0 20px var(--preview-color);
+  }
+  
+  .theme-preview {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--preview-color);
+    box-shadow: 0 0 15px var(--preview-color);
+  }
+</style>
+```
+
+## Performance Optimization
+
+Optimize theme switching performance:
+
+```svelte
+<script>
+  import { themeStore } from 'bubble-tea-party/stores'
+  import { writable } from 'svelte/store'
+  
+  // Debounce theme changes to avoid excessive re-renders
+  const debouncedTheme = writable($themeStore)
+  let themeTimeout
+  
+  themeStore.subscribe(theme => {
+    clearTimeout(themeTimeout)
+    themeTimeout = setTimeout(() => {
+      debouncedTheme.set(theme)
+    }, 100)
+  })
+</script>
+```
+
+## Testing Custom Themes
+
+Validate your custom themes:
+
+```javascript
+import { validateTheme } from 'bubble-tea-party/theme'
+
+const validation = validateTheme(myCustomTheme)
+
+if (!validation.isValid) {
+  console.error('Theme validation failed:', validation.errors)
+  // Handle validation errors
+}
+
+// Check accessibility compliance
+const accessibilityCheck = validateTheme(myCustomTheme, {
+  checkContrast: true,
+  checkColorBlindness: true
+})
+```
+
+---
+
+Create the perfect cyberpunk aesthetic for your application! 🎨⚡

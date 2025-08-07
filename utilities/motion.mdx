@@ -1,0 +1,197 @@
+---
+title: 'Motion'
+description: 'Animation and motion utilities for cyberpunk effects'
+---
+
+# Motion Utilities
+
+Powerful animation and motion utilities that bring your cyberpunk interfaces to life with smooth transitions, particle effects, and dynamic animations.
+
+## Import
+
+```svelte
+import { 
+  glassFade, 
+  jellyMotion, 
+  liquidBlur, 
+  magneticHover, 
+  springPop 
+} from 'bubble-tea-party/motion'
+```
+
+## Glass Fade
+
+Smooth fade transition with glass morphism effects.
+
+```svelte
+<script>
+  import { glassFade } from 'bubble-tea-party/motion'
+  
+  let visible = false
+</script>
+
+{#if visible}
+  <div transition:glassFade={{ duration: 600 }}>
+    Content with glass fade effect
+  </div>
+{/if}
+```
+
+## Jelly Motion
+
+Bouncy, elastic animations perfect for interactive elements.
+
+```svelte
+<script>
+  import { jellyMotion } from 'bubble-tea-party/motion'
+</script>
+
+<button 
+  use:jellyMotion={{ strength: 0.8, duration: 400 }}
+  on:click={handleClick}
+>
+  Jelly Button
+</button>
+```
+
+## Liquid Blur
+
+Fluid blur effects for smooth transitions.
+
+```svelte
+<script>
+  import { liquidBlur } from 'bubble-tea-party/motion'
+  
+  let blurred = false
+</script>
+
+<div 
+  use:liquidBlur={{ 
+    blur: blurred ? 10 : 0,
+    transition: { duration: 800, ease: 'cubic-bezier(0.4, 0, 0.2, 1)' }
+  }}
+>
+  Content with liquid blur
+</div>
+```
+
+## Magnetic Hover
+
+Mouse-following magnetic attraction effects.
+
+```svelte
+<script>
+  import { magneticHover } from 'bubble-tea-party/motion'
+</script>
+
+<div 
+  use:magneticHover={{ 
+    strength: 0.3,
+    radius: 100 
+  }}
+  class="magnetic-card"
+>
+  Magnetic hover effect
+</div>
+```
+
+## Spring Pop
+
+Spring-based pop-in animations.
+
+```svelte
+<script>
+  import { springPop } from 'bubble-tea-party/motion'
+  
+  let items = ['Item 1', 'Item 2', 'Item 3']
+</script>
+
+{#each items as item, i}
+  <div 
+    in:springPop={{ 
+      delay: i * 100,
+      tension: 200,
+      friction: 15
+    }}
+  >
+    {item}
+  </div>
+{/each}
+```
+
+## Motion Tokens
+
+Pre-configured animation values for consistent motion design.
+
+```javascript
+import { motionTokens } from 'bubble-tea-party/motion'
+
+// Duration tokens
+motionTokens.duration.fast      // 150ms
+motionTokens.duration.normal    // 300ms
+motionTokens.duration.slow      // 500ms
+
+// Easing tokens
+motionTokens.easing.ease        // cubic-bezier(0.25, 0.1, 0.25, 1)
+motionTokens.easing.easeIn      // cubic-bezier(0.4, 0, 1, 1)
+motionTokens.easing.easeOut     // cubic-bezier(0, 0, 0.2, 1)
+motionTokens.easing.cyberpunk   // cubic-bezier(0.68, -0.55, 0.265, 1.55)
+```
+
+## Custom Animations
+
+Create your own cyberpunk animations:
+
+```svelte
+<script>
+  import { tweened } from 'svelte/motion'
+  import { cubicInOut } from 'svelte/easing'
+  
+  const glowIntensity = tweened(0, {
+    duration: 400,
+    easing: cubicInOut
+  })
+  
+  function startGlow() {
+    glowIntensity.set(1)
+  }
+  
+  function stopGlow() {
+    glowIntensity.set(0)
+  }
+</script>
+
+<div 
+  style="--glow-intensity: {$glowIntensity}"
+  class="cyber-element"
+  on:mouseenter={startGlow}
+  on:mouseleave={stopGlow}
+>
+  Custom glow animation
+</div>
+
+<style>
+  .cyber-element {
+    box-shadow: 0 0 calc(20px * var(--glow-intensity)) var(--neon-green);
+    transition: all 0.3s ease;
+  }
+</style>
+```
+
+## Performance Tips
+
+<Tip>
+Use `transform` and `opacity` for the best performance in animations. These properties don't trigger layout recalculations.
+</Tip>
+
+<Warning>
+Avoid animating properties like `width`, `height`, or `left/top` as they can cause performance issues.
+</Warning>
+
+<Info>
+All motion utilities are optimized for 60fps performance and work great on mobile devices.
+</Info>
+
+---
+
+Bring your cyberpunk interfaces to life with smooth animations! 🎬⚡
