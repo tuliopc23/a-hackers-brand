@@ -1,0 +1,48 @@
+---
+title: 'Switch'
+description: 'Toggle switches with cyberpunk neon effects'
+---
+
+# Switch
+
+Animated toggle switches with cyberpunk styling and neon glow effects. Perfect for settings and binary choices.
+
+## Import
+
+```svelte
+import { Switch } from 'bubble-tea-party'
+```
+
+## Basic Usage
+
+```svelte
+<script>
+  let enabled = false
+</script>
+
+<Switch 
+  bind:checked={enabled}
+  label="Enable Matrix Mode"
+  variant="cyberpunk"
+/>
+```
+
+## Variants
+
+- **Default** - Clean toggle switch
+- **Cyberpunk** - Neon borders and glow
+- **Neon** - Bright neon effects
+- **Terminal** - Terminal-style toggle
+
+## Props
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `checked` | `boolean` | `false` | Switch state |
+| `variant` | `'default' \| 'cyberpunk' \| 'neon' \| 'terminal'` | `'default'` | Switch style |
+| `label` | `string` | `''` | Switch label |
+| `disabled` | `boolean` | `false` | Disable switch |
+
+---
+
+Toggle with cyberpunk style! 🔄⚡

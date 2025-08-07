@@ -1,0 +1,50 @@
+---
+title: 'Glow Text'
+description: 'Text with customizable neon glow effects and animations'
+---
+
+# Glow Text
+
+Eye-catching text with customizable neon glow effects. Perfect for headers, callouts, and important information in cyberpunk interfaces.
+
+## Import
+
+```svelte
+import { GlowText } from 'bubble-tea-party'
+```
+
+## Basic Usage
+
+```svelte
+<script>
+  import { GlowText } from 'bubble-tea-party'
+</script>
+
+<GlowText color="neon-green" size="xl">
+  SYSTEM ONLINE
+</GlowText>
+```
+
+## Colors & Effects
+
+```svelte
+<GlowText color="cyan" animated>Cyber Blue</GlowText>
+<GlowText color="pink" pulse>Hot Pink</GlowText>
+<GlowText color="purple" flicker>Electric Purple</GlowText>
+<GlowText color="yellow" intensity="high">Warning</GlowText>
+```
+
+## Props
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `color` | `string` | `'green'` | Glow color |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Text size |
+| `animated` | `boolean` | `false` | Enable glow animation |
+| `pulse` | `boolean` | `false` | Pulsing effect |
+| `flicker` | `boolean` | `false` | Flicker effect |
+| `intensity` | `'low' \| 'medium' \| 'high'` | `'medium'` | Glow intensity |
+
+---
+
+Make your text glow with cyberpunk energy! ✨💡

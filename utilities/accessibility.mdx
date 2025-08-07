@@ -1,0 +1,260 @@
+---
+title: 'Accessibility'
+description: 'Accessibility utilities and compliance features'
+---
+
+# Accessibility Utilities
+
+Comprehensive accessibility features that ensure your cyberpunk interfaces are usable by everyone, including screen reader users and keyboard navigation.
+
+## Import
+
+```svelte
+import { 
+  AccessibilityProvider, 
+  useA11y, 
+  focusManager,
+  announcer 
+} from 'bubble-tea-party/accessibility'
+```
+
+## Accessibility Provider
+
+Wrap your app for full accessibility support:
+
+```svelte
+<!-- +layout.svelte -->
+<script>
+  import { AccessibilityProvider } from 'bubble-tea-party/accessibility'
+</script>
+
+<AccessibilityProvider
+  announcePageChanges={true}
+  manageFocus={true}
+  highContrastMode={false}
+>
+  <slot />
+</AccessibilityProvider>
+```
+
+## Focus Management
+
+```svelte
+<script>
+  import { focusManager } from 'bubble-tea-party/accessibility'
+  
+  function openModal() {
+    // Trap focus within modal
+    focusManager.trapFocus('#modal')
+  }
+  
+  function closeModal() {
+    // Return focus to trigger element
+    focusManager.restoreFocus()
+  }
+</script>
+```
+
+## Screen Reader Announcements
+
+```svelte
+<script>
+  import { announcer } from 'bubble-tea-party/accessibility'
+  
+  function handleSuccess() {
+    announcer.announce('Operation completed successfully', 'polite')
+  }
+  
+  function handleError() {
+    announcer.announce('Error: Invalid input detected', 'assertive')
+  }
+</script>
+```
+
+## Keyboard Navigation
+
+All components support keyboard navigation:
+
+```svelte
+<script>
+  import { Button, Modal, DataTable } from 'bubble-tea-party'
+  
+  // Components automatically handle:
+  // - Tab/Shift+Tab navigation
+  // - Enter/Space activation  
+  // - Arrow key navigation
+  // - Escape key to close
+</script>
+
+<Button 
+  onKeydown={handleKeydown}
+  aria-label="Execute matrix protocol"
+>
+  Execute
+</Button>
+```
+
+## High Contrast Mode
+
+```svelte
+<script>
+  import { useA11y } from 'bubble-tea-party/accessibility'
+  
+  const a11y = useA11y()
+  
+  function toggleHighContrast() {
+    a11y.setHighContrast(!$a11y.highContrast)
+  }
+</script>
+
+<Button onClick={toggleHighContrast}>
+  {$a11y.highContrast ? 'Disable' : 'Enable'} High Contrast
+</Button>
+```
+
+## ARIA Labels and Roles
+
+Components include proper ARIA attributes:
+
+```svelte
+<script>
+  import { 
+    Button, 
+    Input, 
+    Modal, 
+    DataTable,
+    Progress 
+  } from 'bubble-tea-party'
+</script>
+
+<!-- Automatically includes proper ARIA -->
+<Input 
+  label="Username"
+  error={hasError}
+  aria-describedby="username-error"
+/>
+
+<Progress 
+  value={75}
+  aria-label="Loading progress: 75%"
+/>
+
+<Modal 
+  open={showModal}
+  title="Confirmation"
+  role="dialog"
+  aria-modal="true"
+/>
+```
+
+## Accessibility Testing
+
+Built-in accessibility validation:
+
+```svelte
+<script>
+  import { AccessibilityReport } from 'bubble-tea-party'
+  
+  let showReport = false
+</script>
+
+{#if showReport}
+  <AccessibilityReport 
+    target="#app"
+    realTime={true}
+    autoFix={false}
+  />
+{/if}
+```
+
+## Color Contrast
+
+Ensure proper contrast ratios:
+
+```css
+/* High contrast overrides */
+@media (prefers-contrast: high) {
+  :root {
+    --text-color: #ffffff;
+    --bg-color: #000000;
+    --accent-color: #ffff00;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+## Skip Links
+
+Navigation helpers for keyboard users:
+
+```svelte
+<script>
+  import { SkipLink } from 'bubble-tea-party/accessibility'
+</script>
+
+<SkipLink href="#main-content">
+  Skip to main content
+</SkipLink>
+
+<SkipLink href="#navigation">
+  Skip to navigation
+</SkipLink>
+
+<main id="main-content">
+  <!-- Main content -->
+</main>
+```
+
+## Live Regions
+
+Dynamic content announcements:
+
+```svelte
+<script>
+  import { LiveRegion } from 'bubble-tea-party/accessibility'
+  
+  let status = ''
+  
+  function updateStatus(message) {
+    status = message
+  }
+</script>
+
+<LiveRegion 
+  politeness="polite"
+  content={status}
+/>
+```
+
+## Best Practices
+
+<Tip>
+Always provide alternative text for images and meaningful labels for interactive elements.
+</Tip>
+
+<Warning>
+Avoid using color alone to convey information. Always include text or icons as additional indicators.
+</Warning>
+
+<Info>
+Test your interfaces with screen readers like NVDA, JAWS, or VoiceOver to ensure proper accessibility.
+</Info>
+
+## Compliance Features
+
+- **WCAG 2.1 AA compliant** color contrast ratios
+- **Section 508** compliance for government applications  
+- **ADA** compliant navigation and interaction patterns
+- **ARIA 1.2** support for modern assistive technologies
+
+---
+
+Build inclusive cyberpunk interfaces for everyone! ♿⚡

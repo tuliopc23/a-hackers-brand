@@ -1,0 +1,188 @@
+{
+  "name": "Bubble Tea Party",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "theme": "linden",
+  "colors": {
+    "primary": "#00ff41",
+    "light": "#33ff66",
+    "dark": "#00cc33",
+    "background": {
+      "dark": "#0a0a0a",
+      "light": "#f8f8f8"
+    },
+    "anchors": {
+      "from": "#00ff41",
+      "to": "#ff00ff"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:support@bubbletea.party"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Playground",
+    "url": "/playground"
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Documentation",
+      "icon": "book-open-cover",
+      "url": "https://mintlify.com/docs"
+    },
+    {
+      "name": "Community",
+      "icon": "slack",
+      "url": "https://mintlify.com/community"
+    },
+    {
+      "name": "Blog",
+      "icon": "newspaper",
+      "url": "https://mintlify.com/blog"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction",
+        "quickstart",
+        "installation"
+      ]
+    },
+    {
+      "group": "Core Components",
+      "pages": [
+        "components/accordion",
+        "components/alert",
+        "components/badge",
+        "components/breadcrumb",
+        "components/button",
+        "components/card",
+        "components/checkbox",
+        "components/dropdown",
+        "components/input",
+        "components/modal",
+        "components/pagination",
+        "components/progress",
+        "components/select",
+        "components/slider",
+        "components/switch",
+        "components/tabs",
+        "components/toast",
+        "components/tooltip"
+      ]
+    },
+    {
+      "group": "Data & Display",
+      "pages": [
+        "components/data-table",
+        "components/carousel",
+        "components/color-palette",
+        "components/color-swatch",
+        "components/file-upload",
+        "components/multi-select",
+        "components/select-advanced",
+        "components/skeleton",
+        "components/textarea"
+      ]
+    },
+    {
+      "group": "Terminal & Code",
+      "pages": [
+        "components/advanced-terminal",
+        "components/ai-command-suggestions",
+        "components/boot-sequence",
+        "components/code-highlight",
+        "components/command-block",
+        "components/liquid-terminal",
+        "components/matrix-rain",
+        "components/retro-text",
+        "components/retro-futuristic-text",
+        "components/terminal-startup",
+        "components/terminal-window"
+      ]
+    },
+    {
+      "group": "WebGL & 3D",
+      "pages": [
+        "components/glass-scene",
+        "components/lazy-threlte-canvas"
+      ]
+    },
+    {
+      "group": "Layout & Navigation",
+      "pages": [
+        "components/drawer",
+        "components/menu",
+        "components/navbar",
+        "components/sidebar"
+      ]
+    },
+    {
+      "group": "Effects & Visual",
+      "pages": [
+        "components/glow-text",
+        "components/lazy-terminal-window"
+      ]
+    },
+    {
+      "group": "Utility & System",
+      "pages": [
+        "components/accessibility-report",
+        "components/async-error-boundary",
+        "components/form-error-boundary",
+        "components/metrics-card",
+        "components/performance-dashboard",
+        "components/performance-monitor",
+        "components/status-bar",
+        "components/theme-debug-panel",
+        "components/theme-selector"
+      ]
+    },
+    {
+      "group": "Themes",
+      "pages": [
+        "themes",
+        "themes/customization",
+        "themes/dark-mode"
+      ]
+    },
+    {
+      "group": "Utilities",
+      "pages": [
+        "utilities/motion",
+        "utilities/responsive",
+        "utilities/accessibility"
+      ]
+    },
+    {
+      "group": "Playground",
+      "pages": [
+        "playground"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "x": "https://x.com/bubbletea",
+    "github": "https://github.com/bubbletea/components",
+    "linkedin": "https://www.linkedin.com/company/bubbletea"
+  },
+  "backgroundImage": "/backgrounds/gradient.svg",
+  "analytics": {
+    "posthog": {
+      "apiKey": "phc_analytics_key"
+    }
+  }
+}

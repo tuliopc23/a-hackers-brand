@@ -1,0 +1,55 @@
+---
+title: 'Advanced Terminal'
+description: 'Interactive terminal emulator with command history and AI suggestions'
+---
+
+# Advanced Terminal
+
+A fully-featured terminal emulator that brings authentic command-line experience to your cyberpunk interfaces. Complete with command history, auto-completion, and AI-powered suggestions.
+
+## Import
+
+```svelte
+import { AdvancedTerminal } from 'bubble-tea-party'
+```
+
+## Basic Usage
+
+```svelte
+<script>
+  import { AdvancedTerminal } from 'bubble-tea-party'
+  
+  let commands = [
+    { command: 'ls -la', output: 'drwxr-xr-x  system  matrix/' },
+    { command: 'whoami', output: 'neo@matrix' }
+  ]
+</script>
+
+<AdvancedTerminal 
+  prompt="neo@matrix:~$"
+  {commands}
+  onCommand={handleCommand}
+/>
+```
+
+## Features
+
+- **Command History** - Navigate with up/down arrows
+- **Auto-completion** - Tab to complete commands
+- **AI Suggestions** - Smart command recommendations
+- **Syntax Highlighting** - Color-coded command syntax
+- **Multiple Sessions** - Support for multiple terminal instances
+
+## Props
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `prompt` | `string` | `'$'` | Terminal prompt text |
+| `commands` | `Command[]` | `[]` | Command history |
+| `suggestions` | `string[]` | `[]` | Available command suggestions |
+| `aiEnabled` | `boolean` | `false` | Enable AI command suggestions |
+| `theme` | `'matrix' \| 'amber' \| 'green'` | `'matrix'` | Terminal color theme |
+
+---
+
+Experience authentic terminal computing! 💻⚡
