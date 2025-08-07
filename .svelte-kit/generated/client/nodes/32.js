@@ -1,1 +1,0 @@
-export { default as component } from "../../../../src/routes/docs/components/webgl/glassscene/+page.svelte";

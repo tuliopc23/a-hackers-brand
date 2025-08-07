@@ -1,0 +1,102 @@
+# Alternative TOML configuration for qlty CLI
+# This provides the same configuration as .qlty.yml in TOML format
+
+[coverage]
+enable = "all"
+
+[coverage.threshold]
+statements = 80
+branches = 75
+functions = 80
+lines = 80
+
+[[checks]]
+id = "complexity"
+[checks.config]
+max_complexity = 10
+
+[[checks]]
+id = "duplication"
+[checks.config]
+min_lines = 5
+
+[[checks]]
+id = "security"
+enable = true
+
+[[checks]]
+id = "performance"
+enable = true
+
+[[checks]]
+id = "maintainability"
+enable = true
+
+[typescript]
+version = "5.8.3"
+strict = true
+
+[javascript]
+ecmaVersion = 2022
+
+[svelte]
+enable = true
+
+[plugins]
+list = [
+  "eslint",
+  "prettier",
+  "vitest",
+  "playwright",
+  "knip",
+  "size-limit"
+]
+
+[[rules]]
+id = "no-npm-commands"
+message = "Use Bun instead of npm/yarn/pnpm"
+pattern = "npm |yarn |pnpm "
+severity = "error"
+include = [
+  "**/*.json",
+  "**/*.md",
+  "**/*.yml",
+  "**/*.yaml",
+  "**/*.sh"
+]
+
+[[rules]]
+id = "consistent-imports"
+message = "Use consistent import patterns"
+severity = "warning"
+
+[ignore]
+patterns = [
+  "**/node_modules/**",
+  "**/dist/**",
+  "**/.svelte-kit/**",
+  "**/coverage/**",
+  "**/reports/**",
+  "**/*.min.js",
+  "**/*.min.css"
+]
+
+[reports]
+format = ["console", "html", "json"]
+output = "./reports/qlty"
+
+[integrations.git_hooks]
+pre_commit = true
+pre_push = true
+
+[integrations.ci]
+provider = "github-actions"
+fail_on_issues = true
+
+[performance.bundle_size]
+warning = 150000  # 150KB
+error = 200000    # 200KB
+
+[performance.first_load]
+warning = 3000    # 3s
+error = 5000      # 5s

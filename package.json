@@ -1,0 +1,236 @@
+{
+	"author": {
+		"email": "tulio@example.com",
+		"name": "Tulio Pinheiro Cunha"
+	},
+	"bugs": {
+		"url": "https://github.com/tuliopc23/a-hackers-brand/issues"
+	},
+	"dependencies": {},
+	"description": "A Hacker's Brand Design System - A cutting-edge design system with dual themes: terminal hacker aesthetics and modern Bubble Tea TUI design",
+	"devDependencies": {
+		"@eslint/js": "^9.32.0",
+		"@lhci/cli": "^0.15.1",
+		"@playwright/test": "^1.54.1",
+		"@size-limit/preset-app": "^11.2.0",
+		"@sveltejs/adapter-auto": "^3.3.1",
+		"@sveltejs/adapter-netlify": "^5.1.0",
+		"@sveltejs/kit": "^2.26.1",
+		"@sveltejs/vite-plugin-svelte": "6.1.0",
+		"@tailwindcss/aspect-ratio": "^0.4.2",
+		"@tailwindcss/container-queries": "^0.1.1",
+		"@testing-library/svelte": "^5.2.8",
+		"@types/node": "^24.1.0",
+		"@vitest/coverage-v8": "^3.2.4",
+		"esbuild": "^0.24.2",
+		"eslint": "^9.32.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-jsx-a11y": "^6.10.2",
+		"eslint-plugin-security": "^3.0.1",
+		"eslint-plugin-svelte": "^3.11.0",
+		"globals": "^16.3.0",
+		"happy-dom": "^18.0.1",
+		"jsdom": "^26.1.0",
+		"knip": "^5.62.0",
+		"prettier": "^3.6.2",
+		"prettier-plugin-svelte": "^3.4.0",
+		"rollup-plugin-visualizer": "^6.0.3",
+		"size-limit": "^11.2.0",
+		"svelte": "^5.37.1",
+		"tailwindcss": "^4.1.11",
+		"typescript": "^5.8.3",
+		"typescript-eslint": "^8.38.0",
+		"vite": "^7.0.6",
+		"vite-plugin-compression2": "^2.2.0",
+		"vite-plugin-inspect": "^11.3.2",
+		"vitest": "^3.2.4",
+		"@threlte/core": "^8.0.0",
+		"@threlte/extras": "^9.0.0",
+		"three": "^0.170.0",
+		"@lucide/svelte": "^0.486.0"
+	},
+	"engines": {},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./components": {
+			"types": "./dist/components/index.d.ts",
+			"svelte": "./dist/components/index.js",
+			"import": "./dist/components/index.js",
+			"default": "./dist/components/index.js"
+		},
+		"./package.json": "./package.json",
+		"./styles": "./dist/styles/index.css",
+		"./tokens": {
+			"types": "./dist/tokens/index.d.ts",
+			"import": "./dist/tokens/index.js",
+			"default": "./dist/tokens/index.js"
+		}
+	},
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"homepage": "https://github.com/tuliopc23/a-hackers-brand#readme",
+	"keywords": [
+		"design-system",
+		"svelte",
+		"sveltekit",
+		"liquid-glass",
+		"terminal",
+		"cli",
+		"hacker-aesthetics",
+		"bubble-tea",
+		"tui",
+		"modern-terminal",
+		"theme-switching",
+		"brand-system",
+		"ui-components",
+		"webgl",
+		"three",
+		"threlte"
+	],
+	"license": "MIT",
+	"lint-staged": {
+		"*.{css,scss,postcss}": [
+			"bunx --bun prettier --write",
+			"bunx --bun stylelint --fix"
+		],
+		"*.{html,json,md,yaml,yml}": [
+			"bunx --bun prettier --write"
+		],
+		"*.{js,ts,svelte}": [
+			"bunx --bun eslint --fix --max-warnings 0",
+			"bunx --bun prettier --write",
+			"bunx --bun vitest related --run --reporter=verbose"
+		],
+		"*.{png,jpg,jpeg,gif,svg}": [
+			"bunx --bun imagemin-lint-staged"
+		],
+		"package.json": [
+			"bunx --bun sort-package-json",
+			"bunx --bun prettier --write"
+		]
+	},
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"name": "a-hackers-brand",
+	"packageManager": "bun@1.2.19",
+	"peerDependencies": {
+		"@sveltejs/kit": "^2.0.0",
+		"@threlte/core": "^8.0.0",
+		"@threlte/extras": "^9.0.0",
+		"svelte": "^5.0.0",
+		"three": "^0.170.0",
+		"@lucide/svelte": "^0.486.0"
+	},
+	"private": false,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/tuliopc23/a-hackers-brand.git"
+	},
+	"scripts": {
+		"prepare": "bun run barrel:generate && bun run check && bun run build:package",
+		"prepublishOnly": "bun run test:run && bun run lint && bun run build:package",
+		"analyze": "bunx --bun vite build --mode analyze",
+		"barrel:generate": "bun scripts/generate-barrel.js",
+		"barrel:watch": "node scripts/generate-barrel.js --watch",
+		"build:package": "bun run barrel:generate && bunx --bun svelte-kit sync && bunx --bun svelte-package && bunx --bun publint",
+		"check": "bunx --bun svelte-kit sync && bunx --bun svelte-check --tsconfig ./tsconfig.check.json",
+		"check:watch": "bunx --bun svelte-kit sync && bunx --bun svelte-check --tsconfig ./tsconfig.check.json --watch",
+		"css:build": "bun run build:package && bun run css:extract",
+		"css:extract": "bun scripts/extract-css.js",
+		"deploy": "bun scripts/deploy.js",
+		"deploy:dry-run": "bun scripts/deploy.js -- --dry-run",
+		"deploy:skip-tests": "bun scripts/deploy.js -- --skip-tests",
+		"dev": "bunx --bun vite dev --host",
+		"docs:build": "echo 'Histoire has been removed due to dependency conflicts.'",
+		"docs:build-integrated": "bun scripts/build-docs.js",
+		"docs:dev": "echo 'Histoire has been removed due to dependency conflicts.'",
+		"docs:generate": "bun run generate:docs",
+		"docs:preview": "echo 'Histoire has been removed due to dependency conflicts.'",
+		"docs:watch": "bun run generate:docs:watch",
+		"format": "bunx --bun prettier --write .",
+		"format:check": "bunx --bun prettier --check .",
+		"generate": "bun run generate:component",
+		"generate:component": "bun scripts/generate-component.js",
+		"generate:docs": "bun scripts/generate-docs.js",
+		"generate:docs:watch": "bun scripts/generate-docs.js -- --watch",
+		"lint": "bunx --bun eslint . --max-warnings 0",
+		"lint:fix": "bunx --bun eslint . --fix --max-warnings 0",
+		"lint:report": "bunx --bun eslint . --format html --output-file eslint-report.html",
+		"package": "bunx --bun svelte-kit sync && bunx --bun svelte-package",
+		"perf": "bunx --bun lhci autorun --collect.url=http://localhost:5173",
+		"perf:assert": "bunx --bun lhci assert",
+		"perf:collect": "bunx --bun lhci collect --url=http://localhost:5173",
+		"perf:upload": "bunx --bun lhci upload",
+		"preview": "bunx --bun vite preview --host",
+		"size": "bunx --bun size-limit",
+		"size:analyze": "bunx --bun size-limit --why",
+		"size:why": "bunx --bun size-limit --why",
+		"style": "bunx --bun stylelint '**/*.{css,scss,svelte}' --fix",
+		"style:check": "bunx --bun stylelint '**/*.{css,scss,svelte}'",
+		"test": "bunx --bun vitest",
+		"test:a11y": "bunx --bun playwright test tests/accessibility",
+		"test:a11y:report": "bunx --bun playwright test tests/accessibility --reporter=html",
+		"test:a11y:ui": "bunx --bun playwright test tests/accessibility --ui",
+		"test:a11y:wcag": "bunx --bun playwright test tests/accessibility/wcag-compliance.spec.ts",
+		"test:coverage": "bunx --bun vitest run --coverage",
+		"test:coverage:analyze": "bun scripts/test-coverage-analysis.js",
+		"test:coverage:ui": "bunx --bun vitest --coverage --ui",
+		"test:coverage:watch": "bunx --bun vitest --coverage --watch",
+		"test:e2e": "bunx --bun playwright test tests/e2e",
+		"test:e2e:debug": "bunx --bun playwright test tests/e2e --debug",
+		"test:e2e:headed": "bunx --bun playwright test tests/e2e --headed",
+		"test:e2e:ui": "bunx --bun playwright test tests/e2e --ui",
+		"test:integration": "bunx --bun vitest run tests/integration",
+		"test:integration:watch": "bunx --bun vitest tests/integration",
+		"test:motion": "bunx --bun vitest run src/lib/motion",
+		"test:run": "bunx --bun vitest run",
+		"test:visual": "bunx --bun playwright test tests/visual",
+		"test:visual-regression": "bunx --bun playwright test --config=playwright.visual.config.js",
+		"test:visual-regression:ui": "bunx --bun playwright test --config=playwright.visual.config.js --ui",
+		"test:visual-regression:update": "bunx --bun playwright test --config=playwright.visual.config.js --update-snapshots",
+		"test:visual:core": "bunx --bun playwright test tests/visual/core-components.spec.ts",
+		"test:visual:motion": "bunx --bun playwright test tests/visual/motion-animations.spec.ts",
+		"test:visual:terminal": "bunx --bun playwright test tests/visual/terminal-components.spec.ts",
+		"test:visual:ui": "bunx --bun playwright test tests/visual --ui",
+		"test:visual:update": "bunx --bun playwright test tests/visual --update-snapshots",
+		"tree-shake:test": "bun scripts/tree-shaking-test.js",
+		"knip": "bunx --bun knip",
+		"build": "bunx --bun vite build",
+		"build:lib": "bun run build:package",
+		"build:bun": "bun scripts/bun-build.js",
+		"dev:bun": "bun scripts/bun-dev.js",
+		"test:bun": "bun scripts/bun-test.js",
+		"typecheck": "bun run check"
+	},
+	"sideEffects": [
+		"src/app.css",
+		"src/lib/styles/index.css",
+		"src/lib/styles/radius.css",
+		"dist/styles/index.css",
+		"src/lib/components/**/*.svelte"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"typesVersions": {
+		">4.0": {
+			"components": [
+				"./dist/components/index.d.ts"
+			],
+			"index": [
+				"./dist/index.d.ts"
+			],
+			"tokens": [
+				"./dist/tokens/index.d.ts"
+			]
+		}
+	},
+	"version": "0.3.1"
+}
