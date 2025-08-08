@@ -1,1 +1,0 @@
-{"version":3,"file":"ThrelteCanvas.svelte.d.ts","sourceRoot":"","sources":["../../src/lib/components/ThrelteCanvas.svelte.ts"],"names":[],"mappings":"AAQC,UAAU,KAAK;IACd,KAAK,CAAC,EAAE,MAAM,CAAC;IACf,KAAK,CAAC,EAAE,MAAM,CAAC;IACf,MAAM,CAAC,EAAE,MAAM,CAAC;CAChB;AA0DF,QAAA,MAAM,aAAa,2CAAwC,CAAC;AAC5D,KAAK,aAAa,GAAG,UAAU,CAAC,OAAO,aAAa,CAAC,CAAC;AACtD,eAAe,aAAa,CAAC"}
