@@ -3,12 +3,12 @@
 
 :root {
   /* Core cyberpunk palette */
-  --neon-green: #00ff41;
-  --neon-pink: #ff00ff;
-  --neon-cyan: #00ffff;
-  --neon-purple: #8a2be2;
-  --neon-orange: #ff8800;
-  --neon-blue: #0080ff;
+  --neon-green: var(--color-terminal-green, #00ff41);
+  --neon-pink: var(--color-terminal-pink, #ff00ff);
+  --neon-cyan: var(--color-terminal-cyan, #00ffff);
+  --neon-purple: var(--color-terminal-purple, #8a2be2);
+  --neon-orange: var(--color-bubble-tea-orange, #ff8800);
+  --neon-blue: var(--color-terminal-blue, #0080ff);
   
   /* Background layers */
   --dark-bg: #0a0a0a;
@@ -17,9 +17,9 @@
   --card-bg: rgba(0, 20, 0, 0.8);
   
   /* Terminal colors */
-  --terminal-green: #00ff00;
-  --matrix-green: #65fe08;
-  --hacker-green: #39ff14;
+  --terminal-green: var(--color-terminal-green, #00ff41);
+  --matrix-green: color-mix(in srgb, var(--color-terminal-green) 90%, #fff);
+  --hacker-green: color-mix(in srgb, var(--color-terminal-green) 80%, #fff);
   
   /* Glow effects */
   --glow-intensity: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;

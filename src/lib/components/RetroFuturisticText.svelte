@@ -399,7 +399,7 @@
 	.crt-bezel {
 		position: absolute;
 		inset: 0;
-		border: 8px solid #2a2a2a;
+        border: 8px solid color-mix(in srgb, var(--color-terminal-blue) 10%, #000);
 		border-radius: 20px;
 		pointer-events: none;
 		box-shadow:
@@ -415,7 +415,7 @@
 		left: -4px;
 		right: -4px;
 		bottom: -4px;
-		border: 2px solid #1a1a1a;
+        border: 2px solid color-mix(in srgb, var(--color-terminal-green) 15%, #000);
 		border-radius: 24px;
 		box-shadow:
 			0 0 20px rgba(0, 0, 0, 0.9),
@@ -471,14 +471,14 @@
 	}
 
 	.retro-chromatic::before {
-		color: #ff0000;
+        color: var(--color-bubble-tea-red, #ff8585);
 		transform: translateX(-2px);
 		opacity: 0.8;
 		mix-blend-mode: screen;
 	}
 
 	.retro-chromatic::after {
-		color: #00ffff;
+        color: var(--color-terminal-cyan);
 		transform: translateX(2px);
 		opacity: 0.8;
 		mix-blend-mode: screen;
@@ -486,7 +486,7 @@
 
 	/* Vintage Macintosh styling */
 	:global(.bg-gray-200) {
-		background: linear-gradient(135deg, #f0f0f0 0%, #d0d0d0 100%);
+        background: linear-gradient(135deg, color-mix(in srgb, #fff 90%, var(--color-terminal-blue) 10%) 0%, color-mix(in srgb, #d0d0d0 90%, var(--color-terminal-blue) 10%) 100%);
 		box-shadow:
 			inset 2px 2px 4px rgba(255, 255, 255, 0.8),
 			inset -2px -2px 4px rgba(0, 0, 0, 0.2);
@@ -520,15 +520,15 @@
 	@keyframes matrix-glow {
 		0% {
 			text-shadow:
-				0 0 5px #22c55e,
-				0 0 10px #22c55e,
-				0 0 20px #22c55e;
+                0 0 5px var(--color-terminal-green),
+                0 0 10px var(--color-terminal-green),
+                0 0 20px var(--color-terminal-green);
 		}
 		100% {
 			text-shadow:
-				0 0 10px #22c55e,
-				0 0 20px #22c55e,
-				0 0 40px #22c55e;
+                0 0 10px var(--color-terminal-green),
+                0 0 20px var(--color-terminal-green),
+                0 0 40px var(--color-terminal-green);
 		}
 	}
 
@@ -541,17 +541,17 @@
 		0%,
 		100% {
 			text-shadow:
-				0 0 5px #22d3ee,
-				0 0 10px #22d3ee,
-				0 0 20px #22d3ee,
-				0 0 40px #22d3ee;
+                0 0 5px var(--color-terminal-cyan),
+                0 0 10px var(--color-terminal-cyan),
+                0 0 20px var(--color-terminal-cyan),
+                0 0 40px var(--color-terminal-cyan);
 		}
 		50% {
 			text-shadow:
-				0 0 2px #22d3ee,
-				0 0 5px #22d3ee,
-				0 0 10px #22d3ee,
-				0 0 20px #22d3ee;
+                0 0 2px var(--color-terminal-cyan),
+                0 0 5px var(--color-terminal-cyan),
+                0 0 10px var(--color-terminal-cyan),
+                0 0 20px var(--color-terminal-cyan);
 		}
 	}
 
@@ -564,23 +564,23 @@
 		0%,
 		100% {
 			text-shadow:
-				0 0 10px #f9a8d4,
-				0 0 20px #f9a8d4,
-				0 0 30px #f9a8d4;
+                0 0 10px var(--color-bubble-tea-glow-pink),
+                0 0 20px var(--color-bubble-tea-glow-pink),
+                0 0 30px var(--color-bubble-tea-glow-pink);
 			filter: hue-rotate(0deg);
 		}
 		33% {
 			text-shadow:
-				0 0 10px #a78bfa,
-				0 0 20px #a78bfa,
-				0 0 30px #a78bfa;
+                0 0 10px var(--color-bubble-tea-purple),
+                0 0 20px var(--color-bubble-tea-purple),
+                0 0 30px var(--color-bubble-tea-purple);
 			filter: hue-rotate(60deg);
 		}
 		66% {
 			text-shadow:
-				0 0 10px #34d399,
-				0 0 20px #34d399,
-				0 0 30px #34d399;
+                0 0 10px var(--color-bubble-tea-green),
+                0 0 20px var(--color-bubble-tea-green),
+                0 0 30px var(--color-bubble-tea-green);
 			filter: hue-rotate(120deg);
 		}
 	}

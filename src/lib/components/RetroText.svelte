@@ -82,31 +82,31 @@
 	// Color configurations
 	const colors = {
 		green: {
-			color: '#00ff00',
+            color: 'var(--color-terminal-green)',
 			shadowColor: '#00ff0080'
 		},
 		amber: {
-			color: '#ffb000',
+            color: 'var(--color-bubble-tea-yellow)',
 			shadowColor: '#ffb00080'
 		},
 		blue: {
-			color: '#0080ff',
+            color: 'var(--color-terminal-blue)',
 			shadowColor: '#0080ff80'
 		},
 		white: {
-			color: '#ffffff',
+            color: '#ffffff',
 			shadowColor: '#ffffff40'
 		},
 		red: {
-			color: '#ff0040',
+            color: 'var(--color-bubble-tea-red)',
 			shadowColor: '#ff004080'
 		},
 		cyan: {
-			color: '#00ffff',
+            color: 'var(--color-terminal-cyan)',
 			shadowColor: '#00ffff80'
 		},
 		magenta: {
-			color: '#ff00ff',
+            color: 'var(--color-terminal-pink)'
 			shadowColor: '#ff00ff80'
 		}
 	};

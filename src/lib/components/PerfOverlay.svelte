@@ -98,18 +98,18 @@
 		return `${Math.round(value)}ms`;
 	}
 
-	function getVitalColor(rating: string): string {
-		switch (rating) {
-			case 'good':
-				return '#10b981'; // green
-			case 'needs-improvement':
-				return '#f59e0b'; // yellow
-			case 'poor':
-				return '#ef4444'; // red
-			default:
-				return '#6b7280'; // gray
-		}
-	}
+    function getVitalColor(rating: string): string {
+        switch (rating) {
+            case 'good':
+                return 'var(--color-bubble-tea-green, #6bcf7f)';
+            case 'needs-improvement':
+                return 'var(--color-bubble-tea-yellow, #ffd23a)';
+            case 'poor':
+                return 'var(--color-bubble-tea-red, #ff8585)';
+            default:
+                return 'rgba(255,255,255,0.6)';
+        }
+    }
 </script>
 
 {#if visible}
@@ -268,7 +268,7 @@
 		margin: 0;
 		font-size: 14px;
 		font-weight: 600;
-		color: #10b981;
+        color: var(--color-bubble-tea-green, #6bcf7f);
 	}
 
 	.close-btn {
@@ -304,19 +304,19 @@
 
 	.metric-value {
 		font-weight: 600;
-		color: #10b981;
+        color: var(--color-bubble-tea-green, #6bcf7f);
 	}
 
 	.fps.good {
-		color: #10b981;
+        color: var(--color-bubble-tea-green, #6bcf7f);
 	}
 
 	.fps.warning {
-		color: #f59e0b;
+        color: var(--color-bubble-tea-yellow, #ffd23a);
 	}
 
 	.fps.poor {
-		color: #ef4444;
+        color: var(--color-bubble-tea-red, #ff8585);
 	}
 
 	.toggle-btn {
@@ -335,8 +335,8 @@
 	}
 
 	.toggle-btn.active {
-		background: #10b981;
-		border-color: #10b981;
+        background: var(--color-bubble-tea-green, #6bcf7f);
+        border-color: var(--color-bubble-tea-green, #6bcf7f);
 		color: black;
 	}
 

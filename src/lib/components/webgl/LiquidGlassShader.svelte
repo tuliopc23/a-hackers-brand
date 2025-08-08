@@ -24,7 +24,7 @@
 		frequency = 0.5,
 		amplitude = 0.1,
 		speed = 1.0,
-		color = '#00d4aa',
+    color = 'var(--color-terminal-cyan)',
 		opacity = 0.8,
 		distortion = 0.1,
 		refraction = 1.45,

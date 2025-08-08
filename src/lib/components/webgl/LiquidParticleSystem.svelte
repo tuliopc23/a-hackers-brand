@@ -22,7 +22,7 @@
 		particleCount = 1000,
 		size = 0.02,
 		speed = 1.0,
-		color = '#00d4aa',
+    color = 'var(--color-terminal-green)',
 		opacity = 0.8,
 		flowPattern = 'turbulent',
 		interactive = true,

@@ -37,30 +37,30 @@
 	// Theme configurations
 	const themeConfig = {
 		cyberpunk: {
-			primaryColor: '#ff0080',
-			secondaryColor: '#00ffff',
-			backgroundColor: '#000015',
+            primaryColor: 'var(--color-terminal-pink)',
+            secondaryColor: 'var(--color-terminal-cyan)',
+            backgroundColor: 'color-mix(in srgb, var(--color-terminal-blue) 10%, #000015)',
 			intensity: 1.5,
 			particles: 1500
 		},
 		neural: {
-			primaryColor: '#00ff88',
-			secondaryColor: '#88ff00',
-			backgroundColor: '#001100',
+            primaryColor: 'var(--color-terminal-green)',
+            secondaryColor: 'var(--color-bubble-tea-green)',
+            backgroundColor: 'color-mix(in srgb, var(--color-terminal-green) 10%, #001100)',
 			intensity: 1.2,
 			particles: 1200
 		},
 		quantum: {
-			primaryColor: '#8800ff',
-			secondaryColor: '#ff8800',
-			backgroundColor: '#110011',
+            primaryColor: 'var(--color-bubble-tea-purple)',
+            secondaryColor: 'var(--color-bubble-tea-orange)',
+            backgroundColor: 'color-mix(in srgb, var(--color-bubble-tea-purple) 15%, #110011)',
 			intensity: 1.8,
 			particles: 2000
 		},
 		liquid: {
-			primaryColor: '#00d4aa',
-			secondaryColor: '#00aaff',
-			backgroundColor: '#001122',
+            primaryColor: 'var(--color-terminal-green)',
+            secondaryColor: 'var(--color-terminal-blue)',
+            backgroundColor: 'color-mix(in srgb, var(--color-terminal-blue) 15%, #001122)',
 			intensity: 1.0,
 			particles: 1000
 		}

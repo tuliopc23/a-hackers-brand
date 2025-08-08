@@ -32,18 +32,18 @@
 			<!-- Mesh with a simple geometry -->
 			<T.Mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
 				<T.BoxGeometry args={[2, 2, 2]} />
-				<T.MeshStandardMaterial color="#00d4aa" transparent={true} opacity={0.8} metalness={0.5} roughness={0.2} />
+                <T.MeshStandardMaterial color="var(--color-terminal-green)" transparent={true} opacity={0.8} metalness={0.5} roughness={0.2} />
 			</T.Mesh>
 
 			<!-- Floating spheres -->
 			<T.Mesh position={[3, 1, 0]}>
 				<T.SphereGeometry args={[0.5, 32, 32]} />
-				<T.MeshStandardMaterial color="#6366f1" transparent={true} opacity={0.7} metalness={0.3} roughness={0.4} />
+                <T.MeshStandardMaterial color="var(--color-bubble-tea-purple)" transparent={true} opacity={0.7} metalness={0.3} roughness={0.4} />
 			</T.Mesh>
 
 			<T.Mesh position={[-3, -1, 0]}>
 				<T.SphereGeometry args={[0.7, 32, 32]} />
-				<T.MeshStandardMaterial color="#06b6d4" transparent={true} opacity={0.6} metalness={0.4} roughness={0.3} />
+                <T.MeshStandardMaterial color="var(--color-terminal-cyan)" transparent={true} opacity={0.6} metalness={0.4} roughness={0.3} />
 			</T.Mesh>
 		</Canvas>
 	</div>

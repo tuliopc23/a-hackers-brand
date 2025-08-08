@@ -2,6 +2,7 @@
 	import { T } from '@threlte/core';
 	import { HTML, OrbitControls } from '@threlte/extras';
 	import { onMount } from 'svelte';
+	import { brandColors } from '../tokens/index.js';
 
 	interface Props {
 		position?: [number, number, number];
@@ -93,7 +94,7 @@
 	<T.Mesh>
 		<T.BoxGeometry args={[6, 4, 0.2]} />
 		<T.MeshPhysicalMaterial
-			color="#1a1a1a"
+			color={brandColors.backgrounds.secondary}
 			roughness={0.1}
 			metalness={0.8}
 			transmission={0.1}
@@ -106,7 +107,7 @@
 	<!-- Terminal Screen -->
 	<T.Mesh position={[0, 0, 0.1]}>
 		<T.PlaneGeometry args={[5.5, 3.5]} />
-		<T.MeshBasicMaterial color="#000000" transparent={true} opacity={0.8} />
+		<T.MeshBasicMaterial color={brandColors.backgrounds.primary} transparent={true} opacity={0.8} />
 	</T.Mesh>
 
 	<!-- HTML Terminal Content -->
@@ -164,10 +165,10 @@
 </T.Group>
 
 <!-- Floating Glass Elements -->
-<T.Mesh position={[4, 3, -2]} rotation={[0.2, 0.4, 0.1]}>
+	<T.Mesh position={[4, 3, -2]} rotation={[0.2, 0.4, 0.1]}>
 	<T.BoxGeometry args={[1.5, 1.5, 1.5]} />
-	<T.MeshPhysicalMaterial
-		color="#a7f3d0"
+		<T.MeshPhysicalMaterial
+			color={brandColors.terminal.matrix}
 		roughness={0.1}
 		metalness={0}
 		transmission={1}
@@ -178,10 +179,10 @@
 	/>
 </T.Mesh>
 
-<T.Mesh position={[-4, -2, 3]} rotation={[-0.3, -0.2, 0.4]}>
+	<T.Mesh position={[-4, -2, 3]} rotation={[-0.3, -0.2, 0.4]}>
 	<T.BoxGeometry args={[2, 2, 2]} />
-	<T.MeshPhysicalMaterial
-		color="#fde047"
+		<T.MeshPhysicalMaterial
+			color={brandColors.bubbleTea.yellow}
 		roughness={0.1}
 		metalness={0}
 		transmission={1}
@@ -197,7 +198,7 @@
 		width: 700px;
 		height: 450px;
 		background: rgba(0, 0, 0, 0.95);
-		border: 1px solid rgba(0, 212, 170, 0.3);
+		border: 1px solid color-mix(in srgb, var(--color-terminal-green) 30%, transparent);
 		border-radius: 8px;
 		font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
 		overflow: hidden;
@@ -211,7 +212,7 @@
 		align-items: center;
 		padding: 8px 12px;
 		background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-		border-bottom: 1px solid rgba(0, 212, 170, 0.2);
+		border-bottom: 1px solid color-mix(in srgb, var(--color-terminal-green) 20%, transparent);
 	}
 
 	.terminal-controls {
@@ -225,17 +226,9 @@
 		border-radius: 50%;
 	}
 
-	.terminal-control.close {
-		background: #ff5f57;
-	}
-
-	.terminal-control.minimize {
-		background: #ffbd2e;
-	}
-
-	.terminal-control.maximize {
-		background: #28ca42;
-	}
+	.terminal-control.close { background: var(--color-bubble-tea-red, #ff8585); }
+	.terminal-control.minimize { background: var(--color-bubble-tea-yellow, #ffd23a); }
+	.terminal-control.maximize { background: var(--color-bubble-tea-green, #6bcf7f); }
 
 	.terminal-title {
 		color: white;
@@ -266,19 +259,13 @@
 	}
 
 	.terminal-body::-webkit-scrollbar-thumb {
-		background: rgba(0, 212, 170, 0.3);
+		background: color-mix(in srgb, var(--color-terminal-green) 30%, transparent);
 		border-radius: 2px;
 	}
 
-	.terminal-prompt {
-		color: #00d4aa;
-	}
+	.terminal-prompt { color: var(--color-terminal-green); }
 
-	.text-terminal-green {
-		color: #00d4aa;
-	}
+	.text-terminal-green { color: var(--color-terminal-green); }
 
-	.text-terminal-blue {
-		color: #06b6d4;
-	}
+	.text-terminal-blue { color: var(--color-terminal-cyan); }
 </style>

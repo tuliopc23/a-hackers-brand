@@ -57,27 +57,27 @@
 	// Theme configurations
 	const themeConfig = {
 		terminal: {
-			primaryColor: '#00ff88',
-			secondaryColor: '#00d4aa',
-			backgroundColor: '#001100',
+            primaryColor: 'var(--color-terminal-green)',
+            secondaryColor: 'var(--color-terminal-cyan)',
+            backgroundColor: 'color-mix(in srgb, var(--color-terminal-green) 10%, #000)',
 			emissive: '#001a0f'
 		},
 		cyberpunk: {
-			primaryColor: '#ff0080',
-			secondaryColor: '#00ffff',
-			backgroundColor: '#000015',
+            primaryColor: 'var(--color-terminal-pink)',
+            secondaryColor: 'var(--color-terminal-cyan)',
+            backgroundColor: 'color-mix(in srgb, var(--color-terminal-blue) 10%, #000015)',
 			emissive: '#1a001a'
 		},
 		neural: {
-			primaryColor: '#88ff00',
-			secondaryColor: '#00ff88',
-			backgroundColor: '#0a1a0a',
+            primaryColor: 'var(--color-bubble-tea-green)',
+            secondaryColor: 'var(--color-terminal-green)',
+            backgroundColor: 'color-mix(in srgb, var(--color-bubble-tea-green) 10%, #000)',
 			emissive: '#0f1a0f'
 		},
 		quantum: {
-			primaryColor: '#8800ff',
-			secondaryColor: '#ff8800',
-			backgroundColor: '#110011',
+            primaryColor: 'var(--color-bubble-tea-purple)',
+            secondaryColor: 'var(--color-bubble-tea-orange)',
+            backgroundColor: 'color-mix(in srgb, var(--color-bubble-tea-purple) 15%, #110011)',
 			emissive: '#1a001a'
 		}
 	};
