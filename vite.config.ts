@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import rolldown from 'rolldown-vite';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { svelte } from '@sveltejs/vite-plugin-svelte'; // Svelte plugin for Vite
 
 // Library build using Vite + rolldown runtime and LightningCSS
 export default defineConfig({
