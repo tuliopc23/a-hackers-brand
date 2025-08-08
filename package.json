@@ -17,7 +17,7 @@
     "@threlte/extras": "*",
     "three": "*",
     "@lucide/svelte": "*"
-  }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -30,7 +30,7 @@
     "docs:preview": "mintlify preview docs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
-  }
+  },
   "devDependencies": {
     "typescript": "^5.5.4",
     "vite": "^6.0.0",
