@@ -1,0 +1,37 @@
+---
+name: Project Setup
+---
+
+# Project Setup (Tailwind v4 + LightningCSS + Vite rolldown)
+
+```bash
+# Install
+bun install
+
+# Typecheck (strict)
+bunx tsc --noEmit
+
+# Build library (Vite + rolldown)
+bun run build
+
+# Emit types (shim, until oxc types available)
+bun run types:emit
+```
+
+```css
+/* src/app.css */
+@import "tailwindcss";
+@theme {
+  --color-primary: #00ff41;
+}
+```
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import rolldown from 'rolldown-vite';
+export default defineConfig({
+  plugins: [rolldown()],
+  css: { transformer: 'lightningcss' }
+});
+```
