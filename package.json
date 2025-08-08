@@ -28,6 +28,7 @@
     "vite": "^6.0.0",
     "rolldown-vite": "^0.5.0",
     "lightningcss": "^1.25.0",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
     "mintlify": "^4.0.0",
     "@storybook/html-vite": "^8.2.0",
     "@storybook/test": "^8.2.0"

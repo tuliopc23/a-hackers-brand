@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite';
 import rolldown from 'rolldown-vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 // Library build using Vite + rolldown runtime and LightningCSS
 export default defineConfig({
-  plugins: [rolldown()],
+  plugins: [svelte(), rolldown()],
   css: {
     transformer: 'lightningcss'
   },
@@ -15,9 +16,11 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
-        'react',
-        'react-dom',
-        'svelte'
+        'svelte',
+        '@threlte/core',
+        '@threlte/extras',
+        'three',
+        '@lucide/svelte'
       ]
     }
   },
