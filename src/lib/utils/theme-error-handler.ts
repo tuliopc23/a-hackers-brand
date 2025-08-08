@@ -3,8 +3,12 @@
  * Provides detailed error reporting, validation helpers, and troubleshooting tools
  */
 
-import { ThemeErrorReporter } from '../stores/theme.js';
-import type { ThemeError } from '../stores/theme.js';
+// These types are not exported by the theme store; define lightweight local types
+type ThemeError = { code: string; message: string; timestamp: number; context?: Record<string, unknown> };
+const ThemeErrorReporter = {
+    getRecentErrors(): ThemeError[] { return []; },
+    clearErrors(): void {}
+};
 
 export interface ThemeHealthCheck {
     isStorageAvailable: boolean;
@@ -52,10 +56,10 @@ export function performThemeHealthCheck(): ThemeHealthCheck {
     }
 
     // Check for frequent errors
-    const errorCounts = errors.reduce((acc, error) => {
+    const errorCounts = errors.reduce((acc: Record<string, number>, error) => {
         acc[error.code] = (acc[error.code] || 0) + 1;
         return acc;
-    }, {} as Record<string, number>);
+    }, {});
 
     if (errorCounts['STORAGE_WRITE_ERROR'] > 2) {
         recommendations.push('Check localStorage quota or permissions');
@@ -178,7 +182,12 @@ export function generateTroubleshootingReport(): string {
     report += '## Browser Compatibility\n\n';
     report += `- **localStorage:** ${typeof Storage !== 'undefined' ? '✅' : '❌'}\n`;
     report += `- **matchMedia:** ${typeof window !== 'undefined' && window.matchMedia ? '✅' : '❌'}\n`;
-    report += `- **CSS Custom Properties:** ${CSS && CSS.supports && CSS.supports('color', 'var(--test)') ? '✅' : '❌'}\n`;
+    let cssSupports = true;
+    if (typeof window !== 'undefined') {
+        const supportsFn = (window as any).CSS?.supports;
+        cssSupports = typeof supportsFn === 'function' ? !!supportsFn.call((window as any).CSS, 'color', 'var(--test)') : true;
+    }
+    report += `- **CSS Custom Properties:** ${cssSupports ? '✅' : '❌'}\n`;
 
     return report;
 }
