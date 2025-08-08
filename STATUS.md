@@ -1,23 +1,19 @@
 # STATUS — DX/Docs Integration
 
-- Vite configured with `rolldown-vite` and `css.transformer = 'lightningcss'`.
-- Tailwind v4 style enforced via `@import "tailwindcss";` and `@theme` example.
-- oxc resolver/minifier is used implicitly via rolldown.
-- Type declarations emitted via temporary shim: `tsc --emitDeclarationOnly` (tsconfig.build.json). Replace with oxc typegen when available.
-- Mintlify docs moved to `/docs`, theme set to "linden", terminal aesthetics layered via `/docs/styles/terminal.css`.
-- IA created per spec; pages scaffolded.
-- Scripts added: docs:dev/docs:build/docs:preview, build/typecheck/types:emit, storybook/build-storybook.
+- Vite configured with Svelte plugin and LightningCSS.
+- Rolldown plugin temporarily removed due to missing package (rolldown-vite@^0.5.0 not resolvable). Action: keep Vite default bundler for now; when correct package is available, re-enable and measure.
+- Tailwind v4 style enforced via `@import "tailwindcss";` and `@theme` tokens (terminal/bubbleTea).
+- oxc resolver/minifier: pending; currently using Vite defaults. Declarations emitted via shim `tsc --emitDeclarationOnly`.
+- Mintlify docs under `/docs`, theme "linden", terminal aesthetics layered via `/docs/styles/terminal.css`.
+- IA per spec; pages scaffolded; imports use `@org/ui`.
+- Scripts: docs:dev/docs:build/docs:preview, build/typecheck/check/types:emit, storybook/build-storybook.
 
-## Commands
+## Commands to validate
 - bunx tsc --noEmit
+- bun run check
 - bun run build
 - bun run types:emit
 - bun run docs:build
-- bun run storybook && bun run build-storybook
 
-## Evidence Pending
-Run the above commands locally (requires installing devDependencies). Capture logs and paste below:
-
-```
-[bundler logs]
-```
+## Evidence
+Paste logs from local runs here after executing the above.
