@@ -1,0 +1,168 @@
+---
+title: 'Responsive'
+description: 'Responsive design utilities for cyberpunk interfaces'
+---
+
+# Responsive Utilities
+
+Responsive design utilities that ensure your cyberpunk interfaces look perfect on all devices, from mobile terminals to ultrawide displays.
+
+## Import
+
+```svelte
+import { 
+  useBreakpoint, 
+  useMediaQuery, 
+  ResponsiveProvider 
+} from 'bubble-tea-party/responsive'
+```
+
+## Breakpoint System
+
+```javascript
+const breakpoints = {
+  xs: '0px',      // Mobile portrait
+  sm: '640px',    // Mobile landscape  
+  md: '768px',    // Tablet
+  lg: '1024px',   // Desktop
+  xl: '1280px',   // Large desktop
+  xxl: '1536px'   // Ultrawide
+}
+```
+
+## useBreakpoint Hook
+
+```svelte
+<script>
+  import { useBreakpoint } from 'bubble-tea-party/responsive'
+  
+  const breakpoint = useBreakpoint()
+  
+  $: isMobile = $breakpoint === 'xs' || $breakpoint === 'sm'
+  $: isDesktop = $breakpoint === 'lg' || $breakpoint === 'xl'
+</script>
+
+{#if isMobile}
+  <MobileTerminal />
+{:else if isDesktop}
+  <DesktopTerminal />
+{:else}
+  <TabletTerminal />
+{/if}
+```
+
+## useMediaQuery Hook
+
+```svelte
+<script>
+  import { useMediaQuery } from 'bubble-tea-party/responsive'
+  
+  const isLargeScreen = useMediaQuery('(min-width: 1024px)')
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
+  const isHighDPI = useMediaQuery('(min-resolution: 2dppx)')
+</script>
+
+<div class="responsive-layout">
+  {#if $isLargeScreen}
+    <!-- Desktop layout with full effects -->
+    <MatrixRain />
+    <AdvancedTerminal />
+  {:else}
+    <!-- Mobile layout with reduced effects -->
+    <SimpleTerminal />
+  {/if}
+</div>
+```
+
+## Responsive Components
+
+Components automatically adapt to screen size:
+
+```svelte
+<script>
+  import { Button, Modal, DataTable } from 'bubble-tea-party'
+</script>
+
+<!-- Button automatically adjusts size -->
+<Button responsive>
+  Responsive Button
+</Button>
+
+<!-- Modal becomes full-screen on mobile -->
+<Modal responsive size="auto">
+  Responsive modal content
+</Modal>
+
+<!-- DataTable switches to mobile view -->
+<DataTable 
+  {data} 
+  {columns}
+  responsive
+  mobileBreakpoint="md"
+/>
+```
+
+## CSS Utilities
+
+Use responsive CSS classes:
+
+```svelte
+<div class="
+  cyber-card
+  xs:p-2 sm:p-4 md:p-6 lg:p-8
+  xs:text-sm sm:text-base md:text-lg
+  xs:hidden sm:block
+">
+  Responsive content
+</div>
+```
+
+## Custom Responsive Logic
+
+```svelte
+<script>
+  import { useBreakpoint } from 'bubble-tea-party/responsive'
+  
+  const breakpoint = useBreakpoint()
+  
+  // Adjust terminal columns based on screen size
+  $: terminalCols = {
+    xs: 40,
+    sm: 60, 
+    md: 80,
+    lg: 120,
+    xl: 160
+  }[$breakpoint] || 80
+  
+  // Adjust animation intensity
+  $: animationLevel = $breakpoint === 'xs' ? 'minimal' : 'full'
+</script>
+
+<TerminalWindow 
+  cols={terminalCols}
+  animationLevel={animationLevel}
+/>
+```
+
+## Performance Considerations
+
+```svelte
+<script>
+  import { useMediaQuery } from 'bubble-tea-party/responsive'
+  
+  // Disable expensive effects on mobile
+  const isLowPowerDevice = useMediaQuery('(max-width: 768px)')
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
+  
+  $: shouldReduceEffects = $isLowPowerDevice || $prefersReducedMotion
+</script>
+
+{#if !shouldReduceEffects}
+  <MatrixRain />
+  <ParticleField />
+{/if}
+```
+
+---
+
+Create responsive cyberpunk interfaces that work everywhere! 📱💻⚡

@@ -1,0 +1,90 @@
+---
+title: 'Card'
+description: 'Cyberpunk-styled containers with neon borders and glass effects'
+---
+
+# Card
+
+Sleek cyberpunk containers that organize content with style. Features neon borders, glass morphism effects, and animated backgrounds.
+
+## Import
+
+```svelte
+import { Card } from 'bubble-tea-party'
+```
+
+## Basic Usage
+
+```svelte
+<script>
+  import { Card } from 'bubble-tea-party'
+</script>
+
+<Card>
+  <h3>System Status</h3>
+  <p>All systems operational. Matrix connection stable.</p>
+</Card>
+```
+
+## Variants
+
+<Tabs>
+  <Tab title="Default">
+    ```svelte
+    <Card>
+      <h3>Default Card</h3>
+      <p>Clean and minimal design.</p>
+    </Card>
+    ```
+  </Tab>
+  
+  <Tab title="Cyberpunk">
+    ```svelte
+    <Card variant="cyberpunk">
+      <h3>Cyber Card</h3>
+      <p>Full neon treatment with glowing borders.</p>
+    </Card>
+    ```
+  </Tab>
+  
+  <Tab title="Glass">
+    ```svelte
+    <Card variant="glass">
+      <h3>Glass Card</h3>
+      <p>Glass morphism with backdrop blur.</p>
+    </Card>
+    ```
+  </Tab>
+  
+  <Tab title="Neon">
+    ```svelte
+    <Card variant="neon" color="cyan">
+      <h3>Neon Card</h3>
+      <p>Bright neon glow effects.</p>
+    </Card>
+    ```
+  </Tab>
+</Tabs>
+
+## Interactive Demo
+
+<iframe 
+  src="/playground/card-demo" 
+  width="100%" 
+  height="500"
+  className="border border-green-500 rounded-lg mb-6"
+/>
+
+## Props
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `variant` | `'default' \| 'cyberpunk' \| 'glass' \| 'neon'` | `'default'` | Card style variant |
+| `color` | `string` | `'green'` | Neon glow color |
+| `padding` | `string` | `'md'` | Internal padding |
+| `hoverable` | `boolean` | `false` | Enable hover effects |
+| `clickable` | `boolean` | `false` | Make card clickable |
+
+---
+
+Perfect for organizing cyberpunk interfaces with style! 🃏✨

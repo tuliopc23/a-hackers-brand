@@ -1,0 +1,180 @@
+---
+title: 'Data Table'
+description: 'Cyberpunk-styled data tables with sorting, filtering, and pagination'
+---
+
+# Data Table
+
+Advanced data table component with cyberpunk aesthetics, built-in sorting, filtering, and pagination. Perfect for displaying complex datasets in terminal-style interfaces.
+
+## Import
+
+```svelte
+import { DataTable } from 'bubble-tea-party'
+```
+
+## Basic Usage
+
+```svelte
+<script>
+  import { DataTable } from 'bubble-tea-party'
+  
+  let data = [
+    { id: 1, name: 'Neo', status: 'online', level: 99 },
+    { id: 2, name: 'Trinity', status: 'active', level: 87 },
+    { id: 3, name: 'Morpheus', status: 'offline', level: 95 }
+  ]
+  
+  let columns = [
+    { key: 'id', title: 'ID', sortable: true },
+    { key: 'name', title: 'Agent', sortable: true },
+    { key: 'status', title: 'Status', render: renderStatus },
+    { key: 'level', title: 'Level', sortable: true }
+  ]
+  
+  function renderStatus(value) {
+    const colors = {
+      online: 'green',
+      active: 'cyan', 
+      offline: 'red'
+    }
+    return `<Badge color="${colors[value]}">${value}</Badge>`
+  }
+</script>
+
+<DataTable 
+  {data}
+  {columns}
+  variant="cyberpunk"
+  sortable={true}
+  filterable={true}
+/>
+```
+
+## Features
+
+- **Sorting** - Click column headers to sort
+- **Filtering** - Global search and column filters
+- **Pagination** - Handle large datasets
+- **Row Selection** - Single or multi-row selection
+- **Custom Rendering** - Custom cell content
+- **Virtual Scrolling** - Performance for large datasets
+
+## Advanced Example
+
+```svelte
+<script>
+  import { DataTable, Badge, Progress, Button } from 'bubble-tea-party'
+  
+  let systemData = [
+    {
+      id: 'SYS-001',
+      name: 'Matrix Core',
+      cpu: 87,
+      memory: 64,
+      status: 'critical',
+      lastSeen: '2024-01-15T10:30:00Z'
+    },
+    {
+      id: 'SYS-002', 
+      name: 'Neural Network',
+      cpu: 23,
+      memory: 45,
+      status: 'healthy',
+      lastSeen: '2024-01-15T10:29:30Z'
+    }
+  ]
+  
+  let columns = [
+    {
+      key: 'name',
+      title: 'System Name',
+      sortable: true,
+      width: '200px'
+    },
+    {
+      key: 'cpu',
+      title: 'CPU Usage',
+      render: (value) => `<Progress value="${value}" variant="neon" size="sm" />`
+    },
+    {
+      key: 'memory',
+      title: 'Memory',
+      render: (value) => `<Progress value="${value}" variant="cyberpunk" size="sm" />`
+    },
+    {
+      key: 'status',
+      title: 'Status',
+      render: (value) => {
+        const variants = {
+          healthy: 'success',
+          warning: 'warning', 
+          critical: 'danger'
+        }
+        return `<Badge variant="${variants[value]}">${value}</Badge>`
+      }
+    },
+    {
+      key: 'actions',
+      title: 'Actions',
+      render: (_, row) => `
+        <Button size="sm" variant="ghost" onclick="restart('${row.id}')">
+          Restart
+        </Button>
+      `
+    }
+  ]
+</script>
+
+<DataTable 
+  data={systemData}
+  {columns}
+  variant="cyberpunk"
+  pageSize={10}
+  showPagination={true}
+  selectable={true}
+  onRowSelect={handleRowSelect}
+/>
+```
+
+## Props
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `data` | `any[]` | `[]` | Table data array |
+| `columns` | `Column[]` | `[]` | Column definitions |
+| `variant` | `'default' \| 'cyberpunk' \| 'neon' \| 'terminal'` | `'default'` | Table style |
+| `sortable` | `boolean` | `true` | Enable sorting |
+| `filterable` | `boolean` | `true` | Enable filtering |
+| `selectable` | `boolean` | `false` | Enable row selection |
+| `pageSize` | `number` | `25` | Rows per page |
+| `showPagination` | `boolean` | `true` | Show pagination controls |
+| `virtualScroll` | `boolean` | `false` | Enable virtual scrolling |
+
+## Column Configuration
+
+```typescript
+interface Column {
+  key: string                    // Data property key
+  title: string                  // Column header text
+  sortable?: boolean            // Enable sorting
+  width?: string                // Column width
+  align?: 'left' | 'center' | 'right'  // Text alignment
+  render?: (value, row) => string      // Custom renderer
+  filter?: 'text' | 'select' | 'range' // Filter type
+}
+```
+
+## Events
+
+| Event | Description |
+|-------|-------------|
+| `rowClick` | Fired when row is clicked |
+| `rowSelect` | Fired when row selection changes |
+| `sort` | Fired when sorting changes |
+| `filter` | Fired when filters are applied |
+| `pageChange` | Fired when page changes |
+
+---
+
+Display complex data with cyberpunk style! 📊⚡

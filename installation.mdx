@@ -1,0 +1,309 @@
+---
+title: 'Installation'
+description: 'Complete installation guide for Bubble Tea Party component library'
+---
+
+# Installation Guide
+
+Get Bubble Tea Party up and running in your project. Multiple installation methods available for different setups.
+
+## Package Installation
+
+<CodeGroup>
+
+```bash npm
+npm install bubble-tea-party
+```
+
+```bash yarn
+yarn add bubble-tea-party
+```
+
+```bash pnpm
+pnpm add bubble-tea-party
+```
+
+```bash bun
+bun add bubble-tea-party
+```
+
+</CodeGroup>
+
+## Framework Setup
+
+### SvelteKit (Recommended)
+
+Bubble Tea Party is built specifically for SvelteKit. Follow these steps for optimal integration:
+
+<Steps>
+  <Step title="Install Dependencies">
+    ```bash
+    npm install bubble-tea-party @threlte/core @threlte/extras
+    ```
+  </Step>
+  
+  <Step title="Configure Vite">
+    Update your `vite.config.js`:
+    ```javascript
+    import { sveltekit } from '@sveltejs/kit/vite';
+    import { defineConfig } from 'vite';
+
+    export default defineConfig({
+      plugins: [sveltekit()],
+      define: {
+        global: 'globalThis',
+      },
+      optimizeDeps: {
+        include: ['bubble-tea-party']
+      }
+    });
+    ```
+  </Step>
+  
+  <Step title="Import Styles">
+    Add to your `src/app.css`:
+    ```css
+    @import 'bubble-tea-party/styles';
+    
+    /* Optional: Enable cyberpunk mode by default */
+    :root {
+      --theme-mode: 'cyberpunk';
+    }
+    ```
+  </Step>
+  
+  <Step title="Setup Theme Provider">
+    Update your `src/routes/+layout.svelte`:
+    ```svelte
+    <script>
+      import '../app.css'
+      import { ThemeProvider } from 'bubble-tea-party'
+    </script>
+
+    <ThemeProvider>
+      <slot />
+    </ThemeProvider>
+    ```
+  </Step>
+</Steps>
+
+### Vite + Svelte
+
+<Steps>
+  <Step title="Install Dependencies">
+    ```bash
+    npm install bubble-tea-party @threlte/core @threlte/extras
+    ```
+  </Step>
+  
+  <Step title="Configure Vite">
+    Update your `vite.config.js`:
+    ```javascript
+    import { svelte } from '@sveltejs/vite-plugin-svelte'
+    import { defineConfig } from 'vite'
+
+    export default defineConfig({
+      plugins: [svelte()],
+      define: {
+        global: 'globalThis',
+      },
+      optimizeDeps: {
+        include: ['bubble-tea-party']
+      }
+    })
+    ```
+  </Step>
+  
+  <Step title="Import Styles and Setup Theme">
+    In your main entry file (e.g., `src/main.js`):
+    ```javascript
+    import App from './App.svelte'
+    import 'bubble-tea-party/styles'
+
+    const app = new App({
+      target: document.getElementById('app'),
+    })
+
+    export default app
+    ```
+  </Step>
+</Steps>
+
+## TypeScript Configuration
+
+For full TypeScript support, update your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["bubble-tea-party/types"]
+  }
+}
+```
+
+## Environment Variables
+
+Create a `.env` file for optional configuration:
+
+```bash
+# Optional: Analytics and monitoring
+VITE_ANALYTICS_ENABLED=true
+VITE_PERFORMANCE_MONITORING=true
+
+# Optional: Theme customization
+VITE_DEFAULT_THEME=cyberpunk
+VITE_ENABLE_ANIMATIONS=true
+```
+
+## CDN Installation (Quick Start)
+
+For rapid prototyping or simple projects:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.bubbletea.party/styles.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module">
+    import { Button } from 'https://cdn.bubbletea.party/components.js'
+    // Your code here
+  </script>
+</body>
+</html>
+```
+
+## Verification
+
+Test your installation with a simple component:
+
+```svelte
+<script>
+  import { Button, GlowText } from 'bubble-tea-party'
+</script>
+
+<div class="test-container">
+  <GlowText color="neon-green">
+    Installation Successful! 🎉
+  </GlowText>
+  
+  <Button variant="cyberpunk">
+    Ready to hack!
+  </Button>
+</div>
+```
+
+## Troubleshooting
+
+<Accordion title="Common Installation Issues">
+
+### Module not found errors
+
+```bash
+# Clear node_modules and reinstall
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### WebGL context errors
+
+WebGL components require a modern browser. Ensure you're using:
+- Chrome 80+
+- Firefox 78+  
+- Safari 14+
+- Edge 80+
+
+### TypeScript errors
+
+```bash
+# Install TypeScript if not present
+npm install -D typescript @tsconfig/svelte
+
+# Generate types
+npx svelte-check --tsconfig ./tsconfig.json
+```
+
+### Build errors with Vite
+
+```javascript
+// vite.config.js
+export default defineConfig({
+  optimizeDeps: {
+    include: ['bubble-tea-party'],
+    exclude: ['@threlte/core', '@threlte/extras']
+  }
+})
+```
+
+</Accordion>
+
+## Development Setup
+
+For contributing to Bubble Tea Party:
+
+<Steps>
+  <Step title="Clone Repository">
+    ```bash
+    git clone https://github.com/bubbletea/components.git
+    cd components
+    ```
+  </Step>
+  
+  <Step title="Install Dependencies">
+    ```bash
+    npm install
+    ```
+  </Step>
+  
+  <Step title="Start Development Server">
+    ```bash
+    npm run dev
+    ```
+  </Step>
+  
+  <Step title="Run Tests">
+    ```bash
+    npm run test
+    npm run test:visual
+    ```
+  </Step>
+</Steps>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Quick Start"
+    icon="rocket"
+    href="/quickstart"
+  >
+    Build your first cyberpunk interface
+  </Card>
+  <Card
+    title="Components"
+    icon="grid"
+    href="/components/button"
+  >
+    Explore the component library
+  </Card>
+  <Card
+    title="Theming"
+    icon="palette"
+    href="/themes"
+  >
+    Customize colors and effects
+  </Card>
+  <Card
+    title="Examples"
+    icon="code"
+    href="/playground"
+  >
+    See real-world implementations
+  </Card>
+</CardGroup>
+
+---
+
+**Ready to enter the matrix?** Your cyberpunk journey begins now! 🔴💊

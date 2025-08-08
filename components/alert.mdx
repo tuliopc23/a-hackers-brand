@@ -1,0 +1,50 @@
+---
+title: 'Alert'
+description: 'Cyberpunk-styled notifications and alert messages'
+---
+
+# Alert
+
+Attention-grabbing alert components for important messages, warnings, and notifications with cyberpunk styling.
+
+## Import
+
+```svelte
+import { Alert } from 'bubble-tea-party'
+```
+
+## Basic Usage
+
+```svelte
+<Alert variant="success" title="System Online">
+  All systems operational. Matrix connection established.
+</Alert>
+
+<Alert variant="warning" title="Security Alert">
+  Unauthorized access attempt detected.
+</Alert>
+
+<Alert variant="error" title="Critical Error">
+  System breach detected. Initiating lockdown protocols.
+</Alert>
+```
+
+## Variants
+
+- **Success** - Green neon, system confirmations
+- **Warning** - Yellow/amber, caution messages  
+- **Error** - Red neon, critical alerts
+- **Info** - Cyan, informational messages
+
+## Props
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `variant` | `'success' \| 'warning' \| 'error' \| 'info'` | `'info'` | Alert type |
+| `title` | `string` | `''` | Alert title |
+| `dismissible` | `boolean` | `false` | Show close button |
+| `icon` | `string` | `auto` | Custom icon name |
+
+---
+
+Get users' attention with cyberpunk alerts! 🚨⚡
