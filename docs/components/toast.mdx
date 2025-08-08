@@ -10,14 +10,14 @@ Temporary notification messages that appear and disappear with smooth cyberpunk 
 ## Import
 
 ```svelte
-import { Toast, toast } from 'bubble-tea-party'
+import { Toast, toast } from '@org/ui'
 ```
 
 ## Basic Usage
 
 ```svelte
 <script>
-  import { toast } from 'bubble-tea-party'
+  import { toast } from '@org/ui'
   
   function showSuccess() {
     toast.success('Access granted! Welcome to the Matrix.')
@@ -40,7 +40,7 @@ import { Toast, toast } from 'bubble-tea-party'
 ## Toast API
 
 ```javascript
-import { toast } from 'bubble-tea-party'
+import { toast } from '@org/ui'
 
 // Different types
 toast.success('Success message')

@@ -46,7 +46,7 @@ Set up the theme provider in your main layout:
 ```svelte
 <!-- +layout.svelte -->
 <script>
-  import { ThemeProvider } from 'bubble-tea-party'
+  import { ThemeProvider } from '@org/ui'
   import { themeStore } from 'bubble-tea-party/stores'
 </script>
 
@@ -69,7 +69,7 @@ Create a simple cyberpunk interface:
     TerminalWindow, 
     GlowText,
     MatrixRain 
-  } from 'bubble-tea-party'
+  } from '@org/ui'
   
   let message = 'System Ready'
   
@@ -151,7 +151,7 @@ See it in action:
     TerminalWindow, 
     CommandBlock, 
     AdvancedTerminal 
-  } from 'bubble-tea-party'
+  } from '@org/ui'
 </script>
 
 <TerminalWindow title="root@matrix:~$">
@@ -175,7 +175,7 @@ See it in action:
     DataTable, 
     MetricsCard, 
     StatusBar 
-  } from 'bubble-tea-party'
+  } from '@org/ui'
 </script>
 
 <div class="dashboard">
@@ -204,7 +204,7 @@ See it in action:
     Select, 
     Button, 
     FormErrorBoundary 
-  } from 'bubble-tea-party'
+  } from '@org/ui'
 </script>
 
 <FormErrorBoundary>

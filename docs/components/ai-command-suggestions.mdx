@@ -10,14 +10,14 @@ Intelligent command suggestion system that provides contextual recommendations a
 ## Import
 
 ```svelte
-import { AICommandSuggestions } from 'bubble-tea-party'
+import { AICommandSuggestions } from '@org/ui'
 ```
 
 ## Basic Usage
 
 ```svelte
 <script>
-  import { AICommandSuggestions } from 'bubble-tea-party'
+  import { AICommandSuggestions } from '@org/ui'
   
   let currentCommand = ''
   let context = {
@@ -52,7 +52,7 @@ import { AICommandSuggestions } from 'bubble-tea-party'
 
 ```svelte
 <script>
-  import { AICommandSuggestions } from 'bubble-tea-party'
+  import { AICommandSuggestions } from '@org/ui'
   
   let aiConfig = {
     provider: 'openai',
@@ -196,7 +196,7 @@ AI command suggestions may send command context to external services. Configure 
 
 ```svelte
 <script>
-  import { AdvancedTerminal, AICommandSuggestions } from 'bubble-tea-party'
+  import { AdvancedTerminal, AICommandSuggestions } from '@org/ui'
   
   let terminalInput = ''
 </script>
@@ -213,7 +213,7 @@ AI command suggestions may send command context to external services. Configure 
 
 ```svelte
 <script>
-  import { AICommandSuggestions } from 'bubble-tea-party'
+  import { AICommandSuggestions } from '@org/ui'
   
   let suggestions = []
   
