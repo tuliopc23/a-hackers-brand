@@ -1,1 +1,0 @@
-export { default as component } from "../../../../src/routes/docs/components/retrofuturistictext/+page.svelte";

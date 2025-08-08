@@ -1,0 +1,35 @@
+# Dependencies and build outputs
+node_modules/
+dist/
+build/
+.svelte-kit/
+.vercel/
+
+# Log files and reports
+*.log
+*-report.json
+.deps-report.json
+
+# Documentation with code examples that may not parse
+**/docs/**/*.md
+MOTION_SYSTEM_GUIDE.md
+
+# Specific files with syntax errors
+src/lib/components/playground/CodePreview.svelte
+src/routes/docs/playground/+page.svelte
+
+# Test outputs
+test-results/
+playwright-report/
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

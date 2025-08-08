@@ -1,0 +1,38 @@
+[
+	{
+		"name": "Core Design System",
+		"path": "dist/index.js",
+		"limit": "100 KB",
+		"gzip": true
+	},
+	{
+		"name": "Components Bundle",
+		"path": "dist/components/index.js",
+		"limit": "80 KB",
+		"gzip": true
+	},
+	{
+		"name": "Motion System",
+		"path": "dist/motion/index.js",
+		"limit": "15 KB",
+		"gzip": true
+	},
+	{
+		"name": "Design Tokens",
+		"path": "dist/tokens/index.js",
+		"limit": "5 KB",
+		"gzip": true
+	},
+	{
+		"name": "WebGL Components",
+		"path": "dist/components/webgl/index.js",
+		"limit": "50 KB",
+		"gzip": true
+	},
+	{
+		"name": "Liquidify Components",
+		"path": "dist/components/liquidify/index.js",
+		"limit": "30 KB",
+		"gzip": true
+	}
+]
