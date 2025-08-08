@@ -1,0 +1,35 @@
+---
+title: Date Picker
+description: Minimal terminal-flavored date picker with keyboard navigation.
+---
+
+# Date Picker
+
+A compact, accessible calendar input that fits the hacker aesthetic.
+
+## Import
+
+```svelte
+<script>
+  import DatePicker from "@org/ui/DatePicker.svelte";
+</script>
+```
+
+## Basic usage
+
+```svelte preview
+<script>
+  import DatePicker from "@org/ui/DatePicker.svelte";
+  let date = new Date();
+</script>
+
+<DatePicker bind:value={date} />
+<p>Selected: {date.toDateString()}</p>
+```
+
+## Keyboard
+
+- Arrow keys move by day
+- PageUp/PageDown move by month
+- Home/End jump to start/end of month
+- Enter selects

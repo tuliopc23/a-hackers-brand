@@ -1,0 +1,36 @@
+---
+title: Table
+description: Semantic table with terminal borders and responsive scrolling.
+---
+
+# Table
+
+Use `Table` for small to medium datasets with built-in sorting and sticky header.
+
+## Import
+
+```svelte
+<script>
+  import Table from "@org/ui/Table.svelte";
+</script>
+```
+
+## Basic usage
+
+```svelte preview
+<script>
+  import Table from "@org/ui/Table.svelte";
+  const columns = [
+    { key: "host", header: "Host" },
+    { key: "status", header: "Status" },
+    { key: "uptime", header: "Uptime" }
+  ];
+  const rows = [
+    { host: "alpha", status: "online", uptime: "27d" },
+    { host: "beta", status: "degraded", uptime: "12d" },
+    { host: "gamma", status: "offline", uptime: "—" }
+  ];
+</script>
+
+<Table {columns} {rows} />
+```

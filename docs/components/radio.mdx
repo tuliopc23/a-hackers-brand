@@ -1,0 +1,52 @@
+---
+title: Radio
+description: Terminal-native radio inputs with neon focus rings and keyboard-first UX.
+---
+
+# Radio
+
+Use `Radio` to select a single option from a list with a hacker aesthetic.
+
+## Import
+
+```svelte
+<script>
+  import Radio from "@org/ui/Radio.svelte";
+</script>
+```
+
+## Basic usage
+
+```svelte preview
+<script>
+  import Radio from "@org/ui/Radio.svelte";
+  let value = "ssh";
+  const options = [
+    { label: "SSH", value: "ssh" },
+    { label: "Telnet", value: "telnet" },
+    { label: "Serial", value: "serial" }
+  ];
+</script>
+
+{#each options as opt}
+  <Radio name="proto" bind:group={value} value={opt.value}>
+    {opt.label}
+  </Radio>
+{/each}
+
+<p>Selected: {value}</p>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+| - | - | - | - |
+| `value` | string | — | Radio option value |
+| `group` | any | — | Bind for single-selection |
+| `disabled` | boolean | false | Disable interaction |
+
+## Accessibility
+
+- Focus-visible neon ring, 3:1 contrast minimum
+- Arrow keys cycle options when grouped
+- Announces checked state to screen readers
