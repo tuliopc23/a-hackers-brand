@@ -15,7 +15,7 @@
 	const {
 		intensity = 1.0,
 		speed = 1.0,
-		colors = ['#00d4aa', '#0099ff', '#6600ff'],
+    colors = ['#00ff41', '#00ffff', '#8a2be2'],
 		interactive = true,
 		pattern = 'waves',
 		quality = 'medium',
