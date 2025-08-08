@@ -181,7 +181,7 @@ export function generateTroubleshootingReport(): string {
 
     report += '## Browser Compatibility\n\n';
     report += `- **localStorage:** ${typeof Storage !== 'undefined' ? '✅' : '❌'}\n`;
-    report += `- **matchMedia:** ${typeof window !== 'undefined' && window.matchMedia ? '✅' : '❌'}\n`;
+    report += `- **matchMedia:** ${typeof window !== 'undefined' && typeof window.matchMedia === 'function' ? '✅' : '❌'}\n`;
     let cssSupports = true;
     if (typeof window !== 'undefined') {
         const supportsFn = (window as any).CSS?.supports;

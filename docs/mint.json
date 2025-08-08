@@ -8,7 +8,7 @@
   },
   "topbarLinks": [
     { "name": "GitHub", "url": "https://github.com/org/ui" },
-    { "name": "Storybook", "url": "/integrations/storybook" }
+    { "name": "Histoire", "url": "/integrations/histoire" }
   ],
   "topbarCtaButton": { "name": "Get Started", "url": "/getting-started/installation" },
   "colors": {

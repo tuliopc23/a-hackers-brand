@@ -2,7 +2,7 @@
 	import { cn } from '../utils.js';
 	import { liquidBlur, springPop } from '../motion';
 	import { brandColors } from '../tokens';
-	import { TrendingUp, TrendingDown, Minus, Activity } from 'lucide-svelte';
+import { TrendingUp, TrendingDown, Minus, Activity } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	export interface MetricData {
@@ -170,8 +170,9 @@
 	}
 </script>
 
-<div
-	class={cn(
+<svelte:element
+    this={clickable ? 'button' : 'div'}
+    class={cn(
 		'relative rounded-lg border transition-all duration-200',
 		currentSize.container,
 		currentVariant.container,
@@ -181,8 +182,8 @@
 	)}
 	use:liquidBlur={{ intensity: 'medium' }}
 	onclick={handleClick}
-	role={clickable ? 'button' : undefined}
-	tabindex={clickable ? 0 : undefined}
+    role={clickable ? 'button' : undefined}
+    tabindex={clickable ? 0 : undefined}
 	{...restProps}
 >
 	{#if layout === 'horizontal'}
@@ -278,7 +279,7 @@
 			class="absolute inset-0 bg-white/5 opacity-0 hover:opacity-100 transition-opacity duration-200 rounded-lg pointer-events-none"
 		></div>
 	{/if}
-</div>
+</svelte:element>
 
 <style>
 	/* Ensure smooth hover transitions */

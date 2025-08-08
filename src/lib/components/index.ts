@@ -52,6 +52,7 @@ export { default as CommandBlock } from './CommandBlock.svelte';
 export { default as LazyTerminalWindow } from './LazyTerminalWindow.svelte';
 export { default as LiquidTerminal } from './LiquidTerminal.svelte';
 export { default as TerminalOrbit } from './TerminalOrbit.svelte';
+// Avoid static import of TerminalWindow to let Lazy chunk properly
 export { default as TerminalWindow } from './TerminalWindow.svelte';
 
 // Retro Computer Components
@@ -61,15 +62,15 @@ export { default as RetroFuturisticText } from './RetroFuturisticText.svelte';
 export { default as RetroText } from './RetroText.svelte';
 export { default as TerminalStartup } from './TerminalStartup.svelte';
 
-// 3D/WebGL Components
-export { default as GlassScene } from './GlassScene.svelte';
-export { default as LazyThrelteCanvas } from './LazyThrelteCanvas.svelte';
-export { default as ThrelteCanvas } from './ThrelteCanvas.svelte';
+// 3D/WebGL Components (temporarily excluded from public exports)
+// export { default as GlassScene } from './GlassScene.svelte';
+// export { default as LazyThrelteCanvas } from './LazyThrelteCanvas.svelte';
+// export { default as ThrelteCanvas } from './ThrelteCanvas.svelte';
 
-// Performance Components
-export { default as PerformanceDashboard } from './PerformanceDashboard.svelte';
-export { default as PerformanceMonitor } from './PerformanceMonitor.svelte';
-export { default as PerfOverlay } from './PerfOverlay.svelte';
+// Performance Components (internal)
+// export { default as PerformanceDashboard } from './PerformanceDashboard.svelte';
+// export { default as PerformanceMonitor } from './PerformanceMonitor.svelte';
+// export { default as PerfOverlay } from './PerfOverlay.svelte';
 
 // Error Boundaries
 export { default as AsyncErrorBoundary } from './AsyncErrorBoundary.svelte';
@@ -87,22 +88,16 @@ export { default as Carousel } from './Carousel.svelte';
 export { default as Drawer } from './Drawer.svelte';
 
 // Theme Components
-export { default as AccessibilityReport } from './AccessibilityReport.svelte';
+// export { default as AccessibilityReport } from './AccessibilityReport.svelte';
 export { default as ColorPalette } from './ColorPalette.svelte';
 export { default as GlowText } from './GlowText.svelte';
 export { default as StatusBar } from './StatusBar.svelte';
 
-// Responsive Layout Components
-export * from './responsive/index.js';
-
-// Liquidify Components (Glass UI Library)
-export * from './liquidify/index.js';
-
-// WebGL/3D Effects
-export * from './webgl/index.js';
-
-// Visual Effects
-export * from './effects/index.js';
+// Responsive/Liquidify/WebGL/Effects (internal for now)
+// export * from './responsive/index.js';
+// export * from './liquidify/index.js';
+// export * from './webgl/index.js';
+// export * from './effects/index.js';
 
 // Additional Components
-export { default as ThemeDebugPanel } from './ThemeDebugPanel.svelte';
+// export { default as ThemeDebugPanel } from './ThemeDebugPanel.svelte';

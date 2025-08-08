@@ -1,6 +1,4 @@
-export * from './lazy.js';
-export * from './responsive.js';
-export * from './accessibility.js';
-export * from './radius.js';
-export * from './theme-aware.js';
-export * from './theme-error-handler.ts';
+export declare function cn(...classes: Array<string | false | null | undefined>): string;
+declare module '../utils.js' {
+  export function cn(...classes: Array<string | false | null | undefined>): string;
+}

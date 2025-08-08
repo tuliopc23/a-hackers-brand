@@ -3,7 +3,7 @@
 	import { liquidBlur, springPop } from '../motion';
 	import { brandColors } from '../tokens';
 	import { createEventDispatcher } from 'svelte';
-	import { ChevronUp, ChevronDown, Search, Filter, MoreHorizontal } from 'lucide-svelte';
+import { ChevronUp, ChevronDown, Search, Filter } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	export interface TableColumn {
@@ -336,10 +336,11 @@
 			>
 				{#each columns.filter((col) => col.filterable) as column}
 					<div>
-						<label class="block text-xs font-medium mb-1 opacity-70">
-							{column.label}
-						</label>
+                        <label class="block text-xs font-medium mb-1 opacity-70" for={`filter-${column.key}`}>
+                            {column.label}
+                        </label>
 						<input
+                            id={`filter-${column.key}`}
 							value={filterConfig?.[column.key] || ''}
 							oninput={(e) => handleFilterChange(column.key, e.currentTarget.value)}
 							placeholder={`Filter by ${column.label.toLowerCase()}...`}

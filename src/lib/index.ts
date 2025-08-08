@@ -1,5 +1,5 @@
 // Main entry point for the library
 export * from './components/index.js';
 export * from './tokens/index.js';
-export * from './motion/index.js';
+export * from './motion';
 export * from './utils/index.js';

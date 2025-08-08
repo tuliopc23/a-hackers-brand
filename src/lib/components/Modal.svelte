@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { liquidBlur, glassFade, springPop, magneticHover, breathing as breathingMotion } from '../motion';
+import { glassFade, springPop, jellyHover as jellyHover, breathing as breathingMotion } from '../motion';
 	import { sizeOf } from '../utils/bundle-size.js';
 	import { onMount } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
@@ -231,7 +231,7 @@
 				duration: 300,
 				borderRadius: 'var(--radius-xl)'
 			}}
-			use:breathingMotion={{
+            use:breathingMotion={{
 				enabled: breathing && animate && !reduceMotion,
 				intensity: 0.01,
 				speed: 4000

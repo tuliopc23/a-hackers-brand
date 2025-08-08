@@ -1,19 +1,13 @@
-export * from './tokens.js';
-export * from './liquidBlur.js';
-export { liquidBlurTransition } from './liquidBlur.js';
-export * from './glassFade.js';
-export * from './springPop.js';
-export * from './magneticHover.js';
-export * from './jellyMotion.js';
-export { springPopAction } from './springPop.js';
-export { liquidBlur as liquid } from './liquidBlur.js';
-export { glassFade as fade } from './glassFade.js';
-export { springPop as pop } from './springPop.js';
-export {
-  jelly,
-  liquidJelly,
-  jellyHover,
-  liquidResponsive,
-  breathing,
-  breathing as breathingMotion
-} from './jellyMotion.js';
+import type { Action } from 'svelte/action';
+export type MagneticHoverOptions = { enabled?: boolean; strength?: number; scale?: number; distance?: number };
+export declare const magneticHover: Action<HTMLElement, MagneticHoverOptions | undefined>;
+export type JellyHoverOptions = { enabled?: boolean; intensity?: number; speed?: number; duration?: number; scale?: number; borderRadius?: string };
+export declare const jellyHover: Action<HTMLElement, JellyHoverOptions | undefined>;
+export type LiquidBlurOptions = { amount?: number; duration?: number; blur?: 'sm'|'md'|'lg'|'xl'; opacity?: 'light'|'subtle'|'medium'|'strong'; scale?: number; intensity?: 'low'|'medium'|'high' };
+export declare const liquidBlur: Action<HTMLElement, LiquidBlurOptions | undefined>;
+export type SpringPopParams = { duration?: number; delay?: number; bounce?: boolean; scale?: number };
+export declare function springPop(node: Element, params?: SpringPopParams): { duration: number; delay: number; css: (t: number) => string };
+export type GlassFadeParams = { duration?: number; delay?: number; direction?: 'up'|'down'|'center'; distance?: number; opacity?: 'light'|'subtle'|'medium'|'strong' };
+export declare function glassFade(node: Element, params?: GlassFadeParams): { duration: number; delay: number; css: (t: number) => string };
+export declare const breathing: Action<HTMLElement, { enabled?: boolean; intensity?: number; speed?: number } | undefined>;
+export declare const liquidResponsive: typeof jellyHover;

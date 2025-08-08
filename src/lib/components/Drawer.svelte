@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { liquidBlur, springPop } from '../motion';
-	import { brandColors } from '../tokens';
+    import { liquidBlur } from '../motion';
 	import { createEventDispatcher, onMount } from 'svelte';
-	import { X } from 'lucide-svelte';
+import { X } from 'lucide-svelte';
 	import { fly, fade } from 'svelte/transition';
 	import type { HTMLAttributes } from 'svelte/elements';
 
-	interface Props extends HTMLAttributes<HTMLDivElement> {
+    interface Props extends HTMLAttributes<HTMLDivElement> {
 		open?: boolean;
 		position?: 'left' | 'right' | 'top' | 'bottom';
 		size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
@@ -18,6 +17,7 @@
 		showCloseButton?: boolean;
 		persistent?: boolean;
 		class?: string;
+        children?: any;
 	}
 
 	let {
@@ -30,7 +30,8 @@
 		closeOnEscape = true,
 		showCloseButton = true,
 		persistent = false,
-		class: className = '',
+        class: className = '',
+        children,
 		...restProps
 	}: Props = $props();
 
@@ -202,13 +203,13 @@
 		<div bind:this={contentElement} class="flex flex-col h-full focus:outline-none" tabindex="-1">
 			<!-- Header -->
 			<div class="flex items-center justify-between p-4 border-b border-white/10 flex-shrink-0">
-				<div class="flex-1">
-					<slot name="header">
-						<h2 id="drawer-title" class="text-lg font-semibold">
-							<slot name="title">Drawer</slot>
-						</h2>
-					</slot>
-				</div>
+                <div class="flex-1">
+                    {#if children?.header}
+                        {@render children.header()}
+                    {:else}
+                        <h2 id="drawer-title" class="text-lg font-semibold">Drawer</h2>
+                    {/if}
+                </div>
 
 				{#if showCloseButton && !persistent}
 					<button
@@ -223,16 +224,18 @@
 			</div>
 
 			<!-- Content -->
-			<div class="flex-1 overflow-y-auto p-4">
-				<slot {open} close={closeDrawer}></slot>
-			</div>
+            <div class="flex-1 overflow-y-auto p-4">
+                {#if children}
+                    {@render children({ open, close: closeDrawer })}
+                {/if}
+            </div>
 
 			<!-- Footer -->
-			{#if $$slots.footer}
-				<div class="p-4 border-t border-white/10 flex-shrink-0">
-					<slot name="footer" {open} close={closeDrawer}></slot>
-				</div>
-			{/if}
+            {#if children?.footer}
+                <div class="p-4 border-t border-white/10 flex-shrink-0">
+                    {@render children.footer({ open, close: closeDrawer })}
+                </div>
+            {/if}
 		</div>
 	</div>
 {/if}

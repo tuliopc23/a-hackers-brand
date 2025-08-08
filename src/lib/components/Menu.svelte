@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { liquidBlur, springPop } from '../motion';
-	import { brandColors } from '../tokens';
+import { liquidBlur } from '../motion';
 	import { createEventDispatcher, onMount } from 'svelte';
-	import { ChevronRight, ChevronDown } from 'lucide-svelte';
+import { ChevronRight, ChevronDown } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	export interface MenuItem {
@@ -19,9 +18,9 @@
 		keyboard?: string;
 	}
 
-	interface Props extends HTMLAttributes<HTMLDivElement> {
-		items: MenuItem[];
-		trigger?: 'click' | 'hover';
+    interface Props extends HTMLAttributes<HTMLDivElement> {
+        items: MenuItem[];
+        openMode?: 'click' | 'hover';
 		placement?: 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end' | 'right-start' | 'left-start';
 		variant?: 'glass' | 'terminal' | 'liquid';
 		size?: 'sm' | 'md' | 'lg';
@@ -29,18 +28,20 @@
 		showIcons?: boolean;
 		showKeyboards?: boolean;
 		class?: string;
+        children?: any;
 	}
 
-	let {
-		items,
-		trigger = 'click',
+    let {
+        items,
+        openMode = 'click',
 		placement = 'bottom-start',
 		variant = 'glass',
 		size = 'md',
 		closeOnClick = true,
 		showIcons = true,
 		showKeyboards = true,
-		class: className = '',
+        class: className = '',
+        children,
 		...restProps
 	}: Props = $props();
 
@@ -54,7 +55,7 @@
 
 	const uniqueId = `menu-${Math.random().toString(36).substr(2, 9)}`;
 
-	const sizes = {
+    const sizes = {
 		sm: {
 			item: 'px-3 py-1.5 text-sm',
 			icon: 'w-4 h-4',
@@ -109,7 +110,7 @@
 	const currentVariant = variants[variant];
 
 	// Get all menu items flattened for keyboard navigation
-	const flatItems = $derived(() => {
+    const flatItems = $derived<MenuItem[]>(() => {
 		const flat: MenuItem[] = [];
 
 		function flatten(items: MenuItem[]) {
@@ -162,18 +163,18 @@
 	}
 
 	function handleMouseEnter(item: MenuItem) {
-		if (trigger === 'hover' && item.children?.length) {
+		if (openMode === 'hover' && item.children?.length) {
 			activeSubmenuId = item.id;
 		}
 	}
 
 	function handleMouseLeave() {
-		if (trigger === 'hover') {
+		if (openMode === 'hover') {
 			activeSubmenuId = null;
 		}
 	}
 
-	function handleKeydown(event: KeyboardEvent) {
+    function handleKeydown(event: KeyboardEvent) {
 		if (!isOpen) {
 			if (event.key === 'Enter' || event.key === ' ') {
 				event.preventDefault();
@@ -197,13 +198,13 @@
 				break;
 			case 'Enter':
 				event.preventDefault();
-				if (highlightedIndex >= 0 && flatItems[highlightedIndex]) {
-					handleItemClick(flatItems[highlightedIndex]);
+                if (highlightedIndex >= 0 && flatItems()[highlightedIndex]) {
+                    handleItemClick(flatItems()[highlightedIndex]);
 				}
 				break;
 			case 'ArrowRight':
-				if (highlightedIndex >= 0 && flatItems[highlightedIndex]?.children?.length) {
-					activeSubmenuId = flatItems[highlightedIndex].id;
+                if (highlightedIndex >= 0 && flatItems()[highlightedIndex]?.children?.length) {
+                    activeSubmenuId = flatItems()[highlightedIndex].id;
 				}
 				break;
 			case 'ArrowLeft':
@@ -240,31 +241,33 @@
 
 <div bind:this={menuElement} class={cn('relative inline-block', className)} {...restProps}>
 	<!-- Trigger -->
-	<div
+    <div
 		bind:this={triggerElement}
 		class="cursor-pointer"
-		onclick={trigger === 'click' ? toggleMenu : undefined}
-		onmouseenter={trigger === 'hover' ? toggleMenu : undefined}
-		onmouseleave={trigger === 'hover' ? () => setTimeout(closeMenu, 150) : undefined}
+        onclick={openMode === 'click' ? toggleMenu : undefined}
+        onmouseenter={openMode === 'hover' ? toggleMenu : undefined}
+        onmouseleave={openMode === 'hover' ? () => setTimeout(closeMenu, 150) : undefined}
 		onkeydown={handleKeydown}
 		tabindex="0"
 		role="button"
 		aria-expanded={isOpen}
 		aria-haspopup="menu"
 		aria-controls={uniqueId}
-	>
-		<slot name="trigger">
-			<div
-				class={cn(
-					'flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-200',
-					currentVariant.item,
-					isOpen && currentVariant.itemActive
-				)}
-			>
-				<span>Menu</span>
-				<ChevronDown size={16} class={cn('transition-transform duration-200', isOpen && 'rotate-180')} />
-			</div>
-		</slot>
+        >
+        {#if children?.trigger}
+            {@render children.trigger()}
+        {:else}
+            <div
+                class={cn(
+                    'flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-200',
+                    currentVariant.item,
+                    isOpen && currentVariant.itemActive
+                )}
+            >
+                <span>Menu</span>
+                <ChevronDown size={16} class={cn('transition-transform duration-200', isOpen && 'rotate-180')} />
+            </div>
+        {/if}
 	</div>
 
 	<!-- Menu -->
@@ -287,10 +290,11 @@
 									'flex items-center justify-between cursor-pointer transition-all duration-150',
 									currentSize.item,
 									item.disabled ? currentVariant.itemDisabled : currentVariant.item,
-									highlightedIndex === flatItems.indexOf(item) && !item.disabled && currentVariant.itemActive,
+                                    highlightedIndex === flatItems().indexOf(item) && !item.disabled && currentVariant.itemActive,
 									activeSubmenuId === item.id && currentVariant.itemActive
 								)}
-								onclick={() => handleItemClick(item)}
+                            onclick={() => handleItemClick(item)}
+                            onkeydown={(e) => e.key === 'Enter' && handleItemClick(item)}
 								onmouseenter={() => handleMouseEnter(item)}
 								onmouseleave={handleMouseLeave}
 								role="menuitem"
@@ -355,7 +359,8 @@
 														currentSize.item,
 														childItem.disabled ? currentVariant.itemDisabled : currentVariant.item
 													)}
-													onclick={() => handleItemClick(childItem)}
+                                                    onclick={() => handleItemClick(childItem)}
+                                                    onkeydown={(e) => e.key === 'Enter' && handleItemClick(childItem)}
 													role="menuitem"
 													aria-disabled={childItem.disabled}
 													tabindex={childItem.disabled ? -1 : 0}

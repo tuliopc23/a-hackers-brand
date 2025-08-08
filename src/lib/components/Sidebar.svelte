@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { liquidBlur, springPop } from '../motion';
-	import { brandColors } from '../tokens';
+    import { liquidBlur } from '../motion';
 	import { createEventDispatcher } from 'svelte';
-	import { X, ChevronLeft, ChevronRight, Menu } from 'lucide-svelte';
+import { ChevronLeft, ChevronRight } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	export interface SidebarItem {
@@ -18,7 +17,7 @@
 		onclick?: () => void;
 	}
 
-	interface Props extends HTMLAttributes<HTMLDivElement> {
+    interface Props extends HTMLAttributes<HTMLDivElement> {
 		items?: SidebarItem[];
 		width?: 'sm' | 'md' | 'lg' | 'xl';
 		variant?: 'glass' | 'terminal' | 'liquid';
@@ -29,6 +28,7 @@
 		persistent?: boolean;
 		showToggle?: boolean;
 		class?: string;
+        children?: any;
 	}
 
 	let {
@@ -41,7 +41,8 @@
 		overlay = false,
 		persistent = true,
 		showToggle = true,
-		class: className = '',
+        class: className = '',
+        children,
 		...restProps
 	}: Props = $props();
 
@@ -166,7 +167,7 @@
 
 <!-- Overlay for mobile -->
 {#if overlay && !collapsed}
-	<div class={cn('fixed inset-0 z-40', currentVariant.overlay)} onclick={closeSidebar} transition:fade></div>
+    <div class={cn('fixed inset-0 z-40', currentVariant.overlay)} onclick={closeSidebar} onkeydown={(e)=> (e.key==='Enter' || e.key===' ') && closeSidebar()} role="button" aria-label="Close sidebar overlay" tabindex="0"></div>
 {/if}
 
 <!-- Sidebar -->
@@ -176,7 +177,7 @@
 		widths[width],
 		currentVariant.sidebar,
 		position === 'right' && 'border-r-0 border-l',
-		overlay && 'fixed top-0 z-50',
+        overlay && 'fixed top-0 z-50',
 		overlay && position === 'left' && 'left-0',
 		overlay && position === 'right' && 'right-0',
 		overlay && collapsed && '-translate-x-full',
@@ -188,12 +189,14 @@
 >
 	<!-- Header with Toggle -->
 	{#if showToggle}
-		<div class="flex items-center justify-between p-4 border-b border-white/10">
-			{#if !collapsed}
-				<slot name="header">
-					<h2 class="text-lg font-semibold truncate">Menu</h2>
-				</slot>
-			{/if}
+        <div class="flex items-center justify-between p-4 border-b border-white/10">
+            {#if !collapsed}
+                {#if children?.header}
+                    {@render children.header()}
+                {:else}
+                    <h2 class="text-lg font-semibold truncate">Menu</h2>
+                {/if}
+            {/if}
 
 			{#if collapsible}
 				<button
@@ -243,11 +246,12 @@
 							</div>
 						{:else if hasChildren}
 							<div class="w-5 h-5 flex-shrink-0">
-								{#if isExpanded}
-									<ChevronDown size={16} />
-								{:else}
-									<ChevronRight size={16} />
-								{/if}
+                        {#if isExpanded}
+                            <!-- caret down substitute -->
+                            <span class="inline-block w-4 h-4 rotate-90 border-r-2 border-b-2 border-current" style="transform: rotate(45deg);"></span>
+                        {:else}
+                            <ChevronRight size={16} />
+                        {/if}
 							</div>
 						{/if}
 
@@ -274,11 +278,11 @@
 	</nav>
 
 	<!-- Footer -->
-	{#if $$slots.footer}
-		<div class="p-4 border-t border-white/10">
-			<slot name="footer" {collapsed}></slot>
-		</div>
-	{/if}
+    {#if children?.footer}
+        <div class="p-4 border-t border-white/10">
+            {@render children.footer({ collapsed })}
+        </div>
+    {/if}
 </aside>
 
 <style>

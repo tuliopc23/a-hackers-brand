@@ -140,14 +140,9 @@
 			enabled: !disabled && !loading && jelly,
 			duration: 200,
 			scale: variant === 'liquid' ? 1.08 : 1.05,
-			borderRadius: 'var(--radius-lg)',
-			responsiveness: 'medium'
+            borderRadius: 'var(--radius-lg)'
 		}}
-		use:liquidResponsive={{
-			enabled: !disabled && !loading && liquid,
-			liquidIntensity: 1.2,
-			morphStrength: 0.4
-		}}
+  use:liquidResponsive={{ enabled: !disabled && !loading && liquid }}
 		use:magneticHover={{ enabled: !disabled && !loading && !jelly && !liquid, strength: 0.15, scale: 1.02 }}
 		in:springPop={{ duration: 200, bounce: variant.includes('glass') || variant === 'liquid' }}
 		{...restProps}
@@ -173,14 +168,9 @@
 			enabled: !disabled && !loading && jelly,
 			duration: 200,
 			scale: variant === 'liquid' ? 1.08 : variant === 'bubbleTea' ? 1.06 : 1.05,
-			borderRadius: 'var(--radius-lg)',
-			responsiveness: 'medium'
+            borderRadius: 'var(--radius-lg)'
 		}}
-		use:liquidResponsive={{
-			enabled: !disabled && !loading && liquid,
-			liquidIntensity: 1.2,
-			morphStrength: 0.4
-		}}
+  use:liquidResponsive={{ enabled: !disabled && !loading && liquid }}
 		use:magneticHover={{ enabled: !disabled && !loading && !jelly && !liquid, strength: 0.15, scale: 1.02 }}
 		{...restProps}
 	>

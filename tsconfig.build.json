@@ -1,10 +1,28 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "outDir": "dist",
     "declaration": true,
     "emitDeclarationOnly": true,
-    "outDir": "dist",
-    "noEmit": false
+    "noEmit": false,
+    "composite": false,
+    "declarationMap": false,
+    "stripInternal": false,
+    "removeComments": false,
+    "sourceMap": false,
+    "allowJs": true,
+    "checkJs": false,
+    "skipLibCheck": true
   },
-  "include": ["src/lib/**/*.ts", "src/lib/**/*.d.ts"]
+  "include": [
+    "src/lib/**/*.ts",
+    "src/lib/**/*.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/lib/**/*.story.svelte",
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts"
+  ]
 }

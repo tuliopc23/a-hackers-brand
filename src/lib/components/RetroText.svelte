@@ -106,7 +106,7 @@
 			shadowColor: '#00ffff80'
 		},
 		magenta: {
-            color: 'var(--color-terminal-pink)'
+			color: 'var(--color-terminal-pink)',
 			shadowColor: '#ff00ff80'
 		}
 	};

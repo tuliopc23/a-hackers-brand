@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { liquidBlur, springPop } from '../motion';
-	import { brandColors } from '../tokens';
+    import { liquidBlur } from '../motion';
 	import { createEventDispatcher, onMount } from 'svelte';
-	import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-svelte';
+import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	export interface CarouselItem {
@@ -15,7 +14,7 @@
 		href?: string;
 	}
 
-	interface Props extends HTMLAttributes<HTMLDivElement> {
+    interface Props extends HTMLAttributes<HTMLDivElement> {
 		items: CarouselItem[];
 		currentIndex?: number;
 		autoPlay?: boolean;
@@ -32,6 +31,7 @@
 		gap?: 'sm' | 'md' | 'lg';
 		touchEnabled?: boolean;
 		class?: string;
+        children?: any;
 	}
 
 	let {
@@ -50,7 +50,8 @@
 		itemsPerView = 1,
 		gap = 'md',
 		touchEnabled = true,
-		class: className = '',
+        class: className = '',
+        children,
 		...restProps
 	}: Props = $props();
 
@@ -124,26 +125,26 @@
 	const currentVariant = variants[variant];
 
 	// Computed properties
-	const totalItems = $derived(() => items.length);
-	const maxIndex = $derived(() => Math.max(0, totalItems - itemsPerView));
-	const canPrevious = $derived(() => loop || currentIndex > 0);
-	const canNext = $derived(() => loop || currentIndex < maxIndex);
+    const totalItems = $derived<number>(() => items.length);
+    const maxIndex = $derived<number>(() => Math.max(0, totalItems() - itemsPerView));
+    const canPrevious = $derived<boolean>(() => loop || currentIndex > 0);
+    const canNext = $derived<boolean>(() => loop || currentIndex < maxIndex());
 
-	const translateX = $derived(() => {
-		const percentage = (currentIndex * 100) / itemsPerView;
-		return `-${percentage}%`;
-	});
+    const translateX = $derived<string>(() => {
+        const percentage = (currentIndex * 100) / itemsPerView;
+        return `-${percentage}%`;
+    });
 
-	const progress = $derived(() => {
-		if (totalItems <= 1) return 100;
-		return ((currentIndex + 1) / totalItems) * 100;
-	});
+    const progress = $derived<number>(() => {
+        if (totalItems() <= 1) return 100;
+        return ((currentIndex + 1) / totalItems()) * 100;
+    });
 
 	function goToSlide(index: number) {
-		if (index < 0) {
-			currentIndex = loop ? maxIndex : 0;
-		} else if (index > maxIndex) {
-			currentIndex = loop ? 0 : maxIndex;
+        if (index < 0) {
+            currentIndex = loop ? maxIndex() : 0;
+        } else if (index > maxIndex()) {
+            currentIndex = loop ? 0 : maxIndex();
 		} else {
 			currentIndex = index;
 		}
@@ -176,11 +177,11 @@
 	}
 
 	function startAutoPlay() {
-		if (!isPlaying || totalItems <= 1) return;
+        if (!isPlaying || totalItems() <= 1) return;
 
 		stopAutoPlay();
-		intervalId = setInterval(() => {
-			if (currentIndex >= maxIndex && !loop) {
+        intervalId = setInterval(() => {
+            if (currentIndex >= maxIndex() && !loop) {
 				stopAutoPlay();
 				return;
 			}
@@ -298,8 +299,7 @@
 		className
 	)}
 	use:liquidBlur={{ intensity: 'medium' }}
-	onkeydown={handleKeydown}
-	tabindex="0"
+    onkeydown={handleKeydown}
 	role="region"
 	aria-label="Carousel"
 	aria-live="polite"
@@ -316,38 +316,44 @@
 		<!-- Items -->
 		<div
 			class={cn('flex h-full transition-transform duration-300 ease-in-out', currentSize.gap[gap])}
-			style={`transform: translateX(${translateX}); width: ${(totalItems * 100) / itemsPerView}%`}
+            style={`transform: translateX(${translateX()}); width: ${(totalItems() * 100) / itemsPerView}%`}
 		>
-			{#each items as item, index (item.id)}
-				<div class="flex-shrink-0 h-full relative" style={`width: ${100 / totalItems}%`}>
-					<slot {item} {index} active={index === currentIndex}>
+            {#each items as item, index (item.id)}
+                <div class="flex-shrink-0 h-full relative" style={`width: ${100 / totalItems()}%`}>
+                {#if false}
+                  <div></div>
+                {:else}
 						<!-- Default item content -->
 						<div class="w-full h-full flex flex-col">
-							{#if item.image}
-								<img
-									src={item.image}
-									alt={item.title || `Slide ${index + 1}`}
-									class="w-full h-full object-cover"
-									loading="lazy"
-								/>
-							{/if}
+                            {#if children?.item}
+                                {@render children.item({ item, index })}
+                            {:else}
+                                {#if item.image}
+                                    <img
+                                        src={item.image}
+                                        alt={item.title || `Slide ${index + 1}`}
+                                        class="w-full h-full object-cover"
+                                        loading="lazy"
+                                    />
+                                {/if}
 
-							{#if item.title || item.description}
-								<div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-									{#if item.title}
-										<h3 class="text-lg font-semibold text-white mb-1">
-											{item.title}
-										</h3>
-									{/if}
-									{#if item.description}
-										<p class="text-sm text-white/80">
-											{item.description}
-										</p>
-									{/if}
-								</div>
-							{/if}
+                                {#if item.title || item.description}
+                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                                        {#if item.title}
+                                            <h3 class="text-lg font-semibold text-white mb-1">
+                                                {item.title}
+                                            </h3>
+                                        {/if}
+                                        {#if item.description}
+                                            <p class="text-sm text-white/80">
+                                                {item.description}
+                                            </p>
+                                        {/if}
+                                    </div>
+                                {/if}
+                            {/if}
 						</div>
-					</slot>
+                {/if}
 				</div>
 			{/each}
 		</div>
@@ -364,7 +370,7 @@
 	{/if}
 
 	<!-- Controls -->
-	{#if showControls && totalItems > 1}
+    {#if showControls && totalItems() > 1}
 		<!-- Previous Button -->
 		<button
 			onclick={previous}
@@ -419,7 +425,7 @@
 	{/if}
 
 	<!-- Dots Navigation -->
-	{#if showDots && totalItems > 1}
+    {#if showDots && totalItems() > 1}
 		<div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
 			{#each items as _, index}
 				<button

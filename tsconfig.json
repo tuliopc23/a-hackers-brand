@@ -9,8 +9,12 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": false,
     "jsx": "react-jsx",
-    "types": ["svelte", "vitest/globals"]
+    "types": ["svelte", "vitest/globals"],
+    "baseUrl": ".",
+    "paths": {
+      "$lib/*": ["./src/lib/*"]
+    }
   },
-  "include": ["src", "docs", "src/lib/types/shims.d.ts"],
+  "include": ["src", "docs", "src/lib/types/shims.d.ts", "src/lib/types/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

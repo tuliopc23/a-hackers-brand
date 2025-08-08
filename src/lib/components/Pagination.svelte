@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
 	import { magneticHover } from '../motion';
-	import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-svelte';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLAttributes<HTMLElement> {

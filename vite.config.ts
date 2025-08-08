@@ -4,9 +4,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'; // Svelte plugin for Vite
 // Library build using Vite + LightningCSS (Vite uses its default bundler)
 export default defineConfig({
   plugins: [svelte()],
-  css: {
-    transformer: 'lightningcss'
-  },
+  // Use default CSS transformer for better Svelte :global() handling
   build: {
     lib: {
       entry: 'src/lib/index.ts',
@@ -19,12 +17,16 @@ export default defineConfig({
         '@threlte/core',
         '@threlte/extras',
         'three',
-        '@lucide/svelte'
+        '@lucide/svelte',
+        'lucide-svelte'
       ]
     }
   },
   resolve: {
-    // rolldown (oxc) provides fast resolver/minifier internally
+    // Provide $lib alias used by stories and docs
+    alias: {
+      $lib: '/src/lib'
+    },
     conditions: ['import', 'module', 'default']
   }
 });

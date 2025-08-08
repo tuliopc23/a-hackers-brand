@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '../utils.js';
-	import { glassFade, liquidBlur, magneticHover } from '../motion';
+import { glassFade, liquidBlur, magneticHover, jellyHover } from '../motion';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	interface Props extends Omit<HTMLInputAttributes, 'size'> {
@@ -96,7 +96,7 @@
 				class={combinedClasses()}
 				in:liquidBlur={{ duration: 300, blur: 'sm', scale: 0.98 }}
 				use:magneticHover={magnetic ? { strength: 0.1, distance: 50 } : undefined}
-				use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
+                use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
 				{...restProps}
 			/>
 		{:else if animate}
@@ -108,7 +108,7 @@
 				aria-describedby={errorId}
 				in:glassFade={{ duration: 200, direction: 'up', distance: 5, opacity: 'light' }}
 				use:magneticHover={magnetic ? { strength: 0.1, distance: 50 } : undefined}
-				use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
+                use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
 				{...restProps}
 			/>
 		{:else}
@@ -119,7 +119,7 @@
 				aria-invalid={!!error}
 				aria-describedby={errorId}
 				use:magneticHover={magnetic ? { strength: 0.1, distance: 50 } : undefined}
-				use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
+                use:jellyHover={jelly ? { intensity: 0.05, speed: 200 } : undefined}
 				{...restProps}
 			/>
 		{/if}

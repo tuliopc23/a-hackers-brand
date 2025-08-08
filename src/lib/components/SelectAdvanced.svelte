@@ -3,7 +3,7 @@
 	import { liquidBlur, springPop } from '../motion';
 	import { brandColors, glassEffects } from '../tokens';
 	import { createEventDispatcher, onMount } from 'svelte';
-	import { Check, ChevronDown, X, Search } from 'lucide-svelte';
+import { Check, ChevronDown, X, Search } from 'lucide-svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	export interface SelectOption {
@@ -61,8 +61,8 @@
 	let isOpen = $state(false);
 	let searchQuery = $state('');
 	let selectElement: HTMLDivElement;
-	let dropdownElement: HTMLDivElement;
-	let searchInputElement: HTMLInputElement;
+    let dropdownElement: HTMLDivElement = $state();
+    let searchInputElement: HTMLInputElement = $state();
 	let highlightedIndex = $state(-1);
 
 	const uniqueId = `select-${Math.random().toString(36).substr(2, 9)}`;
@@ -257,7 +257,7 @@
 
 <div bind:this={selectElement} class={cn('relative w-full', className)} {...restProps}>
 	<!-- Trigger -->
-	<div
+    <div
 		class={cn(
 			'relative flex items-center justify-between w-full rounded-lg border transition-all duration-200 cursor-pointer',
 			currentSize.trigger,
@@ -268,11 +268,12 @@
 		)}
 		onclick={toggleDropdown}
 		onkeydown={handleKeydown}
-		tabindex={disabled ? -1 : 0}
+        tabindex={disabled ? -1 : 0}
 		role="combobox"
 		aria-expanded={isOpen}
 		aria-haspopup="listbox"
-		aria-labelledby={uniqueId}
+        aria-controls={`${uniqueId}-listbox`}
+        aria-labelledby={uniqueId}
 	>
 		<div class="flex-1 truncate">
 			{#if multiple && selectedValues.length > 1}
@@ -326,7 +327,7 @@
 
 	<!-- Dropdown -->
 	{#if isOpen}
-		<div
+        <div
 			bind:this={dropdownElement}
 			class={cn(
 				'absolute z-50 w-full mt-1 rounded-lg border shadow-lg max-h-60 overflow-hidden',
@@ -334,7 +335,7 @@
 				currentSize.dropdown
 			)}
 			use:liquidBlur={{ intensity: 'medium' }}
-		>
+            >
 			{#if searchable}
 				<div class="p-2 border-b border-white/10">
 					<div class="relative">
@@ -353,7 +354,7 @@
 				</div>
 			{/if}
 
-			<div class="overflow-y-auto max-h-48">
+            <div class="overflow-y-auto max-h-48" id={`${uniqueId}-listbox`} role="listbox">
 				{#if filteredOptions.length === 0}
 					<div class={cn('text-center py-4 opacity-60', currentSize.option)}>
 						{searchQuery ? 'No options found' : 'No options available'}
@@ -370,7 +371,7 @@
 							{@const isSelected = selectedValues.includes(option.value)}
 							{@const isHighlighted = filteredOptions.indexOf(option) === highlightedIndex}
 
-							<div
+                            <div
 								class={cn(
 									'flex items-center justify-between cursor-pointer transition-colors',
 									currentSize.option,
@@ -379,8 +380,10 @@
 									isHighlighted && 'bg-white/5'
 								)}
 								onclick={() => selectOption(option)}
+                                onkeydown={(e) => e.key === 'Enter' && selectOption(option)}
 								role="option"
 								aria-selected={isSelected}
+                                tabindex={option.disabled ? -1 : 0}
 							>
 								<div class="flex-1">
 									<div class="font-medium">{option.label}</div>

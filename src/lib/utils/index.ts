@@ -1,6 +1,6 @@
-// Utility exports
-export * from './lazy.js';
-export * from './responsive.js';
-export * from './accessibility.js';
-export * from './theme-error-handler.js';
-export * from './theme-aware.js';
+// Minimal utilities used across components
+
+// Simple classnames merge
+export function cn(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(' ');
+}
