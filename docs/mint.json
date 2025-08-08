@@ -14,6 +14,9 @@
   "colors": {
     "primary": "#00ff41"
   },
+  "css": [
+    "styles/terminal.css"
+  ],
   "navigation": [
     {
       "group": "Home",

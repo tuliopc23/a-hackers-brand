@@ -1,0 +1,29 @@
+---
+title: List
+description: Terminal list with selectable rows and neon focus.
+---
+
+# List
+
+A flexible `List` component for menus, pickers, and command palettes.
+
+## Import
+
+```svelte
+<script>
+  import List from "@org/ui/List.svelte";
+</script>
+```
+
+## Basic usage
+
+```svelte preview
+<script>
+  import List from "@org/ui/List.svelte";
+  let active = 0;
+  const items = ["Connect", "Scan", "Exploit", "Logout"];
+</script>
+
+<List {items} bind:active />
+<p>Active: {items[active]}</p>
+```

@@ -1,0 +1,36 @@
+---
+title: Data Grid
+description: Virtualized grid for massive datasets with terminal styling.
+---
+
+# Data Grid
+
+Use `DataGrid` for large datasets, column pinning, sorting, and keyboard-first navigation.
+
+## Import
+
+```svelte
+<script>
+  import DataGrid from "@org/ui/DataGrid.svelte";
+</script>
+```
+
+## Basic usage
+
+```svelte preview
+<script>
+  import DataGrid from "@org/ui/DataGrid.svelte";
+  const columns = [
+    { key: "id", header: "ID", width: 80 },
+    { key: "name", header: "Name", width: 200 },
+    { key: "latency", header: "Latency (ms)", width: 160 }
+  ];
+  const rows = Array.from({ length: 1000 }, (_, i) => ({
+    id: i + 1,
+    name: `Node-${i + 1}`,
+    latency: Math.round(Math.random() * 200)
+  }));
+</script>
+
+<DataGrid {columns} {rows} rowHeight={28} />
+```
