@@ -187,7 +187,7 @@
 </script>
 
 <div class={cn('w-full space-y-2', className)} {...restProps}>
-	{#each items as item, index}
+	{#each items as item, index (item.id ?? index)}
 		{@const isOpen = openItems.has(item.id)}
 		{@const isFirst = index === 0}
 		{@const isLast = index === items.length - 1}

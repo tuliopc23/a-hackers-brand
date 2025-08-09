@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { cn } from '../utils.js';
+    import { cn } from '../utils.js';
+    import { sanitizeHTML } from '../utils/sanitize';
 
 	interface Props {
 		text?: string;
@@ -209,9 +210,10 @@
 		{@render children()}
 	{:else if variant === 'commodore' || variant === 'atari'}
 		<!-- Bitmap rendering for specific variants -->
-		{#each displayText.split('') as char}
+		{#each displayText.split('') as char, index (index)}
 			<span class="bitmap-char" data-char={char}>
-				{@html renderBitmapCharacter(char)}
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -- sanitized bitmap character -->
+				{@html sanitizeHTML(renderBitmapCharacter(char))}
 			</span>
 		{/each}
 	{:else}

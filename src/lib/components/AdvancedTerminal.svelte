@@ -265,7 +265,7 @@ Connection established. Type 'help' for available commands.</pre>
 		</div>
 
 		<!-- Command History -->
-		{#each history as entry}
+{#each history as entry, index (entry.timestamp?.getTime?.() ?? index)}
 			<div class="mb-4">
 				<!-- Command -->
 				<div class="flex items-start gap-2 mb-2">

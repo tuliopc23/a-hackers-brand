@@ -3,6 +3,7 @@
 	import { cn } from '../utils.js';
 	import { brandColors } from '../tokens';
 	import { glassFade, magneticHover } from '../motion';
+    import { sanitizeHTML } from '../utils/sanitize';
 
 	interface TableColumn {
 		key: string;
@@ -364,7 +365,8 @@
 									bordered && 'border-r last:border-r-0'
 								)}
 							>
-								{@html formatCellValue(column, row[column.key], row)}
+								<!-- eslint-disable-next-line svelte/no-at-html-tags -- sanitized cell value rendering -->
+								{@html sanitizeHTML(formatCellValue(column, row[column.key], row))}
 							</td>
 						{/each}
 					</tr>

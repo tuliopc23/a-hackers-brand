@@ -133,7 +133,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each report() as item}
+					{#each report() as item, index (item.combination || index)}
 						<tr class="border-t border-white/10 hover:bg-white/5">
 							<td class="px-4 py-3 font-medium">{item.combination}</td>
 							<td class="px-4 py-3 text-center">

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { cn } from '../utils.js';
+  import { cn } from '../utils.js';
+  import { sanitizeHTML } from '../utils/sanitize';
 	import { brandColors } from '../tokens';
 	import { glassFade, magneticHover, liquidBlur } from '../motion';
 	import Button from './Button.svelte';
@@ -424,7 +425,7 @@
 						</th>
 					{/if}
 
-					{#each columns as column (column.key)}
+{#each columns as column (column.key)}
 						<th
 							class={cn(
 								currentSize.header,
@@ -471,7 +472,7 @@
 						</th>
 					{/each}
 
-					{#if actions.length > 0}
+{#if actions.length > 0}
 						<th class={cn(currentSize.header, currentVariant.headerCell, 'w-32')}> Actions </th>
 					{/if}
 				</tr>
@@ -561,7 +562,8 @@
 											onblur={saveEdit}
 										/>
 									{:else}
-										{@html formatCellValue(column, row[column.key], row)}
+										<!-- eslint-disable-next-line svelte/no-at-html-tags -- sanitized cell value rendering -->
+										{@html sanitizeHTML(formatCellValue(column, row[column.key], row))}
 									{/if}
 								</td>
 							{/each}
@@ -569,7 +571,7 @@
 							{#if actions.length > 0}
 								<td class={cn(currentSize.cell, currentVariant.cell)}>
 									<div class="flex items-center gap-1">
-										{#each actions as action}
+										{#each actions as action, aindex (`action-${aindex}`)}
 											{#if !action.show || action.show(row)}
 												<Button
 													size="sm"
@@ -618,10 +620,10 @@
 					Previous
 				</Button>
 
-				{#each Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+{#each Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
 					const page = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
 					return page;
-				}) as page}
+}) as page, pindex (page)
 					<Button
 						size="sm"
 						variant={page === currentPage ? 'primary' : 'secondary'}
