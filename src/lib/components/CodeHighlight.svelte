@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+    import { onMount } from 'svelte';
+    import { sanitizeHTML } from '../utils/sanitize';
 
 	interface Props {
 		code?: string;
@@ -201,9 +202,12 @@
 			</button>
 		{/if}
 
-		<pre bind:this={codeElement} class="p-4 text-sm font-mono overflow-x-auto text-white/90 leading-relaxed"><code
-				class="language-{language}">{@html highlightedCode}</code
-			></pre>
+    <pre bind:this={codeElement} class="p-4 text-sm font-mono overflow-x-auto text-white/90 leading-relaxed"><code
+                class="language-{language}">
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -- sanitized highlight output -->
+                {@html sanitizeHTML(highlightedCode)}
+            </code>
+            </pre>
 	</div>
 </div>
 

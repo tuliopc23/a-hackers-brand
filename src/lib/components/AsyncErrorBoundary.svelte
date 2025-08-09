@@ -123,14 +123,14 @@
 
 	const containerClasses = cn('rounded-brand p-6 m-4', variants[variant], className);
 
-	function getErrorIcon(errorType: string) {
+	function getErrorIconPath(errorType: string): string {
 		switch (errorType) {
 			case 'timeout':
-				return `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>`;
+				return 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z';
 			case 'network':
-				return `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>`;
+				return 'M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0';
 			default:
-				return `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>`;
+				return 'M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z';
 		}
 	}
 
@@ -179,7 +179,7 @@
 				<div class="flex items-center gap-3">
 					<div class="flex-shrink-0">
 						<svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							{@html getErrorIcon(getErrorType(error!))}
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={getErrorIconPath(getErrorType(error!))} />
 						</svg>
 					</div>
 					<div>
@@ -202,7 +202,7 @@
 				{/if}
 
 				<!-- Retry Information -->
-				{#if retryCount > 0}
+					{#if retryCount > 0}
 					<div class="text-sm text-red-400/70">
 						Retry attempt {retryCount} of {maxRetries}
 					</div>
@@ -232,7 +232,7 @@
 				</div>
 
 				<!-- Help Text -->
-				<div class="text-xs text-red-400/50">
+        <div class="text-xs text-red-400/50">
 					{#if state === 'timeout'}
 						The operation exceeded the {timeout / 1000}s timeout limit.
 					{:else if getErrorType(error!) === 'network'}
@@ -240,7 +240,7 @@
 					{:else}
 						If the problem persists, please contact support.
 					{/if}
-				</div>
+        </div>
 			</div>
 		</div>
 	{/if}

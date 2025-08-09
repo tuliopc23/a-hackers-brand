@@ -129,7 +129,7 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 			<!-- Real-time Metrics -->
 			<Card variant="glass" class="p-4">
-				{#snippet children()}
+
 					<div class="flex items-center gap-2 mb-2">
 						<TrendingUp class="w-4 h-4 text-terminal-green" />
 						<h3 class="font-semibold text-white">Real-time</h3>
@@ -148,12 +148,12 @@
 							<span class="text-terminal-cyan">{connectionType}</span>
 						</div>
 					</div>
-				{/snippet}
+
 			</Card>
 
 			<!-- Core Web Vitals -->
 			<Card variant="glass" class="p-4">
-				{#snippet children()}
+
 					<div class="flex items-center gap-2 mb-2">
 						<Clock class="w-4 h-4 text-brand-primary" />
 						<h3 class="font-semibold text-white">Core Web Vitals</h3>
@@ -168,12 +168,12 @@
 							</div>
 						{/each}
 					</div>
-				{/snippet}
+
 			</Card>
 
 			<!-- Navigation Timing -->
 			<Card variant="glass" class="p-4">
-				{#snippet children()}
+
 					<div class="flex items-center gap-2 mb-2">
 						<Activity class="w-4 h-4 text-terminal-cyan" />
 						<h3 class="font-semibold text-white">Navigation</h3>
@@ -202,14 +202,14 @@
 							<div class="text-white/50">No navigation data available</div>
 						{/if}
 					</div>
-				{/snippet}
+
 			</Card>
 		</div>
 
 		<!-- Paint Timing -->
 		{#if perfSummary.paint && Object.keys(perfSummary.paint).length > 0}
 			<Card variant="glass" class="p-4 mb-4">
-				{#snippet children()}
+
 					<h3 class="font-semibold text-white mb-3">Paint Timing</h3>
 					<div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
 						{#each Object.entries(perfSummary.paint) as [name, time]}
@@ -219,14 +219,14 @@
 							</div>
 						{/each}
 					</div>
-				{/snippet}
+
 			</Card>
 		{/if}
 
 		<!-- Custom Marks -->
 		{#if perfSummary.marks && perfSummary.marks.length > 0}
 			<Card variant="glass" class="p-4 mb-4">
-				{#snippet children()}
+
 					<h3 class="font-semibold text-white mb-3">Performance Marks</h3>
 					<div class="max-h-32 overflow-y-auto">
 						<div class="space-y-1 text-sm">
@@ -238,14 +238,14 @@
 							{/each}
 						</div>
 					</div>
-				{/snippet}
+
 			</Card>
 		{/if}
 
 		<!-- Custom Measures -->
 		{#if perfSummary.measures && perfSummary.measures.length > 0}
 			<Card variant="glass" class="p-4">
-				{#snippet children()}
+
 					<h3 class="font-semibold text-white mb-3">Performance Measures</h3>
 					<div class="max-h-32 overflow-y-auto">
 						<div class="space-y-1 text-sm">
@@ -257,7 +257,7 @@
 							{/each}
 						</div>
 					</div>
-				{/snippet}
+
 			</Card>
 		{/if}
 	</div>

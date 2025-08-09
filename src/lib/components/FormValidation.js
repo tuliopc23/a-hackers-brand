@@ -56,10 +56,11 @@ export const validationRules = {
 		test: (value) => !value || value === passwordField,
 		message
 	}),
-	phoneNumber: (message = 'Must be a valid phone number') => ({
-		test: (value) => !value || /^[\+]?[1-9][\d]{0,15}$/.test(value.replace(/[\s\-\(\)]/g, '')),
-		message
-	}),
+    phoneNumber: (message = 'Must be a valid phone number') => ({
+        // Allow optional leading '+', then digits. Strip spaces, dashes, and parentheses before testing.
+        test: (value) => !value || /^\+?[1-9]\d{0,15}$/.test(value.replace(/[\s-()]/g, '')),
+        message
+    }),
 	date: (message = 'Must be a valid date') => ({
 		test: (value) => !value || !isNaN(Date.parse(value)),
 		message

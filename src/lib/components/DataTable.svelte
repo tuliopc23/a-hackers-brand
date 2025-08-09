@@ -4,6 +4,7 @@
 	import { brandColors } from '../tokens';
 	import { createEventDispatcher } from 'svelte';
 import { ChevronUp, ChevronDown, Search, Filter } from 'lucide-svelte';
+import { sanitizeHTML } from '../utils/sanitize';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	export interface TableColumn {
@@ -334,7 +335,7 @@ import { ChevronUp, ChevronDown, Search, Filter } from 'lucide-svelte';
 				class="grid gap-4"
 				style="grid-template-columns: repeat({columns.filter((col) => col.filterable).length}, 1fr);"
 			>
-				{#each columns.filter((col) => col.filterable) as column}
+				{#each columns.filter((col) => col.filterable) as column (column.key)}
 					<div>
                         <label class="block text-xs font-medium mb-1 opacity-70" for={`filter-${column.key}`}>
                             {column.label}
@@ -373,7 +374,7 @@ import { ChevronUp, ChevronDown, Search, Filter } from 'lucide-svelte';
 						</th>
 					{/if}
 
-					{#each columns as column}
+					{#each columns as column (column.key)}
 						<th
 							class={cn(
 								currentSize.header,
@@ -445,7 +446,7 @@ import { ChevronUp, ChevronDown, Search, Filter } from 'lucide-svelte';
 								</td>
 							{/if}
 
-							{#each columns as column}
+							{#each columns as column (column.key)}
 								<td
 									class={cn(
 										currentSize.cell,
@@ -455,7 +456,8 @@ import { ChevronUp, ChevronDown, Search, Filter } from 'lucide-svelte';
 										column.cellClass
 									)}
 								>
-									{@html getCellValue(row, column)}
+									<!-- eslint-disable-next-line svelte/no-at-html-tags -- sanitized cell value rendering -->
+									{@html sanitizeHTML(getCellValue(row, column))}
 								</td>
 							{/each}
 						</tr>

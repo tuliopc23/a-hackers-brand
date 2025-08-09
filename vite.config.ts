@@ -3,7 +3,12 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'; // Svelte plugin for Vite
 
 // Library build using Vite + LightningCSS (Vite uses its default bundler)
 export default defineConfig({
-  plugins: [svelte()],
+  plugins: [
+    svelte({
+      // Inline component CSS into JS so consumers don't need a separate CSS file
+      emitCss: false,
+    }),
+  ],
   // Use default CSS transformer for better Svelte :global() handling
   build: {
     lib: {

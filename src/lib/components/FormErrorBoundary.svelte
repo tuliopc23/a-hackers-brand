@@ -71,16 +71,16 @@
 			.trim();
 	}
 
-	function getErrorIcon(code?: string): string {
+	function getErrorIconPath(code?: string): string {
 		switch (code) {
 			case 'required':
-				return `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.232 14.5c-.77.833.192 2.5 1.732 2.5z"></path>`;
+				return 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.232 14.5c-.77.833.192 2.5 1.732 2.5z';
 			case 'invalid':
-				return `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>`;
+				return 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z';
 			case 'length':
-				return `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>`;
+				return 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z';
 			default:
-				return `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>`;
+				return 'M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z';
 		}
 	}
 </script>
@@ -117,7 +117,7 @@
 						<li class="flex items-start gap-2">
 							<div class="flex-shrink-0 mt-1">
 								<svg class="w-3 h-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									{@html getErrorIcon(fieldErrors[0]?.code)}
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={getErrorIconPath(fieldErrors[0]?.code)}></path>
 								</svg>
 							</div>
 							<div class="min-w-0">
@@ -125,7 +125,7 @@
 									{getFieldDisplayName(field)}:
 								</span>
 								<ul class="mt-1 space-y-1">
-									{#each fieldErrors as error}
+								{#each fieldErrors as error, index (error.code ? `${field}-${error.code}-${index}` : `${field}-${index}`)}
 										<li class="text-sm text-red-500">
 											{error.message}
 										</li>
@@ -167,9 +167,9 @@
 					class="text-sm text-red-500 flex items-center gap-1"
 					in:glassFade={animate ? { duration: 200, direction: 'up', distance: 5 } : undefined}
 				>
-					<svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						{@html getErrorIcon(error.code)}
-					</svg>
+									<svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={getErrorIconPath(error.code)}></path>
+									</svg>
 					{error.message}
 				</p>
 			{/each}

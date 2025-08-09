@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Button } from '$lib/components';
-	import { onMount } from 'svelte';
+    import { onMount } from 'svelte';
+    import { sanitizeHTML } from '$lib/utils/sanitize';
 	
 	interface Props {
 		code: string;
@@ -108,8 +109,8 @@
 		{/if}
 		
 		<div class="overflow-x-auto">
-			<pre class="p-4 text-sm font-mono"><code>{#if showLineNumbers}<span class="select-none">{#each lines as _, i}<span class="text-gray-600 mr-4">{String(i + 1).padStart(2, ' ')}</span>
-{/each}</span>{/if}<span>{@html highlighted || code}</span></code></pre>
+			<pre class="p-4 text-sm font-mono"><code>{#if showLineNumbers}<span class="select-none">{#each lines as _, i (i)}<span class="text-gray-600 mr-4">{String(i + 1).padStart(2, ' ')}</span>
+{/each}</span>{/if}<span><!-- eslint-disable-next-line svelte/no-at-html-tags -- sanitized code rendering -->{@html sanitizeHTML(highlighted || code)}</span></code></pre>
 		</div>
 	</div>
 </div>

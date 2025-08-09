@@ -1,4 +1,5 @@
 <script lang="ts">
+	/* eslint-disable no-irregular-whitespace -- Unicode art inside template literals for visual layout */
 	import { cn } from '../utils.js';
 	import { onMount, createEventDispatcher } from 'svelte';
 	import { writable } from 'svelte/store';
@@ -521,6 +522,7 @@ WARNING: SYSTEM INSTABILITY DETECTED`
 	};
 
 	const currentTheme = themeConfig[theme];
+	/* eslint-enable no-irregular-whitespace */
 </script>
 
 <svelte:window onresize={resizeCanvases} />

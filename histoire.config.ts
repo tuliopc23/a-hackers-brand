@@ -6,7 +6,8 @@ export default defineConfig({
   storyMatch: [
     'src/lib/components/**/*.story.svelte',
   ],
-  setupFile: '/histoire.setup.ts',
+  // Use a project-relative setup path for compatibility
+  setupFile: './histoire.setup.ts',
   vite: {
     define: {
       'process.versions.bun': 'false'
@@ -16,4 +17,3 @@ export default defineConfig({
     }
   }
 })
-

@@ -137,35 +137,43 @@
 				break;
 			case 'ArrowRight':
 			case 'ArrowDown':
-				if (isHorizontal ? event.key === 'ArrowRight' : event.key === 'ArrowDown') {
-					event.preventDefault();
-					const nextIndex = (currentEnabledIndex + 1) % enabledTabs.length;
-					const nextTab = enabledTabs[nextIndex];
-					handleTabClick(nextTab);
-					focusTab(nextTab.id);
+				{
+					if (isHorizontal ? event.key === 'ArrowRight' : event.key === 'ArrowDown') {
+						event.preventDefault();
+						const nextIndex = (currentEnabledIndex + 1) % enabledTabs.length;
+						const nextTab = enabledTabs[nextIndex];
+						handleTabClick(nextTab);
+						focusTab(nextTab.id);
+					}
 				}
 				break;
 			case 'ArrowLeft':
 			case 'ArrowUp':
-				if (isHorizontal ? event.key === 'ArrowLeft' : event.key === 'ArrowUp') {
-					event.preventDefault();
-					const prevIndex = currentEnabledIndex === 0 ? enabledTabs.length - 1 : currentEnabledIndex - 1;
-					const prevTab = enabledTabs[prevIndex];
-					handleTabClick(prevTab);
-					focusTab(prevTab.id);
+				{
+					if (isHorizontal ? event.key === 'ArrowLeft' : event.key === 'ArrowUp') {
+						event.preventDefault();
+						const prevIndex = currentEnabledIndex === 0 ? enabledTabs.length - 1 : currentEnabledIndex - 1;
+						const prevTab = enabledTabs[prevIndex];
+						handleTabClick(prevTab);
+						focusTab(prevTab.id);
+					}
 				}
 				break;
 			case 'Home':
-				event.preventDefault();
-				const firstTab = enabledTabs[0];
-				handleTabClick(firstTab);
-				focusTab(firstTab.id);
+				{
+					event.preventDefault();
+					const firstTab = enabledTabs[0];
+					handleTabClick(firstTab);
+					focusTab(firstTab.id);
+				}
 				break;
 			case 'End':
-				event.preventDefault();
-				const lastTab = enabledTabs[enabledTabs.length - 1];
-				handleTabClick(lastTab);
-				focusTab(lastTab.id);
+				{
+					event.preventDefault();
+					const lastTab = enabledTabs[enabledTabs.length - 1];
+					handleTabClick(lastTab);
+					focusTab(lastTab.id);
+				}
 				break;
 		}
 	}
