@@ -237,6 +237,15 @@
 		return filteredData.slice(start, start + pageSize);
 	});
 
+	// Precompute pagination pages to avoid complex expressions in markup
+	const pagesToShow = $derived(() => {
+		const pages: number[] = [];
+		const maxButtons = Math.min(5, totalPages);
+		const start = Math.max(1, Math.min(totalPages - (maxButtons - 1), currentPage - Math.floor(maxButtons / 2)));
+		for (let i = 0; i < maxButtons; i++) pages.push(start + i);
+		return pages;
+	});
+
 	function handleSort(column: GridColumn) {
 		if (!column.sortable) return;
 
@@ -562,7 +571,7 @@
 											onblur={saveEdit}
 										/>
 									{:else}
-										<!-- eslint-disable-next-line svelte/no-at-html-tags -- sanitized cell value rendering -->
+										<!-- eslint-disable-next-line svelte/no-at-html-tags (sanitized cell value rendering) -->
 										{@html sanitizeHTML(formatCellValue(column, row[column.key], row))}
 									{/if}
 								</td>
@@ -571,7 +580,7 @@
 							{#if actions.length > 0}
 								<td class={cn(currentSize.cell, currentVariant.cell)}>
 									<div class="flex items-center gap-1">
-										{#each actions as action, aindex (`action-${aindex}`)}
+										{#each actions as action, aindex (aindex)}
 											{#if !action.show || action.show(row)}
 												<Button
 													size="sm"
@@ -620,11 +629,8 @@
 					Previous
 				</Button>
 
-{#each Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-					const page = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
-					return page;
-}) as page, pindex (page)
-					<Button
+{#each pagesToShow as page, pindex (page)}
+						<Button
 						size="sm"
 						variant={page === currentPage ? 'primary' : 'secondary'}
 						onclick={() => dispatch('pageChange', { page })}
