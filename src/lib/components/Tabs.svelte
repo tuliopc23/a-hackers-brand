@@ -1,265 +1,303 @@
 <script lang="ts">
-	import { cn } from '../utils.js';
-	import { liquidBlur, glassFade } from '../motion';
-	import { sizeOf } from '../utils/bundle-size.js';
-	import type { HTMLAttributes } from 'svelte/elements';
+    import { cn } from "../utils.js";
+    import { liquidBlur, glassFade } from "../motion";
+    import { sizeOf } from "../utils/bundle-size.js";
+    import type { HTMLAttributes } from "svelte/elements";
 
-	interface Tab {
-		id: string;
-		label: string;
-		disabled?: boolean;
-		content?: any;
-	}
+    interface Tab {
+        id: string;
+        label: string;
+        disabled?: boolean;
+        // A render function returning tab panel content (or null)
+        content?: import("svelte").Snippet | null;
+    }
 
-	interface Props extends HTMLAttributes<HTMLDivElement> {
-		tabs: Tab[];
-		activeTab?: string;
-		variant?: 'default' | 'glass' | 'terminal' | 'bubbleTea';
-		size?: 'sm' | 'md' | 'lg';
-		orientation?: 'horizontal' | 'vertical';
-		blur?: 'sm' | 'md' | 'lg' | 'xl';
-		animate?: boolean;
-		reduceMotion?: boolean;
-		'aria-label'?: string;
-		class?: string;
-		children?: any;
-		onTabChange?: (tabId: string) => void;
-	}
+    interface Props extends HTMLAttributes<HTMLDivElement> {
+        tabs: Tab[];
+        activeTab?: string;
+        variant?: "default" | "glass" | "terminal" | "bubbleTea";
+        size?: "sm" | "md" | "lg";
+        orientation?: "horizontal" | "vertical";
+        blur?: "sm" | "md" | "lg" | "xl";
+        animate?: boolean;
+        reduceMotion?: boolean;
+        "aria-label"?: string;
+        class?: string;
+        // Children render function receiving active tab id
+        panel?: (activeTabId: string) => import("svelte").Snippet;
+        onTabChange?: (tabId: string) => void;
+    }
 
-	let {
-		tabs = [],
-		activeTab = tabs[0]?.id || '',
-		variant = 'glass',
-		size = 'md',
-		orientation = 'horizontal',
-		blur = 'md',
-		animate = true,
-		reduceMotion = false,
-		'aria-label': ariaLabel,
-		class: className = '',
-		children,
-		onTabChange,
-		...restProps
-	}: Props = $props();
+    let {
+        tabs = [],
+        activeTab = tabs[0]?.id || "",
+        variant = "glass",
+        size = "md",
+        orientation = "horizontal",
+        blur = "md",
+        animate = true,
+        reduceMotion = false,
+        "aria-label": ariaLabel,
+        class: className = "",
+        panel,
+        onTabChange,
+        ...restProps
+    }: Props = $props();
 
-	let tabsListElement: HTMLDivElement;
-	let activeIndex = $state(tabs.findIndex((tab) => tab.id === activeTab));
-	const uniqueId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
+    let tabsListElement: HTMLDivElement;
+    const uniqueId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
 
-	const sizes = {
-		sm: 'px-3 py-1.5 text-sm',
-		md: 'px-4 py-2 text-sm',
-		lg: 'px-6 py-3 text-base'
-	};
+    const sizes = {
+        sm: "px-3 py-1.5 text-sm",
+        md: "px-4 py-2 text-sm",
+        lg: "px-6 py-3 text-base",
+    };
 
-	const variants = {
-		default: {
-			list: 'bg-white/5 border border-white/10',
-			tab: 'text-white/70 hover:text-white/90',
-			activeTab: 'text-white bg-white/10'
-		},
-		glass: {
-			list: 'glass-subtle border border-white/20',
-			tab: 'text-white/70 hover:text-white/90 hover:glass-subtle',
-			activeTab: 'text-white glass-medium'
-		},
-		terminal: {
-			list: 'bg-terminal-green/10 border border-terminal-green/30',
-			tab: 'text-terminal-green/70 hover:text-terminal-green/90',
-			activeTab: 'text-terminal-green bg-terminal-green/20'
-		},
-		bubbleTea: {
-			list: 'bg-gradient-to-r from-bubble-tea-pink/5 to-bubble-tea-purple/5 border border-bubble-tea-purple/20 rounded-bubble-tea backdrop-blur-sm',
-			tab: 'text-bubble-tea-purple/70 hover:text-bubble-tea-purple/90 hover:bg-bubble-tea-purple/10 rounded-bubble-tea-sm',
-			activeTab: 'text-white bg-gradient-to-r from-bubble-tea-pink to-bubble-tea-purple rounded-bubble-tea-sm shadow-lg'
-		}
-	};
+    const variants = {
+        default: {
+            list: "bg-white/5 border border-white/10",
+            tab: "text-white/70 hover:text-white/90",
+            activeTab: "text-white bg-white/10",
+        },
+        glass: {
+            list: "glass-subtle border border-white/20",
+            tab: "text-white/70 hover:text-white/90 hover:glass-subtle",
+            activeTab: "text-white glass-medium",
+        },
+        terminal: {
+            list: "bg-terminal-green/10 border border-terminal-green/30",
+            tab: "text-terminal-green/70 hover:text-terminal-green/90",
+            activeTab: "text-terminal-green bg-terminal-green/20",
+        },
+        bubbleTea: {
+            list: "bg-gradient-to-r from-bubble-tea-pink/5 to-bubble-tea-purple/5 border border-bubble-tea-purple/20 rounded-bubble-tea backdrop-blur-sm",
+            tab: "text-bubble-tea-purple/70 hover:text-bubble-tea-purple/90 hover:bg-bubble-tea-purple/10 rounded-bubble-tea-sm",
+            activeTab:
+                "text-white bg-gradient-to-r from-bubble-tea-pink to-bubble-tea-purple rounded-bubble-tea-sm shadow-lg",
+        },
+    };
 
-	const blurLevels = {
-		sm: 'backdrop-blur-sm',
-		md: 'backdrop-blur-md',
-		lg: 'backdrop-blur-lg',
-		xl: 'backdrop-blur-xl'
-	};
+    const blurLevels = {
+        sm: "backdrop-blur-sm",
+        md: "backdrop-blur-md",
+        lg: "backdrop-blur-lg",
+        xl: "backdrop-blur-xl",
+    };
 
-	const isHorizontal = orientation === 'horizontal';
+    const isHorizontal = orientation === "horizontal";
 
-	// Use semantic tab radius
-	const getRadiusClass = () => {
-		return 'tab-radius-md';
-	};
+    // Use semantic tab radius
+    const getRadiusClass = () => {
+        return "tab-radius-md";
+    };
 
-	const listClasses = cn(
-		'flex p-1',
-		getRadiusClass(),
-		isHorizontal ? 'flex-row' : 'flex-col min-w-max',
-		variants[variant].list,
-		(variant === 'glass' || variant === 'bubbleTea') && blurLevels[blur]
-	);
+    const listClasses = cn(
+        "flex p-1",
+        getRadiusClass(),
+        isHorizontal ? "flex-row" : "flex-col min-w-max",
+        variants[variant].list,
+        (variant === "glass" || variant === "bubbleTea") && blurLevels[blur],
+    );
 
-	// Use semantic tab item radius
-	const getTabRadiusClass = () => {
-		return 'tab-radius-sm';
-	};
+    // Use semantic tab item radius
+    const getTabRadiusClass = () => {
+        return "tab-radius-sm";
+    };
 
-	const tabClasses = cn(
-		'relative flex-1 transition-all duration-200',
-		getTabRadiusClass(),
-		'focus:outline-none focus:ring-2 focus:ring-blue-400/50',
-		'font-medium whitespace-nowrap cursor-pointer',
-		sizes[size],
-		variants[variant].tab
-	);
+    const tabClasses = cn(
+        "relative flex-1 transition-all duration-200",
+        getTabRadiusClass(),
+        "focus:outline-none focus:ring-2 focus:ring-blue-400/50",
+        "font-medium whitespace-nowrap cursor-pointer",
+        sizes[size],
+        variants[variant].tab,
+    );
 
-	const activeTabClasses = cn(tabClasses, variants[variant].activeTab);
+    const activeTabClasses = cn(tabClasses, variants[variant].activeTab);
 
-	const contentClasses = cn('mt-4 focus:outline-none', isHorizontal ? '' : 'ml-4');
+    const contentClasses = cn(
+        "mt-4 focus:outline-none",
+        isHorizontal ? "" : "ml-4",
+    );
 
-	function handleTabClick(tab: Tab) {
-		if (tab.disabled) return;
+    function handleTabClick(tab: Tab) {
+        if (tab.disabled) return;
 
-		activeTab = tab.id;
-		activeIndex = tabs.findIndex((t) => t.id === tab.id);
-		onTabChange?.(tab.id);
-	}
+        activeTab = tab.id;
+        onTabChange?.(tab.id);
+    }
 
-	function handleKeydown(event: KeyboardEvent, tab: Tab) {
-		if (tab.disabled) return;
+    function handleKeydown(event: KeyboardEvent, tab: Tab) {
+        if (tab.disabled) return;
 
-		const enabledTabs = tabs.filter((t) => !t.disabled);
-		const currentEnabledIndex = enabledTabs.findIndex((t) => t.id === activeTab);
+        const enabledTabs = tabs.filter((t) => !t.disabled);
+        const currentEnabledIndex = enabledTabs.findIndex(
+            (t) => t.id === activeTab,
+        );
 
-		switch (event.key) {
-			case 'Enter':
-			case ' ':
-				event.preventDefault();
-				handleTabClick(tab);
-				break;
-			case 'ArrowRight':
-			case 'ArrowDown':
-				{
-					if (isHorizontal ? event.key === 'ArrowRight' : event.key === 'ArrowDown') {
-						event.preventDefault();
-						const nextIndex = (currentEnabledIndex + 1) % enabledTabs.length;
-						const nextTab = enabledTabs[nextIndex];
-						handleTabClick(nextTab);
-						focusTab(nextTab.id);
-					}
-				}
-				break;
-			case 'ArrowLeft':
-			case 'ArrowUp':
-				{
-					if (isHorizontal ? event.key === 'ArrowLeft' : event.key === 'ArrowUp') {
-						event.preventDefault();
-						const prevIndex = currentEnabledIndex === 0 ? enabledTabs.length - 1 : currentEnabledIndex - 1;
-						const prevTab = enabledTabs[prevIndex];
-						handleTabClick(prevTab);
-						focusTab(prevTab.id);
-					}
-				}
-				break;
-			case 'Home':
-				{
-					event.preventDefault();
-					const firstTab = enabledTabs[0];
-					handleTabClick(firstTab);
-					focusTab(firstTab.id);
-				}
-				break;
-			case 'End':
-				{
-					event.preventDefault();
-					const lastTab = enabledTabs[enabledTabs.length - 1];
-					handleTabClick(lastTab);
-					focusTab(lastTab.id);
-				}
-				break;
-		}
-	}
+        switch (event.key) {
+            case "Enter":
+            case " ":
+                event.preventDefault();
+                handleTabClick(tab);
+                break;
+            case "ArrowRight":
+            case "ArrowDown":
+                {
+                    if (
+                        isHorizontal
+                            ? event.key === "ArrowRight"
+                            : event.key === "ArrowDown"
+                    ) {
+                        event.preventDefault();
+                        const nextIndex =
+                            (currentEnabledIndex + 1) % enabledTabs.length;
+                        const nextTab = enabledTabs[nextIndex];
+                        handleTabClick(nextTab);
+                        focusTab(nextTab.id);
+                    }
+                }
+                break;
+            case "ArrowLeft":
+            case "ArrowUp":
+                {
+                    if (
+                        isHorizontal
+                            ? event.key === "ArrowLeft"
+                            : event.key === "ArrowUp"
+                    ) {
+                        event.preventDefault();
+                        const prevIndex =
+                            currentEnabledIndex === 0
+                                ? enabledTabs.length - 1
+                                : currentEnabledIndex - 1;
+                        const prevTab = enabledTabs[prevIndex];
+                        handleTabClick(prevTab);
+                        focusTab(prevTab.id);
+                    }
+                }
+                break;
+            case "Home":
+                {
+                    event.preventDefault();
+                    const firstTab = enabledTabs[0];
+                    handleTabClick(firstTab);
+                    focusTab(firstTab.id);
+                }
+                break;
+            case "End":
+                {
+                    event.preventDefault();
+                    const lastTab = enabledTabs[enabledTabs.length - 1];
+                    handleTabClick(lastTab);
+                    focusTab(lastTab.id);
+                }
+                break;
+        }
+    }
 
-	function focusTab(tabId: string) {
-		const tabElement = tabsListElement?.querySelector(`[data-tab-id="${tabId}"]`) as HTMLElement;
-		tabElement?.focus();
-	}
+    function focusTab(tabId: string) {
+        const tabElement = tabsListElement?.querySelector(
+            `[data-tab-id="${tabId}"]`,
+        ) as HTMLElement;
+        tabElement?.focus();
+    }
 
-	const activeTabData = $derived(tabs.find((tab) => tab.id === activeTab));
+    const activeTabData = $derived(tabs.find((tab) => tab.id === activeTab));
+    // Derived panel snippet (re-evaluates when activeTab changes)
+    const panelSnippet = $derived(panel ? panel(activeTab) : null);
 
-	// Track bundle size
-	$effect(() => {
-		sizeOf('Tabs', 'medium');
-	});
+    // Track bundle size (removed __markUsed scaffolding & no-op effect)
+    $effect(() => {
+        sizeOf("Tabs");
+    });
 </script>
 
-<div class={cn('w-full', isHorizontal ? '' : 'flex', className)} {...restProps}>
-	<!-- Tab List -->
-	<div
-		bind:this={tabsListElement}
-		class={listClasses}
-		role="tablist"
-		aria-orientation={orientation}
-		aria-label={ariaLabel}
-	>
-		{#each tabs as tab, index}
-			<button
-				id={`${uniqueId}-tab-${tab.id}`}
-				class={tab.id === activeTab ? activeTabClasses : tabClasses}
-				class:opacity-50={tab.disabled}
-				class:cursor-not-allowed={tab.disabled}
-				role="tab"
-				tabindex={tab.id === activeTab ? 0 : -1}
-				aria-selected={tab.id === activeTab}
-				aria-controls={`${uniqueId}-tabpanel-${tab.id}`}
-				aria-disabled={tab.disabled}
-				data-tab-id={tab.id}
-				disabled={tab.disabled}
-				use:liquidBlur={animate && !reduceMotion && tab.id === activeTab
-					? { blur: blur, opacity: 'medium' }
-					: undefined}
-				onclick={() => handleTabClick(tab)}
-				onkeydown={(e) => handleKeydown(e, tab)}
-			>
-				{tab.label}
-			</button>
-		{/each}
-	</div>
+<div class={cn("w-full", isHorizontal ? "" : "flex", className)} {...restProps}>
+    <!-- Tab List -->
+    <div
+        bind:this={tabsListElement}
+        class={listClasses}
+        role="tablist"
+        aria-orientation={orientation}
+        aria-label={ariaLabel}
+    >
+        {#each tabs as tab, index (tab.id)}
+            <button
+                id={`${uniqueId}-tab-${tab.id}`}
+                class={tab.id === activeTab ? activeTabClasses : tabClasses}
+                class:opacity-50={tab.disabled}
+                class:cursor-not-allowed={tab.disabled}
+                role="tab"
+                tabindex={tab.id === activeTab ? 0 : -1}
+                aria-selected={tab.id === activeTab}
+                aria-controls={`${uniqueId}-tabpanel-${tab.id}`}
+                aria-disabled={tab.disabled}
+                data-tab-id={tab.id}
+                disabled={tab.disabled}
+                use:liquidBlur={animate && !reduceMotion && tab.id === activeTab
+                    ? { blur: blur, opacity: "medium" }
+                    : undefined}
+                onclick={() => handleTabClick(tab)}
+                onkeydown={(e) => handleKeydown(e, tab)}
+            >
+                {tab.label}
+            </button>
+        {/each}
+    </div>
 
-	<!-- Tab Content -->
-	<div
-		class={contentClasses}
-		role="tabpanel"
-		id={`${uniqueId}-tabpanel-${activeTab}`}
-		aria-labelledby={`${uniqueId}-tab-${activeTab}`}
-		tabindex="0"
-	>
-		{#if activeTabData?.content}
-			<div
-				in:glassFade={{ direction: 'up', distance: 10, duration: animate && !reduceMotion ? 200 : 0 }}
-				out:glassFade={{ direction: 'down', distance: 10, duration: animate && !reduceMotion ? 150 : 0 }}
-			>
-				{@render activeTabData.content()}
-			</div>
-		{:else if children}
-			<div
-				in:glassFade={{ direction: 'up', distance: 10, duration: animate && !reduceMotion ? 200 : 0 }}
-				out:glassFade={{ direction: 'down', distance: 10, duration: animate && !reduceMotion ? 150 : 0 }}
-			>
-				{@render children(activeTab)}
-			</div>
-		{/if}
-	</div>
+    <!-- Tab Content -->
+    <div
+        class={contentClasses}
+        role="tabpanel"
+        id={`${uniqueId}-tabpanel-${activeTab}`}
+        aria-labelledby={`${uniqueId}-tab-${activeTab}`}
+        tabindex="0"
+    >
+        {#if activeTabData?.content}
+            <div
+                in:glassFade={{
+                    direction: "up",
+                    distance: 10,
+                    duration: animate && !reduceMotion ? 200 : 0,
+                }}
+                out:glassFade={{
+                    direction: "down",
+                    distance: 10,
+                    duration: animate && !reduceMotion ? 150 : 0,
+                }}
+            >
+                {@render activeTabData.content()}
+            </div>
+        {:else if panelSnippet}
+            <div
+                in:glassFade={{
+                    direction: "up",
+                    distance: 10,
+                    duration: animate && !reduceMotion ? 200 : 0,
+                }}
+                out:glassFade={{
+                    direction: "down",
+                    distance: 10,
+                    duration: animate && !reduceMotion ? 150 : 0,
+                }}
+            >
+                {@render panelSnippet()}
+            </div>
+        {/if}
+    </div>
 </div>
 
 <style>
-	button[role='tab'] {
-		will-change: transform;
-	}
+    button[role="tab"] {
+        will-change: transform;
+    }
 
-	@media (prefers-reduced-motion: reduce) {
-		* {
-			transition: none;
-			animation: none;
-			will-change: auto;
-		}
-	}
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            transition: none;
+            animation: none;
+            will-change: auto;
+        }
+    }
 </style>
