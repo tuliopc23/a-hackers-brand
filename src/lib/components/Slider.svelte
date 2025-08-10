@@ -256,7 +256,7 @@
 
 			<!-- Marks -->
 			{#if showMarks && marks.length > 0}
-				{#each marks as mark}
+				{#each marks as mark (mark)}
 					{@const markPercentage = ((mark - min) / (max - min)) * 100}
 					<div
 						class="absolute top-1/2 w-1 h-1 bg-white/50 rounded-full -translate-y-1/2 -translate-x-1/2"

@@ -112,7 +112,7 @@
 	)}
 	{...restProps}
 >
-	{#each options as option}
+	{#each options as option (option.value)}
 		<label
 			class={cn(
 				'relative flex items-center cursor-pointer group',

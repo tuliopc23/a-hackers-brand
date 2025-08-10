@@ -89,7 +89,7 @@
 		{/if}
 
 		<!-- Command History -->
-		{#each history as entry}
+		{#each history as entry (entry.timestamp)}
 			<div class="mb-4">
 				<!-- Command -->
 				<div class="flex items-center gap-2 mb-1">

@@ -173,7 +173,7 @@
 
 	<!-- Boot messages -->
 	<div class="relative z-10 space-y-1">
-		{#each allMessages.slice(0, currentLine + 1) as message, index}
+		{#each allMessages.slice(0, currentLine + 1) as message, index (index)}
 			<div
 				class={cn(
 					'whitespace-pre-wrap transition-all duration-200',

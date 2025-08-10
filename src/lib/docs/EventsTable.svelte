@@ -37,7 +37,7 @@
 			</tr>
 		</thead>
 		<tbody class="divide-y divide-gray-800">
-			{#each events as event}
+			{#each events as event (event.name)}
 				<tr class="hover:bg-green-500/5 transition-colors">
 					<td class="py-3 px-4">
 						<code class="text-sm font-mono text-white">

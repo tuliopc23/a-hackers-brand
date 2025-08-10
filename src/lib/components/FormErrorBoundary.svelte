@@ -113,7 +113,7 @@
 
 				<!-- Error List -->
 				<ul class="space-y-2">
-					{#each Object.entries(errorsByField) as [field, fieldErrors]}
+					{#each Object.entries(errorsByField) as [field, fieldErrors] (field)}
 						<li class="flex items-start gap-2">
 							<div class="flex-shrink-0 mt-1">
 								<svg class="w-3 h-3 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,9 +160,9 @@
 
 <!-- Individual field error displays -->
 {#if hasErrors && !showSummary}
-	{#each Object.entries(errorsByField) as [field, fieldErrors]}
+	{#each Object.entries(errorsByField) as [field, fieldErrors] (field)}
 		<div class="mt-1" id="{field}-errors">
-			{#each fieldErrors as error}
+			{#each fieldErrors as error, index (error.code ? `${field}-${error.code}-${index}` : `${field}-${index}`)}
 				<p
 					class="text-sm text-red-500 flex items-center gap-1"
 					in:glassFade={animate ? { duration: 200, direction: 'up', distance: 5 } : undefined}

@@ -129,7 +129,7 @@
 			<!-- Terminal Body -->
 			<div class="terminal-body">
 				<!-- Command History -->
-				{#each history as entry}
+				{#each history as entry (entry.timestamp)}
 					<div class="mb-2">
 						<!-- Command -->
 						<div class="flex items-center gap-2 mb-1">

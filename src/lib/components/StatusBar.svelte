@@ -129,7 +129,7 @@
 
 		{#if indicators.length > 0}
 			<div class={cn('hidden sm:flex items-center gap-3 border-l pl-4', currentVariant.separator)}>
-				{#each indicators as indicator}
+				{#each indicators as indicator (indicator.label)}
 					<div class="flex items-center gap-1">
 						<span class={cn('text-xs font-medium', getIndicatorColor(indicator.type))}>
 							{indicator.label}:

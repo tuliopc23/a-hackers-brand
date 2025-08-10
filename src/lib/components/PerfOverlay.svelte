@@ -200,7 +200,7 @@
 			{#if vitals.length > 0}
 				<div class="vitals-section">
 					<div class="section-title">Core Web Vitals:</div>
-					{#each vitals as vital}
+					{#each vitals as vital (vital.name)}
 						<div class="vital">
 							<span class="vital-name">{vital.name}:</span>
 							<span class="vital-value" style="color: {getVitalColor(vital.rating)}">
@@ -222,7 +222,7 @@
 				<details class="bundle-details">
 					<summary>Bundle Files ({bundleInfo.length})</summary>
 					<div class="bundle-list">
-						{#each bundleInfo.slice(0, 10) as bundle}
+						{#each bundleInfo.slice(0, 10) as bundle (bundle.path)}
 							<div class="bundle-item">{bundle.path}</div>
 						{/each}
 						{#if bundleInfo.length > 10}

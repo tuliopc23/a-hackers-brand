@@ -167,7 +167,7 @@
 						<div class="text-center py-4 text-gray-400">No errors recorded</div>
 					{:else}
 						<div class="space-y-2 max-h-48 overflow-auto">
-							{#each errors as error}
+							{#each errors as error (error.timestamp)}
 								<div class="border border-white/10 rounded p-3">
 									<div class="flex items-center justify-between mb-2">
 										<Badge variant={getErrorSeverity(error.code)}>
@@ -197,7 +197,7 @@
 					<div class="mb-6">
 						<h3 class="text-lg font-semibold mb-3">Recommendations</h3>
 						<ul class="space-y-2">
-							{#each healthCheck.recommendations as recommendation}
+							{#each healthCheck.recommendations as recommendation (recommendation)}
 								<li class="flex items-start">
 									<span class="text-yellow-400 mr-2">💡</span>
 									<span class="text-sm text-gray-300">{recommendation}</span>

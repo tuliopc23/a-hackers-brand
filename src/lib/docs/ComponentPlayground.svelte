@@ -80,7 +80,7 @@
 			</Button>
 		</div>
 		<GlassCard class="p-4 space-y-4">
-			{#each propControls as control}
+			{#each propControls as control (control.name)}
 				<div class="space-y-2">
 					<label class="block text-sm font-mono text-gray-300">
 						{control.name}
@@ -101,7 +101,7 @@
 							value={propValues[control.name]}
 							onValueChange={(value) => propValues[control.name] = value}
 						>
-							{#each control.options as option}
+							{#each control.options as option (option)}
 								<option value={option}>{option}</option>
 							{/each}
 						</Select>

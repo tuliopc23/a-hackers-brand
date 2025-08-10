@@ -159,7 +159,7 @@
 						<h3 class="font-semibold text-white">Core Web Vitals</h3>
 					</div>
 					<div class="space-y-2 text-sm">
-						{#each Object.entries(vitalsSummary) as [name, data]}
+						{#each Object.entries(vitalsSummary) as [name, data] (name)}
 							<div class="flex justify-between">
 								<span class="text-white/70">{name}:</span>
 								<span class={getVitalRating((data as any).rating)}>
@@ -212,7 +212,7 @@
 
 					<h3 class="font-semibold text-white mb-3">Paint Timing</h3>
 					<div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-						{#each Object.entries(perfSummary.paint) as [name, time]}
+						{#each Object.entries(perfSummary.paint) as [name, time] (name)}
 							<div class="text-center">
 								<div class="text-white/70 mb-1">{name.replace('-', ' ').toUpperCase()}</div>
 								<div class="text-terminal-green font-mono">{formatMs(time as number)}</div>
@@ -230,7 +230,7 @@
 					<h3 class="font-semibold text-white mb-3">Performance Marks</h3>
 					<div class="max-h-32 overflow-y-auto">
 						<div class="space-y-1 text-sm">
-							{#each perfSummary.marks.slice(-10) as mark}
+							{#each perfSummary.marks.slice(-10) as mark (mark.name)}
 								<div class="flex justify-between">
 									<span class="text-white/70">{mark.name}:</span>
 									<span class="text-terminal-green font-mono">{formatMs(mark.startTime)}</span>
@@ -249,7 +249,7 @@
 					<h3 class="font-semibold text-white mb-3">Performance Measures</h3>
 					<div class="max-h-32 overflow-y-auto">
 						<div class="space-y-1 text-sm">
-							{#each perfSummary.measures.slice(-10) as measure}
+							{#each perfSummary.measures.slice(-10) as measure (measure.name)}
 								<div class="flex justify-between">
 									<span class="text-white/70">{measure.name}:</span>
 									<span class="text-brand-primary font-mono">{formatMs(measure.duration)}</span>

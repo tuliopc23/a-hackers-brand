@@ -183,7 +183,7 @@ import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-s
 		<ChevronLeft size={currentSize.icon} />
 	</button>
 
-	{#each pageNumbers as pageNumber}
+	{#each pageNumbers as pageNumber, i (i)}
 		{#if pageNumber === '...'}
 			<span class={cn('flex items-center justify-center', currentSize.button, 'opacity-50')}> ... </span>
 		{:else}

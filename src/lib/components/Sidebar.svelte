@@ -223,7 +223,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-svelte';
 	<!-- Navigation Items -->
 	<nav class="flex-1 overflow-y-auto p-2">
 		<ul class="space-y-1">
-			{#each renderedItems as { item, level, isExpanded, isActive, hasChildren, paddingLeft }}
+			{#each renderedItems as { item, level, isExpanded, isActive, hasChildren, paddingLeft } (item.id)}
 				<li>
 					<button
 						class={cn(

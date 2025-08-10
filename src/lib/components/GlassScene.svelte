@@ -178,7 +178,7 @@
 		/>
 
 		<!-- Surrounding Liquid Shapes -->
-		{#each Array(4) as _, i}
+		{#each Array(4) as _, i (i)}
 			<T.Group
 				position={[Math.cos((i * Math.PI) / 2) * 5, Math.sin((i * Math.PI) / 4) * 2, Math.sin((i * Math.PI) / 2) * 5]}
 			>

@@ -53,7 +53,7 @@
 			</tr>
 		</thead>
 		<tbody class="divide-y divide-gray-800">
-			{#each props as prop}
+			{#each props as prop (prop.name)}
 				<tr class="hover:bg-green-500/5 transition-colors">
 					<td class="py-3 px-4">
 						<div class="flex items-center space-x-2">

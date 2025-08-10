@@ -573,7 +573,7 @@
 
                                     {#if item.metadata}
                                         <div class="flex flex-wrap gap-3 mt-2">
-                                            {#each Object.entries(item.metadata) as [key, value]}
+{#each Object.entries(item.metadata) as [key, value] (key)}
                                                 <span
                                                     class={cn(
                                                         "text-xs",
@@ -738,7 +738,7 @@
 
                                     {#if item.metadata}
                                         <div class="flex flex-wrap gap-3">
-                                            {#each Object.entries(item.metadata) as [key, value]}
+{#each Object.entries(item.metadata) as [key, value] (key)}
                                                 <span
                                                     class={cn(
                                                         "text-xs px-2 py-1 rounded-full",

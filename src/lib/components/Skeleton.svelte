@@ -113,7 +113,7 @@
 
 {#if type === 'text' || type === 'paragraph'}
 	<div class={cn(currentType.spacing, className)} {...restProps}>
-		{#each lineWidths as lineWidth, i}
+		{#each lineWidths as lineWidth, i (i)}
 			<div
 				class={cn(
 					'relative overflow-hidden backdrop-blur-xl border',

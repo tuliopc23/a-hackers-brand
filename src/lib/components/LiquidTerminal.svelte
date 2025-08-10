@@ -625,7 +625,7 @@ Type 'help' to access the command matrix.</pre>
 		</div>
 
 		<!-- Command History -->
-		{#each history as entry}
+		{#each history as entry (entry.timestamp)}
 			<div class="mb-6 transform transition-all duration-500 hover:scale-[1.02]">
 				<!-- Command Line -->
 				<div class="flex items-start gap-3 mb-3">
