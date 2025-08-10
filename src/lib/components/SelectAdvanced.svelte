@@ -58,16 +58,12 @@
     // State (analyzer may flag single assignments, but bindings & user actions mutate)
     let isOpen = $state(false);
     let searchQuery = $state("");
-    let selectElement: HTMLDivElement | null = null;
-    let searchInputElement: HTMLInputElement | null = null;
+    let selectElement = $state<HTMLDivElement | null>(null);
+    let searchInputElement = $state<HTMLInputElement | null>(null);
     let highlightedIndex = $state(-1); // mutated via keyboard handlers
 
     // Minimal reactive effect referencing plain element refs to silence single-assignment warnings.
     // These refs do not need reactivity; they are bound via bind:this and only accessed for DOM operations.
-    $effect(() => {
-        void selectElement;
-        void searchInputElement;
-    });
 
     // Note: selectElement & searchInputElement are updated via bind:this, highlightedIndex mutates in keyboard handlers.
     // No dummy constant blocks or self-assignments retained to avoid analyzer noise.
