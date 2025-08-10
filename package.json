@@ -1,9 +1,17 @@
 {
-  "name": "@org/ui",
-  "version": "0.0.0",
-  "private": false,
+  "name": "a-hacker-brand",
+  "version": "0.1.0",
+  "description": "A Hacker's Brand UI component library (terminal, glass, liquid variants) for Svelte 5.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuliopc23/a-hackers-brand.git"
+  },
+  "homepage": "https://github.com/tuliopc23/a-hackers-brand#readme",
+  "bugs": {
+    "url": "https://github.com/tuliopc23/a-hackers-brand/issues"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -12,6 +20,12 @@
   },
   "svelte": "./dist/index.js",
   "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "peerDependencies": {
     "svelte": ">=5.0.0",
     "@threlte/core": "^8.1.4",
@@ -31,12 +45,9 @@
     "types:emit": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "docs:dev": "mintlify dev docs",
     "docs:links": "mintlify broken-links docs",
-    "docs:preview": "mintlify preview docs",
-    "histoire": "histoire dev",
-    "histoire:build": "histoire build"
+    "docs:preview": "mintlify preview docs"
   },
   "devDependencies": {
-    "@histoire/plugin-svelte": "1.0.0-alpha.3",
     "@sveltejs/vite-plugin-svelte": "^6.1.1",
     "@types/node": "^24.2.1",
     "@typescript-eslint/eslint-plugin": "^8.39.0",
@@ -44,7 +55,6 @@
     "eslint": "^9.33.0",
     "eslint-plugin-svelte": "^3.11.0",
     "globals": "^16.3.0",
-    "histoire": "1.0.0-alpha.3",
     "lightningcss": "^1.30.1",
     "mintlify": "^4.2.61",
     "storybook": "^9.1.1",
@@ -55,7 +65,14 @@
     "vite": "^7.1.1",
     "vitest": "^3.2.4"
   },
-  "files": [
-    "dist"
+  "keywords": [
+    "svelte",
+    "ui",
+    "components",
+    "design-system",
+    "terminal",
+    "glass",
+    "liquid",
+    "typescript"
   ]
 }

@@ -1,113 +1,129 @@
 # A Hacker's Brand Design System
 
 <div align="center">
-  <img src="https://img.shields.io/badge/version-0.3.1-green.svg" alt="Version" />
+  <img src="https://img.shields.io/badge/version-0.1.0-green.svg" alt="Version" />
   <img src="https://img.shields.io/badge/svelte-5.0-orange.svg" alt="Svelte 5" />
   <img src="https://img.shields.io/badge/typescript-5.0-blue.svg" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/themes-2-purple.svg" alt="Dual Themes" />
+  <img src="https://img.shields.io/badge/variants-3-purple.svg" alt="Variants" />
 </div>
 
 <br />
 
-A cutting-edge design system featuring **dual themes**: classic terminal hacker aesthetics and modern **Bubble Tea TUI** design. Switch seamlessly between green matrix styling and colorful gradient interfaces.
+A modern Svelte 5 UI component library featuring a **terminal aesthetic**, a soft translucent **glass** style, and an experimental **liquid** glow variant.
 
 ## ✨ Features
 
-- 🎨 **Dual Theme System** - Terminal hacker aesthetic + Modern Bubble Tea TUI
-- ⚡ **50+ Components** - Comprehensive component library with theme variants
-- 🔄 **Theme Switching** - Seamless transitions between visual styles
-- 🎯 **TypeScript First** - Full type safety and IntelliSense support
-- 📱 **Responsive** - Mobile-first design with adaptive layouts
-- ♿ **Accessible** - WCAG 2.1 AA compliant with keyboard navigation
-- 🚀 **Performance** - Tree-shakable, optimized bundles
-- 🎭 **Motion System** - Smooth animations and micro-interactions
+- 🎨 **Design Variants** – `terminal`, `glass`, `liquid` (experimental/high‑glow)
+- ⚡ **Rich Component Set** – Growing collection with consistent sizing & styling tokens
+- 🎯 **TypeScript First** – Full type safety and IntelliSense
+- 📱 **Responsive** – Mobile-first adaptive layouts
+- ♿ **Accessibility-Focused** – Keyboard & semantic patterns (ongoing audit)
+- 🚀 **Performance** – Tree-shakable, lean build output
+- 🧩 **Composable** – Clear prop APIs; no hidden global state
+- 🎭 **Motion-Ready** – Motion layer planned (prefers-reduced-motion aware)
 
-## 🎨 Themes
+## 🧪 Showcase Status
 
-### Terminal Theme
-Classic hacker aesthetic with:
-- Matrix green (`#00ff41`) color scheme
-- Sharp, precise edges and corners
-- IBM Plex Mono, JetBrains Mono, SF Mono typography
-- High contrast for readability
-- CLI-inspired interactions
-- Terminal glow effects
+The interactive Histoire-based showcase is temporarily disabled due to an upstream Svelte 5 incompatibility (plugin imports from `svelte/internal`).  
+To skip quietly (default): run scripts normally.  
+To attempt once upstream support lands:
+```bash
+ENABLE_SHOWCASE=true bun run histoire
+```
+Tracking issue will be linked in the CHANGELOG once opened.
 
-### Bubble Tea Theme
-Modern TUI design featuring:
-- Colorful gradients (pink, purple, blue, cyan)
-- Glow and neon effects for enhanced visual impact
-- Rounded corners and soft edges
-- Professional monospace typography
-- Approachable color palette
-- Modern terminal UI patterns
+## 🎨 Variants (Design Intent)
+
+### Terminal
+- Matrix green accents (`#00ff41`)
+- High contrast, monospaced aesthetic
+- Minimal glow, utilitarian feel
+
+### Glass
+- Translucent surfaces / subtle blur
+- Rounded edges & softened contrasts
+- Gradient accents and soft glow
+- (Formerly referred to as “Bubble Tea” in earlier drafts)
+
+### Liquid (Experimental)
+- Higher-intensity gradient & glow surfaces
+- For visually expressive surfaces (cards, panels)
+- Subject to refinement before 1.0
 
 ## 🚀 Quick Start
 
 ```bash
-# Install with Bun (recommended)
-bun add a-hackers-brand
+# Install (Bun recommended)
+bun add a-hacker-brand
 
 # Install peer dependencies
-bun add @threlte/core @threlte/extras three @lucide/svelte
+bun add svelte @threlte/core @threlte/extras three lucide-svelte
 
 # Or with npm/pnpm
-npm install a-hackers-brand
-pnpm add a-hackers-brand
+npm install a-hacker-brand svelte @threlte/core @threlte/extras three lucide-svelte
+pnpm add a-hacker-brand svelte @threlte/core @threlte/extras three lucide-svelte
 ```
 
 ```svelte
 <script>
-  import { Button, Card, GlowText, theme } from 'a-hackers-brand';
-  
-  // Set your preferred theme
-  theme.setBubbleTea(); // or theme.setTerminal()
+  import { Button, Card, GlowText } from 'a-hacker-brand';
 </script>
 
-<!-- Use themed components -->
-<Button variant="bubbleTea">Modern TUI Button</Button>
-<Button variant="terminal">Hacker Style Button</Button>
+<Button variant="terminal">Terminal Action</Button>
+<Button variant="glass">Glass Action</Button>
+<Button variant="liquid">Liquid Action</Button>
 
-<Card variant="bubbleTea">
+<Card variant="glass">
   <GlowText color="pink" intensity="intense">
-    Bubble Tea Title
+    Glass Card
   </GlowText>
-  <p>Colorful and modern design with glow effects</p>
+  <p>Soft translucency with accent glow.</p>
 </Card>
 ```
 
-## 🎯 Theme Switching
+## 🎯 Using Variants
 
-```javascript
-import { theme } from 'a-hackers-brand/stores/theme';
-
-// Switch themes programmatically
-theme.toggle();                // Toggle between themes
-theme.setTerminal();           // Set terminal theme
-theme.setBubbleTea();          // Set Bubble Tea theme
-
-// Listen to theme changes
-theme.subscribe(currentTheme => {
-  console.log('Theme changed to:', currentTheme);
-});
+Most components expose a `variant` prop:
+```svelte
+<Tabs variant="terminal" />
+<Tabs variant="glass" />
+<Tabs variant="liquid" />
 ```
+If a variant is not yet refined for a component, it gracefully falls back to a base style.
 
-## 📋 Component Variants
+## ♿ Accessibility (Current Baseline)
 
-All major components support both theme variants:
+Implemented:
+- Semantic buttons & interactive roles (no div+onclick anti-patterns)
+- Keyboard: Enter/Space activation, Escape closes overlays, Arrow keys for list-like navigation where applicable
+- Focus management for popovers/drawers (restoring prior focus)
+- Visible focus styles
+
+Planned:
+- Expanded a11y test matrix & automated axe scans
+- Live region announcements for dynamic content
+- Reduced motion tokenization
+
+(Please report issues—accessibility is an active priority.)
+
+## 📋 Component Variants (Examples)
 
 ```svelte
-<!-- Terminal variants -->
-<Button variant="terminal">Terminal Button</Button>
-<Card variant="terminal">Terminal Card</Card>
-<Modal variant="terminal">Terminal Modal</Modal>
-<Tabs variant="terminal">Terminal Tabs</Tabs>
+<!-- Terminal -->
+<Button variant="terminal">Run</Button>
+<Card variant="terminal">...</Card>
+<Modal variant="terminal">...</Modal>
+<Tabs variant="terminal">...</Tabs>
 
-<!-- Bubble Tea variants -->
-<Button variant="bubbleTea">Bubble Tea Button</Button>
-<Card variant="bubbleTea">Bubble Tea Card</Card>
-<Modal variant="bubbleTea">Bubble Tea Modal</Modal>
-<Tabs variant="bubbleTea">Bubble Tea Tabs</Tabs>
+<!-- Glass -->
+<Button variant="glass">Submit</Button>
+<Card variant="glass">...</Card>
+<Modal variant="glass">...</Modal>
+<Tabs variant="glass">...</Tabs>
+
+<!-- Liquid (experimental) -->
+<Button variant="liquid">Glow Action</Button>
+<Card variant="liquid">...</Card>
 ```
 
 ## 🎨 New Components
@@ -117,14 +133,14 @@ Terminal-style status bar with theme support:
 
 ```svelte
 <StatusBar 
-  variant="bubbleTea"
+  variant="glass"
   status="Ready"
   encoding="UTF-8"
   fileType="TypeScript"
   lineNumber={42}
   columnNumber={13}
   indicators={[
-    { label: 'Theme', value: 'Bubble Tea', type: 'success' }
+    { label: 'Variant', value: 'Glass', type: 'success' }
   ]}
 />
 ```
@@ -146,7 +162,7 @@ Interactive color showcase with copy-to-clipboard:
 Typography with neon/glow effects:
 
 ```svelte
-<!-- Bubble Tea glow effects -->
+<!-- Glass variant glow effects -->
 <GlowText color="pink" intensity="intense">
   Bright Pink Glow
 </GlowText>
@@ -216,33 +232,17 @@ module.exports = {
 }
 ```
 
-## 🚦 Migration from v0.2.0
+## Versioning
 
-Version 0.3.0 is backward compatible:
-
-- All existing `terminal` variants continue to work
-- New `bubbleTea` variants are additive
-- Theme store provides optional theme management
-- Default theme remains `terminal`
-
-To adopt the new theme system:
-
-```javascript
-// Before (v0.2.0)
-<Button variant="default">Button</Button>
-
-// After (v0.3.0) - Choose your theme
-<Button variant="terminal">Terminal Button</Button>
-<Button variant="bubbleTea">Bubble Tea Button</Button>
-```
+This is the initial 0.x line; minor releases may include breaking changes while APIs stabilize. Refer to the CHANGELOG for any breaking notes.
 
 ## 🎨 Design Philosophy
 
 ### Terminal Theme
 Inspired by classic hacker culture, command-line interfaces, and retro computing. Features high contrast, precision, and utilitarian design principles.
 
-### Bubble Tea Theme
-Modern TUI aesthetics inspired by contemporary terminal applications like Charm's Bubble Tea framework. Emphasizes approachability, color, and contemporary design patterns.
+### Glass Variant
+Translucent, softened surfaces with subtle gradients and glow accents. Emphasizes approachability and modern terminal-inspired clarity without overpowering neon effects.
 
 ## 💻 Development Setup
 
