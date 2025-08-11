@@ -1,0 +1,54 @@
+---
+title: Component Embeds
+description: How interactive components are rendered inline above code blocks.
+---
+
+# Interactive Component Embeds
+
+Live components render directly in this documentation using a lightweight embed script.
+
+## Usage Pattern
+
+Place a container element before your code block:
+
+```html
+<div data-ahb-component="Button" data-ahb-props='{"variant":"terminal"}'>Click Me</div>
+```
+
+Follow it with the example source:
+
+```svelte
+<Button variant="terminal">Click Me</Button>
+```
+
+The script scans for `data-ahb-component` attributes and mounts the matching Svelte component.
+
+## Custom Element Form
+
+You can also write:
+
+```html
+<ahb-button variant="terminal">Click Me</ahb-button>
+```
+
+Attributes are converted to props (primitive, number, JSON objects/arrays, true/false/null/undefined).
+
+## Props
+
+Provide props via:
+- `data-ahb-props` JSON string (authoritative)
+- Individual attributes (custom element mode)
+
+## Theming
+
+Theme toggling components will react to global theme state; a theme toggle custom element `<ahb-theme-toggle>` can be added once global registration is extended.
+
+## Notes
+
+- Story/demo (`*.story.svelte`) files are ignored.
+- Slot content is currently not projected in generic mounts—prefer simple children text.
+- Add `data-ahb-skip="true"` to opt a node out.
+
+---
+
+Powered by the auto-mount registry (dist/embed/embed.js).

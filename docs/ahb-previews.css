@@ -1,0 +1,97 @@
+/* A Hacker's Brand - Live component preview styling */
+.ahb-preview {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin: 0 0 1rem 0;
+    background: linear-gradient(135deg, rgba(0, 255, 65, 0.07), rgba(255, 0, 200, 0.07));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.8rem;
+    position: relative;
+}
+
+.ahb-preview::before {
+    content: 'Live Preview';
+    position: absolute;
+    top: -0.55rem;
+    left: 0.75rem;
+    background: #0d0d0d;
+    padding: 0 0.4rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #7fffd4;
+    opacity: 0.85;
+}
+
+.ahb-preview[data-missing] {
+    border-color: #ff0040;
+    color: #ff0040;
+}
+
+.ahb-preview[data-missing]::before {
+    content: 'Missing Component';
+    color: #ff0040;
+}
+
+/* Provide a subtle focus outline for accessibility */
+.ahb-preview :focus-visible {
+    outline: 2px solid #00ff41;
+    outline-offset: 2px;
+}
+
+/* Wrapper for projected slot content (best-effort) */
+.ahb-slot-content {
+    margin-top: 0.5rem;
+    width: 100%;
+    display: block;
+    opacity: 0.9;
+}
+
+.ahb-trunc-note {
+    margin-top: 0.5rem;
+    font-size: 0.65rem;
+    font-family: var(--font-mono, monospace);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #00ff41;
+    opacity: 0.75;
+    user-select: none;
+}
+
+.ahb-trunc-note:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+
+/* Theme toggle button (class-based) */
+#ahb-theme-toggle.ahb-theme-toggle,
+.ahb-theme-toggle {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 9999;
+    background: #0d0d0d;
+    color: #00ff41;
+    border: 1px solid #00ff41;
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.7rem;
+    cursor: pointer;
+    border-radius: 6px;
+    backdrop-filter: blur(6px);
+    transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+
+#ahb-theme-toggle.ahb-theme-toggle:hover,
+.ahb-theme-toggle:hover {
+    background: #121212;
+    color: #7fffd4;
+    border-color: #7fffd4;
+}

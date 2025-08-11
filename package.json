@@ -1,6 +1,6 @@
 {
   "name": "a-hacker-brand",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A Hacker's Brand UI component library (terminal, glass, liquid variants) for Svelte 5.",
   "type": "module",
   "license": "MIT",
@@ -36,6 +36,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && bun run types:emit",
+    "build:embed": "vite build --config vite.embed.config.ts && cp dist/embed/embed.js static/embed.js",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "check": "bun run check:lib",

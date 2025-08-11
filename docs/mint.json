@@ -7,15 +7,34 @@
     "light": "/logo/light.svg"
   },
   "topbarLinks": [
-    { "name": "GitHub", "url": "https://github.com/org/ui" },
-    { "name": "Histoire", "url": "/integrations/histoire" }
+    {
+      "name": "GitHub",
+      "url": "https://github.com/org/ui"
+    },
+    {
+      "name": "Histoire",
+      "url": "/integrations/histoire"
+    }
   ],
-  "topbarCtaButton": { "name": "Get Started", "url": "/getting-started/installation" },
+  "topbarCtaButton": {
+    "name": "Get Started",
+    "url": "/getting-started/installation"
+  },
   "colors": {
     "primary": "#00ff41"
   },
   "css": [
-    "styles/terminal.css"
+    "styles/terminal.css",
+    "ahb-previews.css"
+  ],
+  "head": [
+    {
+      "tag": "script",
+      "attrs": {
+        "type": "module",
+        "src": "/embed.js"
+      }
+    }
   ],
   "navigation": [
     {
@@ -43,7 +62,8 @@
     {
       "group": "Components",
       "pages": [
-        "components/index"
+        "components/index",
+        "components/embed-guide"
       ]
     },
     {
@@ -63,6 +83,9 @@
     }
   ],
   "anchors": [
-    { "name": "GitHub", "url": "https://github.com/org/ui" }
+    {
+      "name": "GitHub",
+      "url": "https://github.com/org/ui"
+    }
   ]
 }

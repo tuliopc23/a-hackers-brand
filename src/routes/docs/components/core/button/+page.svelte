@@ -1,50 +1,77 @@
 <script lang="ts">
-	import { Button } from '$lib/components';
-	import ComponentPlayground from '$lib/docs/ComponentPlayground.svelte';
-	import PropsTable from '$lib/docs/PropsTable.svelte';
-	import EventsTable from '$lib/docs/EventsTable.svelte';
-	import CodeBlock from '$lib/docs/CodeBlock.svelte';
-	import { Badge, Alert } from '$lib/components';
-	
-	const componentMeta = {
-		name: 'Button',
-		description: 'Interactive button with multiple variants and states',
-		category: 'core',
-		complexity: 'simple',
-		since: '0.2.0'
+	import { Button } from "$lib/components";
+	import ComponentPlayground from "$lib/docs/ComponentPlayground.svelte";
+	import PropsTable from "$lib/docs/PropsTable.svelte";
+	import EventsTable from "$lib/docs/EventsTable.svelte";
+	import CodeBlock from "$lib/docs/CodeBlock.svelte";
+	import { Badge, Alert } from "$lib/components";
+
+	// Local type definitions (avoid implicit 'any' warnings and align with playground expectations)
+	type PropControl = {
+		name: string;
+		type: "string" | "number" | "boolean" | "select";
+		defaultValue: any;
+		options?: string[];
 	};
-	
+
+	const componentMeta = {
+		name: "Button",
+		description: "Interactive button with multiple variants and states",
+		category: "core",
+		complexity: "simple",
+		since: "0.2.0",
+	};
+
 	// TODO: Extract these from TypeScript definitions
 	const props = [
-		
-		{ name: 'class', type: 'string', defaultValue: "''", description: 'Additional CSS classes' },
-		{ name: 'style', type: 'string', defaultValue: "''", description: 'Inline styles' },
-		{ name: 'id', type: 'string', defaultValue: 'undefined', description: 'DOM element ID' }
-		
+		{
+			name: "class",
+			type: "string",
+			defaultValue: "''",
+			description: "Additional CSS classes",
+		},
+		{
+			name: "style",
+			type: "string",
+			defaultValue: "''",
+			description: "Inline styles",
+		},
+		{
+			name: "id",
+			type: "string",
+			defaultValue: "undefined",
+			description: "DOM element ID",
+		},
 	];
-	
+
 	const events = [
-		{ name: 'click', type: 'MouseEvent', description: 'Fired when the component is clicked' }
+		{
+			name: "click",
+			type: "MouseEvent",
+			description: "Fired when the component is clicked",
+		},
 	];
-	
-	const playgroundProps = [
-		
-		{ name: 'variant', type: 'select', defaultValue: 'solid', options: ['solid', 'ghost', 'glass', 'terminal'] },
-		{ name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
-		{ name: 'disabled', type: 'boolean', defaultValue: false }
-		
+
+	const playgroundProps: PropControl[] = [
+		{
+			name: "variant",
+			type: "select",
+			defaultValue: "solid",
+			options: ["solid", "ghost", "glass", "terminal"],
+		},
+		{
+			name: "size",
+			type: "select",
+			defaultValue: "md",
+			options: ["sm", "md", "lg"],
+		},
+		{ name: "disabled", type: "boolean", defaultValue: false },
 	];
-	
+
 	const basicExample = `<Button />`;
-	
-	const advancedExample = `<!-- Advanced example disabled -->`;
-	  import { Button } from 'a-hackers-brand';
-	</script>
 
-	<Button />`;
-</script>
-
-<Button />`;
+	// Clean advanced example string (no stray <script> tags or escaped entities needed)
+	const advancedExample = `<Button variant="terminal" on:click={() => console.log('clicked')}>Terminal Button</Button>`;
 </script>
 
 <svelte:head>
@@ -69,54 +96,60 @@
 			{componentMeta.description}
 		</p>
 	</header>
-	
+
 	<!-- Preview Section -->
 	<section class="mb-12">
 		<h2 class="text-2xl font-semibold mb-4 text-green-400">Preview</h2>
-		<div class="p-8 border border-green-500/20 rounded-lg bg-black/50 flex items-center justify-center min-h-[200px]">
+		<div
+			class="p-8 border border-green-500/20 rounded-lg bg-black/50 flex items-center justify-center min-h-[200px]"
+		>
 			<Button />
 		</div>
 	</section>
-	
+
 	<!-- Interactive Playground -->
 	{#if playgroundProps.length > 0}
 		<section class="mb-12">
-			<h2 class="text-2xl font-semibold mb-4 text-green-400">Interactive Playground</h2>
-			<ComponentPlayground 
+			<h2 class="text-2xl font-semibold mb-4 text-green-400">
+				Interactive Playground
+			</h2>
+			<ComponentPlayground
 				componentName="Button"
-				component={Button} 
-				props={playgroundProps} 
+				component={Button}
+				props={playgroundProps}
 			/>
 		</section>
 	{/if}
-	
+
 	<!-- Code Examples -->
 	<section class="mb-12">
 		<h2 class="text-2xl font-semibold mb-4 text-green-400">Examples</h2>
-		
+
 		<div class="space-y-6">
 			<div>
 				<h3 class="text-lg font-semibold mb-2">Basic Usage</h3>
 				<CodeBlock code={basicExample} language="svelte" />
 			</div>
-			
+
 			<div>
 				<h3 class="text-lg font-semibold mb-2">Advanced Usage</h3>
 				<CodeBlock code={advancedExample} language="svelte" />
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- API Reference -->
 	<section class="mb-12">
-		<h2 class="text-2xl font-semibold mb-4 text-green-400">API Reference</h2>
-		
+		<h2 class="text-2xl font-semibold mb-4 text-green-400">
+			API Reference
+		</h2>
+
 		<div class="space-y-6">
 			<div>
 				<h3 class="text-lg font-semibold mb-2">Props</h3>
 				<PropsTable {props} />
 			</div>
-			
+
 			{#if events.length > 0}
 				<div>
 					<h3 class="text-lg font-semibold mb-2">Events</h3>
@@ -125,12 +158,15 @@
 			{/if}
 		</div>
 	</section>
-	
+
 	<!-- Accessibility -->
 	<section class="mb-12">
-		<h2 class="text-2xl font-semibold mb-4 text-green-400">Accessibility</h2>
+		<h2 class="text-2xl font-semibold mb-4 text-green-400">
+			Accessibility
+		</h2>
 		<Alert variant="info">
-			This component follows WCAG 2.1 AA standards with full keyboard navigation support.
+			This component follows WCAG 2.1 AA standards with full keyboard
+			navigation support.
 		</Alert>
 		<ul class="list-disc list-inside text-gray-400 mt-4 space-y-2">
 			<li>Keyboard accessible with Tab navigation</li>
@@ -139,12 +175,17 @@
 			<li>Color contrast ratios meet WCAG standards</li>
 		</ul>
 	</section>
-	
+
 	<!-- Related Components -->
 	<section>
-		<h2 class="text-2xl font-semibold mb-4 text-green-400">Related Components</h2>
+		<h2 class="text-2xl font-semibold mb-4 text-green-400">
+			Related Components
+		</h2>
 		<div class="flex flex-wrap gap-2">
-			<a href="/docs/components/core" class="text-green-400 hover:underline">
+			<a
+				href="/docs/components/core"
+				class="text-green-400 hover:underline"
+			>
 				View all core components →
 			</a>
 		</div>
