@@ -16,7 +16,9 @@ export type ComponentSize = 'sm' | 'md' | 'lg' | 'xl' | 'pill' | 'full';
  * Get theme-specific border radius value
  */
 export function getThemeRadius(theme: SystemThemeType, size: RadiusSize): string {
-    return borderRadius.themes[theme][size];
+    const themeRadii = borderRadius.themes[theme as keyof typeof borderRadius.themes];
+    if (!themeRadii) return '0';
+    return themeRadii[size] || '0';
 }
 
 /**
@@ -36,12 +38,14 @@ export function getComponentRadius(component: ComponentType, size: ComponentSize
  * Generate CSS custom properties for current theme
  */
 export function generateRadiusCSSProperties(theme: SystemThemeType): Record<string, string> {
-    const themeRadii = borderRadius.themes[theme];
+    const themeRadii = borderRadius.themes[theme as keyof typeof borderRadius.themes];
     const properties: Record<string, string> = {};
+
+    if (!themeRadii) return properties;
 
     // Generate CSS custom properties for each radius size
     Object.entries(themeRadii).forEach(([size, value]) => {
-        properties[`--radius-${size}`] = value;
+        properties[`--radius-${size}`] = value as string;
     });
 
     return properties;
@@ -101,7 +105,9 @@ export const radiusUtils = {
  */
 export function getMotionRadius(theme: SystemThemeType, component: ComponentType, size: ComponentSize): string {
     // For motion effects, we often want pixel values instead of CSS custom properties
-    const themeRadii = borderRadius.themes[theme];
+    const themeRadii = borderRadius.themes[theme as keyof typeof borderRadius.themes];
+    
+    if (!themeRadii) return '0';
 
     // Map component sizes to radius sizes
     const sizeMap: Record<ComponentSize, RadiusSize> = {
@@ -114,7 +120,7 @@ export function getMotionRadius(theme: SystemThemeType, component: ComponentType
     };
 
     const radiusSize = sizeMap[size] || 'md';
-    return themeRadii[radiusSize];
+    return themeRadii[radiusSize] || '0';
 }
 
 /**
@@ -123,7 +129,9 @@ export function getMotionRadius(theme: SystemThemeType, component: ComponentType
 export function resolveRadiusValue(value: string, theme: SystemThemeType): string {
     if (value.startsWith('var(--radius-')) {
         const size = value.replace('var(--radius-', '').replace(')', '') as RadiusSize;
-        return borderRadius.themes[theme][size];
+        const themeRadii = borderRadius.themes[theme as keyof typeof borderRadius.themes];
+        if (!themeRadii) return value;
+        return themeRadii[size] || value;
     }
     return value;
 }

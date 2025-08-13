@@ -13,7 +13,7 @@ export type ThemeAwareVariant = 'auto' | 'theme' | string;
  */
 export function getCurrentTheme(): SystemThemeType {
     const config = get(themeConfig);
-    return config.resolvedTheme;
+    return config?.resolvedTheme || 'terminal';
 }
 
 /**
@@ -158,7 +158,7 @@ export function getThemeAwareFocusRing(): string {
 export function getThemeAwareTextColor(semantic: 'primary' | 'secondary' | 'accent' | 'muted' = 'primary'): string {
     const theme = getCurrentTheme();
 
-    const colorMap = {
+    const colorMap: Record<SystemThemeType, Record<typeof semantic, string>> = {
         terminal: {
             primary: 'text-terminal-green',
             secondary: 'text-terminal-cyan',
