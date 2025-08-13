@@ -1,5 +1,5 @@
 {
-  "name": "@org/ui",
+  "name": "A Hacker's Brand",
   "theme": "linden",
   "favicon": "/favicon.svg",
   "logo": {
@@ -9,11 +9,11 @@
   "topbarLinks": [
     {
       "name": "GitHub",
-      "url": "https://github.com/org/ui"
+      "url": "https://github.com/tuliopc23/a-hackers-brand"
     },
     {
-      "name": "Histoire",
-      "url": "/integrations/histoire"
+      "name": "NPM Package",
+      "url": "https://www.npmjs.com/package/a-hacker-brand"
     }
   ],
   "topbarCtaButton": {
@@ -62,8 +62,104 @@
     {
       "group": "Components",
       "pages": [
-        "components/index",
-        "components/embed-guide"
+        "components/index"
+      ]
+    },
+    {
+      "group": "Form Controls",
+      "pages": [
+        "components/button",
+        "components/input",
+        "components/checkbox",
+        "components/radio",
+        "components/select",
+        "components/switch",
+        "components/textarea",
+        "components/slider",
+        "components/date-picker",
+        "components/file-upload",
+        "components/multi-select"
+      ]
+    },
+    {
+      "group": "Display Components",
+      "pages": [
+        "components/badge",
+        "components/card",
+        "components/progress",
+        "components/skeleton",
+        "components/color-palette",
+        "components/color-swatch",
+        "components/glow-text",
+        "components/metrics-card",
+        "components/status-bar"
+      ]
+    },
+    {
+      "group": "Navigation",
+      "pages": [
+        "components/navbar",
+        "components/breadcrumb",
+        "components/menu",
+        "components/sidebar",
+        "components/tabs"
+      ]
+    },
+    {
+      "group": "Data Display",
+      "pages": [
+        "components/table",
+        "components/data-grid",
+        "components/data-table",
+        "components/list",
+        "components/pagination",
+        "components/carousel"
+      ]
+    },
+    {
+      "group": "Overlays & Feedback",
+      "pages": [
+        "components/modal",
+        "components/drawer",
+        "components/dropdown",
+        "components/tooltip",
+        "components/toast",
+        "components/alert"
+      ]
+    },
+    {
+      "group": "Terminal Components",
+      "pages": [
+        "components/terminal-window",
+        "components/matrix-rain",
+        "components/advanced-terminal",
+        "components/liquid-terminal",
+        "components/lazy-terminal-window",
+        "components/terminal-startup",
+        "components/boot-sequence",
+        "components/retro-text",
+        "components/retro-futuristic-text",
+        "components/ai-command-suggestions",
+        "components/command-block"
+      ]
+    },
+    {
+      "group": "WebGL & 3D",
+      "pages": [
+        "components/glass-scene",
+        "components/lazy-threlte-canvas"
+      ]
+    },
+    {
+      "group": "System & Utilities",
+      "pages": [
+        "components/theme-selector",
+        "components/theme-debug-panel",
+        "components/accessibility-report",
+        "components/performance-monitor",
+        "components/performance-dashboard",
+        "components/async-error-boundary",
+        "components/code-highlight"
       ]
     },
     {
@@ -85,7 +181,11 @@
   "anchors": [
     {
       "name": "GitHub",
-      "url": "https://github.com/org/ui"
+      "url": "https://github.com/tuliopc23/a-hackers-brand"
+    },
+    {
+      "name": "NPM",
+      "url": "https://www.npmjs.com/package/a-hacker-brand"
     }
   ]
 }

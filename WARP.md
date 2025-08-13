@@ -65,7 +65,7 @@ Usage notes and constraints
 - Lint/format: no root lint/format configs were detected during this write; if such scripts/configs appear later, prefer running them via package.json.
 
 References
-- Project docs: https://a-hackers-brand.netlify.app
+- Project docs: bun run docs:dev (local Mintlify preview)
 - Bun docs: https://bun.com/docs
 - Svelte docs: https://svelte.dev/docs
 - Vite guide: https://vite.dev/guide/

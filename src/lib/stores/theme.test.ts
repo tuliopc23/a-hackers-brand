@@ -96,13 +96,14 @@ describe('System Theme Preference Detection', () => {
             const callback = vi.fn();
             const cleanup = watchSystemThemePreference(callback);
 
-            expect(darkModeQuery.addListener).toHaveBeenCalled();
-            expect(lightModeQuery.addListener).toHaveBeenCalled();
+            // Should use modern addEventListener when available
+            expect(darkModeQuery.addEventListener).toHaveBeenCalled();
+            expect(lightModeQuery.addEventListener).toHaveBeenCalled();
 
             // Cleanup should remove listeners
             cleanup();
-            expect(darkModeQuery.removeListener).toHaveBeenCalled();
-            expect(lightModeQuery.removeListener).toHaveBeenCalled();
+            expect(darkModeQuery.removeEventListener).toHaveBeenCalled();
+            expect(lightModeQuery.removeEventListener).toHaveBeenCalled();
         });
 
         it('should call callback when system preference changes', () => {
@@ -118,8 +119,8 @@ describe('System Theme Preference Detection', () => {
             const callback = vi.fn();
             watchSystemThemePreference(callback);
 
-            // Simulate system change by calling the registered listener
-            const changeHandler = darkModeQuery.addListener.mock.calls[0][0];
+            // Simulate system change by calling the registered listener (modern API)
+            const changeHandler = darkModeQuery.addEventListener.mock.calls[0][1];
 
             // Change to dark mode
             darkModeQuery.matches = true;

@@ -1,0 +1,805 @@
+{
+  "generatedAt": "2025-08-13T01:24:20.078Z",
+  "stats": {
+    "totalComponents": 78,
+    "exported": 62,
+    "hasStory": 42,
+    "hasTest": 0,
+    "hasDocs": 28,
+    "webglComponents": 10,
+    "categories": {
+      "Data Display": 6,
+      "Display": 8,
+      "Error Handling": 3,
+      "Form Controls": 13,
+      "Navigation": 5,
+      "Other": 15,
+      "Overlays & Feedback": 6,
+      "System": 2,
+      "Terminal": 10,
+      "WebGL/3D": 10
+    }
+  },
+  "components": [
+    {
+      "name": "Carousel",
+      "path": "src/lib/components/Carousel.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Data Display"
+    },
+    {
+      "name": "DataGrid",
+      "path": "src/lib/components/DataGrid.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Data Display"
+    },
+    {
+      "name": "DataTable",
+      "path": "src/lib/components/DataTable.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Data Display"
+    },
+    {
+      "name": "List",
+      "path": "src/lib/components/List.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Data Display"
+    },
+    {
+      "name": "Pagination",
+      "path": "src/lib/components/Pagination.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Data Display"
+    },
+    {
+      "name": "Table",
+      "path": "src/lib/components/Table.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Data Display"
+    },
+    {
+      "name": "Badge",
+      "path": "src/lib/components/Badge.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Display"
+    },
+    {
+      "name": "Card",
+      "path": "src/lib/components/Card.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Display"
+    },
+    {
+      "name": "ColorPalette",
+      "path": "src/lib/components/ColorPalette.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Display"
+    },
+    {
+      "name": "GlowText",
+      "path": "src/lib/components/GlowText.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Display"
+    },
+    {
+      "name": "MetricsCard",
+      "path": "src/lib/components/MetricsCard.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Display"
+    },
+    {
+      "name": "Progress",
+      "path": "src/lib/components/Progress.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Display"
+    },
+    {
+      "name": "Skeleton",
+      "path": "src/lib/components/Skeleton.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Display"
+    },
+    {
+      "name": "StatusBar",
+      "path": "src/lib/components/StatusBar.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Display"
+    },
+    {
+      "name": "AsyncErrorBoundary",
+      "path": "src/lib/components/AsyncErrorBoundary.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Error Handling"
+    },
+    {
+      "name": "ErrorBoundary",
+      "path": "src/lib/components/ErrorBoundary.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Error Handling"
+    },
+    {
+      "name": "FormErrorBoundary",
+      "path": "src/lib/components/FormErrorBoundary.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Error Handling"
+    },
+    {
+      "name": "Button",
+      "path": "src/lib/components/Button.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "Checkbox",
+      "path": "src/lib/components/Checkbox/Checkbox.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "DatePicker",
+      "path": "src/lib/components/DatePicker.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "FileUpload",
+      "path": "src/lib/components/FileUpload.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "Input",
+      "path": "src/lib/components/Input.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "MultiSelect",
+      "path": "src/lib/components/MultiSelect.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "Radio",
+      "path": "src/lib/components/Radio.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "Select",
+      "path": "src/lib/components/Select.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "SelectAdvanced",
+      "path": "src/lib/components/SelectAdvanced.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "Slider",
+      "path": "src/lib/components/Slider.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "Switch",
+      "path": "src/lib/components/Switch.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "Textarea",
+      "path": "src/lib/components/Textarea.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "ThemeSelector",
+      "path": "src/lib/components/ThemeSelector.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Form Controls"
+    },
+    {
+      "name": "Breadcrumb",
+      "path": "src/lib/components/Breadcrumb.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Navigation"
+    },
+    {
+      "name": "Menu",
+      "path": "src/lib/components/Menu.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Navigation"
+    },
+    {
+      "name": "Navbar",
+      "path": "src/lib/components/Navbar.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Navigation"
+    },
+    {
+      "name": "Sidebar",
+      "path": "src/lib/components/Sidebar.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Navigation"
+    },
+    {
+      "name": "Tabs",
+      "path": "src/lib/components/Tabs.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Navigation"
+    },
+    {
+      "name": "Accordion",
+      "path": "src/lib/components/Accordion.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Other"
+    },
+    {
+      "name": "AICommandSuggestions",
+      "path": "src/lib/components/AICommandSuggestions.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Other"
+    },
+    {
+      "name": "CodeHighlight",
+      "path": "src/lib/components/CodeHighlight.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Other"
+    },
+    {
+      "name": "ColorSwatch",
+      "path": "src/lib/components/ColorSwatch.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "Other"
+    },
+    {
+      "name": "CommandBlock",
+      "path": "src/lib/components/CommandBlock.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Other"
+    },
+    {
+      "name": "Container",
+      "path": "src/lib/components/responsive/Container.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "Other"
+    },
+    {
+      "name": "Flex",
+      "path": "src/lib/components/responsive/Flex.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "Other"
+    },
+    {
+      "name": "GlassScene",
+      "path": "src/lib/components/GlassScene.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Other"
+    },
+    {
+      "name": "GlitchText",
+      "path": "src/lib/components/effects/GlitchText.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "Other"
+    },
+    {
+      "name": "Grid",
+      "path": "src/lib/components/responsive/Grid.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "Other"
+    },
+    {
+      "name": "PerformanceDashboard",
+      "path": "src/lib/components/PerformanceDashboard.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Other"
+    },
+    {
+      "name": "PerformanceMonitor",
+      "path": "src/lib/components/PerformanceMonitor.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Other"
+    },
+    {
+      "name": "PerfOverlay",
+      "path": "src/lib/components/PerfOverlay.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Other"
+    },
+    {
+      "name": "ResponsiveText",
+      "path": "src/lib/components/responsive/ResponsiveText.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "Other"
+    },
+    {
+      "name": "Show",
+      "path": "src/lib/components/responsive/Show.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "Other"
+    },
+    {
+      "name": "Alert",
+      "path": "src/lib/components/Alert.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Overlays & Feedback"
+    },
+    {
+      "name": "Drawer",
+      "path": "src/lib/components/Drawer.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Overlays & Feedback"
+    },
+    {
+      "name": "Dropdown",
+      "path": "src/lib/components/Dropdown.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Overlays & Feedback"
+    },
+    {
+      "name": "Modal",
+      "path": "src/lib/components/Modal.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Overlays & Feedback"
+    },
+    {
+      "name": "Toast",
+      "path": "src/lib/components/Toast.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Overlays & Feedback"
+    },
+    {
+      "name": "Tooltip",
+      "path": "src/lib/components/Tooltip.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": true,
+      "isExported": true,
+      "category": "Overlays & Feedback"
+    },
+    {
+      "name": "AccessibilityReport",
+      "path": "src/lib/components/AccessibilityReport.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "System"
+    },
+    {
+      "name": "ThemeDebugPanel",
+      "path": "src/lib/components/ThemeDebugPanel.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "System"
+    },
+    {
+      "name": "AdvancedTerminal",
+      "path": "src/lib/components/AdvancedTerminal.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Terminal"
+    },
+    {
+      "name": "BootSequence",
+      "path": "src/lib/components/BootSequence.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Terminal"
+    },
+    {
+      "name": "LazyTerminalWindow",
+      "path": "src/lib/components/LazyTerminalWindow.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Terminal"
+    },
+    {
+      "name": "LiquidTerminal",
+      "path": "src/lib/components/LiquidTerminal.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Terminal"
+    },
+    {
+      "name": "MatrixRain",
+      "path": "src/lib/components/MatrixRain.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Terminal"
+    },
+    {
+      "name": "RetroFuturisticText",
+      "path": "src/lib/components/RetroFuturisticText.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Terminal"
+    },
+    {
+      "name": "RetroText",
+      "path": "src/lib/components/RetroText.svelte",
+      "isWebGL": false,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Terminal"
+    },
+    {
+      "name": "TerminalOrbit",
+      "path": "src/lib/components/TerminalOrbit.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Terminal"
+    },
+    {
+      "name": "TerminalStartup",
+      "path": "src/lib/components/TerminalStartup.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "Terminal"
+    },
+    {
+      "name": "TerminalWindow",
+      "path": "src/lib/components/TerminalWindow.svelte",
+      "isWebGL": false,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "Terminal"
+    },
+    {
+      "name": "AdvancedLiquidGlassScene",
+      "path": "src/lib/components/webgl/AdvancedLiquidGlassScene.svelte",
+      "isWebGL": true,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "WebGL/3D"
+    },
+    {
+      "name": "LazyThrelteCanvas",
+      "path": "src/lib/components/LazyThrelteCanvas.svelte",
+      "isWebGL": true,
+      "hasStory": true,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "WebGL/3D"
+    },
+    {
+      "name": "LiquidBackground",
+      "path": "src/lib/components/webgl/LiquidBackground.svelte",
+      "isWebGL": true,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "WebGL/3D"
+    },
+    {
+      "name": "LiquidGlassScene",
+      "path": "src/lib/components/webgl/LiquidGlassScene.svelte",
+      "isWebGL": true,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "WebGL/3D"
+    },
+    {
+      "name": "LiquidGlassShader",
+      "path": "src/lib/components/webgl/LiquidGlassShader.svelte",
+      "isWebGL": true,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "WebGL/3D"
+    },
+    {
+      "name": "LiquidParticleSystem",
+      "path": "src/lib/components/webgl/LiquidParticleSystem.svelte",
+      "isWebGL": true,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "WebGL/3D"
+    },
+    {
+      "name": "LiquidPlane",
+      "path": "src/lib/components/webgl/LiquidPlane.svelte",
+      "isWebGL": true,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "WebGL/3D"
+    },
+    {
+      "name": "LiquidSphere",
+      "path": "src/lib/components/webgl/LiquidSphere.svelte",
+      "isWebGL": true,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "WebGL/3D"
+    },
+    {
+      "name": "ParticleSystem",
+      "path": "src/lib/components/webgl/ParticleSystem.svelte",
+      "isWebGL": true,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": false,
+      "category": "WebGL/3D"
+    },
+    {
+      "name": "ThrelteCanvas",
+      "path": "src/lib/components/ThrelteCanvas.svelte",
+      "isWebGL": true,
+      "hasStory": false,
+      "hasTest": false,
+      "hasMintDocs": false,
+      "isExported": true,
+      "category": "WebGL/3D"
+    }
+  ]
+}

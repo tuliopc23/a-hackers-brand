@@ -33,5 +33,10 @@ export default defineConfig({
       $lib: '/src/lib'
     },
     conditions: ['import', 'module', 'default']
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./src/test-setup.ts']
   }
 });

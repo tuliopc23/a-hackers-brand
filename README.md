@@ -181,10 +181,10 @@ Typography with neon/glow effects:
 
 Visit our comprehensive documentation:
 
-- **[Getting Started](https://a-hackers-brand.netlify.app/docs/getting-started)** - Installation and setup
-- **[Theme Guide](https://a-hackers-brand.netlify.app/docs/themes)** - Theme switching and customization
-- **[Components](https://a-hackers-brand.netlify.app/docs/components)** - Component library and API
-- **[Bubble Tea Theme](https://a-hackers-brand.netlify.app/docs/themes/bubble-tea)** - Modern TUI design guide
+- **[Getting Started](https://mintlify.dev/getting-started)** - Installation and setup via Mintlify docs
+- **[Theme Guide](https://mintlify.dev/themes)** - Theme switching and customization  
+- **[Components](https://mintlify.dev/components)** - Component library and API
+- **[Documentation](https://mintlify.dev)** - Complete documentation and guides
 
 ## 🎯 CSS Custom Properties
 
@@ -286,7 +286,7 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🔗 Links
 
-- **[Documentation](https://a-hackers-brand.netlify.app)**
+- **[Documentation](https://mintlify.dev)**
 - **[GitHub Repository](https://github.com/tuliopc23/a-hackers-brand)**
 - **[NPM Package](https://www.npmjs.com/package/a-hackers-brand)**
 - **[Changelog](CHANGELOG.md)**
