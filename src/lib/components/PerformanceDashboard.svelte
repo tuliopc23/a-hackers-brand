@@ -3,7 +3,7 @@
 	import { getSummary, observe } from '../perf.js';
 	import { getVitals, getVitalsSummary } from '../../hooks.client.js';
 	import { Card } from './index.js';
-	import { Activity, Clock, Gauge, TrendingUp } from 'lucide-svelte';
+	import { Activity, Clock, Gauge, TrendingUp } // from 'lucide-svelte' // DISABLED;
 
 	interface Props {
 		class?: string;

@@ -5,6 +5,10 @@ export { default as Button } from "./Button.svelte";
 export { default as Card } from "./Card.svelte";
 export { default as Checkbox } from "./Checkbox/Checkbox.svelte";
 export { default as Dropdown } from "./Dropdown.svelte";
+<<<<<<< HEAD
+=======
+export { default as Icon } from "./Icon.svelte";
+>>>>>>> 9b6c4a213 (css implementation)
 export { default as Input } from "./Input.svelte";
 export { default as MetricsCard } from "./MetricsCard.svelte";
 export { default as Modal } from "./Modal.svelte";

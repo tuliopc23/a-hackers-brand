@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from "../utils.js";
     import { glassFade, magneticHover } from "../motion";
-    import { ChevronDown } from "lucide-svelte";
+    import { ChevronDown } // from "lucide-svelte" // DISABLED;
     import type { HTMLAttributes } from "svelte/elements";
     import { onMount } from "svelte";
 

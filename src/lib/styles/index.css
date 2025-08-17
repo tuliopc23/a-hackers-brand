@@ -3,6 +3,9 @@
 /* Import base styles */
 @import '../../../src/app.css';
 
+/* Import Font Awesome */
+@import './fontawesome.css';
+
 /* Theme-aware radius system */
 @import './radius.css';
 

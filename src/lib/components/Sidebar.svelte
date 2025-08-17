@@ -2,7 +2,7 @@
 	import { cn } from '../utils.js';
     import { liquidBlur } from '../motion';
 	import { createEventDispatcher } from 'svelte';
-import { ChevronLeft, ChevronRight } from 'lucide-svelte';
+import { ChevronLeft, ChevronRight } // from 'lucide-svelte' // DISABLED;
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	export interface SidebarItem {

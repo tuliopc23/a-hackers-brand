@@ -2,7 +2,7 @@
     import { cn } from "../utils.js";
     import { liquidBlur } from "../motion";
     import { createEventDispatcher, onMount } from "svelte";
-    import { X } from "lucide-svelte";
+    import { X } // from "lucide-svelte" // DISABLED;
     import { fly, fade } from "svelte/transition";
     import type { HTMLAttributes } from "svelte/elements";
 

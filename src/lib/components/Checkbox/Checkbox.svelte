@@ -2,7 +2,7 @@
 	import { cn } from '../../utils.js';
 	import { liquidBlur, springPop } from '../../motion';
 	import { sizeOf } from '../../utils/bundle-size.js';
-	import { Check, Minus } from 'lucide-svelte';
+	import { Check, Minus } // from 'lucide-svelte' // DISABLED;
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	interface Props extends Omit<HTMLAttributes<HTMLInputElement>, 'checked' | 'size'> {

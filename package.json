@@ -1,61 +1,12 @@
 {
   "name": "a-hacker-brand",
   "version": "0.2.0",
-  "description": "A Hacker's Brand UI component library (terminal, glass, liquid variants) for Svelte 5.",
-  "type": "module",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tuliopc23/a-hackers-brand.git"
   },
-  "homepage": "https://github.com/tuliopc23/a-hackers-brand#readme",
-  "bugs": {
-    "url": "https://github.com/tuliopc23/a-hackers-brand/issues"
-  },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    },
-    "./package.json": "./package.json"
-  },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "svelte": "./dist/index.js",
-  "sideEffects": false,
-  "files": [
-    "dist"
-  ],
-  "engines": {
-    "node": ">=18"
-  },
-  "peerDependencies": {
-    "svelte": ">=5.0.0",
-    "@threlte/core": "^8.1.4",
-    "@threlte/extras": "^9.4.5",
-    "three": "^0.179.1",
-    "lucide-svelte": "^0.539.0"
-  },
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build && bun run types:emit",
-    "build:embed": "vite build --config vite.embed.config.ts && cp dist/embed/embed.js static/embed.js",
-    "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
-    "check": "bun run check:lib",
-    "check:lib": "NODE_ENV=development svelte-check --no-tsconfig --workspace src/lib --diagnostic-sources svelte,css --ignore components/webgl --threshold error",
-    "lint": "eslint 'src/lib/**/*.{ts,js,svelte}'",
-    "lint:fix": "eslint 'src/lib/**/*.{ts,js,svelte}' --fix",
-    "types:emit": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "test": "vitest",
-    "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "docs:dev": "mintlify dev docs",
-    "docs:links": "mintlify broken-links docs",
-    "docs:preview": "mintlify preview docs"
-  },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^6.1.2",
     "@testing-library/jest-dom": "^6.4.5",
@@ -79,6 +30,35 @@
     "vitest": "^3.2.4",
     "vitest-axe": "^0.1.0"
   },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "optionalDependencies": {
+    "@threlte/core": "^8.1.4",
+    "@threlte/extras": "^9.4.5",
+    "three": "^0.179.1"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bugs": {
+    "url": "https://github.com/tuliopc23/a-hackers-brand/issues"
+  },
+  "description": "A Hacker's Brand UI component library (terminal, glass, liquid variants) for Svelte 5.",
+  "engines": {
+    "node": ">=18",
+    "bun": ">=1.0.0"
+  },
+  "packageManager": "bun@1.2.20",
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/tuliopc23/a-hackers-brand#readme",
   "keywords": [
     "svelte",
     "ui",
@@ -88,5 +68,31 @@
     "glass",
     "liquid",
     "typescript"
-  ]
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && bun run types:emit",
+    "build:embed": "vite build --config vite.embed.config.ts && cp dist/embed/embed.js static/embed.js",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "check": "bun run check:lib",
+    "check:lib": "NODE_ENV=development svelte-check --no-tsconfig --workspace src/lib --diagnostic-sources svelte,css --ignore components/webgl --threshold error",
+    "lint": "eslint 'src/lib/**/*.{ts,js,svelte}'",
+    "lint:fix": "eslint 'src/lib/**/*.{ts,js,svelte}' --fix",
+    "types:emit": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "docs:dev": "mintlify dev docs",
+    "docs:links": "mintlify broken-links docs",
+    "docs:preview": "mintlify preview docs"
+  },
+  "sideEffects": false,
+  "svelte": "./dist/index.js",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.6.0"
+  }
 }

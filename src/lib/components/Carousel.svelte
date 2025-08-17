@@ -2,7 +2,7 @@
     import { cn } from "../utils.js";
     import { liquidBlur } from "../motion";
     import { createEventDispatcher, onMount } from "svelte";
-    import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-svelte";
+    import { ChevronLeft, ChevronRight, Play, Pause } // from "lucide-svelte" // DISABLED;
     import type { HTMLAttributes } from "svelte/elements";
 
     export interface CarouselItem {

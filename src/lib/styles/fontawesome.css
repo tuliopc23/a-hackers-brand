@@ -1,0 +1,48 @@
+/* Font Awesome Integration for A Hacker's Brand */
+
+/* Import Font Awesome CSS */
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+/* Custom Font Awesome overrides for cyberpunk theme */
+.fa, .fas, .far, .fal, .fab {
+  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+}
+
+/* Terminal theme icons */
+.terminal .fa,
+.terminal .fas,
+.terminal .far {
+  color: var(--color-terminal-green, #00ff41);
+  text-shadow: 0 0 5px currentColor;
+}
+
+/* Glass theme icons */
+.glass .fa,
+.glass .fas, 
+.glass .far {
+  color: var(--color-bubble-tea-pink, #ff6b9d);
+  filter: drop-shadow(0 0 8px rgba(255, 107, 157, 0.4));
+}
+
+/* Liquid theme icons */
+.liquid .fa,
+.liquid .fas,
+.liquid .far {
+  color: var(--terminal-neon, #ff0080);
+  filter: drop-shadow(0 0 12px currentColor);
+  animation: fa-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes fa-glow {
+  from { filter: drop-shadow(0 0 8px currentColor); }
+  to { filter: drop-shadow(0 0 16px currentColor); }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .liquid .fa,
+  .liquid .fas,
+  .liquid .far {
+    animation: none;
+  }
+}

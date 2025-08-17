@@ -3,7 +3,7 @@
     // Using cn directly in template (removed cls wrapper to avoid unused warning)
     const __ensureCnUsage = cn; // explicit reference so analyzer treats import as used
 
-    import { Check, ChevronDown, X, Search } from "lucide-svelte";
+    import { Check, ChevronDown, X, Search } // from "lucide-svelte" // DISABLED;
     import { createEventDispatcher, onMount } from "svelte";
     import type { HTMLAttributes } from "svelte/elements";
 

@@ -2,7 +2,7 @@
 	import { cn } from '../utils.js';
 	import { liquidBlur, springPop } from '../motion';
 	import { brandColors } from '../tokens';
-import { TrendingUp, TrendingDown, Minus, Activity } from 'lucide-svelte';
+import { TrendingUp, TrendingDown, Minus, Activity } // from 'lucide-svelte' // DISABLED;
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	export interface MetricData {
