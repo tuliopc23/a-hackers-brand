@@ -60,10 +60,11 @@ export { default as RetroFuturisticText } from "./RetroFuturisticText.svelte";
 export { default as RetroText } from "./RetroText.svelte";
 export { default as TerminalStartup } from "./TerminalStartup.svelte";
 
-// 3D/WebGL Components (temporarily excluded from public exports)
-// export { default as GlassScene } from './GlassScene.svelte';
-// export { default as LazyThrelteCanvas } from './LazyThrelteCanvas.svelte';
-// export { default as ThrelteCanvas } from './ThrelteCanvas.svelte';
+// 3D/WebGL Components (with SSR safety)
+export { default as ClientOnly } from './ClientOnly.svelte';
+export { default as GlassScene } from './GlassScene.svelte';
+export { default as LazyThrelteCanvas } from './LazyThrelteCanvas.svelte';
+export { default as ThrelteCanvas } from './ThrelteCanvas.svelte';
 
 // Performance Components (internal)
 // export { default as PerformanceDashboard } from './PerformanceDashboard.svelte';
@@ -86,7 +87,7 @@ export { default as Carousel } from "./Carousel.svelte";
 export { default as Drawer } from "./Drawer.svelte";
 
 // Theme Components
-// export { default as AccessibilityReport } from './AccessibilityReport.svelte';
+export { default as AccessibilityReport } from './AccessibilityReport.svelte';
 export { default as ColorPalette } from "./ColorPalette.svelte";
 export { default as GlowText } from "./GlowText.svelte";
 export { default as StatusBar } from "./StatusBar.svelte";

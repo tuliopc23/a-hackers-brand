@@ -1,0 +1,301 @@
+/* Authentic A Hacker's Brand Component Styles for Documentation */
+
+/* Base component styling that matches the actual library */
+.ahb-component {
+  font-family: var(--font-sans);
+  transition: all var(--duration-normal) var(--ease-spring);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Terminal Variant Components */
+.ahb-button-terminal {
+  background: var(--color-terminal-bg);
+  color: var(--color-terminal-green);
+  border: 1px solid var(--color-terminal-green);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 5px rgba(0, 255, 65, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ahb-button-terminal:hover {
+  background: rgba(0, 255, 65, 0.1);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+  text-shadow: 0 0 5px var(--color-terminal-green);
+}
+
+.ahb-card-terminal {
+  background: var(--color-terminal-bg);
+  color: var(--color-terminal-green);
+  border: 1px solid var(--color-terminal-green);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+  font-family: var(--font-mono);
+  min-width: 250px;
+  text-align: left;
+}
+
+.ahb-input-terminal {
+  background: var(--color-terminal-bg);
+  color: var(--color-terminal-green);
+  border: 1px solid var(--color-terminal-green);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  min-width: 200px;
+  outline: none;
+}
+
+.ahb-input-terminal:focus {
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
+  border-color: var(--color-terminal-cyan);
+}
+
+.ahb-input-terminal::placeholder {
+  color: rgba(0, 255, 65, 0.5);
+}
+
+/* Glass Variant Components */
+.ahb-button-glass {
+  background: var(--glass-background);
+  color: var(--color-bubble-tea-pink);
+  border: 1px solid var(--glass-border);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-bubble-tea);
+  backdrop-filter: var(--blur-md);
+  box-shadow: var(--shadow-glass-md);
+}
+
+.ahb-button-glass:hover {
+  background: rgba(255, 133, 179, 0.15);
+  box-shadow: var(--shadow-glass-lg), 0 0 20px rgba(255, 133, 179, 0.3);
+  transform: translateY(-1px);
+}
+
+.ahb-card-glass {
+  background: var(--glass-background);
+  color: var(--color-bubble-tea-pink);
+  border: 1px solid var(--glass-border);
+  padding: 1.5rem;
+  border-radius: var(--radius-bubble-tea-lg);
+  backdrop-filter: var(--blur-lg);
+  box-shadow: var(--shadow-glass-xl);
+  min-width: 250px;
+  text-align: left;
+}
+
+.ahb-input-glass {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-bubble-tea-pink);
+  border: 1px solid var(--glass-border);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-bubble-tea);
+  backdrop-filter: var(--blur-md);
+  font-size: 0.875rem;
+  min-width: 200px;
+  outline: none;
+}
+
+.ahb-input-glass:focus {
+  background: rgba(255, 133, 179, 0.1);
+  border-color: var(--color-bubble-tea-pink);
+  box-shadow: 0 0 15px rgba(255, 133, 179, 0.3);
+}
+
+.ahb-input-glass::placeholder {
+  color: rgba(255, 133, 179, 0.6);
+}
+
+/* Liquid Variant Components */
+.ahb-button-liquid {
+  background: linear-gradient(45deg, var(--terminal-neon), var(--terminal-cyan));
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glow-purple);
+  animation: liquid-pulse 2s ease-in-out infinite alternate;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.ahb-button-liquid:hover {
+  transform: scale(1.05);
+  box-shadow: var(--glow-cyan), 0 0 30px rgba(255, 0, 128, 0.6);
+}
+
+.ahb-card-liquid {
+  background: linear-gradient(135deg, 
+    rgba(255, 0, 128, 0.2), 
+    rgba(0, 170, 255, 0.2), 
+    rgba(136, 68, 255, 0.2)
+  );
+  color: #ffffff;
+  border: 1px solid rgba(255, 0, 128, 0.5);
+  padding: 1.5rem;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--glow-purple);
+  animation: liquid-glow 3s ease-in-out infinite alternate;
+  min-width: 250px;
+  text-align: left;
+  backdrop-filter: var(--blur-sm);
+}
+
+.ahb-input-liquid {
+  background: linear-gradient(90deg, 
+    rgba(255, 0, 128, 0.1), 
+    rgba(0, 170, 255, 0.1)
+  );
+  color: #ffffff;
+  border: 1px solid rgba(255, 0, 128, 0.4);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.875rem;
+  min-width: 200px;
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 0, 128, 0.2);
+}
+
+.ahb-input-liquid:focus {
+  border-color: var(--terminal-neon);
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.4);
+}
+
+.ahb-input-liquid::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Status Bar Component */
+.ahb-status-bar {
+  background: var(--color-terminal-bg);
+  color: var(--color-terminal-green);
+  border: 1px solid var(--color-terminal-green);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 350px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 5px rgba(0, 255, 65, 0.2);
+}
+
+.ahb-status-bar::after {
+  content: "Ready | UTF-8 | Svelte | 42:13";
+  opacity: 0.8;
+  color: var(--color-terminal-cyan);
+}
+
+/* Glow Text Component */
+.ahb-glow-text {
+  color: var(--color-bubble-tea-pink);
+  font-weight: 600;
+  font-size: 1.125rem;
+  text-shadow: 
+    0 0 10px var(--color-bubble-tea-pink), 
+    0 0 20px var(--color-bubble-tea-pink),
+    0 0 30px var(--color-bubble-tea-pink);
+  animation: text-glow 2s ease-in-out infinite alternate;
+  padding: 0.5rem 1rem;
+}
+
+/* Color Palette Component */
+.ahb-color-palette {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+}
+
+.ahb-color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+.ahb-color-swatch:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px currentColor;
+}
+
+/* Interactive states */
+.ahb-component:active {
+  transform: scale(0.98);
+}
+
+.ahb-component:focus-visible {
+  outline: 2px solid var(--color-terminal-cyan);
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ahb-button-terminal,
+  .ahb-button-glass,
+  .ahb-button-liquid {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .ahb-card-terminal,
+  .ahb-card-glass,
+  .ahb-card-liquid {
+    padding: 1rem;
+    min-width: 200px;
+  }
+  
+  .ahb-status-bar {
+    min-width: 280px;
+    font-size: 0.7rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .ahb-button-liquid,
+  .ahb-card-liquid,
+  .ahb-glow-text {
+    animation: none !important;
+  }
+  
+  .ahb-component {
+    transition: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .ahb-button-terminal,
+  .ahb-card-terminal,
+  .ahb-input-terminal {
+    border-width: 2px;
+    box-shadow: none;
+  }
+  
+  .ahb-button-glass,
+  .ahb-card-glass,
+  .ahb-input-glass {
+    background: rgba(255, 255, 255, 0.2);
+    border-width: 2px;
+  }
+}

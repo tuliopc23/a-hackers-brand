@@ -1,0 +1,206 @@
+---
+title: "API Standardization"
+description: "Guidelines for consistent component APIs across the design system"
+---
+
+# API Standardization
+
+A Hacker's Brand follows a set of standardized API patterns to ensure consistency across all components. This guide outlines these patterns to help you use the library effectively and contribute new components that follow the same conventions.
+
+## Variant System
+
+All components that support theming use a consistent `variant` prop with standardized values:
+
+```typescript
+type VariantProp = 'terminal' | 'glass' | 'liquid' | 'auto' | 'theme';
+```
+
+### Variant Values
+
+- **terminal** - Classic terminal aesthetic with green text and sharp edges
+- **glass** - Modern translucent UI with rounded corners (formerly "bubbleTea")
+- **liquid** - Experimental high-glow variant with fluid animations
+- **auto** - Automatically follows the system theme preference
+- **theme** - Uses the current application theme from the theme store
+
+```svelte
+<Button variant="terminal">Terminal Button</Button>
+<Card variant="glass">Glass Card</Card>
+<Alert variant="liquid">Liquid Alert</Alert>
+<Tabs variant="auto">Auto-themed Tabs</Tabs>
+```
+
+## Size System
+
+Components that support different sizes use a standardized `size` prop:
+
+```typescript
+type SizeProp = 'sm' | 'md' | 'lg' | 'xl';
+```
+
+### Size Values
+
+- **sm** - Small (compact)
+- **md** - Medium (default)
+- **lg** - Large
+- **xl** - Extra large
+
+```svelte
+<Button size="sm">Small Button</Button>
+<Input size="md">Medium Input</Input>
+<Card size="lg">Large Card</Card>
+<Modal size="xl">Extra Large Modal</Modal>
+```
+
+## State Props
+
+Interactive components have consistent state props:
+
+```svelte
+<Button disabled={true}>Disabled Button</Button>
+<Input loading={true} placeholder="Loading..." />
+<Select error="Please select an option" options={options} />
+```
+
+## Animation Props
+
+Components with animations have consistent animation control props:
+
+```svelte
+<GlowText animate={false}>Static Text</GlowText>
+<Card animate={true} breathing={true}>Animated Card</Card>
+<LiquidTerminal reduceMotion={true}>Accessible Terminal</LiquidTerminal>
+```
+
+## Event Handlers
+
+Event handlers follow a consistent naming pattern:
+
+```svelte
+<Button onClick={handleClick}>Click Me</Button>
+<Input onValueChange={handleChange} />
+<Tabs onTabChange={handleTabChange} />
+<Modal onOpenChange={handleOpenChange} />
+```
+
+## Common Props
+
+All components accept these common props:
+
+```svelte
+<Button class="custom-class" style="margin-top: 1rem;" id="my-button">
+  Styled Button
+</Button>
+```
+
+## Accessibility Props
+
+Interactive components accept standard accessibility props:
+
+```svelte
+<Button aria-label="Close dialog" aria-describedby="tooltip-id">
+  Close
+</Button>
+
+<Input aria-labelledby="input-label" aria-invalid={hasError} />
+```
+
+## Children Handling
+
+Components accept children in a consistent way:
+
+```svelte
+<!-- Single child slot -->
+<Card>
+  <p>Card content</p>
+</Card>
+
+<!-- Using text prop alternative -->
+<GlowText text="Glowing text" />
+
+<!-- Named slots via children object -->
+<Modal>
+  <div slot="header">Modal Header</div>
+  <div>Modal Content</div>
+  <div slot="footer">Modal Footer</div>
+</Modal>
+```
+
+## Component Composition
+
+Components are designed to work well together:
+
+```svelte
+<Card variant="terminal">
+  <GlowText color="matrix" class="mb-4">System Status</GlowText>
+  
+  <div class="space-y-4">
+    <Progress value={75} variant="terminal" />
+    
+    <div class="flex justify-between">
+      <Button variant="terminal" size="sm">Details</Button>
+      <Button variant="terminal" size="sm">Restart</Button>
+    </div>
+  </div>
+</Card>
+```
+
+## CSS Custom Properties
+
+Components use consistent CSS custom property naming:
+
+```css
+/* Component-specific properties */
+--button-border-radius: var(--radius-md);
+--input-focus-ring-color: var(--color-primary);
+```
+
+You can override these in your CSS:
+
+```css
+:root {
+  --button-border-radius: 0; /* Square buttons */
+  --input-focus-ring-color: #ff00ff; /* Custom focus color */
+}
+```
+
+## Type Definitions
+
+All components export their prop types and event types for TypeScript users:
+
+```typescript
+import type { ButtonProps, ButtonEvents } from 'a-hacker-brand';
+
+const props: ButtonProps = {
+  variant: 'terminal',
+  size: 'md',
+  disabled: false
+};
+
+const handleClick: ButtonEvents['click'] = (event) => {
+  console.log('Button clicked', event);
+};
+```
+
+## Migration Note
+
+Some components still use the older `bubbleTea` variant name instead of `glass`. We're standardizing on `glass` going forward, but maintain backward compatibility with `bubbleTea`.
+
+If you encounter a component that only accepts `bubbleTea` and not `glass`, please report it as an issue. We're working on standardizing all components.
+
+## Best Practices
+
+1. **Be consistent with variants**: Use the same variant across related components
+2. **Match sizes**: Use the same size prop value for components that appear together
+3. **Forward events**: When wrapping components, forward relevant events
+4. **Provide accessibility props**: Always include appropriate ARIA attributes
+
+## Contributing
+
+When creating new components, follow these API standards to ensure consistency. See our [contribution guidelines](/contributing) for more details.
+
+## Related
+
+- [Theming Guide](/guides/theming) - How to use and customize themes
+- [Accessibility Guide](/guides/accessibility) - Making components accessible
+- [Component List](/components) - Browse all available components

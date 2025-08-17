@@ -1,0 +1,328 @@
+---
+title: "GlassScene Examples"
+description: "Interactive examples of GlassScene with ClientOnly wrapper"
+---
+
+# GlassScene Examples
+
+The following examples demonstrate how to use the `GlassScene` component with the `ClientOnly` wrapper for safe server-side rendering.
+
+## Basic Example
+
+Wrap your `GlassScene` component with `ClientOnly` to ensure it only renders on the client side:
+
+```svelte
+<script>
+  import { ClientOnly, GlassScene } from 'a-hacker-brand';
+</script>
+
+<ClientOnly>
+  <GlassScene 
+    intensity={1.5}
+    distortion={1.2}
+    speed={0.8}
+  />
+</ClientOnly>
+```
+
+## With Fallback Content
+
+Add custom fallback content to display during server-side rendering or while loading:
+
+```svelte
+<script>
+  import { ClientOnly, GlassScene, GlowText } from 'a-hacker-brand';
+</script>
+
+<ClientOnly
+  fallback={() => (
+    <div class="h-64 flex items-center justify-center bg-gradient-to-br from-black/80 to-purple-900/40 backdrop-blur-md rounded-xl border border-white/10">
+      <GlowText color="purple" intensity="intense">Loading Glass Effect...</GlowText>
+    </div>
+  )}
+>
+  <GlassScene 
+    intensity={1.8}
+    distortion={1.5}
+    speed={0.5}
+    class="h-64 rounded-xl"
+  />
+</ClientOnly>
+```
+
+## As Background Effect
+
+Use GlassScene as a full-screen background effect:
+
+```svelte
+<script>
+  import { ClientOnly, GlassScene, Card, GlowText } from 'a-hacker-brand';
+</script>
+
+<div class="relative min-h-screen">
+  <ClientOnly>
+    <GlassScene 
+      fullscreen={true}
+      intensity={0.8}
+      distortion={0.6}
+      speed={0.3}
+    />
+  </ClientOnly>
+  
+  <div class="relative z-10 container mx-auto p-8">
+    <Card variant="glass" class="p-8">
+      <GlowText color="purple" intensity="intense" class="text-2xl mb-4">
+        Content with Glass Background
+      </GlowText>
+      <p class="text-white/80">
+        This content appears on top of the fullscreen glass effect.
+      </p>
+    </Card>
+  </div>
+</div>
+```
+
+## Performance Mode Options
+
+Adjust performance settings based on device capabilities:
+
+```svelte
+<script>
+  import { ClientOnly, GlassScene } from 'a-hacker-brand';
+  import { onMount } from 'svelte';
+  
+  let performanceMode = 'medium';
+  
+  onMount(() => {
+    // Simple performance detection based on device
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isLowEndDevice = navigator.hardwareConcurrency <= 4;
+    
+    if (isMobile || isLowEndDevice) {
+      performanceMode = 'low';
+    } else if (navigator.hardwareConcurrency >= 8) {
+      performanceMode = 'high';
+    }
+  });
+</script>
+
+<ClientOnly>
+  <GlassScene 
+    performanceMode={performanceMode}
+    quality={performanceMode === 'low' ? 'low' : 'medium'}
+    intensity={performanceMode === 'low' ? 0.8 : 1.5}
+  />
+</ClientOnly>
+```
+
+## Interactive Card with Glass Background
+
+Create an interactive card with a glass effect background:
+
+```svelte
+<script>
+  import { ClientOnly, GlassScene, Card, Button } from 'a-hacker-brand';
+  
+  let glassIntensity = 1.2;
+  
+  function increaseIntensity() {
+    glassIntensity = Math.min(glassIntensity + 0.2, 2.5);
+  }
+  
+  function decreaseIntensity() {
+    glassIntensity = Math.max(glassIntensity - 0.2, 0.5);
+  }
+</script>
+
+<div class="relative rounded-xl overflow-hidden" style="height: 300px;">
+  <ClientOnly>
+    <GlassScene 
+      intensity={glassIntensity}
+      distortion={1.2}
+      speed={0.6}
+      fullscreen={true}
+    />
+  </ClientOnly>
+  
+  <div class="absolute inset-0 flex items-center justify-center z-10">
+    <Card variant="glass" class="p-6 max-w-md">
+      <h2 class="text-xl font-bold mb-4">Interactive Glass Effect</h2>
+      <p class="mb-4">Current intensity: {glassIntensity.toFixed(1)}</p>
+      
+      <div class="flex space-x-4">
+        <Button variant="glass" onClick={decreaseIntensity}>
+          Decrease
+        </Button>
+        <Button variant="glass" onClick={increaseIntensity}>
+          Increase
+        </Button>
+      </div>
+    </Card>
+  </div>
+</div>
+```
+
+## With Loading State
+
+Track loading state for more complex interactions:
+
+```svelte
+<script>
+  import { ClientOnly, GlassScene, GlowText } from 'a-hacker-brand';
+  import { onMount } from 'svelte';
+  
+  let isLoaded = false;
+  let loadProgress = 0;
+  
+  function handleSceneLoad() {
+    isLoaded = true;
+  }
+  
+  onMount(() => {
+    // Simulate loading progress
+    const interval = setInterval(() => {
+      loadProgress += 5;
+      if (loadProgress >= 100) {
+        clearInterval(interval);
+      }
+    }, 100);
+    
+    return () => clearInterval(interval);
+  });
+</script>
+
+<div class="relative h-96 rounded-xl overflow-hidden">
+  <ClientOnly
+    fallback={() => (
+      <div class="h-full w-full flex flex-col items-center justify-center bg-black">
+        <GlowText color="matrix" variant="terminal" class="mb-4">
+          Loading Glass Scene...
+        </GlowText>
+        <div class="w-64 h-2 bg-terminal-green/20 rounded-full">
+          <div 
+            class="h-full bg-terminal-green rounded-full" 
+            style={`width: ${loadProgress}%`}
+          ></div>
+        </div>
+        <div class="mt-2 text-terminal-green text-sm">
+          {loadProgress}%
+        </div>
+      </div>
+    )}
+  >
+    <GlassScene 
+      onLoad={handleSceneLoad}
+      intensity={1.5}
+      class="h-full w-full"
+    />
+    
+    {#if isLoaded}
+      <div class="absolute bottom-4 right-4 bg-black/50 backdrop-blur-md p-2 rounded z-10">
+        <GlowText color="green" variant="terminal">
+          Scene Loaded Successfully
+        </GlowText>
+      </div>
+    {/if}
+  </ClientOnly>
+</div>
+```
+
+## Customizing the Glass Effect
+
+Adjust various properties to customize the glass effect:
+
+```svelte
+<script>
+  import { ClientOnly, GlassScene, Card } from 'a-hacker-brand';
+  
+  let settings = {
+    intensity: 1.5,
+    distortion: 1.2,
+    speed: 0.8,
+    quality: 'medium',
+    performanceMode: 'medium'
+  };
+</script>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <!-- Glass Scene Preview -->
+  <div class="h-96 rounded-xl overflow-hidden">
+    <ClientOnly>
+      <GlassScene 
+        intensity={settings.intensity}
+        distortion={settings.distortion}
+        speed={settings.speed}
+        quality={settings.quality}
+        performanceMode={settings.performanceMode}
+      />
+    </ClientOnly>
+  </div>
+  
+  <!-- Controls -->
+  <Card variant="glass" class="p-6">
+    <h2 class="text-xl font-bold mb-4">Glass Scene Controls</h2>
+    
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm mb-1">Intensity: {settings.intensity.toFixed(1)}</label>
+        <input 
+          type="range" 
+          min="0.5" 
+          max="2.5" 
+          step="0.1" 
+          bind:value={settings.intensity}
+          class="w-full"
+        />
+      </div>
+      
+      <div>
+        <label class="block text-sm mb-1">Distortion: {settings.distortion.toFixed(1)}</label>
+        <input 
+          type="range" 
+          min="0.5" 
+          max="2.0" 
+          step="0.1" 
+          bind:value={settings.distortion}
+          class="w-full"
+        />
+      </div>
+      
+      <div>
+        <label class="block text-sm mb-1">Speed: {settings.speed.toFixed(1)}</label>
+        <input 
+          type="range" 
+          min="0.1" 
+          max="1.5" 
+          step="0.1" 
+          bind:value={settings.speed}
+          class="w-full"
+        />
+      </div>
+      
+      <div>
+        <label class="block text-sm mb-1">Quality</label>
+        <select bind:value={settings.quality} class="w-full p-2 bg-black/30 rounded border border-white/20">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      
+      <div>
+        <label class="block text-sm mb-1">Performance Mode</label>
+        <select bind:value={settings.performanceMode} class="w-full p-2 bg-black/30 rounded border border-white/20">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+    </div>
+  </Card>
+</div>
+```
+
+## Related Components
+
+- [ClientOnly](/components/client-only) - Wrapper for client-side only components
+- [LazyThrelteCanvas](/components/lazy-threlte-canvas) - Lazy-loaded 3D rendering
+- [Card](/components/card) - Pairs well with glass effects

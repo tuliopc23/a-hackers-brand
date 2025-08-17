@@ -1,250 +1,541 @@
 ---
-title: 'Quickstart'
-description: 'Get up and running with Bubble Tea Party in under 5 minutes'
+title: 'Quick Start'
+description: 'Build your first cyberpunk interface with A Hacker\'s Brand in 5 minutes'
 ---
 
-# Quick Start Guide 
+# Quick Start Guide
 
-Get your cyberpunk application running in 5 minutes flat. Time to jack into the matrix.
+Get up and running with A Hacker's Brand in just 5 minutes. This guide will walk you through creating your first cyberpunk interface.
 
-## Installation
+## Prerequisites
+
+- **Node.js 18+** installed
+- **Svelte 5.0+** project (SvelteKit recommended)
+- Basic knowledge of Svelte/JavaScript
+
+## Step 1: Installation
 
 <CodeGroup>
 
-```bash npm
-npm install bubble-tea-party
+```bash bun
+bun add a-hacker-brand svelte @threlte/core @threlte/extras three lucide-svelte
 ```
 
-```bash yarn
-yarn add bubble-tea-party
+```bash npm
+npm install a-hacker-brand svelte @threlte/core @threlte/extras three lucide-svelte
 ```
 
 ```bash pnpm
-pnpm add bubble-tea-party
-```
-
-```bash bun
-bun add bubble-tea-party
+pnpm add a-hacker-brand svelte @threlte/core @threlte/extras three lucide-svelte
 ```
 
 </CodeGroup>
 
-## Basic Setup
+## Step 2: Your First Component
 
-### 1. Import the CSS Theme
-
-Add the cyberpunk theme to your main CSS file or app entry point:
-
-```css
-@import 'bubble-tea-party/styles';
-```
-
-### 2. Configure Your Theme
-
-Set up the theme provider in your main layout:
+Create a new Svelte file and import your first components:
 
 ```svelte
-<!-- +layout.svelte -->
+<!-- src/routes/+page.svelte -->
 <script>
-  import { ThemeProvider } from '@org/ui'
-  import { themeStore } from 'bubble-tea-party/stores'
+  import { Button, Card, GlowText } from 'a-hacker-brand';
 </script>
 
-<ThemeProvider theme={$themeStore}>
-  <main class="cyberpunk-app">
-    <slot />
-  </main>
-</ThemeProvider>
+<main>
+  <Card variant="glass">
+    <GlowText color="matrix" intensity="intense">
+      Welcome to A Hacker's Brand
+    </GlowText>
+    <p>Your cyberpunk journey begins here.</p>
+    <Button variant="terminal">Enter the Matrix</Button>
+  </Card>
+</main>
+
+<style>
+  main {
+    padding: 2rem;
+    min-height: 100vh;
+    background: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
 ```
 
-### 3. Use Your First Component
+## Step 3: Explore Variants
 
-Create a simple cyberpunk interface:
+Try all three design variants to see the differences:
+
+**Terminal Variant**
+<div className="component-mockup terminal-button">Terminal</div>
+```svelte
+<Button variant="terminal">Terminal</Button>
+```
+
+**Glass Variant**
+<div className="component-mockup glass-button">Glass</div>
+```svelte
+<Button variant="glass">Glass</Button>
+```
+
+**Liquid Variant**
+<div className="component-mockup liquid-button">Liquid</div>
+```svelte
+<Button variant="liquid">Liquid</Button>
+```
 
 ```svelte
-<!-- +page.svelte -->
+<script>
+  import { Button, Card } from 'a-hacker-brand';
+</script>
+
+<div class="variant-showcase">
+  <!-- Terminal Variant -->
+  <Card variant="terminal">
+    <h3>Terminal</h3>
+    <p>Matrix green, high contrast, utilitarian</p>
+    <Button variant="terminal">Execute</Button>
+  </Card>
+  
+  <!-- Glass Variant -->
+  <Card variant="glass">
+    <h3>Glass</h3>
+    <p>Translucent, soft glow, modern</p>
+    <Button variant="glass">Submit</Button>
+  </Card>
+  
+  <!-- Liquid Variant -->
+  <Card variant="liquid">
+    <h3>Liquid</h3>
+    <p>High-intensity, experimental, expressive</p>
+    <Button variant="liquid">Activate</Button>
+  </Card>
+</div>
+
+<style>
+  .variant-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+  }
+</style>
+```
+
+## Step 4: Build a Terminal Interface
+
+Let's create a more complex example with multiple components:
+
+**Terminal Status Bar Example**
+
+<div className="component-mockup status-bar">Online</div>
+
+```svelte
+<StatusBar 
+  variant="terminal"
+  status="Online"
+  encoding="UTF-8"
+  fileType="Svelte"
+  lineNumber={42}
+  columnNumber={13}
+/>
+```
+
+```svelte
 <script>
   import { 
     Button, 
-    TerminalWindow, 
+    Card, 
+    Input, 
+    StatusBar, 
     GlowText,
-    MatrixRain 
-  } from '@org/ui'
+    Tabs,
+    Tab
+  } from 'a-hacker-brand';
   
-  let message = 'System Ready'
+  let command = '';
+  let output = ['System initialized...', 'Ready for input.'];
   
-  function initializeSystem() {
-    message = 'Welcome to the Matrix...'
+  function executeCommand() {
+    if (command.trim()) {
+      output = [...output, `> ${command}`, `Executed: ${command}`];
+      command = '';
+    }
   }
 </script>
 
-<div class="app-container">
-  <MatrixRain />
-  
-  <TerminalWindow title="SYSTEM CONTROL">
-    <GlowText color="neon-green" size="lg">
-      {message}
+<div class="terminal-app">
+  <Card variant="terminal" class="terminal-window">
+    <GlowText variant="terminal" color="matrix">
+      HACKER TERMINAL v2.0
     </GlowText>
     
-    <Button 
-      variant="cyberpunk" 
-      onClick={initializeSystem}
-      class="mt-4"
-    >
-      Initialize
-    </Button>
-  </TerminalWindow>
+    <Tabs variant="terminal">
+      <Tab title="Console">
+        <div class="output">
+          {#each output as line}
+            <div class="output-line">{line}</div>
+          {/each}
+        </div>
+        
+        <div class="input-area">
+          <Input 
+            variant="terminal" 
+            bind:value={command}
+            placeholder="Enter command..."
+            on:keydown={(e) => e.key === 'Enter' && executeCommand()}
+          />
+          <Button variant="terminal" on:click={executeCommand}>
+            Execute
+          </Button>
+        </div>
+      </Tab>
+      
+      <Tab title="System">
+        <p>System monitoring interface...</p>
+      </Tab>
+    </Tabs>
+  </Card>
+  
+  <StatusBar 
+    variant="terminal"
+    status="Online"
+    encoding="UTF-8"
+    fileType="Svelte"
+    lineNumber={42}
+    columnNumber={13}
+  />
 </div>
+
+<style>
+  .terminal-app {
+    min-height: 100vh;
+    background: #000;
+    padding: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .terminal-window {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .output {
+    background: rgba(0, 255, 65, 0.05);
+    border: 1px solid #00ff41;
+    border-radius: 4px;
+    padding: 1rem;
+    height: 200px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    font-family: monospace;
+  }
+  
+  .output-line {
+    color: #00ff41;
+    margin-bottom: 0.25rem;
+  }
+  
+  .input-area {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .input-area :global(input) {
+    flex: 1;
+  }
+</style>
 ```
 
-## Live Demo
+## Step 5: Add Interactive Elements
 
-See it in action:
+Enhance your interface with interactive components:
 
-<iframe 
-  src="/playground/quickstart-demo" 
-  width="100%" 
-  height="500"
-  class="border border-green-500 rounded-lg mb-6"
-/>
+```svelte
+<script>
+  import { 
+    Button, 
+    Card, 
+    Switch, 
+    Slider, 
+    Progress,
+    Alert,
+    Toast,
+    ColorPalette
+  } from 'a-hacker-brand';
+  
+  let systemPower = true;
+  let cpuUsage = 45;
+  let showAlert = false;
+  let showToast = false;
+</script>
+
+<div class="dashboard">
+  <Card variant="glass">
+    <h2>System Control Panel</h2>
+    
+    <!-- Power Control -->
+    <div class="control-group">
+      <label>System Power</label>
+      <Switch 
+        variant="glass" 
+        bind:checked={systemPower}
+        on:change={() => showToast = true}
+      />
+    </div>
+    
+    <!-- CPU Usage -->
+    <div class="control-group">
+      <label>CPU Usage: {cpuUsage}%</label>
+      <Slider 
+        variant="glass" 
+        bind:value={cpuUsage}
+        min={0}
+        max={100}
+      />
+      <Progress variant="glass" value={cpuUsage} max={100} />
+    </div>
+    
+    <!-- Actions -->
+    <div class="actions">
+      <Button 
+        variant="glass" 
+        on:click={() => showAlert = true}
+      >
+        Show Alert
+      </Button>
+      
+      <Button 
+        variant="terminal" 
+        disabled={!systemPower}
+      >
+        Execute Task
+      </Button>
+    </div>
+  </Card>
+  
+  <!-- Color Palette -->
+  <Card variant="liquid">
+    <h3>Theme Colors</h3>
+    <ColorPalette 
+      theme="both"
+      layout="grid"
+      interactive={true}
+      on:colorSelect={(e) => console.log('Selected:', e.detail)}
+    />
+  </Card>
+</div>
+
+<!-- Alert -->
+{#if showAlert}
+  <Alert 
+    variant="terminal" 
+    type="warning"
+    on:close={() => showAlert = false}
+  >
+    System alert: High CPU usage detected!
+  </Alert>
+{/if}
+
+<!-- Toast -->
+{#if showToast}
+  <Toast 
+    variant="glass"
+    message="Power state changed"
+    duration={3000}
+    on:dismiss={() => showToast = false}
+  />
+{/if}
+
+<style>
+  .dashboard {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+  }
+  
+  .control-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .control-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #00ff41;
+    font-weight: 500;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+</style>
+```
+
+## Step 6: Add WebGL Effects (Optional)
+
+For advanced visual effects, add WebGL components:
+
+<Warning>
+WebGL components require modern browsers with GPU support. They gracefully fallback to CSS-only versions when not supported.
+</Warning>
+
+```svelte
+<script>
+  import { 
+    GlassScene, 
+    LazyThrelteCanvas,
+    MatrixRain 
+  } from 'a-hacker-brand';
+</script>
+
+<div class="webgl-showcase">
+  <!-- Matrix Rain Background -->
+  <MatrixRain 
+    variant="terminal"
+    density={0.8}
+    speed={1.2}
+  />
+  
+  <!-- 3D Glass Scene -->
+  <GlassScene variant="liquid">
+    <LazyThrelteCanvas>
+      <!-- Your 3D content here -->
+    </LazyThrelteCanvas>
+  </GlassScene>
+</div>
+
+<style>
+  .webgl-showcase {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+</style>
+```
+
+## Common Patterns
+
+### Theme Switching
+
+```svelte
+<script>
+  import { Button } from 'a-hacker-brand';
+  
+  let currentTheme = 'terminal';
+  const themes = ['terminal', 'glass', 'liquid'];
+  
+  function switchTheme() {
+    const currentIndex = themes.indexOf(currentTheme);
+    currentTheme = themes[(currentIndex + 1) % themes.length];
+  }
+</script>
+
+<Button variant={currentTheme} on:click={switchTheme}>
+  Current: {currentTheme}
+</Button>
+```
+
+### Responsive Layout
+
+```svelte
+<script>
+  import { Card, Button } from 'a-hacker-brand';
+</script>
+
+<div class="responsive-grid">
+  {#each Array(6) as _, i}
+    <Card variant="glass">
+      <h3>Card {i + 1}</h3>
+      <Button variant="terminal">Action</Button>
+    </Card>
+  {/each}
+</div>
+
+<style>
+  .responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .responsive-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+```
 
 ## Next Steps
 
 <CardGroup cols={2}>
   <Card
     title="Explore Components"
-    icon="grid"
-    href="/components/button"
+    icon="grid-3x3"
+    href="/components"
   >
-    Browse our complete component library
+    Browse the complete component library
   </Card>
   <Card
-    title="Theming System"
+    title="Learn Variants"
     icon="palette"
-    href="/themes"
+    href="/guides/variants"
   >
-    Customize colors, effects, and styling
+    Deep dive into terminal, glass, and liquid variants
   </Card>
   <Card
-    title="Motion & Effects"
-    icon="magic-wand"
-    href="/utilities/motion"
+    title="Theming Guide"
+    icon="paintbrush"
+    href="/guides/theming"
   >
-    Add smooth animations and 3D effects
+    Customize colors and styling
   </Card>
   <Card
-    title="API Reference"
-    icon="code"
-    href="/api-reference/components"
+    title="Accessibility"
+    icon="universal-access"
+    href="/guides/accessibility"
   >
-    Detailed component documentation
+    Build inclusive interfaces
   </Card>
 </CardGroup>
 
-## Common Patterns
+## Troubleshooting
 
-### Terminal Interface
-
-```svelte
-<script>
-  import { 
-    TerminalWindow, 
-    CommandBlock, 
-    AdvancedTerminal 
-  } from '@org/ui'
-</script>
-
-<TerminalWindow title="root@matrix:~$">
-  <CommandBlock command="ls -la">
-    drwxr-xr-x  system  root    matrix-files/
-    -rw-r--r--  system  root    the-one.exe
-  </CommandBlock>
+<AccordionGroup>
+  <Accordion title="Components not rendering">
+    Ensure you have the correct peer dependencies installed:
+    ```bash
+    bun add svelte @threlte/core @threlte/extras three lucide-svelte
+    ```
+  </Accordion>
   
-  <AdvancedTerminal 
-    prompt="matrix@neo:~$"
-    suggestions={['help', 'exit', 'wake-up']}
-  />
-</TerminalWindow>
-```
-
-### Data Display
-
-```svelte
-<script>
-  import { 
-    DataTable, 
-    MetricsCard, 
-    StatusBar 
-  } from '@org/ui'
-</script>
-
-<div class="dashboard">
-  <StatusBar status="online" />
+  <Accordion title="WebGL errors">
+    WebGL components are optional. If you encounter errors:
+    - Check browser WebGL support
+    - Ensure hardware acceleration is enabled
+    - Components will fallback to CSS-only versions
+  </Accordion>
   
-  <MetricsCard 
-    title="System Performance"
-    value="98.7%"
-    trend="up"
-  />
-  
-  <DataTable 
-    data={systemLogs}
-    columns={['timestamp', 'level', 'message']}
-    theme="cyberpunk"
-  />
-</div>
-```
-
-### Interactive Forms
-
-```svelte
-<script>
-  import { 
-    Input, 
-    Select, 
-    Button, 
-    FormErrorBoundary 
-  } from '@org/ui'
-</script>
-
-<FormErrorBoundary>
-  <form class="cyber-form">
-    <Input 
-      label="Access Code"
-      type="password"
-      variant="neon"
-      placeholder="Enter the matrix..."
-    />
-    
-    <Select 
-      label="Security Level"
-      options={['Low', 'Medium', 'High', 'Maximum']}
-      variant="cyberpunk"
-    />
-    
-    <Button type="submit" variant="neon">
-      Access Granted
-    </Button>
-  </form>
-</FormErrorBoundary>
-```
-
-## Tips for Success
-
-<Tip>
-Start with the `TerminalWindow` component as your main container - it provides the cyberpunk aesthetic foundation for other components.
-</Tip>
-
-<Warning>
-Some WebGL components require additional setup. Check the individual component docs for specific requirements.
-</Warning>
-
-<Info>
-All components support dark mode by default. Use the `ThemeSelector` component to let users toggle themes.
-</Info>
+  <Accordion title="TypeScript errors">
+    Make sure your `tsconfig.json` includes:
+    ```json
+    {
+      "compilerOptions": {
+        "moduleResolution": "bundler",
+        "types": ["svelte"]
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ---
 
-**Ready to build something epic?** Check out our [component showcase](/components/button) or dive into the [playground](/playground) to experiment with different combinations.
-
-*The matrix has you now... 🔴💊*
+**Congratulations!** 🎉 You've built your first cyberpunk interface with A Hacker's Brand. Ready to explore more advanced features? Check out our [component library](/components) and [theming guide](/guides/theming)!

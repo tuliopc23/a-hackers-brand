@@ -1,30 +1,268 @@
 ---
-title: 'status bar'
-description: 'Cyberpunk-styled status-bar component'
+title: "StatusBar"
+description: "Terminal-inspired status bar for displaying system information and indicators"
 ---
 
-# status bar
+# StatusBar
 
-Cyberpunk-styled status bar component with neon effects and terminal aesthetics.
+The `StatusBar` component provides a terminal-inspired status bar for displaying file information, system status, and other indicators. It's commonly used at the bottom of the application to show contextual information.
 
-## Import
+## Usage
 
 ```svelte
-import { statusbar } from '@org/ui'
+<script>
+  import { StatusBar } from 'a-hacker-brand';
+</script>
+
+<StatusBar 
+  status="Ready"
+  fileType="TypeScript"
+  lineNumber={42}
+  columnNumber={10}
+  encoding="UTF-8"
+  variant="terminal"
+/>
 ```
 
-## Basic Usage
+## Examples
+
+### Terminal Variant
+
+The classic terminal-style status bar with green text:
 
 ```svelte
-<statusbar variant="cyberpunk" />
+<StatusBar 
+  variant="terminal"
+  status="Compiling..."
+  fileType="JavaScript"
+  lineNumber={128}
+  columnNumber={15}
+  indicators={[
+    { label: 'Memory', value: '64MB', type: 'normal' },
+    { label: 'CPU', value: '12%', type: 'normal' }
+  ]}
+/>
+```
+
+<CodePreview>
+  <div class="w-full bg-black p-1 rounded-t-lg border-t border-t-[#00ff41]/30">
+    <div class="flex justify-between text-xs text-[#00ff41] font-mono">
+      <div class="flex items-center gap-4">
+        <span>Compiling...</span>
+        <span>• JavaScript</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span>Line 128, Col 15</span>
+        <span>• UTF-8</span>
+      </div>
+    </div>
+  </div>
+</CodePreview>
+
+### Bubble Tea Variant
+
+A modern, translucent status bar with soft colors:
+
+```svelte
+<StatusBar 
+  variant="bubbleTea"
+  status="Connected"
+  fileType="React"
+  lineNumber={42}
+  columnNumber={8}
+  indicators={[
+    { label: 'Status', value: 'Online', type: 'success' },
+    { label: 'Network', value: '150ms', type: 'normal' }
+  ]}
+/>
+```
+
+<CodePreview>
+  <div class="w-full bg-gradient-to-r from-[#ff6b9d]/10 to-[#c44af2]/10 p-2 rounded-t-lg border-t border-t-[#c44af2]/30">
+    <div class="flex justify-between text-xs text-[#ff85b3] font-mono">
+      <div class="flex items-center gap-4">
+        <span>Connected</span>
+        <span>• React</span>
+        <div class="border-l pl-4 border-[#c44af2]/20 flex gap-3">
+          <span class="text-[#6bcf7f]">Status: Online</span>
+          <span>Network: 150ms</span>
+        </div>
+      </div>
+      <div>
+        <span>Line 42, Col 8</span>
+        <span>• UTF-8</span>
+      </div>
+    </div>
+  </div>
+</CodePreview>
+
+### Glass Variant
+
+A minimal, translucent glass effect:
+
+```svelte
+<StatusBar 
+  variant="glass"
+  status="Idle"
+  fileType="HTML"
+  indicators={[
+    { label: 'Warnings', value: '2', type: 'warning' }
+  ]}
+/>
+```
+
+### With Custom Content
+
+Add custom content to the right side of the status bar:
+
+```svelte
+<StatusBar 
+  variant="terminal"
+  status="Ready"
+  fileType="Markdown"
+>
+  <div class="flex items-center gap-2">
+    <span class="text-xs">Editing Mode</span>
+    <span class="px-2 py-0.5 bg-terminal-green/20 rounded text-xs">Preview</span>
+  </div>
+</StatusBar>
+```
+
+### With Multiple Indicators
+
+Display various status indicators:
+
+```svelte
+<StatusBar 
+  status="Running"
+  indicators={[
+    { label: 'Status', value: 'Online', type: 'success' },
+    { label: 'Memory', value: '128MB', type: 'normal' },
+    { label: 'Errors', value: '3', type: 'error' },
+    { label: 'Warnings', value: '5', type: 'warning' }
+  ]}
+/>
+```
+
+### Compact Size
+
+Use a smaller size for the status bar:
+
+```svelte
+<StatusBar 
+  size="sm"
+  status="Active"
+  fileType="CSS"
+/>
 ```
 
 ## Props
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `variant` | `string` | `'default'` | Component style variant |
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `status` | `string` | `'Ready'` | Primary status text |
+| `encoding` | `string` | `'UTF-8'` | Text encoding information |
+| `position` | `string` | `'1:1'` | Cursor position (mobile view) |
+| `lineNumber` | `number` | `1` | Current line number |
+| `columnNumber` | `number` | `1` | Current column number |
+| `fileType` | `string` | `'TypeScript'` | Type of file being edited |
+| `variant` | `'terminal' \| 'bubbleTea' \| 'glass'` | `'bubbleTea'` | Visual style variant |
+| `size` | `'sm' \| 'md'` | `'md'` | Size of the status bar |
+| `indicators` | `Array<{ label: string; value: string; type?: 'normal' \| 'warning' \| 'error' \| 'success' }>` | `[]` | Status indicators to display |
+| `autoLayout` | `boolean` | `true` | Whether to automatically adjust body padding |
+| `class` | `string` | `''` | Additional CSS classes |
+| `children` | `Snippet` | `undefined` | Custom content for the right side |
 
----
+## Indicator Types
 
-Cyberpunk status bar component! ⚡
+The `indicators` prop accepts an array of objects with the following properties:
+
+- `label`: The name of the indicator
+- `value`: The value to display
+- `type`: Visual style of the indicator
+  - `normal`: Default style (matches variant)
+  - `success`: Green success indicator
+  - `warning`: Yellow warning indicator
+  - `error`: Red error indicator
+
+## Auto Layout
+
+The `autoLayout` prop allows the component to automatically manage the document layout to prevent content from being hidden behind the fixed status bar:
+
+- When `true`, it adds a CSS custom property `--status-bar-height` to the `:root` element
+- This allows your layout to reference this value for padding/margin adjustments
+- It uses a ResizeObserver to update this value when the status bar height changes
+
+To utilize this in your layout:
+
+```css
+.content-container {
+  padding-bottom: var(--status-bar-height, 2.5rem);
+}
+```
+
+## Responsive Behavior
+
+The StatusBar is responsive and adapts to different screen sizes:
+
+- On small screens, it simplifies to show just essential information
+- The indicators section is hidden on small screens and shown on medium and larger screens
+- Line/column information is condensed to a simple position string on mobile
+
+## CSS Customization
+
+The StatusBar can be styled with custom classes:
+
+```svelte
+<StatusBar
+  class="shadow-lg border-t-2"
+  variant="terminal"
+  status="Custom Styled"
+/>
+```
+
+## Integration with Other Components
+
+The StatusBar works well with other terminal-inspired components:
+
+```svelte
+<div class="relative h-screen flex flex-col">
+  <TerminalWindow variant="terminal">
+    <div class="flex-1 p-4">
+      <!-- Content goes here -->
+    </div>
+  </TerminalWindow>
+  
+  <StatusBar 
+    variant="terminal"
+    status="Terminal Ready"
+    fileType="Shell"
+    indicators={[
+      { label: 'Status', value: 'Connected', type: 'success' }
+    ]}
+  />
+</div>
+```
+
+## Animation Effects
+
+The StatusBar includes subtle animation effects based on the variant:
+
+- **Bubble Tea**: Gentle pulsing effect that subtly changes brightness
+- **Terminal**: Static with hover effects on interactive elements
+- **Glass**: Minimal hover effects with blur adjustments
+
+## Accessibility
+
+The StatusBar is designed with accessibility in mind:
+
+- Uses `role="status"` to indicate its purpose to screen readers
+- Sets `aria-live="polite"` to announce changes to the status
+- Ensures color contrast meets WCAG AA standards
+- Responsively adapts to different screen sizes
+
+## Related Components
+
+- [TerminalWindow](/components/terminal-window) - Terminal window container
+- [CommandBlock](/components/command-block) - Command line interface
+- [BootSequence](/components/boot-sequence) - System startup animation

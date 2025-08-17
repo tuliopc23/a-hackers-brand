@@ -1,51 +1,208 @@
 ---
-title: 'Glow Text'
-description: 'Text with customizable neon glow effects and animations'
+title: "GlowText"
+description: "Text component with customizable neon glow effects for both Terminal and Bubble Tea themes"
 ---
 
-# Glow Text
+# GlowText
 
-Eye-catching text with customizable neon glow effects. Perfect for headers, callouts, and important information in cyberpunk interfaces.
+The `GlowText` component renders text with customizable neon glow effects, supporting both Terminal and Bubble Tea theme aesthetics. It's perfect for creating eye-catching headings, labels, or accent text with that authentic hacker vibe.
 
-## Import
-
-```svelte
-import { GlowText } from '@org/ui'
-```
-
-## Basic Usage
+## Usage
 
 ```svelte
 <script>
-  import { GlowText } from '@org/ui'
+  import { GlowText } from 'a-hacker-brand';
 </script>
 
-<GlowText color="neon-green" size="xl">
+<GlowText color="matrix" variant="terminal">
+  ACCESS GRANTED
+</GlowText>
+```
+
+## Examples
+
+### Terminal Theme Matrix Glow
+
+The classic green terminal text with a matrix-style glow:
+
+```svelte
+<GlowText variant="terminal" color="matrix" intensity="intense">
   SYSTEM ONLINE
 </GlowText>
 ```
-<div class="ahb-preview" data-ahb-component="GlowText" data-ahb-props='{"color":"neon-green","size":"xl"}'>Live: GlowText</div>
 
-## Colors & Effects
+<CodePreview>
+  <div class="bg-black p-4 rounded-lg">
+    <span class="font-mono text-terminal-green text-2xl" style="text-shadow: 0 0 5px rgba(0, 255, 65, 1), 0 0 10px rgba(0, 255, 65, 0.8), 0 0 20px rgba(0, 255, 65, 0.6), 0 0 30px rgba(0, 255, 65, 0.4), 0 0 40px rgba(0, 255, 65, 0.2);">
+      SYSTEM ONLINE
+    </span>
+  </div>
+</CodePreview>
+
+### Bubble Tea Theme Pink Glow
+
+Soft, modern pink glow for Bubble Tea theme:
 
 ```svelte
-<GlowText color="cyan" animated>Cyber Blue</GlowText>
-<GlowText color="pink" pulse>Hot Pink</GlowText>
-<GlowText color="purple" flicker>Electric Purple</GlowText>
-<GlowText color="yellow" intensity="high">Warning</GlowText>
+<GlowText variant="bubbleTea" color="pink" intensity="normal">
+  Digital Aesthetics
+</GlowText>
 ```
+
+<CodePreview>
+  <div class="bg-[#1a1a2e] p-4 rounded-lg">
+    <span class="font-mono text-[#ff85b3] text-2xl" style="text-shadow: 0 0 5px rgba(255, 133, 179, 0.8), 0 0 10px rgba(255, 133, 179, 0.6), 0 0 15px rgba(255, 133, 179, 0.4);">
+      Digital Aesthetics
+    </span>
+  </div>
+</CodePreview>
+
+### Pulsing Animation
+
+Add a pulsing animation to make text glow with a heartbeat effect:
+
+```svelte
+<GlowText color="purple" pulse={true} intensity="intense">
+  Pulsing Notification
+</GlowText>
+```
+
+### Multiple Colors in a Sequence
+
+Create a visually interesting sequence using different colors:
+
+```svelte
+<div class="flex space-x-1">
+  <GlowText color="cyan" variant="terminal">Terminal</GlowText>
+  <GlowText color="pink" variant="bubbleTea">Fusion</GlowText>
+  <GlowText color="green" variant="bubbleTea">Effect</GlowText>
+</div>
+```
+
+### Using with Headings
+
+The component can render any HTML element:
+
+```svelte
+<GlowText 
+  color="blue" 
+  intensity="intense" 
+  as="h1" 
+  class="text-3xl font-bold mb-4"
+>
+  Hacker Dashboard
+</GlowText>
+```
+
+### Text Property Alternative
+
+You can also use the `text` prop instead of children:
+
+```svelte
+<GlowText 
+  text="Connection Established" 
+  color="green" 
+  variant="terminal"
+/>
+```
+
+## Color Variants
+
+### Terminal Theme Colors
+
+| Color | Description |
+|-------|-------------|
+| `matrix` | Classic matrix green glow |
+| `cyan` | Electric cyan blue glow |
+
+### Bubble Tea Theme Colors
+
+| Color | Description |
+|-------|-------------|
+| `pink` | Soft pink glow |
+| `purple` | Vibrant purple glow |
+| `blue` | Bright blue glow |
+| `cyan` | Modern cyan glow |
+| `green` | Fresh green glow |
+| `yellow` | Warm yellow glow |
+| `orange` | Coral orange glow |
+| `red` | Soft red glow |
+
+## Intensity Levels
+
+| Intensity | Description |
+|-----------|-------------|
+| `normal` | Standard glow effect |
+| `intense` | Stronger, more pronounced glow effect |
 
 ## Props
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `color` | `string` | `'green'` | Glow color |
-| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Text size |
-| `animated` | `boolean` | `false` | Enable glow animation |
-| `pulse` | `boolean` | `false` | Pulsing effect |
-| `flicker` | `boolean` | `false` | Flicker effect |
-| `intensity` | `'low' \| 'medium' \| 'high'` | `'medium'` | Glow intensity |
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'terminal' \| 'bubbleTea'` | `'bubbleTea'` | Theme variant |
+| `color` | `'pink' \| 'purple' \| 'blue' \| 'cyan' \| 'green' \| 'yellow' \| 'orange' \| 'red' \| 'matrix'` | `'pink'` | Glow color |
+| `intensity` | `'normal' \| 'intense'` | `'normal'` | Glow intensity |
+| `animate` | `boolean` | `true` | Enable hover animation |
+| `pulse` | `boolean` | `false` | Enable pulsing animation |
+| `class` | `string` | `''` | Additional CSS classes |
+| `text` | `string` | `undefined` | Text content (alternative to children) |
+| `as` | `string` | `'span'` | HTML element to render |
 
----
+## CSS Details
 
-Make your text glow with cyberpunk energy! ✨💡
+The component uses CSS `text-shadow` for the glow effects with carefully tuned values:
+
+```css
+/* Example: Terminal Matrix Intense */
+text-shadow:
+  0 0 5px rgba(0, 255, 65, 1),
+  0 0 10px rgba(0, 255, 65, 0.8),
+  0 0 20px rgba(0, 255, 65, 0.6),
+  0 0 30px rgba(0, 255, 65, 0.4),
+  0 0 40px rgba(0, 255, 65, 0.2);
+```
+
+## Accessibility Considerations
+
+- The glow effects are purely decorative and don't affect screen readers
+- Colors have been selected to maintain readability while providing the glow effect
+- The pulse animation respects `prefers-reduced-motion` settings
+
+## Custom Styling
+
+You can extend the component with your own classes:
+
+```svelte
+<GlowText 
+  color="matrix" 
+  class="uppercase tracking-widest text-2xl"
+>
+  Critical Warning
+</GlowText>
+```
+
+## Usage with Other Components
+
+The `GlowText` component works well combined with other components:
+
+```svelte
+<Card variant="terminal">
+  <GlowText color="matrix" class="text-xl mb-2">Security Alert</GlowText>
+  <p>Unauthorized access detected in sector 7G.</p>
+  <Button variant="terminal" class="mt-4">Respond</Button>
+</Card>
+```
+
+## Performance Note
+
+Excessive use of glow effects can impact performance on lower-end devices. For best results:
+
+- Use `GlowText` for important UI elements rather than large blocks of text
+- Consider using `intensity="normal"` for better performance
+- Avoid using too many pulsing animations simultaneously
+
+## Related Components
+
+- [ColorPalette](/components/color-palette) - View all available colors
+- [RetroText](/components/retro-text) - Alternative retro text styling
+- [RetroFuturisticText](/components/retro-futuristic-text) - Another text effect option

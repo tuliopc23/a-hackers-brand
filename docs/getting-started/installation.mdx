@@ -1,44 +1,72 @@
 ---
 title: 'Installation'
-description: 'Complete installation guide for Bubble Tea Party component library'
+description: 'Complete installation guide for A Hacker\'s Brand component library'
 ---
 
 # Installation Guide
 
-Get Bubble Tea Party up and running in your project. Multiple installation methods available for different setups.
+Get A Hacker's Brand up and running in your project. Multiple installation methods available for different setups.
 
 ## Package Installation
 
 <CodeGroup>
 
+```bash bun
+bun add a-hacker-brand
+```
+
 ```bash npm
-npm install bubble-tea-party
+npm install a-hacker-brand
 ```
 
 ```bash yarn
-yarn add bubble-tea-party
+yarn add a-hacker-brand
 ```
 
 ```bash pnpm
-pnpm add bubble-tea-party
-```
-
-```bash bun
-bun add bubble-tea-party
+pnpm add a-hacker-brand
 ```
 
 </CodeGroup>
+
+## Peer Dependencies
+
+A Hacker's Brand requires several peer dependencies for full functionality:
+
+<CodeGroup>
+
+```bash bun
+bun add svelte @threlte/core @threlte/extras three lucide-svelte
+```
+
+```bash npm
+npm install svelte @threlte/core @threlte/extras three lucide-svelte
+```
+
+```bash yarn
+yarn add svelte @threlte/core @threlte/extras three lucide-svelte
+```
+
+```bash pnpm
+pnpm add svelte @threlte/core @threlte/extras three lucide-svelte
+```
+
+</CodeGroup>
+
+<Note>
+**WebGL components are optional**: If you don't plan to use 3D components like `GlassScene` or `LazyThrelteCanvas`, you can skip the Threlte and Three.js dependencies.
+</Note>
 
 ## Framework Setup
 
 ### SvelteKit (Recommended)
 
-Bubble Tea Party is built specifically for SvelteKit. Follow these steps for optimal integration:
+A Hacker's Brand is built specifically for Svelte 5 and SvelteKit. Follow these steps for optimal integration:
 
 <Steps>
   <Step title="Install Dependencies">
     ```bash
-    npm install bubble-tea-party @threlte/core @threlte/extras
+    bun add a-hacker-brand svelte @threlte/core @threlte/extras three lucide-svelte
     ```
   </Step>
   
@@ -54,35 +82,44 @@ Bubble Tea Party is built specifically for SvelteKit. Follow these steps for opt
         global: 'globalThis',
       },
       optimizeDeps: {
-        include: ['bubble-tea-party']
+        include: ['a-hacker-brand']
       }
     });
     ```
   </Step>
   
-  <Step title="Import Styles">
-    Add to your `src/app.css`:
-    ```css
-    @import 'bubble-tea-party/styles';
-    
-    /* Optional: Enable cyberpunk mode by default */
-    :root {
-      --theme-mode: 'cyberpunk';
-    }
+  <Step title="Import Components">
+    Start using components in your Svelte files:
+    ```svelte
+    <script>
+      import { Button, Card, GlowText } from 'a-hacker-brand';
+    </script>
+
+    <Card variant="glass">
+      <GlowText color="pink" intensity="intense">
+        Welcome to A Hacker's Brand
+      </GlowText>
+      <Button variant="terminal">Get Started</Button>
+    </Card>
     ```
   </Step>
   
-  <Step title="Setup Theme Provider">
-    Update your `src/routes/+layout.svelte`:
-    ```svelte
-    <script>
-      import '../app.css'
-      import { ThemeProvider } from '@org/ui'
-    </script>
-
-    <ThemeProvider>
-      <slot />
-    </ThemeProvider>
+  <Step title="Optional: Add Global Styles">
+    Add to your `src/app.css` for enhanced theming:
+    ```css
+    /* Optional: Cyberpunk theme variables */
+    :root {
+      --terminal-green: #00ff41;
+      --glass-pink: #ff6b9d;
+      --glass-purple: #c44af2;
+      --glass-radius: 16px;
+    }
+    
+    /* Optional: Dark background for terminal aesthetic */
+    body {
+      background: #0a0a0a;
+      color: #00ff41;
+    }
     ```
   </Step>
 </Steps>
@@ -92,7 +129,7 @@ Bubble Tea Party is built specifically for SvelteKit. Follow these steps for opt
 <Steps>
   <Step title="Install Dependencies">
     ```bash
-    npm install bubble-tea-party @threlte/core @threlte/extras
+    bun add a-hacker-brand svelte @threlte/core @threlte/extras three lucide-svelte
     ```
   </Step>
   
@@ -108,35 +145,38 @@ Bubble Tea Party is built specifically for SvelteKit. Follow these steps for opt
         global: 'globalThis',
       },
       optimizeDeps: {
-        include: ['bubble-tea-party']
+        include: ['a-hacker-brand']
       }
     })
     ```
   </Step>
   
-  <Step title="Import Styles and Setup Theme">
-    In your main entry file (e.g., `src/main.js`):
-    ```javascript
-    import App from './App.svelte'
-    import 'bubble-tea-party/styles'
+  <Step title="Import and Use">
+    In your Svelte components:
+    ```svelte
+    <script>
+      import { Button, GlowText } from 'a-hacker-brand';
+    </script>
 
-    const app = new App({
-      target: document.getElementById('app'),
-    })
-
-    export default app
+    <GlowText variant="terminal" color="matrix">
+      System Online
+    </GlowText>
+    <Button variant="glass">Execute</Button>
     ```
   </Step>
 </Steps>
 
 ## TypeScript Configuration
 
-For full TypeScript support, update your `tsconfig.json`:
+For full TypeScript support, ensure your `tsconfig.json` includes:
 
 ```json
 {
   "compilerOptions": {
-    "types": ["bubble-tea-party/types"]
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["svelte"]
   }
 }
 ```
@@ -146,33 +186,14 @@ For full TypeScript support, update your `tsconfig.json`:
 Create a `.env` file for optional configuration:
 
 ```bash
-# Optional: Analytics and monitoring
-VITE_ANALYTICS_ENABLED=true
+# Optional: Enable WebGL components
+VITE_ENABLE_WEBGL=true
+
+# Optional: Default variant
+VITE_DEFAULT_VARIANT=terminal
+
+# Optional: Performance monitoring
 VITE_PERFORMANCE_MONITORING=true
-
-# Optional: Theme customization
-VITE_DEFAULT_THEME=cyberpunk
-VITE_ENABLE_ANIMATIONS=true
-```
-
-## CDN Installation (Quick Start)
-
-For rapid prototyping or simple projects:
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="https://cdn.bubbletea.party/styles.css">
-</head>
-<body>
-  <div id="app"></div>
-  <script type="module">
-    import { Button } from 'https://cdn.bubbletea.party/components.js'
-    // Your code here
-  </script>
-</body>
-</html>
 ```
 
 ## Verification
@@ -181,129 +202,211 @@ Test your installation with a simple component:
 
 ```svelte
 <script>
-  import { Button, GlowText } from '@org/ui'
+  import { Button, Card, GlowText, StatusBar } from 'a-hacker-brand';
 </script>
 
 <div class="test-container">
-  <GlowText color="neon-green">
-    Installation Successful! 🎉
-  </GlowText>
+  <Card variant="glass">
+    <GlowText color="matrix" intensity="intense">
+      Installation Successful! 🎉
+    </GlowText>
+    
+    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+      <Button variant="terminal">Terminal</Button>
+      <Button variant="glass">Glass</Button>
+      <Button variant="liquid">Liquid</Button>
+    </div>
+  </Card>
   
-  <Button variant="cyberpunk">
-    Ready to hack!
-  </Button>
+  <StatusBar 
+    variant="terminal"
+    status="Ready"
+    encoding="UTF-8"
+    fileType="Svelte"
+    lineNumber={1}
+    columnNumber={1}
+  />
 </div>
 ```
 
 ## Troubleshooting
 
-<Accordion title="Common Installation Issues">
+<AccordionGroup>
+  <Accordion title="Module not found errors">
+    ```bash
+    # Clear cache and reinstall
+    rm -rf node_modules package-lock.json bun.lockb
+    bun install
+    
+    # Or with npm
+    rm -rf node_modules package-lock.json
+    npm install
+    ```
+  </Accordion>
 
-### Module not found errors
+  <Accordion title="WebGL context errors">
+    WebGL components require a modern browser and GPU support:
+    - **Chrome 80+** with hardware acceleration enabled
+    - **Firefox 78+** with WebGL enabled
+    - **Safari 14+** on macOS/iOS
+    - **Edge 80+** with hardware acceleration
 
-```bash
-# Clear node_modules and reinstall
-rm -rf node_modules package-lock.json
-npm install
-```
+    If WebGL is not available, components will gracefully fallback to CSS-only versions.
+  </Accordion>
 
-### WebGL context errors
+  <Accordion title="TypeScript errors">
+    ```bash
+    # Ensure TypeScript is installed
+    bun add -D typescript @tsconfig/svelte
+    
+    # Check Svelte types
+    npx svelte-check --tsconfig ./tsconfig.json
+    ```
+  </Accordion>
 
-WebGL components require a modern browser. Ensure you're using:
-- Chrome 80+
-- Firefox 78+  
-- Safari 14+
-- Edge 80+
+  <Accordion title="Build errors with Vite">
+    ```javascript
+    // vite.config.js - Add to optimizeDeps
+    export default defineConfig({
+      optimizeDeps: {
+        include: ['a-hacker-brand'],
+        exclude: ['@threlte/core', '@threlte/extras'] // If having issues
+      },
+      define: {
+        global: 'globalThis', // Required for Three.js
+      }
+    })
+    ```
+  </Accordion>
 
-### TypeScript errors
-
-```bash
-# Install TypeScript if not present
-npm install -D typescript @tsconfig/svelte
-
-# Generate types
-npx svelte-check --tsconfig ./tsconfig.json
-```
-
-### Build errors with Vite
-
-```javascript
-// vite.config.js
-export default defineConfig({
-  optimizeDeps: {
-    include: ['bubble-tea-party'],
-    exclude: ['@threlte/core', '@threlte/extras']
-  }
-})
-```
-
-</Accordion>
+  <Accordion title="Svelte 5 compatibility">
+    A Hacker's Brand requires **Svelte 5.0+**. If you're using an older version:
+    
+    ```bash
+    # Update to Svelte 5
+    bun add svelte@^5.0.0
+    
+    # Update SvelteKit if needed
+    bun add @sveltejs/kit@latest
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ## Development Setup
 
-For contributing to Bubble Tea Party:
+For contributing to A Hacker's Brand:
 
 <Steps>
   <Step title="Clone Repository">
     ```bash
-    git clone https://github.com/bubbletea/components.git
-    cd components
+    git clone https://github.com/tuliopc23/a-hackers-brand.git
+    cd a-hackers-brand
     ```
   </Step>
   
   <Step title="Install Dependencies">
     ```bash
-    npm install
+    bun install
     ```
   </Step>
   
   <Step title="Start Development Server">
     ```bash
-    npm run dev
+    bun run dev
     ```
   </Step>
   
   <Step title="Run Tests">
     ```bash
-    npm run test
-    npm run test:visual
+    bun run test
+    bun run test:coverage
+    ```
+  </Step>
+  
+  <Step title="Build Documentation">
+    ```bash
+    bun run docs:dev
     ```
   </Step>
 </Steps>
+
+## Package Manager Recommendations
+
+<Tabs>
+  <Tab title="Bun (Recommended)">
+    **Fastest installation and best compatibility**
+    
+    ```bash
+    bun add a-hacker-brand
+    bun run dev
+    ```
+    
+    - ✅ Fastest package installation
+    - ✅ Built-in TypeScript support
+    - ✅ Excellent Svelte compatibility
+    - ✅ Native ESM support
+  </Tab>
+  
+  <Tab title="npm">
+    **Most widely supported**
+    
+    ```bash
+    npm install a-hacker-brand
+    npm run dev
+    ```
+    
+    - ✅ Universal compatibility
+    - ✅ Stable and reliable
+    - ⚠️ Slower than Bun/pnpm
+  </Tab>
+  
+  <Tab title="pnpm">
+    **Good performance and disk efficiency**
+    
+    ```bash
+    pnpm add a-hacker-brand
+    pnpm dev
+    ```
+    
+    - ✅ Fast installation
+    - ✅ Disk space efficient
+    - ✅ Good monorepo support
+  </Tab>
+</Tabs>
 
 ## Next Steps
 
 <CardGroup cols={2}>
   <Card
-    title="Quick Start"
+    title="Quick Start Guide"
     icon="rocket"
-    href="/quickstart"
+    href="/getting-started/quickstart"
   >
-    Build your first cyberpunk interface
+    Build your first cyberpunk interface in 5 minutes
   </Card>
   <Card
-    title="Components"
-    icon="grid"
-    href="/components/button"
-  >
-    Explore the component library
-  </Card>
-  <Card
-    title="Theming"
+    title="Design Variants"
     icon="palette"
-    href="/themes"
+    href="/guides/variants"
   >
-    Customize colors and effects
+    Learn about terminal, glass, and liquid variants
   </Card>
   <Card
-    title="Examples"
-    icon="code"
-    href="/playground"
+    title="Component Library"
+    icon="grid-3x3"
+    href="/components"
   >
-    See real-world implementations
+    Explore all available components
+  </Card>
+  <Card
+    title="Theming Guide"
+    icon="paintbrush"
+    href="/guides/theming"
+  >
+    Customize colors and styling
   </Card>
 </CardGroup>
 
 ---
 
-**Ready to enter the matrix?** Your cyberpunk journey begins now! 🔴💊
+**Ready to hack the matrix?** Your cyberpunk journey begins now! 🔴💊

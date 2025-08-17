@@ -1,0 +1,113 @@
+---
+title: "ClientOnly"
+description: "A utility component for safely rendering client-side only content like WebGL components"
+---
+
+# ClientOnly
+
+The `ClientOnly` component is a utility for safely rendering components that depend on browser APIs and should not be rendered during server-side rendering (SSR).
+
+This is particularly useful for WebGL components like `GlassScene` and `ThrelteCanvas` that require browser-specific APIs like `canvas` and `WebGL` context.
+
+## Usage
+
+Wrap any components that should only render on the client side with `ClientOnly`:
+
+```svelte
+<script>
+  import { ClientOnly, GlassScene } from 'a-hacker-brand';
+</script>
+
+<ClientOnly>
+  <GlassScene />
+</ClientOnly>
+```
+
+## With Fallback Content
+
+You can provide fallback content to display during SSR or while the client-side JavaScript is loading:
+
+```svelte
+<script>
+  import { ClientOnly, GlassScene } from 'a-hacker-brand';
+</script>
+
+<ClientOnly
+  fallback={() => (
+    <div class="p-4 bg-gray-800 rounded-lg text-center">
+      <p>Loading 3D scene...</p>
+    </div>
+  )}
+>
+  <GlassScene />
+</ClientOnly>
+```
+
+## Custom Loading Skeleton
+
+By default, `ClientOnly` shows a simple loading skeleton when no fallback is provided. You can customize this with classes:
+
+```svelte
+<script>
+  import { ClientOnly, AdvancedTerminal } from 'a-hacker-brand';
+</script>
+
+<ClientOnly class="h-64 w-full rounded-xl">
+  <AdvancedTerminal />
+</ClientOnly>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `fallback` | `() => any` | `null` | Optional function that returns content to show during SSR/before mount |
+| `class` | `string` | `''` | Optional CSS class to apply to the wrapper |
+| `style` | `string` | `''` | Optional inline styles for the wrapper |
+
+## Example: Safe WebGL Rendering
+
+```svelte
+<script>
+  import { ClientOnly, ThrelteCanvas } from 'a-hacker-brand';
+  
+  let loaded = false;
+  
+  function handleLoaded() {
+    loaded = true;
+  }
+</script>
+
+<ClientOnly
+  class="h-96 w-full rounded-2xl overflow-hidden"
+  fallback={() => (
+    <div class="h-full w-full flex items-center justify-center bg-terminal-bg border border-terminal-green/20">
+      <p class="text-terminal-green">Initializing 3D scene...</p>
+    </div>
+  )}
+>
+  <ThrelteCanvas onLoaded={handleLoaded} />
+  
+  {#if loaded}
+    <div class="absolute bottom-4 right-4 bg-black/50 p-2 rounded">
+      <p class="text-white text-sm">Scene loaded successfully</p>
+    </div>
+  {/if}
+</ClientOnly>
+```
+
+## When to Use
+
+Use `ClientOnly` when your component:
+
+- Accesses browser-specific APIs (`window`, `document`, etc.)
+- Uses WebGL or Canvas APIs
+- Relies on browser dimensions or viewport
+- Needs to access browser storage (localStorage, etc.)
+- Uses browser-specific events like touch or pointer events
+
+## Related Components
+
+- [GlassScene](/components/glass-scene) - 3D liquid glass effect
+- [LazyThrelteCanvas](/components/lazy-threlte-canvas) - Lazy-loaded 3D canvas
+- [ThrelteCanvas](/components/threlte-canvas) - Base 3D rendering component

@@ -1,0 +1,605 @@
+---
+title: 'Customization Guide'
+description: 'Advanced customization techniques for A Hacker\'s Brand components and styling'
+---
+
+# Customization Guide
+
+Learn how to customize A Hacker's Brand components to match your unique design requirements while maintaining the cyberpunk aesthetic.
+
+## Component Customization
+
+### Using CSS Classes
+
+All components accept custom CSS classes for styling:
+
+```svelte
+<script>
+  import { Button, Card } from 'a-hacker-brand';
+</script>
+
+<Card variant="glass" class="custom-card">
+  <Button variant="terminal" class="custom-button">
+    Custom Styled
+  </Button>
+</Card>
+
+<style>
+  :global(.custom-card) {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(196, 74, 242, 0.1));
+    border: 2px solid var(--glass-pink);
+    backdrop-filter: blur(20px);
+  }
+  
+  :global(.custom-button) {
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    --terminal-green: #ff6b35;
+  }
+</style>
+```
+
+### CSS Custom Properties
+
+Override component-specific CSS variables:
+
+```svelte
+<Button 
+  variant="glass" 
+  style="--glass-radius: 32px; --glass-pink: #ff1493;"
+>
+  Custom Properties
+</Button>
+```
+
+### Slot Customization
+
+Many components provide slots for custom content:
+
+```svelte
+<script>
+  import { Card, StatusBar } from 'a-hacker-brand';
+</script>
+
+<Card variant="terminal">
+  <svelte:fragment slot="header">
+    <div class="custom-header">
+      <span class="status-indicator"></span>
+      Custom Header
+    </div>
+  </svelte:fragment>
+  
+  <p>Card content goes here</p>
+  
+  <svelte:fragment slot="footer">
+    <StatusBar variant="terminal" status="Custom" />
+  </svelte:fragment>
+</Card>
+
+<style>
+  .custom-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--terminal-green);
+    font-weight: bold;
+  }
+  
+  .status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--terminal-green);
+    box-shadow: 0 0 10px var(--terminal-green);
+    animation: pulse 2s infinite;
+  }
+</style>
+```
+
+## Advanced Styling Techniques
+
+### Creating Custom Variants
+
+Extend existing components with new variants:
+
+```svelte
+<script>
+  import { Button } from 'a-hacker-brand';
+  
+  // Custom variant logic
+  function getVariantClass(variant) {
+    const customVariants = {
+      'retro': 'retro-variant',
+      'neon-pink': 'neon-pink-variant',
+      'hologram': 'hologram-variant'
+    };
+    
+    return customVariants[variant] || '';
+  }
+  
+  export let variant = 'terminal';
+  export let customVariant = null;
+</script>
+
+<Button 
+  {variant}
+  class={customVariant ? getVariantClass(customVariant) : ''}
+  {...$$restProps}
+>
+  <slot />
+</Button>
+
+<style>
+  :global(.retro-variant) {
+    background: #2d1b00;
+    color: #ffb000;
+    border: 2px solid #ffb000;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 10px #ffb000;
+    position: relative;
+  }
+  
+  :global(.retro-variant::before) {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 176, 0, 0.1) 2px,
+      rgba(255, 176, 0, 0.1) 4px
+    );
+    pointer-events: none;
+  }
+  
+  :global(.neon-pink-variant) {
+    background: transparent;
+    color: #ff1493;
+    border: 2px solid #ff1493;
+    box-shadow: 
+      0 0 10px #ff1493,
+      inset 0 0 10px rgba(255, 20, 147, 0.1);
+  }
+  
+  :global(.hologram-variant) {
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+    color: #00ffff;
+    border: 1px solid #00ffff;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  :global(.hologram-variant::after) {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(0, 255, 255, 0.1),
+      transparent
+    );
+    animation: hologram-scan 3s linear infinite;
+  }
+  
+  @keyframes hologram-scan {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  }
+</style>
+```
+
+### Component Composition
+
+Create complex components by combining simpler ones:
+
+```svelte
+<script>
+  import { Card, Button, GlowText, Progress, Badge } from 'a-hacker-brand';
+  
+  export let title = '';
+  export let status = 'offline';
+  export let progress = 0;
+  export let variant = 'terminal';
+</script>
+
+<Card {variant} class="system-monitor">
+  <div class="monitor-header">
+    <GlowText {variant} color="matrix">
+      {title}
+    </GlowText>
+    <Badge 
+      variant={status === 'online' ? 'success' : 'danger'}
+      class="status-badge"
+    >
+      {status}
+    </Badge>
+  </div>
+  
+  <div class="monitor-content">
+    <Progress {variant} value={progress} max={100} />
+    <div class="progress-label">
+      System Load: {progress}%
+    </div>
+  </div>
+  
+  <div class="monitor-actions">
+    <Button {variant} size="sm">Restart</Button>
+    <Button {variant} size="sm" disabled={status === 'offline'}>
+      Diagnostics
+    </Button>
+  </div>
+</Card>
+
+<style>
+  :global(.system-monitor) {
+    min-width: 300px;
+  }
+  
+  .monitor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .monitor-content {
+    margin-bottom: 1.5rem;
+  }
+  
+  .progress-label {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    opacity: 0.8;
+  }
+  
+  .monitor-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  :global(.status-badge) {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+</style>
+```
+
+## Responsive Customization
+
+### Breakpoint-Aware Styling
+
+Create responsive customizations:
+
+```svelte
+<script>
+  import { Card, Button } from 'a-hacker-brand';
+</script>
+
+<Card variant="glass" class="responsive-card">
+  <h3>Responsive Design</h3>
+  <p>This card adapts to different screen sizes.</p>
+  <Button variant="glass" class="responsive-button">
+    Adaptive Button
+  </Button>
+</Card>
+
+<style>
+  :global(.responsive-card) {
+    /* Mobile first */
+    padding: 1rem;
+    --glass-radius: 8px;
+  }
+  
+  @media (min-width: 768px) {
+    :global(.responsive-card) {
+      padding: 2rem;
+      --glass-radius: 16px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    :global(.responsive-card) {
+      padding: 3rem;
+      --glass-radius: 24px;
+    }
+  }
+  
+  :global(.responsive-button) {
+    width: 100%;
+  }
+  
+  @media (min-width: 768px) {
+    :global(.responsive-button) {
+      width: auto;
+    }
+  }
+</style>
+```
+
+### Container Queries
+
+Use container queries for component-level responsiveness:
+
+```svelte
+<div class="container-aware">
+  <Card variant="terminal" class="adaptive-card">
+    <h3>Container Query Card</h3>
+    <p>Adapts based on container size, not viewport.</p>
+  </Card>
+</div>
+
+<style>
+  .container-aware {
+    container-type: inline-size;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  @container (min-width: 400px) {
+    :global(.adaptive-card) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+  }
+</style>
+```
+
+## Animation Customization
+
+### Custom Keyframes
+
+Create unique animations for your components:
+
+```svelte
+<script>
+  import { GlowText } from 'a-hacker-brand';
+</script>
+
+<GlowText variant="terminal" class="glitch-text">
+  SYSTEM ERROR
+</GlowText>
+
+<style>
+  :global(.glitch-text) {
+    position: relative;
+    animation: glitch-effect 2s infinite;
+  }
+  
+  :global(.glitch-text::before),
+  :global(.glitch-text::after) {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  :global(.glitch-text::before) {
+    color: #ff0040;
+    animation: glitch-1 0.3s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  }
+  
+  :global(.glitch-text::after) {
+    color: #00ffff;
+    animation: glitch-2 0.3s infinite;
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  }
+  
+  @keyframes glitch-effect {
+    0%, 90%, 100% {
+      transform: translate(0);
+    }
+    95% {
+      transform: translate(2px, -2px);
+    }
+  }
+  
+  @keyframes glitch-1 {
+    0%, 90%, 100% {
+      transform: translate(0);
+    }
+    95% {
+      transform: translate(-2px, 2px);
+    }
+  }
+  
+  @keyframes glitch-2 {
+    0%, 90%, 100% {
+      transform: translate(0);
+    }
+    95% {
+      transform: translate(2px, -2px);
+    }
+  }
+</style>
+```
+
+### Motion Preferences
+
+Respect user motion preferences in custom animations:
+
+```css
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  :global(.glitch-text),
+  :global(.glitch-text::before),
+  :global(.glitch-text::after) {
+    animation: none !important;
+  }
+  
+  :global(.hologram-variant::after) {
+    animation: none !important;
+  }
+}
+```
+
+## Integration Patterns
+
+### With CSS Frameworks
+
+#### Tailwind CSS Integration
+
+```svelte
+<script>
+  import { Button } from 'a-hacker-brand';
+</script>
+
+<!-- Combining A Hacker's Brand with Tailwind -->
+<Button 
+  variant="glass" 
+  class="px-8 py-4 text-lg font-bold uppercase tracking-wider"
+>
+  Tailwind + AHB
+</Button>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
+  <Card variant="terminal" class="col-span-2">
+    <h3 class="text-xl mb-4">Terminal Card</h3>
+    <p class="opacity-80">Combined with Tailwind utilities</p>
+  </Card>
+</div>
+```
+
+#### Styled Components
+
+```javascript
+import styled from 'styled-components';
+import { Button } from 'a-hacker-brand';
+
+const StyledButton = styled(Button)`
+  font-family: 'Orbitron', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  
+  &:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+`;
+```
+
+### With State Management
+
+#### Svelte Stores Integration
+
+```svelte
+<script>
+  import { writable } from 'svelte/store';
+  import { Button, Card } from 'a-hacker-brand';
+  
+  const themeStore = writable('terminal');
+  const customizations = writable({
+    glowIntensity: 0.8,
+    borderRadius: 16,
+    animationSpeed: 1
+  });
+  
+  $: cssVars = {
+    '--liquid-glow-intensity': $customizations.glowIntensity,
+    '--glass-radius': `${$customizations.borderRadius}px`,
+    '--liquid-animation-duration': `${2 / $customizations.animationSpeed}s`
+  };
+</script>
+
+<div style={Object.entries(cssVars).map(([k, v]) => `${k}: ${v}`).join('; ')}>
+  <Card variant={$themeStore}>
+    <h3>Dynamic Customization</h3>
+    <p>Glow: {$customizations.glowIntensity}</p>
+    <p>Radius: {$customizations.borderRadius}px</p>
+    <p>Speed: {$customizations.animationSpeed}x</p>
+  </Card>
+</div>
+```
+
+## Performance Optimization
+
+### Lazy Loading Custom Styles
+
+```svelte
+<script>
+  import { onMount } from 'svelte';
+  
+  let customStylesLoaded = false;
+  
+  onMount(async () => {
+    // Lazy load heavy custom styles
+    await import('./heavy-customizations.css');
+    customStylesLoaded = true;
+  });
+</script>
+
+{#if customStylesLoaded}
+  <div class="heavy-custom-styles">
+    <!-- Components with heavy customizations -->
+  </div>
+{:else}
+  <div class="fallback-styles">
+    <!-- Lightweight fallback -->
+  </div>
+{/if}
+```
+
+### CSS-in-JS Performance
+
+```javascript
+// Memoized styled components
+import { memo } from 'react';
+import styled from 'styled-components';
+
+const MemoizedCustomButton = memo(styled(Button)`
+  /* Heavy customizations */
+  background: linear-gradient(45deg, 
+    ${props => props.color1}, 
+    ${props => props.color2}
+  );
+  filter: drop-shadow(0 0 20px ${props => props.glowColor});
+`);
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Maintainable Customizations">
+    - Use CSS custom properties for dynamic values
+    - Keep customizations in separate CSS files
+    - Document custom variants and their use cases
+    - Use semantic class names
+  </Accordion>
+  
+  <Accordion title="Performance Guidelines">
+    - Avoid excessive box-shadows and filters
+    - Use `transform` and `opacity` for animations
+    - Implement lazy loading for heavy customizations
+    - Test on lower-end devices
+  </Accordion>
+  
+  <Accordion title="Accessibility Considerations">
+    - Maintain sufficient contrast ratios
+    - Provide reduced-motion alternatives
+    - Ensure custom focus indicators are visible
+    - Test with screen readers
+  </Accordion>
+  
+  <Accordion title="Consistency">
+    - Follow the existing design system patterns
+    - Use consistent spacing and typography scales
+    - Maintain variant naming conventions
+    - Document breaking changes
+  </Accordion>
+</AccordionGroup>
+
+---
+
+With these customization techniques, you can create unique interfaces while maintaining the cyberpunk aesthetic and accessibility standards of A Hacker's Brand! 🎨🔧

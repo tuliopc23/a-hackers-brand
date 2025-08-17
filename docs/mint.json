@@ -1,6 +1,10 @@
 {
   "name": "A Hacker's Brand",
   "theme": "linden",
+  "modeToggle": {
+    "default": "dark",
+    "isHidden": true
+  },
   "favicon": "/favicon.svg",
   "logo": {
     "dark": "/logo/dark.svg",
@@ -21,18 +25,26 @@
     "url": "/getting-started/installation"
   },
   "colors": {
-    "primary": "#00ff41"
+    "primary": "#00ff41",
+    "primaryDark": "#00cc33",
+    "background": {
+      "dark": "#000000",
+      "light": "#000000"
+    },
+    "backgroundDark": "#000000"
   },
   "css": [
-    "styles/terminal.css",
-    "ahb-previews.css"
+    "styles/dark-theme.css",
+    "styles/library-styles.css",
+    "styles/authentic-components.css",
+    "styles/terminal.css"
   ],
   "head": [
     {
-      "tag": "script",
+      "tag": "meta",
       "attrs": {
-        "type": "module",
-        "src": "/embed.js"
+        "name": "theme-color",
+        "content": "#00ff41"
       }
     }
   ],
@@ -40,36 +52,40 @@
     {
       "group": "Home",
       "pages": [
-        "/"
+        "index"
       ]
     },
     {
       "group": "Getting Started",
       "pages": [
         "getting-started/installation",
-        "getting-started/project-setup",
-        "getting-started/quickstart"
+        "getting-started/quickstart",
+        "getting-started/project-setup"
       ]
     },
     {
-      "group": "Guides",
+      "group": "Design System",
       "pages": [
         "guides/theming",
+        "guides/variants",
         "guides/accessibility",
-        "guides/recipes"
+        "guides/customization"
       ]
     },
     {
-      "group": "Components",
+      "group": "Core Components",
       "pages": [
-        "components/index"
+        "components/index",
+        "components/button",
+        "components/card",
+        "components/input",
+        "components/modal",
+        "components/tabs"
       ]
     },
     {
       "group": "Form Controls",
       "pages": [
-        "components/button",
-        "components/input",
         "components/checkbox",
         "components/radio",
         "components/select",
@@ -82,27 +98,28 @@
       ]
     },
     {
-      "group": "Display Components",
+      "group": "Display & Feedback",
       "pages": [
         "components/badge",
-        "components/card",
         "components/progress",
         "components/skeleton",
-        "components/color-palette",
-        "components/color-swatch",
+        "components/alert",
+        "components/toast",
+        "components/tooltip",
         "components/glow-text",
-        "components/metrics-card",
+        "components/color-palette",
         "components/status-bar"
       ]
     },
     {
-      "group": "Navigation",
+      "group": "Navigation & Layout",
       "pages": [
         "components/navbar",
         "components/breadcrumb",
         "components/menu",
         "components/sidebar",
-        "components/tabs"
+        "components/drawer",
+        "components/dropdown"
       ]
     },
     {
@@ -117,55 +134,40 @@
       ]
     },
     {
-      "group": "Overlays & Feedback",
-      "pages": [
-        "components/modal",
-        "components/drawer",
-        "components/dropdown",
-        "components/tooltip",
-        "components/toast",
-        "components/alert"
-      ]
-    },
-    {
-      "group": "Terminal Components",
+      "group": "Terminal & Effects",
       "pages": [
         "components/terminal-window",
         "components/matrix-rain",
         "components/advanced-terminal",
-        "components/liquid-terminal",
-        "components/lazy-terminal-window",
-        "components/terminal-startup",
         "components/boot-sequence",
-        "components/retro-text",
-        "components/retro-futuristic-text",
-        "components/ai-command-suggestions",
-        "components/command-block"
+        "components/command-block",
+        "components/ai-command-suggestions"
       ]
     },
     {
       "group": "WebGL & 3D",
       "pages": [
+        "components/client-only",
         "components/glass-scene",
+        "components/glass-scene-examples",
         "components/lazy-threlte-canvas"
       ]
     },
     {
-      "group": "System & Utilities",
+      "group": "Utilities & System",
       "pages": [
         "components/theme-selector",
-        "components/theme-debug-panel",
-        "components/accessibility-report",
         "components/performance-monitor",
-        "components/performance-dashboard",
-        "components/async-error-boundary",
+        "components/accessibility-report",
         "components/code-highlight"
       ]
     },
     {
-      "group": "Integrations",
+      "group": "Advanced Guides",
       "pages": [
-        "integrations/histoire"
+        "guides/performance",
+        "guides/testing",
+        "guides/recipes"
       ]
     },
     {
@@ -180,12 +182,31 @@
   ],
   "anchors": [
     {
-      "name": "GitHub",
+      "name": "GitHub Repository",
+      "icon": "github",
       "url": "https://github.com/tuliopc23/a-hackers-brand"
     },
     {
-      "name": "NPM",
+      "name": "NPM Package",
+      "icon": "box",
       "url": "https://www.npmjs.com/package/a-hacker-brand"
+    },
+    {
+      "name": "Live Playground",
+      "icon": "play",
+      "url": "/playground"
     }
-  ]
+  ],
+  "footerSocials": {
+    "github": "https://github.com/tuliopc23/a-hackers-brand",
+    "twitter": "https://twitter.com/ahackerbrand"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true,
+    "raiseIssue": true
+  },
+  "search": {
+    "prompt": "Search the hacker's documentation..."
+  }
 }

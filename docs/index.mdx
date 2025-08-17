@@ -1,120 +1,348 @@
 ---
-title: Introduction
-description: 'Welcome to A Hacker\'s Brand - The cyberpunk component library for the terminal age'
+title: 'A Hacker\'s Brand Design System'
+description: 'Modern Svelte 5 UI component library featuring terminal, glass, and liquid design variants for the cyberpunk age'
 ---
 
 <img
-  class="block dark:hidden"
+  className="block dark:hidden"
   src="/images/hero-light.svg"
-  alt="Hero Light"
+  alt="A Hacker's Brand - Light Mode"
 />
 <img
-  class="hidden dark:block"
+  className="hidden dark:block"
   src="/images/hero-dark.svg"
-  alt="Hero Dark"
+  alt="A Hacker's Brand - Dark Mode"
 />
 
-# Welcome to the Matrix 🚀
+# Welcome to A Hacker's Brand 🚀
 
-**A Hacker's Brand** is a cyberpunk-inspired, terminal-native component library that brings the aesthetics of the digital underground to your applications. Built for developers who dream in green text and think in binary, our components merge the nostalgic charm of retro computing with the cutting-edge power of modern web development.
+**A Hacker's Brand** is a modern Svelte 5 UI component library that brings the aesthetics of cyberpunk culture to your applications. Featuring three distinct design variants - **terminal**, **glass**, and **liquid** - our components merge nostalgic hacker culture with cutting-edge web development.
 
-## Why A Hacker's Brand?
+<div className="ahb-preview">
+  <div data-ahb-component="GlowText" data-ahb-props='{"color":"matrix","intensity":"intense"}'>
+    Welcome to the Matrix
+  </div>
+</div>
 
-<CardGroup cols={2}>
+## Design Philosophy
+
+<CardGroup cols={3}>
   <Card
-    title="Terminal Native"
+    title="Terminal Variant"
     icon="terminal"
-    href="/quickstart"
+    href="/guides/variants#terminal"
   >
-    Components designed specifically for terminal interfaces and command-line aesthetics
+    Matrix green accents, high contrast, monospaced aesthetic with minimal glow and utilitarian feel
+    
+    <div className="ahb-component ahb-button-terminal">Execute</div>
+    
+    ```svelte
+    <Button variant="terminal">Execute</Button>
+    ```
   </Card>
   <Card
-    title="Cyberpunk Design"
-    icon="robot"
-    href="/themes"
+    title="Glass Variant"
+    icon="sparkles"
+    href="/guides/variants#glass"
   >
-    Neon glows, matrix effects, and retro-futuristic styling out of the box
+    Translucent surfaces with subtle blur, rounded edges, gradient accents and soft glow effects
+    
+    <div className="ahb-component ahb-button-glass">Submit</div>
+    
+    ```svelte
+    <Button variant="glass">Submit</Button>
+    ```
   </Card>
   <Card
-    title="Performance First"
-    icon="bolt"
-    href="/utilities/motion"
+    title="Liquid Variant"
+    icon="droplet"
+    href="/guides/variants#liquid"
   >
-    Lightweight, fast, and optimized for high-performance applications
-  </Card>
-  <Card
-    title="Fully Accessible"
-    icon="universal-access"
-    href="/utilities/accessibility"
-  >
-    WCAG compliant with screen reader support and keyboard navigation
+    Higher-intensity gradients and glow surfaces for visually expressive interfaces (experimental)
+    
+    <div className="ahb-component ahb-button-liquid">Activate</div>
+    
+    ```svelte
+    <Button variant="liquid">Activate</Button>
+    ```
   </Card>
 </CardGroup>
 
-## Features That'll Blow Your Mind
+## Why Choose A Hacker's Brand?
 
-- **🎨 40+ Cyberpunk Components** - From glowing buttons to matrix rain effects
-- **🌈 Dynamic Theming** - Dark mode, neon modes, and custom themes
-- **⚡ WebGL Integration** - 3D effects and particle systems
-- **🔧 Motion Library** - Smooth animations and transitions
-- **📱 Responsive Design** - Looks great on any screen size
-- **🎯 TypeScript** - Full type safety and IntelliSense support
-- **🧪 Testing Ready** - Built-in accessibility and performance testing
+<Tabs>
+  <Tab title="Modern Foundation">
+    Built on **Svelte 5** with full TypeScript support, tree-shakable components, and performance-first architecture.
+    
+    ```svelte
+    <script>
+      import { Button, Card, GlowText } from 'a-hacker-brand';
+    </script>
+    
+    <Button variant="terminal">Execute Command</Button>
+    <Button variant="glass">Glass Action</Button>
+    <Button variant="liquid">Liquid Glow</Button>
+    ```
+  </Tab>
+  
+  <Tab title="Accessibility First">
+    WCAG compliant with semantic HTML, keyboard navigation, focus management, and screen reader support.
+    
+    - ✅ Semantic buttons & interactive roles
+    - ✅ Keyboard navigation (Enter/Space/Escape/Arrows)
+    - ✅ Focus management for overlays
+    - ✅ Visible focus styles
+    - ✅ Reduced motion support
+  </Tab>
+  
+  <Tab title="Rich Component Set">
+    Growing collection of 40+ components with consistent sizing, styling tokens, and variant support.
+    
+    **Form Controls**: Button, Input, Select, Checkbox, Radio, Switch, Textarea, Slider
+    **Display**: Card, Badge, Progress, Alert, Toast, GlowText, ColorPalette
+    **Navigation**: Tabs, Modal, Drawer, Dropdown, Breadcrumb
+    **Terminal**: TerminalWindow, MatrixRain, BootSequence, CommandBlock
+  </Tab>
+  
+  <Tab title="WebGL Integration">
+    Optional 3D effects and particle systems powered by Threlte and Three.js.
+    
+    ```svelte
+    <script>
+      import { GlassScene, LazyThrelteCanvas } from 'a-hacker-brand';
+    </script>
+    
+    <GlassScene variant="liquid">
+      <LazyThrelteCanvas />
+    </GlassScene>
+    ```
+  </Tab>
+</Tabs>
 
-## The Tech Stack
+## Quick Start
 
-Built on modern foundations:
-- **Svelte/SvelteKit** - Reactive, fast, and developer-friendly
-- **TypeScript** - Type safety and better developer experience
-- **Threlte** - 3D graphics and WebGL effects
-- **CSS Variables** - Dynamic theming system
-- **Motion APIs** - Smooth animations and interactions
+<Steps>
+  <Step title="Install the Package">
+    ```bash
+    # Bun (recommended)
+    bun add a-hacker-brand
+    
+    # npm/pnpm
+    npm install a-hacker-brand
+    pnpm add a-hacker-brand
+    ```
+  </Step>
+  
+  <Step title="Install Peer Dependencies">
+    ```bash
+    bun add svelte @threlte/core @threlte/extras three lucide-svelte
+    ```
+  </Step>
+  
+  <Step title="Import and Use">
+    ```svelte
+    <script>
+      import { Button, Card, GlowText } from 'a-hacker-brand';
+    </script>
+    
+    <Card variant="glass">
+      <GlowText color="pink" intensity="intense">
+        Welcome to A Hacker's Brand
+      </GlowText>
+      <Button variant="terminal">Get Started</Button>
+    </Card>
+    ```
+  </Step>
+</Steps>
 
-## Quick Taste
+## Live Examples
 
-Here's a glimpse of what you can build:
+**Terminal Status Bar**
+
+<div className="ahb-component ahb-status-bar">Ready</div>
 
 ```svelte
-<script>
-  import { Button, TerminalWindow, MatrixRain } from 'a-hacker-brand'
-</script>
-
-<TerminalWindow title="Welcome to the Matrix">
-  <MatrixRain />
-  <Button variant="terminal" onClick={hackTheGibson}>
-    Hack the Gibson
-  </Button>
-</TerminalWindow>
+<StatusBar 
+  variant="terminal"
+  status="Ready"
+  encoding="UTF-8"
+  fileType="TypeScript"
+  lineNumber={42}
+  columnNumber={13}
+/>
 ```
 
-<iframe 
-  src="/playground/terminal-demo" 
-  width="100%" 
-  height="400"
-  class="border rounded-lg"
-/>
+**Interactive Color Palette**
 
-## Ready to Jack In?
+<div className="ahb-component ahb-color-palette">
+  <div className="ahb-color-swatch" style="background: #ff6b9d;"></div>
+  <div className="ahb-color-swatch" style="background: #c44af2;"></div>
+  <div className="ahb-color-swatch" style="background: #4fa8ff;"></div>
+  <div className="ahb-color-swatch" style="background: #4dd8da;"></div>
+  <div className="ahb-color-swatch" style="background: #00ff41;"></div>
+  <div className="ahb-color-swatch" style="background: #ffff00;"></div>
+</div>
+
+```svelte
+<ColorPalette 
+  theme="both"
+  layout="grid"
+  showCategories={true}
+  interactive={true}
+  on:colorSelect={(color) => console.log('Selected:', color)}
+/>
+```
+
+## Features That Set Us Apart
+
+<AccordionGroup>
+  <Accordion title="🎨 Three Design Variants">
+    Each component supports `terminal`, `glass`, and `liquid` variants with graceful fallbacks:
+    
+    ```svelte
+    <Tabs variant="terminal" />  <!-- Matrix green, high contrast -->
+    <Tabs variant="glass" />     <!-- Translucent, soft glow -->
+    <Tabs variant="liquid" />    <!-- High-intensity gradients -->
+    ```
+  </Accordion>
+  
+  <Accordion title="⚡ Performance Optimized">
+    - Tree-shakable components for minimal bundle size
+    - Lazy loading for WebGL components
+    - CSS custom properties for dynamic theming
+    - Motion layer with `prefers-reduced-motion` support
+  </Accordion>
+  
+  <Accordion title="🧩 Composable Architecture">
+    - Clear prop APIs with no hidden global state
+    - Consistent sizing and styling tokens
+    - TypeScript-first with full IntelliSense
+    - Responsive, mobile-first design
+  </Accordion>
+  
+  <Accordion title="🎭 Motion & Effects">
+    - Smooth animations and transitions
+    - Matrix rain effects and terminal aesthetics
+    - Neon glow and cyberpunk styling
+    - WebGL particle systems (optional)
+  </Accordion>
+</AccordionGroup>
+
+## Component Showcase
 
 <CardGroup cols={2}>
   <Card
-    title="Quick Start"
-    icon="play"
-    href="/quickstart"
+    title="Form Controls"
+    icon="square-check"
+    href="/components/button"
+  >
+    Buttons, inputs, selects, and form elements with variant support
+  </Card>
+  <Card
+    title="Display Components"
+    icon="eye"
+    href="/components/card"
+  >
+    Cards, badges, progress bars, and visual feedback components
+  </Card>
+  <Card
+    title="Terminal Effects"
+    icon="terminal"
+    href="/components/terminal-window"
+  >
+    Matrix rain, boot sequences, and authentic terminal aesthetics
+  </Card>
+  <Card
+    title="WebGL & 3D"
+    icon="cube"
+    href="/components/glass-scene"
+  >
+    Optional 3D scenes and particle effects for immersive experiences
+  </Card>
+</CardGroup>
+
+## CSS Custom Properties
+
+Customize themes with CSS variables:
+
+```css
+:root {
+  /* Terminal Theme */
+  --terminal-green: #00ff41;
+  --terminal-cyan: #00ffff;
+  --terminal-blue: #0080ff;
+  
+  /* Glass Theme */
+  --glass-pink: #ff6b9d;
+  --glass-purple: #c44af2;
+  --glass-blue: #4fa8ff;
+  --glass-radius: 16px;
+  
+  /* Liquid Theme (Experimental) */
+  --liquid-glow-intensity: 0.8;
+  --liquid-gradient-stops: 3;
+}
+```
+
+## Browser Support
+
+<Info>
+**Modern browsers required**: Chrome 80+, Firefox 78+, Safari 14+, Edge 80+
+
+WebGL components require additional GPU support. Graceful fallbacks provided for unsupported environments.
+</Info>
+
+## Community & Support
+
+<CardGroup cols={3}>
+  <Card
+    title="GitHub Discussions"
+    icon="github"
+    href="https://github.com/tuliopc23/a-hackers-brand/discussions"
+  >
+    Ask questions and share ideas
+  </Card>
+  <Card
+    title="Report Issues"
+    icon="bug"
+    href="https://github.com/tuliopc23/a-hackers-brand/issues"
+  >
+    Bug reports and feature requests
+  </Card>
+  <Card
+    title="Contributing"
+    icon="heart"
+    href="/contributing"
+  >
+    Help improve the library
+  </Card>
+</CardGroup>
+
+## Ready to Build the Future?
+
+<CardGroup cols={2}>
+  <Card
+    title="Installation Guide"
+    icon="download"
+    href="/getting-started/installation"
   >
     Get up and running in 5 minutes
   </Card>
   <Card
-    title="Browse Components"
-    icon="grid"
-    href="/components/button"
+    title="Component Library"
+    icon="grid-3x3"
+    href="/components"
   >
-    Explore our cyberpunk component collection
+    Explore all available components
   </Card>
 </CardGroup>
 
 ---
 
-> *"The future is not some place we are going to, but one we are creating. The paths are not to be found, but made, and the activity of making them changes both the maker and the destination."* - John Schaar
+<Note>
+**Version 0.2.0** - This is the initial 0.x line. Minor releases may include breaking changes while APIs stabilize. Refer to the [CHANGELOG](/changelog) for breaking notes.
+</Note>
 
-Welcome to the future of component libraries. Welcome to **A Hacker's Brand**.
+> *"The future belongs to those who understand that technology is not just about code—it's about creating experiences that resonate with the human spirit."*
+
+Welcome to **A Hacker's Brand** - where cyberpunk aesthetics meet modern web development. 🔗⚡

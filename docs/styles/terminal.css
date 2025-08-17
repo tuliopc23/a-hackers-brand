@@ -1,45 +1,42 @@
-/* Bubble Tea Party - Cyberpunk Documentation Theme */
-/* Enhanced for Mintlify + Linden Theme Integration */
+/* A Hacker's Brand - Enhanced Dark Terminal Theme */
 
 :root {
-  /* Core cyberpunk palette */
-  --neon-green: var(--color-terminal-green, #00ff41);
-  --neon-pink: var(--color-terminal-pink, #ff00ff);
-  --neon-cyan: var(--color-terminal-cyan, #00ffff);
-  --neon-purple: var(--color-terminal-purple, #8a2be2);
-  --neon-orange: var(--color-bubble-tea-orange, #ff8800);
-  --neon-blue: var(--color-terminal-blue, #0080ff);
+  /* Core cyberpunk palette - Enhanced for dark theme */
+  --neon-green: #00ff41;
+  --neon-pink: #ff6b9d;
+  --neon-cyan: #00ffff;
+  --neon-purple: #c44af2;
+  --neon-orange: #ff8800;
+  --neon-blue: #4fa8ff;
   
-  /* Background layers */
-  --dark-bg: #0a0a0a;
-  --darker-bg: #050505;
+  /* Dark backgrounds */
+  --dark-bg: #000000;
+  --darker-bg: #0a0a0a;
   --terminal-bg: #000000;
-  --card-bg: rgba(0, 20, 0, 0.8);
+  --card-bg: rgba(0, 0, 0, 0.9);
   
   /* Terminal colors */
-  --terminal-green: var(--color-terminal-green, #00ff41);
-  --matrix-green: color-mix(in srgb, var(--color-terminal-green) 90%, #fff);
-  --hacker-green: color-mix(in srgb, var(--color-terminal-green) 80%, #fff);
+  --terminal-green: #00ff41;
+  --matrix-green: #39ff14;
+  --hacker-green: #00cc33;
   
-  /* Glow effects */
-  --glow-intensity: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
-  --strong-glow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  /* Glow effects - Enhanced */
+  --glow-intensity: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  --strong-glow: 0 0 15px currentColor, 0 0 30px currentColor, 0 0 45px currentColor;
   
-  /* Mintlify overrides for Linden theme */
+  /* Mintlify overrides for dark theme */
   --primary: var(--neon-green);
   --primary-dark: var(--hacker-green);
   --background: var(--dark-bg);
   --foreground: var(--neon-green);
 }
 
-/* Global cyberpunk foundation */
+/* Global dark cyberpunk foundation */
 html,
 body {
-  background: radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.1) 0%, transparent 50%), 
-              radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
-              linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+  background: var(--dark-bg) !important;
+  color: var(--neon-green) !important;
   font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace !important;
-  color: var(--neon-green);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;

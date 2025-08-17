@@ -1,0 +1,520 @@
+---
+title: 'Performance Guide'
+description: 'Optimize A Hacker\'s Brand components for maximum performance and smooth user experiences'
+---
+
+# Performance Guide
+
+Learn how to optimize A Hacker's Brand components for maximum performance while maintaining the cyberpunk aesthetic and smooth user experiences.
+
+## Bundle Size Optimization
+
+### Tree Shaking
+
+A Hacker's Brand is designed to be tree-shakable. Import only the components you need:
+
+```javascript
+// ✅ Good - Tree-shakable imports
+import { Button, Card, GlowText } from 'a-hacker-brand';
+
+// ❌ Avoid - Imports entire library
+import * as AHB from 'a-hacker-brand';
+```
+
+### Selective Peer Dependencies
+
+Only install peer dependencies for features you use:
+
+```bash
+# Core components only
+bun add a-hacker-brand svelte
+
+# Add WebGL support when needed
+bun add @threlte/core @threlte/extras three
+
+# Add icons when needed
+bun add lucide-svelte
+```
+
+### Bundle Analysis
+
+Analyze your bundle to identify optimization opportunities:
+
+```bash
+# With Vite
+bun add -D rollup-plugin-visualizer
+
+# Add to vite.config.js
+import { visualizer } from 'rollup-plugin-visualizer';
+
+export default defineConfig({
+  plugins: [
+    sveltekit(),
+    visualizer({
+      filename: 'dist/stats.html',
+      open: true
+    })
+  ]
+});
+```
+
+## Runtime Performance
+
+### Component Lazy Loading
+
+Lazy load heavy components to improve initial page load:
+
+```svelte
+<script>
+  import { onMount } from 'svelte';
+  
+  let MatrixRain;
+  let GlassScene;
+  let showEffects = false;
+  
+  onMount(async () => {
+    // Lazy load WebGL components
+    const module = await import('a-hacker-brand');
+    MatrixRain = module.MatrixRain;
+    GlassScene = module.GlassScene;
+    showEffects = true;
+  });
+</script>
+
+{#if showEffects && MatrixRain}
+  <svelte:component this={MatrixRain} density={0.5} />
+{/if}
+
+{#if showEffects && GlassScene}
+  <svelte:component this={GlassScene} variant="liquid" />
+{/if}
+```
+
+### Conditional Rendering
+
+Render expensive components only when needed:
+
+```svelte
+<script>
+  import { MatrixRain, GlowText } from 'a-hacker-brand';
+  
+  let showMatrix = false;
+  let isVisible = false;
+  
+  // Intersection Observer for visibility
+  function handleIntersection(entries) {
+    isVisible = entries[0].isIntersecting;
+  }
+</script>
+
+<div use:intersectionObserver={{ callback: handleIntersection }}>
+  {#if isVisible && showMatrix}
+    <MatrixRain density={0.3} />
+  {/if}
+  
+  <GlowText variant="terminal">
+    Matrix effects load when visible
+  </GlowText>
+</div>
+```
+
+### Performance Monitoring
+
+Monitor component performance in development:
+
+```svelte
+<script>
+  import { onMount, afterUpdate } from 'svelte';
+  import { Button } from 'a-hacker-brand';
+  
+  let renderTime = 0;
+  
+  onMount(() => {
+    const start = performance.now();
+    
+    afterUpdate(() => {
+      renderTime = performance.now() - start;
+      console.log(`Component rendered in ${renderTime.toFixed(2)}ms`);
+    });
+  });
+</script>
+
+<Button variant="terminal">
+  Render time: {renderTime.toFixed(2)}ms
+</Button>
+```
+
+## CSS Performance
+
+### Efficient Selectors
+
+Use efficient CSS selectors for custom styling:
+
+```css
+/* ✅ Good - Efficient selectors */
+.terminal-button {
+  background: var(--terminal-bg);
+}
+
+.glass-card > .content {
+  backdrop-filter: var(--glass-blur);
+}
+
+/* ❌ Avoid - Inefficient selectors */
+* + * + .terminal-button {
+  /* Complex selector */
+}
+
+.glass-card .content .nested .deep .selector {
+  /* Too deep nesting */
+}
+```
+
+### CSS Custom Properties Optimization
+
+Optimize CSS custom property usage:
+
+```css
+/* ✅ Good - Scoped custom properties */
+.terminal-theme {
+  --local-glow: 0 0 5px var(--terminal-green);
+  box-shadow: var(--local-glow);
+}
+
+/* ❌ Avoid - Excessive global properties */
+:root {
+  --every-possible-combination: /* ... */;
+}
+```
+
+### Animation Performance
+
+Use performant animation properties:
+
+```css
+/* ✅ Good - GPU-accelerated properties */
+.smooth-animation {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.smooth-animation:hover {
+  transform: translateX(10px);
+  opacity: 0.8;
+}
+
+/* ❌ Avoid - Layout-triggering properties */
+.expensive-animation {
+  width: 100px;
+  height: 100px;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+```
+
+## WebGL Performance
+
+### Conditional WebGL Loading
+
+Load WebGL components only when supported:
+
+```svelte
+<script>
+  import { onMount } from 'svelte';
+  
+  let webglSupported = false;
+  let WebGLComponent;
+  
+  onMount(async () => {
+    // Check WebGL support
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    
+    if (gl) {
+      webglSupported = true;
+      const module = await import('a-hacker-brand');
+      WebGLComponent = module.GlassScene;
+    }
+  });
+</script>
+
+{#if webglSupported && WebGLComponent}
+  <svelte:component this={WebGLComponent} />
+{:else}
+  <!-- CSS fallback -->
+  <div class="css-fallback">
+    <div class="gradient-background"></div>
+  </div>
+{/if}
+```
+
+### WebGL Resource Management
+
+Properly manage WebGL resources:
+
+```svelte
+<script>
+  import { onDestroy } from 'svelte';
+  import { GlassScene } from 'a-hacker-brand';
+  
+  let glassScene;
+  
+  onDestroy(() => {
+    // Cleanup WebGL resources
+    if (glassScene && glassScene.dispose) {
+      glassScene.dispose();
+    }
+  });
+</script>
+
+<GlassScene bind:this={glassScene} variant="liquid" />
+```
+
+## Memory Management
+
+### Component Cleanup
+
+Properly cleanup component resources:
+
+```svelte
+<script>
+  import { onDestroy } from 'svelte';
+  import { MatrixRain } from 'a-hacker-brand';
+  
+  let animationFrame;
+  let matrixRain;
+  
+  function startAnimation() {
+    function animate() {
+      // Animation logic
+      animationFrame = requestAnimationFrame(animate);
+    }
+    animate();
+  }
+  
+  onDestroy(() => {
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+    }
+    
+    if (matrixRain && matrixRain.cleanup) {
+      matrixRain.cleanup();
+    }
+  });
+</script>
+
+<MatrixRain bind:this={matrixRain} />
+```
+
+### Event Listener Management
+
+Manage event listeners efficiently:
+
+```svelte
+<script>
+  import { onMount, onDestroy } from 'svelte';
+  
+  let resizeHandler;
+  
+  onMount(() => {
+    resizeHandler = () => {
+      // Handle resize
+    };
+    
+    window.addEventListener('resize', resizeHandler, { passive: true });
+  });
+  
+  onDestroy(() => {
+    if (resizeHandler) {
+      window.removeEventListener('resize', resizeHandler);
+    }
+  });
+</script>
+```
+
+## Optimization Strategies
+
+### Debouncing and Throttling
+
+Optimize frequent operations:
+
+```svelte
+<script>
+  import { debounce, throttle } from 'lodash-es';
+  import { ColorPalette } from 'a-hacker-brand';
+  
+  // Debounce color selection
+  const debouncedColorSelect = debounce((color) => {
+    console.log('Color selected:', color);
+  }, 300);
+  
+  // Throttle scroll events
+  const throttledScroll = throttle(() => {
+    // Handle scroll
+  }, 16); // ~60fps
+</script>
+
+<ColorPalette 
+  on:colorSelect={(e) => debouncedColorSelect(e.detail)}
+/>
+```
+
+### Virtual Scrolling
+
+For large lists, implement virtual scrolling:
+
+```svelte
+<script>
+  import { VirtualList } from 'svelte-virtual-list';
+  import { Card } from 'a-hacker-brand';
+  
+  export let items = [];
+  
+  let height = 400;
+  let itemHeight = 60;
+</script>
+
+<VirtualList {items} {height} {itemHeight} let:item>
+  <Card variant="terminal" class="list-item">
+    {item.name}
+  </Card>
+</VirtualList>
+```
+
+## Performance Monitoring
+
+### Core Web Vitals
+
+Monitor performance metrics:
+
+```javascript
+// performance-monitor.js
+export function measurePerformance() {
+  // Largest Contentful Paint
+  new PerformanceObserver((list) => {
+    const entries = list.getEntries();
+    const lastEntry = entries[entries.length - 1];
+    console.log('LCP:', lastEntry.startTime);
+  }).observe({ entryTypes: ['largest-contentful-paint'] });
+  
+  // First Input Delay
+  new PerformanceObserver((list) => {
+    const entries = list.getEntries();
+    entries.forEach((entry) => {
+      console.log('FID:', entry.processingStart - entry.startTime);
+    });
+  }).observe({ entryTypes: ['first-input'] });
+  
+  // Cumulative Layout Shift
+  new PerformanceObserver((list) => {
+    let clsValue = 0;
+    const entries = list.getEntries();
+    
+    entries.forEach((entry) => {
+      if (!entry.hadRecentInput) {
+        clsValue += entry.value;
+      }
+    });
+    
+    console.log('CLS:', clsValue);
+  }).observe({ entryTypes: ['layout-shift'] });
+}
+```
+
+### Component Performance Profiler
+
+Create a performance profiler for components:
+
+```svelte
+<script>
+  import { onMount, beforeUpdate, afterUpdate } from 'svelte';
+  
+  export let componentName = 'Unknown';
+  
+  let updateStart;
+  let mountTime;
+  
+  onMount(() => {
+    const start = performance.now();
+    mountTime = performance.now() - start;
+    console.log(`${componentName} mounted in ${mountTime.toFixed(2)}ms`);
+  });
+  
+  beforeUpdate(() => {
+    updateStart = performance.now();
+  });
+  
+  afterUpdate(() => {
+    if (updateStart) {
+      const updateTime = performance.now() - updateStart;
+      console.log(`${componentName} updated in ${updateTime.toFixed(2)}ms`);
+    }
+  });
+</script>
+
+<slot />
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Bundle Optimization">
+    - Use tree-shaking imports
+    - Lazy load heavy components
+    - Analyze bundle size regularly
+    - Remove unused peer dependencies
+  </Accordion>
+  
+  <Accordion title="Runtime Performance">
+    - Implement virtual scrolling for large lists
+    - Use intersection observers for visibility
+    - Debounce/throttle frequent operations
+    - Cleanup resources in onDestroy
+  </Accordion>
+  
+  <Accordion title="CSS Performance">
+    - Use efficient selectors
+    - Prefer transform and opacity for animations
+    - Minimize reflows and repaints
+    - Use CSS containment when appropriate
+  </Accordion>
+  
+  <Accordion title="WebGL Optimization">
+    - Check WebGL support before loading
+    - Implement proper resource cleanup
+    - Use lower quality settings on mobile
+    - Provide CSS fallbacks
+  </Accordion>
+</AccordionGroup>
+
+## Performance Checklist
+
+<Tabs>
+  <Tab title="Development">
+    - [ ] Import only needed components
+    - [ ] Use performance profiler during development
+    - [ ] Test on slower devices
+    - [ ] Monitor bundle size changes
+    - [ ] Implement lazy loading for heavy components
+  </Tab>
+  
+  <Tab title="Production">
+    - [ ] Enable production builds
+    - [ ] Implement code splitting
+    - [ ] Use CDN for static assets
+    - [ ] Enable gzip/brotli compression
+    - [ ] Monitor Core Web Vitals
+  </Tab>
+  
+  <Tab title="Accessibility">
+    - [ ] Respect prefers-reduced-motion
+    - [ ] Ensure smooth keyboard navigation
+    - [ ] Test with screen readers
+    - [ ] Maintain 60fps animations
+    - [ ] Provide performance settings
+  </Tab>
+</Tabs>
+
+---
+
+By following these performance guidelines, you can create fast, smooth cyberpunk interfaces that provide excellent user experiences across all devices! ⚡🚀

@@ -1,246 +1,454 @@
 ---
-title: 'Themes'
-description: 'Cyberpunk theming system with customizable colors, effects, and dark mode'
+title: 'Theming & Customization'
+description: 'Comprehensive theming system for A Hacker\'s Brand with CSS custom properties and variant customization'
 ---
 
-# Theming System
+# Theming & Customization
 
-Bubble Tea Party's powerful theming system lets you customize every aspect of the cyberpunk aesthetic. From neon colors to glow effects, create the perfect digital atmosphere for your application.
+A Hacker's Brand provides a powerful theming system built on CSS custom properties, allowing you to customize colors, effects, and styling across all three design variants.
 
-## Theme Provider Setup
+## CSS Custom Properties
 
-```svelte
-<!-- +layout.svelte -->
-<script>
-  import { ThemeProvider } from '@org/ui'
-  import { themeStore } from 'bubble-tea-party/stores'
-</script>
+The theming system is built on CSS custom properties (CSS variables) that can be customized at the root level or per component.
 
-<ThemeProvider theme={$themeStore}>
-  <slot />
-</ThemeProvider>
-```
+### Terminal Theme Variables
 
-## Built-in Themes
-
-<CardGroup cols={2}>
-  <Card title="Cyberpunk Classic" icon="robot">
-    Matrix green with terminal aesthetics
-    ```javascript
-    theme: 'cyberpunk-classic'
-    ```
-  </Card>
-  <Card title="Neon Nights" icon="sun">
-    Hot pink and cyan color scheme
-    ```javascript
-    theme: 'neon-nights'
-    ```
-  </Card>
-  <Card title="Matrix Mode" icon="code">
-    Classic matrix green and black
-    ```javascript
-    theme: 'matrix-mode'
-    ```
-  </Card>
-  <Card title="Cyber Violet" icon="zap">
-    Purple and blue cyberpunk vibes
-    ```javascript
-    theme: 'cyber-violet'
-    ```
-  </Card>
-</CardGroup>
-
-## Theme Switching
-
-```svelte
-<script>
-  import { ThemeSelector } from '@org/ui'
-  import { themeStore } from 'bubble-tea-party/stores'
+```css
+:root {
+  /* Core terminal colors */
+  --terminal-green: #00ff41;
+  --terminal-cyan: #00ffff;
+  --terminal-blue: #0080ff;
+  --terminal-yellow: #ffff00;
+  --terminal-red: #ff0040;
   
-  const themes = [
-    { id: 'cyberpunk-classic', name: 'Classic' },
-    { id: 'neon-nights', name: 'Neon Nights' },
-    { id: 'matrix-mode', name: 'Matrix' },
-    { id: 'cyber-violet', name: 'Violet' }
-  ]
-</script>
-
-<ThemeSelector {themes} bind:selected={$themeStore} />
+  /* Background colors */
+  --terminal-bg: #000000;
+  --terminal-bg-secondary: #0a0a0a;
+  --terminal-border: #00ff41;
+  
+  /* Effects */
+  --terminal-glow: 0 0 5px var(--terminal-green);
+  --terminal-glow-strong: 0 0 10px var(--terminal-green), 0 0 20px var(--terminal-green);
+  
+  /* Typography */
+  --terminal-font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  --terminal-font-size: 14px;
+  --terminal-line-height: 1.4;
+}
 ```
 
-## Custom Theme Creation
+### Glass Theme Variables
+
+```css
+:root {
+  /* Glass colors */
+  --glass-pink: #ff6b9d;
+  --glass-purple: #c44af2;
+  --glass-blue: #4fa8ff;
+  --glass-cyan: #4dd8da;
+  --glass-orange: #ff8800;
+  
+  /* Glass effects */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-bg-hover: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-blur: blur(10px);
+  --glass-radius: 16px;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  
+  /* Typography */
+  --glass-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+```
+
+### Liquid Theme Variables
+
+```css
+:root {
+  /* Liquid colors (experimental) */
+  --liquid-primary: #ff00ff;
+  --liquid-secondary: #00ffff;
+  --liquid-accent: #ffff00;
+  --liquid-gradient-1: linear-gradient(45deg, #ff00ff, #00ffff);
+  --liquid-gradient-2: linear-gradient(135deg, #ffff00, #ff00ff);
+  
+  /* Liquid effects */
+  --liquid-glow-intensity: 0.8;
+  --liquid-animation-duration: 2s;
+  --liquid-blur-radius: 15px;
+  --liquid-gradient-stops: 3;
+}
+```
+
+## Customizing Themes
+
+### Basic Customization
+
+Override CSS custom properties to customize the appearance:
+
+```css
+/* Custom terminal theme */
+:root {
+  --terminal-green: #39ff14; /* Brighter green */
+  --terminal-glow: 0 0 15px var(--terminal-green); /* Stronger glow */
+  --terminal-bg: #0d1117; /* GitHub dark background */
+}
+```
+
+### Component-Specific Theming
+
+Target specific components with custom styling:
+
+```css
+/* Custom button styling */
+.custom-button {
+  --terminal-green: #ff6b35;
+  --glass-radius: 24px;
+  --liquid-glow-intensity: 1.2;
+}
+```
+
+```svelte
+<Button variant="terminal" class="custom-button">
+  Custom Styled Button
+</Button>
+```
+
+### Dynamic Theme Switching
+
+Create a theme switcher component:
+
+```svelte
+<script>
+  import { Button } from 'a-hacker-brand';
+  
+  let currentTheme = 'terminal';
+  
+  const themes = {
+    terminal: {
+      '--terminal-green': '#00ff41',
+      '--terminal-bg': '#000000'
+    },
+    matrix: {
+      '--terminal-green': '#39ff14',
+      '--terminal-bg': '#0d1117'
+    },
+    amber: {
+      '--terminal-green': '#ffb000',
+      '--terminal-bg': '#1a1000'
+    }
+  };
+  
+  function applyTheme(themeName) {
+    const theme = themes[themeName];
+    const root = document.documentElement;
+    
+    Object.entries(theme).forEach(([property, value]) => {
+      root.style.setProperty(property, value);
+    });
+    
+    currentTheme = themeName;
+  }
+</script>
+
+<div class="theme-switcher">
+  {#each Object.keys(themes) as theme}
+    <Button 
+      variant="terminal"
+      class:active={currentTheme === theme}
+      on:click={() => applyTheme(theme)}
+    >
+      {theme}
+    </Button>
+  {/each}
+</div>
+```
+
+## Predefined Color Schemes
+
+### Terminal Schemes
+
+<Tabs>
+  <Tab title="Classic Matrix">
+    ```css
+    :root {
+      --terminal-green: #00ff41;
+      --terminal-cyan: #00ffff;
+      --terminal-bg: #000000;
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Amber Terminal">
+    ```css
+    :root {
+      --terminal-green: #ffb000;
+      --terminal-cyan: #ffd700;
+      --terminal-bg: #1a1000;
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Blue Terminal">
+    ```css
+    :root {
+      --terminal-green: #00aaff;
+      --terminal-cyan: #66ccff;
+      --terminal-bg: #001122;
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Glass Schemes
+
+<Tabs>
+  <Tab title="Bubble Tea">
+    ```css
+    :root {
+      --glass-pink: #ff6b9d;
+      --glass-purple: #c44af2;
+      --glass-blue: #4fa8ff;
+      --glass-radius: 16px;
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Ocean Glass">
+    ```css
+    :root {
+      --glass-pink: #4dd8da;
+      --glass-purple: #4fa8ff;
+      --glass-blue: #6366f1;
+      --glass-radius: 12px;
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Sunset Glass">
+    ```css
+    :root {
+      --glass-pink: #ff8a65;
+      --glass-purple: #ff7043;
+      --glass-blue: #ffab40;
+      --glass-radius: 20px;
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Advanced Theming
+
+### Creating Custom Variants
+
+You can create your own variant by extending the existing system:
+
+```css
+/* Custom "retro" variant */
+:root {
+  --retro-amber: #ffb000;
+  --retro-green: #00ff00;
+  --retro-bg: #2d1b00;
+  --retro-scanlines: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 176, 0, 0.03) 2px,
+    rgba(255, 176, 0, 0.03) 4px
+  );
+}
+
+.retro-variant {
+  background: var(--retro-bg);
+  color: var(--retro-amber);
+  position: relative;
+}
+
+.retro-variant::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--retro-scanlines);
+  pointer-events: none;
+}
+```
+
+### Responsive Theming
+
+Adapt themes based on screen size:
+
+```css
+/* Mobile-first theming */
+:root {
+  --glass-radius: 8px;
+  --terminal-font-size: 12px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --glass-radius: 16px;
+    --terminal-font-size: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --glass-radius: 24px;
+    --terminal-font-size: 16px;
+  }
+}
+```
+
+### Dark/Light Mode Support
+
+While A Hacker's Brand is primarily designed for dark interfaces, you can create light variants:
+
+```css
+/* Light mode overrides */
+@media (prefers-color-scheme: light) {
+  :root {
+    --terminal-bg: #f8f9fa;
+    --terminal-green: #28a745;
+    --glass-bg: rgba(0, 0, 0, 0.1);
+    --glass-border: rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Manual light mode class */
+.light-mode {
+  --terminal-bg: #ffffff;
+  --terminal-green: #007acc;
+  --glass-bg: rgba(0, 0, 0, 0.05);
+}
+```
+
+## Animation & Motion Theming
+
+### Motion Preferences
+
+Respect user motion preferences:
+
+```css
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --liquid-animation-duration: 0s;
+    --terminal-glow: none;
+    --glass-blur: none;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+### Custom Animations
+
+Define custom animation themes:
+
+```css
+/* High-performance mode */
+.performance-mode {
+  --liquid-glow-intensity: 0.3;
+  --glass-blur: blur(5px);
+  --terminal-glow: 0 0 2px var(--terminal-green);
+}
+
+/* High-impact mode */
+.high-impact-mode {
+  --liquid-glow-intensity: 1.5;
+  --glass-blur: blur(20px);
+  --terminal-glow: 0 0 20px var(--terminal-green), 0 0 40px var(--terminal-green);
+}
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Performance Considerations">
+    - Use CSS custom properties for dynamic theming instead of JavaScript
+    - Limit the number of simultaneous glow effects
+    - Consider `prefers-reduced-motion` for accessibility
+    - Test performance on lower-end devices
+  </Accordion>
+  
+  <Accordion title="Accessibility Guidelines">
+    - Maintain sufficient contrast ratios (WCAG 2.1 AA: 4.5:1)
+    - Provide high-contrast alternatives
+    - Test with screen readers
+    - Ensure focus indicators are visible
+  </Accordion>
+  
+  <Accordion title="Consistency">
+    - Use a consistent color palette across variants
+    - Maintain proportional spacing and sizing
+    - Keep animation durations consistent
+    - Document custom theme variables
+  </Accordion>
+</AccordionGroup>
+
+## Theme Utilities
+
+### CSS-in-JS Integration
+
+For frameworks that use CSS-in-JS:
 
 ```javascript
-// themes/custom-theme.js
-export const customTheme = {
-  name: 'Custom Cyber',
-  colors: {
-    primary: '#ff6b35',      // Orange neon
-    secondary: '#00d4ff',    // Cyan accent
-    background: '#0a0a0a',   // Dark background
-    surface: '#1a1a1a',     // Card backgrounds
-    text: '#ffffff',         // Primary text
-    textSecondary: '#cccccc' // Secondary text
-  },
-  effects: {
-    glowIntensity: 'high',
-    animationSpeed: 'fast',
-    particleEffects: true,
-    scanLines: true
-  },
-  typography: {
-    fontFamily: 'Orbitron, monospace',
-    fontSize: {
-      sm: '0.875rem',
-      md: '1rem', 
-      lg: '1.25rem',
-      xl: '1.5rem'
+// Styled-components example
+import styled from 'styled-components';
+
+const ThemedButton = styled.button`
+  background: var(--terminal-bg);
+  color: var(--terminal-green);
+  border: 1px solid var(--terminal-green);
+  box-shadow: var(--terminal-glow);
+  
+  &:hover {
+    box-shadow: var(--terminal-glow-strong);
+  }
+`;
+```
+
+### Tailwind CSS Integration
+
+Extend Tailwind with A Hacker's Brand colors:
+
+```javascript
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        'terminal': {
+          green: 'var(--terminal-green)',
+          cyan: 'var(--terminal-cyan)',
+          blue: 'var(--terminal-blue)',
+        },
+        'glass': {
+          pink: 'var(--glass-pink)',
+          purple: 'var(--glass-purple)',
+          blue: 'var(--glass-blue)',
+        }
+      },
+      borderRadius: {
+        'glass': 'var(--glass-radius)',
+      },
+      boxShadow: {
+        'terminal': 'var(--terminal-glow)',
+        'glass': 'var(--glass-shadow)',
+      }
     }
   }
 }
 ```
 
-## Theme Variables
-
-### CSS Custom Properties
-
-```css
-:root {
-  /* Primary Colors */
-  --primary-color: #00ff41;
-  --secondary-color: #ff00ff;
-  --accent-color: #00ffff;
-  
-  /* Background Colors */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #2a2a2a;
-  
-  /* Text Colors */
-  --text-primary: #ffffff;
-  --text-secondary: #cccccc;
-  --text-muted: #888888;
-  
-  /* Effects */
-  --glow-size: 10px;
-  --glow-intensity: 0.8;
-  --animation-speed: 0.3s;
-  
-  /* Border & Radius */
-  --border-radius: 4px;
-  --border-width: 1px;
-  --neon-border: 2px solid var(--primary-color);
-}
-```
-
-## Dark Mode Support
-
-```svelte
-<script>
-  import { darkMode } from 'bubble-tea-party/stores'
-  
-  // Toggle dark mode
-  function toggleDarkMode() {
-    $darkMode = !$darkMode
-  }
-</script>
-
-<button onClick={toggleDarkMode}>
-  {$darkMode ? 'Light' : 'Dark'} Mode
-</button>
-```
-
-## Advanced Customization
-
-### Component-Specific Theming
-
-```svelte
-<Button 
-  style="
-    --btn-bg: linear-gradient(45deg, #ff6b35, #f7931e);
-    --btn-glow: 0 0 20px #ff6b35;
-    --btn-text: #000000;
-  "
->
-  Custom Themed Button
-</Button>
-```
-
-### Runtime Theme Switching
-
-```svelte
-<script>
-  import { setTheme, getTheme } from 'bubble-tea-party/theme'
-  
-  function switchToCustomTheme() {
-    setTheme({
-      colors: {
-        primary: '#ff0080',
-        secondary: '#8000ff'
-      },
-      effects: {
-        glowIntensity: 'maximum'
-      }
-    })
-  }
-</script>
-```
-
-## Theme Store API
-
-```javascript
-import { themeStore } from 'bubble-tea-party/stores'
-
-// Subscribe to theme changes
-themeStore.subscribe(theme => {
-  console.log('Theme changed:', theme)
-})
-
-// Update theme
-themeStore.update(theme => ({
-  ...theme,
-  colors: {
-    ...theme.colors,
-    primary: '#new-color'
-  }
-}))
-
-// Set completely new theme
-themeStore.set(newTheme)
-```
-
-## Best Practices
-
-<Tip>
-Use the theme provider at the root of your application to ensure consistent theming across all components.
-</Tip>
-
-<Warning>
-Avoid hardcoding colors in component styles. Always use CSS custom properties for theme compatibility.
-</Warning>
-
-<Info>
-The theme system automatically handles accessibility requirements like contrast ratios and focus indicators.
-</Info>
-
-## Presets Gallery
-
-<iframe 
-  src="/playground/theme-gallery" 
-  width="100%" 
-  height="600"
-  class="border border-green-500 rounded-lg mb-6"
-/>
-
 ---
 
-<CardGroup cols={2}>
-  <Card title="Theme Customization" href="/themes/customization">
-    Deep dive into creating custom themes
-  </Card>
-  <Card title="Dark Mode Guide" href="/themes/dark-mode">
-    Implementing dark mode support
-  </Card>
-</CardGroup>
-
-Create the perfect cyberpunk atmosphere for your application! 🎨⚡
+The theming system in A Hacker's Brand provides extensive customization while maintaining consistency across all components. Experiment with different combinations to create your unique cyberpunk aesthetic! 🎨⚡

@@ -1,0 +1,352 @@
+/* A Hacker's Brand Library Styles for Documentation */
+
+/* Core Design Tokens */
+:root {
+  /* Terminal palette */
+  --color-terminal-green: #00ff41;
+  --color-terminal-cyan: #00ffff;
+  --color-terminal-blue: #0080ff;
+  --color-terminal-purple: #8a2be2;
+  --color-terminal-pink: #ff1493;
+  --color-terminal-amber: #ffbf00;
+  --color-terminal-bg: #0a0a0f;
+
+  /* Bubble Tea palette */
+  --color-bubble-tea-pink: #ff85b3;
+  --color-bubble-tea-purple: #d666ff;
+  --color-bubble-tea-blue: #66c3ff;
+  --color-bubble-tea-cyan: #4dd8da;
+  --color-bubble-tea-green: #6bcf7f;
+  --color-bubble-tea-yellow: #ffd23a;
+  --color-bubble-tea-orange: #ff8c42;
+  --color-bubble-tea-red: #ff8585;
+  --color-bubble-tea-glow-pink: #ff99c7;
+  --color-bubble-tea-glow-purple: #e099ff;
+
+  /* Library Design Tokens */
+  --terminal-green: #00d4aa;
+  --terminal-cyan: #00aaff;
+  --terminal-blue: #0088ff;
+  --terminal-purple: #8844ff;
+  --terminal-matrix: #00ff88;
+  --terminal-neon: #ff0080;
+
+  /* Glass Colors */
+  --glass-primary: rgba(0, 212, 170, 0.8);
+  --glass-secondary: rgba(0, 170, 255, 0.6);
+  --glass-accent: rgba(255, 255, 255, 0.1);
+  --glass-background: rgba(0, 0, 0, 0.3);
+  --glass-border: rgba(255, 255, 255, 0.2);
+
+  /* Semantic Colors */
+  --success: #00ff88;
+  --warning: #ffaa00;
+  --error: #ff4444;
+  --info: #00aaff;
+
+  /* Typography */
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
+  --font-sans: 'Inter', 'system-ui', sans-serif;
+
+  /* Spacing Scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Glass Effects */
+  --blur-sm: blur(4px);
+  --blur-md: blur(8px);
+  --blur-lg: blur(12px);
+  --blur-xl: blur(16px);
+
+  /* Shadows */
+  --shadow-glass-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-glass-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-glass-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-glass-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+
+  /* Glow Effects */
+  --glow-terminal: 0 0 20px rgba(0, 212, 170, 0.5);
+  --glow-cyan: 0 0 20px rgba(0, 170, 255, 0.5);
+  --glow-purple: 0 0 20px rgba(136, 68, 255, 0.5);
+  --glow-danger: 0 0 20px rgba(255, 68, 68, 0.5);
+
+  /* Animation Durations */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 750ms;
+
+  /* Easing Functions */
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-bouncy: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Radii */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-bubble-tea-sm: 0.5rem;
+  --radius-bubble-tea: 1rem;
+  --radius-bubble-tea-lg: 1.5rem;
+  --radius-bubble-tea-xl: 2rem;
+}
+
+/* Update component mockups to use library colors */
+.component-mockup.terminal-button {
+  background: var(--color-terminal-bg);
+  color: var(--color-terminal-green);
+  border: 1px solid var(--color-terminal-green);
+  box-shadow: 0 0 5px rgba(0, 255, 65, 0.3);
+  font-family: var(--font-mono);
+}
+
+.component-mockup.terminal-card {
+  background: var(--color-terminal-bg);
+  color: var(--color-terminal-green);
+  border: 1px solid var(--color-terminal-green);
+  padding: 1rem;
+  text-align: left;
+  min-width: 200px;
+  box-shadow: 0 0 5px rgba(0, 255, 65, 0.2);
+  font-family: var(--font-mono);
+}
+
+.component-mockup.terminal-input {
+  background: var(--color-terminal-bg);
+  color: var(--color-terminal-green);
+  border: 1px solid var(--color-terminal-green);
+  padding: 0.5rem;
+  text-align: left;
+  min-width: 180px;
+  font-family: var(--font-mono);
+}
+
+.component-mockup.glass-button {
+  background: var(--glass-background);
+  color: var(--color-bubble-tea-pink);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--blur-md);
+  border-radius: var(--radius-bubble-tea);
+  box-shadow: var(--shadow-glass-md);
+}
+
+.component-mockup.glass-card {
+  background: var(--glass-background);
+  color: var(--color-bubble-tea-pink);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--blur-md);
+  border-radius: var(--radius-bubble-tea);
+  padding: 1rem;
+  text-align: left;
+  min-width: 200px;
+  box-shadow: var(--shadow-glass-lg);
+}
+
+.component-mockup.glass-input {
+  background: var(--glass-background);
+  color: var(--color-bubble-tea-pink);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--blur-md);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem;
+  text-align: left;
+  min-width: 180px;
+}
+
+.component-mockup.liquid-button {
+  background: linear-gradient(45deg, var(--terminal-neon), var(--terminal-cyan));
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  box-shadow: var(--glow-purple);
+  animation: liquid-pulse 2s ease-in-out infinite alternate;
+}
+
+.component-mockup.liquid-card {
+  background: linear-gradient(135deg, rgba(255, 0, 128, 0.2), rgba(0, 170, 255, 0.2));
+  color: #ffffff;
+  border: 1px solid rgba(255, 0, 128, 0.5);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  text-align: left;
+  min-width: 200px;
+  box-shadow: var(--glow-cyan);
+  animation: liquid-glow 3s ease-in-out infinite alternate;
+}
+
+.component-mockup.status-bar {
+  background: var(--color-terminal-bg);
+  color: var(--color-terminal-green);
+  border: 1px solid var(--color-terminal-green);
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-align: left;
+  min-width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.component-mockup.glow-text {
+  background: transparent;
+  color: var(--color-bubble-tea-pink);
+  border: none;
+  padding: 0.5rem;
+  text-shadow: 0 0 10px var(--color-bubble-tea-pink), 0 0 20px var(--color-bubble-tea-pink);
+  font-weight: bold;
+  animation: text-glow 2s ease-in-out infinite alternate;
+}
+
+/* Glass Morphism Utility Classes */
+.glass {
+  background: var(--glass-background);
+  backdrop-filter: var(--blur-md);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: var(--blur-sm);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-medium {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: var(--blur-md);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-heavy {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: var(--blur-lg);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Terminal Glow Effects */
+.terminal-glow {
+  box-shadow: var(--glow-terminal);
+}
+
+.cyan-glow {
+  box-shadow: var(--glow-cyan);
+}
+
+.purple-glow {
+  box-shadow: var(--glow-purple);
+}
+
+.danger-glow {
+  box-shadow: var(--glow-danger);
+}
+
+/* Animation Utilities */
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px currentColor;
+  }
+  to {
+    box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+}
+
+@keyframes liquid-pulse {
+  from { box-shadow: var(--glow-purple); }
+  to { box-shadow: var(--glow-cyan); }
+}
+
+@keyframes liquid-glow {
+  from { box-shadow: var(--glow-purple); }
+  to { box-shadow: var(--glow-cyan); }
+}
+
+@keyframes text-glow {
+  from { 
+    text-shadow: 0 0 10px var(--color-bubble-tea-pink), 0 0 20px var(--color-bubble-tea-pink); 
+  }
+  to { 
+    text-shadow: 0 0 15px var(--color-bubble-tea-pink), 0 0 25px var(--color-bubble-tea-pink), 0 0 35px var(--color-bubble-tea-pink); 
+  }
+}
+
+/* Terminal effects */
+.scanlines::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    transparent 50%,
+    rgba(0, 255, 65, 0.03) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  animation: scanlines 8s linear infinite;
+}
+
+@keyframes scanlines {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* CRT effect */
+.crt {
+  animation: crt-flicker 0.15s infinite alternate;
+}
+
+@keyframes crt-flicker {
+  0% { opacity: 0.97; }
+  100% { opacity: 1; }
+}
+
+/* Focus States */
+.focus-terminal:focus-visible {
+  outline: 2px solid var(--terminal-green);
+  outline-offset: 2px;
+}
+
+.focus-cyan:focus-visible {
+  outline: 2px solid var(--terminal-cyan);
+  outline-offset: 2px;
+}
+
+.focus-purple:focus-visible {
+  outline: 2px solid var(--terminal-purple);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-glow,
+  .animate-pulse-slow,
+  .animate-float,
+  .liquid-pulse,
+  .liquid-glow,
+  .text-glow {
+    animation: none;
+  }
+}

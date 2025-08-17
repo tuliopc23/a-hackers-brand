@@ -1,0 +1,670 @@
+---
+title: 'Testing Guide'
+description: 'Comprehensive testing strategies for A Hacker\'s Brand components including unit, integration, and accessibility testing'
+---
+
+# Testing Guide
+
+Learn how to effectively test applications built with A Hacker's Brand components, including unit tests, integration tests, and accessibility testing.
+
+## Testing Setup
+
+### Vitest Configuration
+
+A Hacker's Brand is tested with Vitest. Here's the recommended configuration:
+
+```javascript
+// vitest.config.ts
+import { defineConfig } from 'vitest/config';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+
+export default defineConfig({
+  plugins: [svelte({ hot: !process.env.VITEST })],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/test-setup.ts']
+  }
+});
+```
+
+### Test Setup File
+
+```typescript
+// src/test-setup.ts
+import '@testing-library/jest-dom';
+import { vi } from 'vitest';
+
+// Mock WebGL context for testing
+Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+  value: vi.fn(() => ({
+    clearColor: vi.fn(),
+    clear: vi.fn(),
+    drawArrays: vi.fn(),
+    // Add other WebGL methods as needed
+  }))
+});
+
+// Mock ResizeObserver
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
+
+// Mock IntersectionObserver
+global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
+```
+
+## Unit Testing
+
+### Testing Basic Components
+
+```typescript
+// Button.test.ts
+import { render, screen, fireEvent } from '@testing-library/svelte';
+import { describe, it, expect, vi } from 'vitest';
+import { Button } from 'a-hacker-brand';
+
+describe('Button Component', () => {
+  it('renders with default variant', () => {
+    render(Button, { props: { children: 'Test Button' } });
+    
+    const button = screen.getByRole('button', { name: 'Test Button' });
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveClass('terminal'); // Default variant
+  });
+
+  it('applies correct variant classes', () => {
+    const { rerender } = render(Button, { 
+      props: { variant: 'glass', children: 'Glass Button' } 
+    });
+    
+    let button = screen.getByRole('button');
+    expect(button).toHaveClass('glass');
+    
+    rerender({ variant: 'liquid', children: 'Liquid Button' });
+    button = screen.getByRole('button');
+    expect(button).toHaveClass('liquid');
+  });
+
+  it('handles click events', async () => {
+    const handleClick = vi.fn();
+    render(Button, { 
+      props: { 
+        onClick: handleClick,
+        children: 'Clickable Button'
+      } 
+    });
+    
+    const button = screen.getByRole('button');
+    await fireEvent.click(button);
+    
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('is disabled when disabled prop is true', () => {
+    render(Button, { 
+      props: { 
+        disabled: true,
+        children: 'Disabled Button'
+      } 
+    });
+    
+    const button = screen.getByRole('button');
+    expect(button).toBeDisabled();
+  });
+});
+```
+
+### Testing Complex Components
+
+```typescript
+// StatusBar.test.ts
+import { render, screen } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
+import { StatusBar } from 'a-hacker-brand';
+
+describe('StatusBar Component', () => {
+  const defaultProps = {
+    status: 'Ready',
+    encoding: 'UTF-8',
+    fileType: 'TypeScript',
+    lineNumber: 42,
+    columnNumber: 13
+  };
+
+  it('displays all status information', () => {
+    render(StatusBar, { props: defaultProps });
+    
+    expect(screen.getByText('Ready')).toBeInTheDocument();
+    expect(screen.getByText('UTF-8')).toBeInTheDocument();
+    expect(screen.getByText('TypeScript')).toBeInTheDocument();
+    expect(screen.getByText('42:13')).toBeInTheDocument();
+  });
+
+  it('applies variant-specific styling', () => {
+    const { container } = render(StatusBar, { 
+      props: { ...defaultProps, variant: 'glass' } 
+    });
+    
+    const statusBar = container.firstChild;
+    expect(statusBar).toHaveClass('glass');
+  });
+
+  it('handles indicators correctly', () => {
+    const indicators = [
+      { label: 'Git', value: 'main', type: 'success' },
+      { label: 'Errors', value: '0', type: 'info' }
+    ];
+    
+    render(StatusBar, { 
+      props: { ...defaultProps, indicators } 
+    });
+    
+    expect(screen.getByText('Git: main')).toBeInTheDocument();
+    expect(screen.getByText('Errors: 0')).toBeInTheDocument();
+  });
+});
+```
+
+### Testing with Slots
+
+```typescript
+// Card.test.ts
+import { render, screen } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
+import CardTest from './CardTest.svelte';
+
+describe('Card Component with Slots', () => {
+  it('renders slot content correctly', () => {
+    render(CardTest);
+    
+    expect(screen.getByText('Card Header')).toBeInTheDocument();
+    expect(screen.getByText('Card Content')).toBeInTheDocument();
+    expect(screen.getByText('Card Footer')).toBeInTheDocument();
+  });
+});
+```
+
+```svelte
+<!-- CardTest.svelte -->
+<script>
+  import { Card } from 'a-hacker-brand';
+</script>
+
+<Card variant="terminal">
+  <svelte:fragment slot="header">
+    Card Header
+  </svelte:fragment>
+  
+  Card Content
+  
+  <svelte:fragment slot="footer">
+    Card Footer
+  </svelte:fragment>
+</Card>
+```
+
+## Integration Testing
+
+### Testing Component Interactions
+
+```typescript
+// Dashboard.test.ts
+import { render, screen, fireEvent } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
+import Dashboard from './Dashboard.svelte';
+
+describe('Dashboard Integration', () => {
+  it('updates status when power switch is toggled', async () => {
+    render(Dashboard);
+    
+    const powerSwitch = screen.getByRole('switch', { name: /system power/i });
+    const statusDisplay = screen.getByTestId('system-status');
+    
+    expect(statusDisplay).toHaveTextContent('Offline');
+    
+    await fireEvent.click(powerSwitch);
+    
+    expect(statusDisplay).toHaveTextContent('Online');
+  });
+
+  it('disables actions when system is offline', async () => {
+    render(Dashboard);
+    
+    const executeButton = screen.getByRole('button', { name: /execute/i });
+    const powerSwitch = screen.getByRole('switch', { name: /system power/i });
+    
+    // Initially offline
+    expect(executeButton).toBeDisabled();
+    
+    // Turn on system
+    await fireEvent.click(powerSwitch);
+    expect(executeButton).not.toBeDisabled();
+    
+    // Turn off system
+    await fireEvent.click(powerSwitch);
+    expect(executeButton).toBeDisabled();
+  });
+});
+```
+
+### Testing Form Workflows
+
+```typescript
+// LoginForm.test.ts
+import { render, screen, fireEvent, waitFor } from '@testing-library/svelte';
+import { describe, it, expect, vi } from 'vitest';
+import LoginForm from './LoginForm.svelte';
+
+describe('Login Form Workflow', () => {
+  it('completes login flow successfully', async () => {
+    const mockLogin = vi.fn().mockResolvedValue({ success: true });
+    
+    render(LoginForm, { props: { onLogin: mockLogin } });
+    
+    // Fill form
+    const usernameInput = screen.getByLabelText(/username/i);
+    const passwordInput = screen.getByLabelText(/password/i);
+    const submitButton = screen.getByRole('button', { name: /login/i });
+    
+    await fireEvent.input(usernameInput, { target: { value: 'neo' } });
+    await fireEvent.input(passwordInput, { target: { value: 'matrix123' } });
+    
+    // Submit form
+    await fireEvent.click(submitButton);
+    
+    // Verify loading state
+    expect(screen.getByText(/logging in/i)).toBeInTheDocument();
+    
+    // Wait for completion
+    await waitFor(() => {
+      expect(mockLogin).toHaveBeenCalledWith({
+        username: 'neo',
+        password: 'matrix123'
+      });
+    });
+  });
+
+  it('displays error on failed login', async () => {
+    const mockLogin = vi.fn().mockRejectedValue(new Error('Invalid credentials'));
+    
+    render(LoginForm, { props: { onLogin: mockLogin } });
+    
+    const submitButton = screen.getByRole('button', { name: /login/i });
+    await fireEvent.click(submitButton);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument();
+    });
+  });
+});
+```
+
+## Accessibility Testing
+
+### Automated Accessibility Testing
+
+```typescript
+// accessibility.test.ts
+import { render } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
+import { axe, toHaveNoViolations } from 'vitest-axe';
+import { Button, Card, Input } from 'a-hacker-brand';
+
+expect.extend(toHaveNoViolations);
+
+describe('Accessibility Tests', () => {
+  it('Button has no accessibility violations', async () => {
+    const { container } = render(Button, { 
+      props: { children: 'Accessible Button' } 
+    });
+    
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
+  it('Card with complex content is accessible', async () => {
+    const { container } = render(Card, {
+      props: {
+        variant: 'glass'
+      }
+    });
+    
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
+  it('Form inputs are properly labeled', async () => {
+    const { container } = render(Input, {
+      props: {
+        label: 'Username',
+        placeholder: 'Enter your username',
+        required: true
+      }
+    });
+    
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+});
+```
+
+### Keyboard Navigation Testing
+
+```typescript
+// keyboard-navigation.test.ts
+import { render, screen, fireEvent } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
+import { Tabs } from 'a-hacker-brand';
+
+describe('Keyboard Navigation', () => {
+  it('supports arrow key navigation in tabs', async () => {
+    render(Tabs, {
+      props: {
+        tabs: [
+          { id: 'tab1', title: 'Tab 1', content: 'Content 1' },
+          { id: 'tab2', title: 'Tab 2', content: 'Content 2' },
+          { id: 'tab3', title: 'Tab 3', content: 'Content 3' }
+        ]
+      }
+    });
+    
+    const firstTab = screen.getByRole('tab', { name: 'Tab 1' });
+    const secondTab = screen.getByRole('tab', { name: 'Tab 2' });
+    
+    // Focus first tab
+    firstTab.focus();
+    expect(document.activeElement).toBe(firstTab);
+    
+    // Navigate with arrow keys
+    await fireEvent.keyDown(firstTab, { key: 'ArrowRight' });
+    expect(document.activeElement).toBe(secondTab);
+    
+    // Activate with Enter
+    await fireEvent.keyDown(secondTab, { key: 'Enter' });
+    expect(screen.getByText('Content 2')).toBeVisible();
+  });
+
+  it('supports Escape key to close modals', async () => {
+    const handleClose = vi.fn();
+    
+    render(Modal, {
+      props: {
+        open: true,
+        onClose: handleClose,
+        children: 'Modal Content'
+      }
+    });
+    
+    const modal = screen.getByRole('dialog');
+    await fireEvent.keyDown(modal, { key: 'Escape' });
+    
+    expect(handleClose).toHaveBeenCalled();
+  });
+});
+```
+
+### Screen Reader Testing
+
+```typescript
+// screen-reader.test.ts
+import { render, screen } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
+import { Alert, Progress, StatusBar } from 'a-hacker-brand';
+
+describe('Screen Reader Support', () => {
+  it('announces alerts with proper roles', () => {
+    render(Alert, {
+      props: {
+        type: 'error',
+        children: 'System error detected'
+      }
+    });
+    
+    const alert = screen.getByRole('alert');
+    expect(alert).toHaveTextContent('System error detected');
+    expect(alert).toHaveAttribute('aria-live', 'assertive');
+  });
+
+  it('provides progress information', () => {
+    render(Progress, {
+      props: {
+        value: 75,
+        max: 100,
+        label: 'Upload progress'
+      }
+    });
+    
+    const progressBar = screen.getByRole('progressbar');
+    expect(progressBar).toHaveAttribute('aria-valuenow', '75');
+    expect(progressBar).toHaveAttribute('aria-valuemax', '100');
+    expect(progressBar).toHaveAttribute('aria-label', 'Upload progress');
+  });
+
+  it('provides status information', () => {
+    render(StatusBar, {
+      props: {
+        status: 'Connected',
+        ariaLabel: 'System status: Connected'
+      }
+    });
+    
+    const statusBar = screen.getByLabelText('System status: Connected');
+    expect(statusBar).toBeInTheDocument();
+  });
+});
+```
+
+## Visual Testing
+
+### Snapshot Testing
+
+```typescript
+// visual.test.ts
+import { render } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
+import { Button, Card } from 'a-hacker-brand';
+
+describe('Visual Regression Tests', () => {
+  it('Button renders consistently across variants', () => {
+    const variants = ['terminal', 'glass', 'liquid'];
+    
+    variants.forEach(variant => {
+      const { container } = render(Button, {
+        props: { variant, children: `${variant} Button` }
+      });
+      
+      expect(container.firstChild).toMatchSnapshot(`button-${variant}.html`);
+    });
+  });
+
+  it('Card maintains layout with different content', () => {
+    const { container } = render(Card, {
+      props: {
+        variant: 'glass'
+      }
+    });
+    
+    expect(container.firstChild).toMatchSnapshot('card-glass.html');
+  });
+});
+```
+
+### Cross-Browser Testing
+
+```javascript
+// playwright.config.js
+import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests/e2e',
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
+    {
+      name: 'mobile-chrome',
+      use: { ...devices['Pixel 5'] },
+    },
+  ],
+});
+```
+
+```typescript
+// tests/e2e/components.spec.ts
+import { test, expect } from '@playwright/test';
+
+test.describe('Component Rendering', () => {
+  test('buttons render correctly across browsers', async ({ page }) => {
+    await page.goto('/components/button');
+    
+    // Test terminal variant
+    const terminalButton = page.getByTestId('terminal-button');
+    await expect(terminalButton).toBeVisible();
+    await expect(terminalButton).toHaveScreenshot('terminal-button.png');
+    
+    // Test glass variant
+    const glassButton = page.getByTestId('glass-button');
+    await expect(glassButton).toBeVisible();
+    await expect(glassButton).toHaveScreenshot('glass-button.png');
+  });
+
+  test('WebGL components fallback gracefully', async ({ page }) => {
+    // Disable WebGL
+    await page.addInitScript(() => {
+      HTMLCanvasElement.prototype.getContext = () => null;
+    });
+    
+    await page.goto('/components/glass-scene');
+    
+    // Should show CSS fallback
+    const fallback = page.getByTestId('css-fallback');
+    await expect(fallback).toBeVisible();
+  });
+});
+```
+
+## Performance Testing
+
+### Component Performance
+
+```typescript
+// performance.test.ts
+import { render } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
+import { performance } from 'perf_hooks';
+import { Button, MatrixRain } from 'a-hacker-brand';
+
+describe('Performance Tests', () => {
+  it('Button renders within performance budget', () => {
+    const start = performance.now();
+    
+    render(Button, { props: { children: 'Performance Test' } });
+    
+    const end = performance.now();
+    const renderTime = end - start;
+    
+    // Should render in less than 16ms (60fps)
+    expect(renderTime).toBeLessThan(16);
+  });
+
+  it('MatrixRain initializes efficiently', () => {
+    const start = performance.now();
+    
+    render(MatrixRain, { props: { density: 0.5 } });
+    
+    const end = performance.now();
+    const initTime = end - start;
+    
+    // Should initialize in less than 100ms
+    expect(initTime).toBeLessThan(100);
+  });
+});
+```
+
+## Testing Best Practices
+
+<AccordionGroup>
+  <Accordion title="Unit Testing">
+    - Test component behavior, not implementation
+    - Use semantic queries (getByRole, getByLabelText)
+    - Mock external dependencies
+    - Test all variants and states
+  </Accordion>
+  
+  <Accordion title="Integration Testing">
+    - Test user workflows end-to-end
+    - Verify component interactions
+    - Test error states and edge cases
+    - Use realistic test data
+  </Accordion>
+  
+  <Accordion title="Accessibility Testing">
+    - Run automated accessibility tests
+    - Test keyboard navigation
+    - Verify screen reader support
+    - Test with real assistive technologies
+  </Accordion>
+  
+  <Accordion title="Performance Testing">
+    - Set performance budgets
+    - Test on slower devices
+    - Monitor bundle size impact
+    - Test WebGL fallbacks
+  </Accordion>
+</AccordionGroup>
+
+## Continuous Integration
+
+### GitHub Actions Workflow
+
+```yaml
+# .github/workflows/test.yml
+name: Test Suite
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        
+      - name: Install dependencies
+        run: bun install
+        
+      - name: Run unit tests
+        run: bun run test
+        
+      - name: Run accessibility tests
+        run: bun run test:a11y
+        
+      - name: Run visual regression tests
+        run: bun run test:visual
+        
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+```
+
+---
+
+Comprehensive testing ensures your A Hacker's Brand components work reliably across all environments and provide excellent user experiences! 🧪✅

@@ -1,31 +1,171 @@
 ---
-title: 'color palette'
-description: 'Cyberpunk-styled color-palette component'
+title: "ColorPalette"
+description: "Interactive color palette display for the design system themes"
 ---
 
-# color palette
+# ColorPalette
 
-Cyberpunk-styled color palette component with neon effects and terminal aesthetics.
+The `ColorPalette` component displays a comprehensive collection of colors from the design system, organized by theme and category. It provides an interactive way to explore and copy color values.
 
-## Import
-
-```svelte
-import { colorpalette } from '@org/ui'
-```
-
-## Basic Usage
+## Usage
 
 ```svelte
-<colorpalette variant="cyberpunk" />
+<script>
+  import { ColorPalette } from 'a-hacker-brand';
+</script>
+
+<ColorPalette 
+  theme="both"
+  layout="grid"
+  showCategories={true}
+  interactive={true}
+/>
 ```
-<div class="ahb-preview" data-ahb-component="ColorPalette" data-ahb-props='{}'>Live: ColorPalette</div>
+
+## Examples
+
+### Terminal Theme Colors
+
+Display only the Terminal theme colors:
+
+```svelte
+<ColorPalette theme="terminal" />
+```
+
+<Note>
+  The Terminal theme focuses on neon green, cyan and high-contrast colors that evoke classic computer terminals.
+</Note>
+
+### Bubble Tea Theme Colors
+
+Display only the Bubble Tea (Glass) theme colors:
+
+```svelte
+<ColorPalette theme="bubbleTea" />
+```
+
+<Note>
+  The Bubble Tea theme uses soft pastels, pinks and purples for a modern translucent UI aesthetic.
+</Note>
+
+### List Layout
+
+Display colors in a vertical list instead of a grid:
+
+```svelte
+<ColorPalette layout="list" theme="both" />
+```
+
+### Non-Interactive Display
+
+Use as a display-only component without copy functionality:
+
+```svelte
+<ColorPalette interactive={false} />
+```
+
+### Without Category Headers
+
+Display all colors without grouping by category:
+
+```svelte
+<ColorPalette showCategories={false} />
+```
+
+### Custom Header Content
+
+Add custom content before the color palette:
+
+```svelte
+<ColorPalette>
+  <div class="mb-4 p-4 border border-white/10 rounded-lg">
+    <h2 class="text-xl font-bold">Brand Colors</h2>
+    <p>Click on any color to copy its hex value to clipboard.</p>
+  </div>
+</ColorPalette>
+```
+
+### With Color Selection Handler
+
+Track which colors are selected:
+
+```svelte
+<script>
+  import { ColorPalette } from 'a-hacker-brand';
+  
+  function handleColorSelect(color) {
+    console.log(`Selected: ${color.name} (${color.hex})`);
+    // Do something with the selected color
+  }
+</script>
+
+<ColorPalette onColorSelect={handleColorSelect} />
+```
 
 ## Props
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `variant` | `string` | `'default'` | Component style variant |
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `theme` | `'terminal' \| 'bubbleTea' \| 'both'` | `'both'` | Which theme's colors to display |
+| `layout` | `'grid' \| 'list'` | `'grid'` | Display layout style |
+| `interactive` | `boolean` | `true` | Whether colors can be clicked to copy |
+| `showHex` | `boolean` | `true` | Show hex values on color swatches |
+| `showCategories` | `boolean` | `true` | Group colors by category |
+| `animate` | `boolean` | `true` | Enable animations on color swatches |
+| `onColorSelect` | `(color: ColorSwatchData) => void` | `undefined` | Callback when a color is selected |
+| `class` | `string` | `''` | Additional CSS classes |
+| `children` | `Snippet` | `undefined` | Optional content to render before the palette |
 
----
+## Color Structure
 
-Cyberpunk color palette component! ⚡
+The component uses the following color data structure:
+
+```typescript
+interface ColorSwatchData {
+  name: string;     // Display name
+  hex: string;      // Hex color value
+  category: string; // Grouping category
+  description?: string; // Optional description
+}
+```
+
+## Terminal Theme Colors
+
+The Terminal theme includes colors like:
+
+- **Primary**: Terminal Green (`#00ff41`), Electric Cyan (`#00ffff`), Neon Blue (`#0080ff`)
+- **Accent**: Matrix Green (`#00ff88`), Hot Pink (`#ff1493`), Retro Amber (`#ffbf00`)
+
+## Bubble Tea Theme Colors
+
+The Bubble Tea theme includes colors like:
+
+- **Primary**: Soft Pink (`#ff6b9d`), Vibrant Purple (`#c44af2`), Bright Blue (`#4fa8ff`)
+- **Status**: Fresh Green (`#6bcf7f`), Warm Yellow (`#ffd23a`), Soft Red (`#ff6b6b`)
+- **Background**: Background Dark (`#1a1a2e`), Surface (`#16213e`), Panel (`#0f1419`)
+- **Glow Effects**: Enhanced variants optimized for glow effects and WCAG compliance
+
+## Accessibility
+
+The component is designed for WCAG AA compliance:
+
+- All Bubble Tea theme colors meet 4.5:1 contrast ratio requirements
+- Color swatches use proper text contrast for readability
+- Interactive elements have proper focus states
+- Copy functionality provides feedback when colors are copied
+
+## Styling Customization
+
+The component accepts a `class` prop for additional styling:
+
+```svelte
+<ColorPalette 
+  class="p-6 bg-black/20 rounded-xl border border-white/10"
+/>
+```
+
+## Related Components
+
+- [ColorSwatch](/components/color-swatch) - Individual color display
+- [GlowText](/components/glow-text) - Text with glow effects using these colors
+- [ThemeSelector](/components/theme-selector) - Switch between themes

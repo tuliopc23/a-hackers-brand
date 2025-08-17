@@ -1,0 +1,406 @@
+---
+title: 'Design Variants'
+description: 'Understanding terminal, glass, and liquid design variants in A Hacker\'s Brand'
+---
+
+# Design Variants
+
+A Hacker's Brand features three distinct design variants that can be applied to most components. Each variant represents a different aesthetic approach while maintaining consistent functionality and accessibility.
+
+## Overview
+
+<CardGroup cols={3}>
+  <Card
+    title="Terminal"
+    icon="terminal"
+    href="#terminal-variant"
+  >
+    Matrix green accents, high contrast, monospaced aesthetic
+  </Card>
+  <Card
+    title="Glass"
+    icon="sparkles"
+    href="#glass-variant"
+  >
+    Translucent surfaces with subtle blur and soft glow
+  </Card>
+  <Card
+    title="Liquid"
+    icon="droplet"
+    href="#liquid-variant"
+  >
+    Higher-intensity gradients and glow surfaces (experimental)
+  </Card>
+</CardGroup>
+
+## Terminal Variant
+
+The **terminal** variant embodies classic hacker culture with its matrix green aesthetic, high contrast design, and utilitarian feel.
+
+### Design Principles
+
+- **Matrix Green Accents** (`#00ff41`) - The iconic hacker green
+- **High Contrast** - Sharp edges and clear distinctions
+- **Monospaced Typography** - Terminal-style fonts
+- **Minimal Glow** - Subtle effects that don't overpower
+- **Utilitarian Feel** - Function over form
+
+### Visual Characteristics
+
+```css
+/* Terminal variant CSS variables */
+:root {
+  --terminal-green: #00ff41;
+  --terminal-cyan: #00ffff;
+  --terminal-blue: #0080ff;
+  --terminal-bg: #000000;
+  --terminal-border: 1px solid var(--terminal-green);
+  --terminal-glow: 0 0 5px var(--terminal-green);
+}
+```
+
+### Usage Examples
+
+**Terminal Button Example**
+
+<div className="component-mockup terminal-button">Execute Command</div>
+
+```svelte
+<Button variant="terminal">Execute Command</Button>
+```
+
+```svelte
+<script>
+  import { Button, Card, Input, Tabs } from 'a-hacker-brand';
+</script>
+
+<!-- Terminal variant examples -->
+<Button variant="terminal">Execute Command</Button>
+<Card variant="terminal">Terminal Card</Card>
+<Input variant="terminal" placeholder="Enter command..." />
+<Tabs variant="terminal">Terminal Tabs</Tabs>
+```
+
+### Best Use Cases
+
+- **Command-line interfaces** and developer tools
+- **System monitoring** dashboards
+- **Retro computing** applications
+- **Hacker-themed** projects
+- **High-contrast** accessibility needs
+
+## Glass Variant
+
+The **glass** variant features translucent surfaces with subtle blur effects, rounded edges, and soft gradient accents.
+
+### Design Principles
+
+- **Translucent Surfaces** - Semi-transparent backgrounds with blur
+- **Rounded Edges** - Soft, approachable corners
+- **Gradient Accents** - Subtle color transitions
+- **Soft Glow** - Gentle lighting effects
+- **Modern Aesthetic** - Contemporary glass morphism
+
+### Visual Characteristics
+
+```css
+/* Glass variant CSS variables */
+:root {
+  --glass-pink: #ff6b9d;
+  --glass-purple: #c44af2;
+  --glass-blue: #4fa8ff;
+  --glass-cyan: #4dd8da;
+  --glass-radius: 16px;
+  --glass-blur: blur(10px);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+}
+```
+
+### Usage Examples
+
+**Glass Button Example**
+
+<div className="component-mockup glass-button">Glass Action</div>
+
+```svelte
+<Button variant="glass">Glass Action</Button>
+```
+
+```svelte
+<script>
+  import { Button, Card, Modal, StatusBar } from 'a-hacker-brand';
+</script>
+
+<!-- Glass variant examples -->
+<Button variant="glass">Glass Action</Button>
+<Card variant="glass">Glass Card with blur effect</Card>
+<Modal variant="glass">Glass Modal</Modal>
+<StatusBar variant="glass" status="Ready" />
+```
+
+### Best Use Cases
+
+- **Modern applications** with contemporary design
+- **Dashboard interfaces** requiring elegance
+- **Creative tools** and design applications
+- **Mobile-first** responsive designs
+- **Accessibility-friendly** soft contrasts
+
+## Liquid Variant
+
+The **liquid** variant is experimental and features higher-intensity gradients and glow surfaces for visually expressive interfaces.
+
+<Warning>
+**Experimental Status**: The liquid variant is subject to refinement before version 1.0. Use with caution in production environments.
+</Warning>
+
+### Design Principles
+
+- **High-Intensity Gradients** - Bold color transitions
+- **Enhanced Glow Effects** - Prominent lighting
+- **Fluid Animations** - Smooth, organic motion
+- **Expressive Surfaces** - Visually striking elements
+- **Experimental Features** - Cutting-edge effects
+
+### Visual Characteristics
+
+```css
+/* Liquid variant CSS variables */
+:root {
+  --liquid-glow-intensity: 0.8;
+  --liquid-gradient-stops: 3;
+  --liquid-animation-duration: 2s;
+  --liquid-primary: #ff00ff;
+  --liquid-secondary: #00ffff;
+  --liquid-accent: #ffff00;
+}
+```
+
+### Usage Examples
+
+**Liquid Button Example**
+
+<div className="component-mockup liquid-button">Liquid Glow</div>
+
+```svelte
+<Button variant="liquid">Liquid Glow</Button>
+```
+
+```svelte
+<script>
+  import { Button, Card, GlowText } from 'a-hacker-brand';
+</script>
+
+<!-- Liquid variant examples -->
+<Button variant="liquid">Liquid Glow</Button>
+<Card variant="liquid">Liquid Card</Card>
+<GlowText variant="liquid" color="purple" intensity="intense">
+  Liquid Text Effect
+</GlowText>
+```
+
+### Best Use Cases
+
+- **Gaming interfaces** and entertainment apps
+- **Creative showcases** and portfolios
+- **Experimental projects** and prototypes
+- **High-impact** landing pages
+- **Artistic applications** requiring visual flair
+
+## Variant Comparison
+
+<Tabs>
+  <Tab title="Visual Comparison">
+    | Aspect | Terminal | Glass | Liquid |
+    |--------|----------|-------|--------|
+    | **Colors** | Matrix green, cyan, blue | Pink, purple, blue, cyan | High-intensity rainbow |
+    | **Contrast** | High | Medium | Variable |
+    | **Glow** | Minimal | Soft | Intense |
+    | **Borders** | Sharp | Rounded | Fluid |
+    | **Background** | Solid/transparent | Translucent blur | Gradient |
+    | **Typography** | Monospace | Sans-serif | Variable |
+  </Tab>
+  
+  <Tab title="Performance">
+    | Variant | CPU Impact | GPU Impact | Memory Usage | Best For |
+    |---------|------------|------------|--------------|----------|
+    | **Terminal** | Low | Minimal | Low | Performance-critical apps |
+    | **Glass** | Medium | Medium | Medium | Balanced performance/aesthetics |
+    | **Liquid** | High | High | High | Visual showcases |
+  </Tab>
+  
+  <Tab title="Accessibility">
+    | Variant | Contrast Ratio | Motion | Screen Readers | Keyboard Nav |
+    |---------|----------------|--------|----------------|--------------|
+    | **Terminal** | Excellent (>7:1) | Minimal | Excellent | Excellent |
+    | **Glass** | Good (>4.5:1) | Subtle | Good | Good |
+    | **Liquid** | Variable | High | Good* | Good |
+    
+    *Liquid variant includes `prefers-reduced-motion` support
+  </Tab>
+</Tabs>
+
+## Switching Between Variants
+
+### Component-Level Switching
+
+```svelte
+<script>
+  import { Button } from 'a-hacker-brand';
+  
+  let currentVariant = 'terminal';
+  
+  function cycleVariant() {
+    const variants = ['terminal', 'glass', 'liquid'];
+    const currentIndex = variants.indexOf(currentVariant);
+    currentVariant = variants[(currentIndex + 1) % variants.length];
+  }
+</script>
+
+<Button variant={currentVariant} on:click={cycleVariant}>
+  Current: {currentVariant}
+</Button>
+```
+
+### Global Variant Context
+
+```svelte
+<!-- +layout.svelte -->
+<script>
+  import { setContext } from 'svelte';
+  
+  let globalVariant = 'glass';
+  setContext('variant', globalVariant);
+</script>
+
+<!-- Child component -->
+<script>
+  import { getContext } from 'svelte';
+  import { Button } from 'a-hacker-brand';
+  
+  const variant = getContext('variant') || 'terminal';
+</script>
+
+<Button {variant}>Contextual Button</Button>
+```
+
+## Customization
+
+### CSS Custom Properties
+
+Each variant can be customized using CSS custom properties:
+
+```css
+:root {
+  /* Terminal customization */
+  --terminal-green: #39ff14; /* Brighter green */
+  --terminal-glow: 0 0 10px var(--terminal-green); /* Stronger glow */
+  
+  /* Glass customization */
+  --glass-radius: 24px; /* More rounded */
+  --glass-blur: blur(15px); /* More blur */
+  
+  /* Liquid customization */
+  --liquid-glow-intensity: 1.2; /* More intense */
+  --liquid-animation-duration: 1s; /* Faster animations */
+}
+```
+
+### Variant-Specific Styling
+
+```svelte
+<style>
+  :global(.terminal-theme) {
+    font-family: 'JetBrains Mono', monospace;
+    background: #000;
+    color: var(--terminal-green);
+  }
+  
+  :global(.glass-theme) {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  :global(.liquid-theme) {
+    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
+    animation: liquid-flow 3s ease-in-out infinite;
+  }
+</style>
+```
+
+## Graceful Fallbacks
+
+Components automatically provide fallbacks when a variant is not fully supported:
+
+```svelte
+<script>
+  import { Button } from 'a-hacker-brand';
+</script>
+
+<!-- If liquid variant is not refined for Button, falls back to base style -->
+<Button variant="liquid">Fallback Styling</Button>
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Choosing the Right Variant">
+    - **Terminal**: Developer tools, system interfaces, accessibility-first
+    - **Glass**: Modern apps, dashboards, mobile interfaces
+    - **Liquid**: Creative projects, gaming, experimental interfaces
+  </Accordion>
+  
+  <Accordion title="Performance Considerations">
+    - Use **terminal** for performance-critical applications
+    - **Glass** provides good balance of aesthetics and performance
+    - **Liquid** should be used sparingly for high-impact elements
+  </Accordion>
+  
+  <Accordion title="Accessibility Guidelines">
+    - Always test contrast ratios with your chosen variant
+    - Provide `prefers-reduced-motion` alternatives for liquid variant
+    - Ensure keyboard navigation works across all variants
+  </Accordion>
+  
+  <Accordion title="Consistency">
+    - Stick to one primary variant per application
+    - Use other variants sparingly for emphasis
+    - Maintain consistent spacing and typography
+  </Accordion>
+</AccordionGroup>
+
+## Migration Guide
+
+### From Single Theme to Variants
+
+If you're upgrading from a single-theme system:
+
+```svelte
+<!-- Before -->
+<Button class="cyberpunk">Old Style</Button>
+
+<!-- After -->
+<Button variant="terminal">New Terminal Style</Button>
+<Button variant="glass">New Glass Style</Button>
+<Button variant="liquid">New Liquid Style</Button>
+```
+
+### Gradual Adoption
+
+```svelte
+<script>
+  // Gradually migrate components
+  const useNewVariants = true;
+</script>
+
+{#if useNewVariants}
+  <Button variant="glass">New Variant System</Button>
+{:else}
+  <Button class="legacy-style">Legacy Styling</Button>
+{/if}
+```
+
+---
+
+The variant system in A Hacker's Brand provides flexibility while maintaining consistency. Choose the variant that best fits your application's needs and aesthetic goals! 🎨✨

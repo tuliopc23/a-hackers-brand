@@ -1,34 +1,665 @@
 ---
-name: Components
+title: 'Component Library'
+description: 'Complete collection of A Hacker\'s Brand components with terminal, glass, and liquid variants'
 ---
 
-# Components
+# Component Library
 
-This index links to all available components. Each page imports from `@org/ui` and includes usage, variants, props, a11y notes, and gotchas.
+Explore the complete collection of A Hacker's Brand components. Each component supports three design variants: **terminal**, **glass**, and **liquid**.
 
-<Cards>
-  <Card title="Button" href="/components/button" icon="button" />
-  <Card title="Input" href="/components/input" icon="input" />
-  <Card title="Radio" href="/components/radio" icon="radio" />
-  <Card title="Checkbox" href="/components/checkbox" icon="check" />
-  <Card title="Select" href="/components/select" icon="chevrons-up-down" />
-  <Card title="Multi Select" href="/components/multi-select" icon="list" />
-  <Card title="Tabs" href="/components/tabs" icon="panel-top-open" />
-  <Card title="Modal" href="/components/modal" icon="square" />
-  <Card title="Toast" href="/components/toast" icon="bell" />
-  <Card title="Tooltip" href="/components/tooltip" icon="message-square" />
-  <Card title="Table" href="/components/table" icon="table" />
-  <Card title="Data Grid" href="/components/data-grid" icon="rows" />
-  <Card title="List" href="/components/list" icon="list" />
-  <Card title="Date Picker" href="/components/date-picker" icon="calendar" />
-  <Card title="Terminal Window" href="/components/terminal-window" icon="terminal" />
-  <Card title="Matrix Rain" href="/components/matrix-rain" icon="scan-line" />
-  <Card title="Performance Monitor" href="/components/performance-monitor" icon="gauge" />
-  <Card title="Navbar" href="/components/navbar" icon="menu" />
-  <Card title="Drawer" href="/components/drawer" icon="panel-left-open" />
-  <Card title="Dropdown" href="/components/dropdown" icon="chevron-down" />
-  <Card title="Card" href="/components/card" icon="square" />
-  <Card title="Badge" href="/components/badge" icon="badge" />
-  <Card title="Alert" href="/components/alert" icon="alert-triangle" />
-  <Card title="Breadcrumb" href="/components/breadcrumb" icon="breadcrumb" />
-</Cards>
+## Quick Navigation
+
+<CardGroup cols={4}>
+  <Card
+    title="Form Controls"
+    icon="square-check"
+    href="#form-controls"
+  >
+    Interactive input components
+  </Card>
+  <Card
+    title="Display & Feedback"
+    icon="eye"
+    href="#display--feedback"
+  >
+    Visual feedback components
+  </Card>
+  <Card
+    title="Navigation & Layout"
+    icon="layout-grid"
+    href="#navigation--layout"
+  >
+    Structure and navigation
+  </Card>
+  <Card
+    title="Terminal & Effects"
+    icon="terminal"
+    href="#terminal--effects"
+  >
+    Cyberpunk aesthetics
+  </Card>
+</CardGroup>
+
+## Design Variants
+
+All components support three distinct design variants:
+
+<Tabs>
+  <Tab title="Terminal">
+    **Matrix green accents, high contrast, monospaced aesthetic**
+    
+    <div className="ahb-component ahb-button-terminal">Terminal Button</div>
+    <div className="ahb-component ahb-card-terminal">Terminal Card</div>
+    
+    ```svelte
+    <Button variant="terminal">Terminal Button</Button>
+    <Card variant="terminal">Terminal Card</Card>
+    ```
+    
+    Perfect for developer tools, system interfaces, and accessibility-first applications.
+  </Tab>
+  
+  <Tab title="Glass">
+    **Translucent surfaces with subtle blur and soft glow**
+    
+    <div className="ahb-component ahb-button-glass">Glass Button</div>
+    <div className="ahb-component ahb-card-glass">Glass Card</div>
+    
+    ```svelte
+    <Button variant="glass">Glass Button</Button>
+    <Card variant="glass">Glass Card</Card>
+    ```
+    
+    Ideal for modern applications, dashboards, and mobile interfaces.
+  </Tab>
+  
+  <Tab title="Liquid">
+    **Higher-intensity gradients and glow surfaces (experimental)**
+    
+    <div className="ahb-component ahb-button-liquid">Liquid Button</div>
+    <div className="ahb-component ahb-card-liquid">Liquid Card</div>
+    
+    ```svelte
+    <Button variant="liquid">Liquid Button</Button>
+    <Card variant="liquid">Liquid Card</Card>
+    ```
+    
+    Great for creative projects, gaming interfaces, and experimental designs.
+  </Tab>
+</Tabs>
+
+## Form Controls
+
+Interactive components for user input and form handling.
+
+<CardGroup cols={3}>
+  <Card
+    title="Button"
+    icon="cursor-click"
+    href="/components/button"
+  >
+    Primary action component with multiple variants and states
+    
+    <div className="ahb-component ahb-button-terminal">Execute</div>
+    
+    ```svelte
+    <Button variant="terminal">Execute</Button>
+    ```
+  </Card>
+  
+  <Card
+    title="Input"
+    icon="pencil"
+    href="/components/input"
+  >
+    Text input with cyberpunk styling and validation
+    
+    <div className="ahb-component ahb-input-glass" style="pointer-events: none;">Enter command...</div>
+    
+    ```svelte
+    <Input variant="glass" placeholder="Enter command..." />
+    ```
+  </Card>
+  
+  <Card
+    title="Select"
+    icon="chevron-down"
+    href="/components/select"
+  >
+    Dropdown selection with custom styling
+    
+    <div className="ahb-component ahb-input-terminal" style="pointer-events: none;">Option 1 ▼</div>
+    
+    ```svelte
+    <Select variant="terminal" options={["Option 1", "Option 2"]} />
+    ```
+  </Card>
+  
+  <Card
+    title="Checkbox"
+    icon="check-square"
+    href="/components/checkbox"
+  >
+    Styled checkbox with glow effects
+  </Card>
+  
+  <Card
+    title="Radio"
+    icon="circle-dot"
+    href="/components/radio"
+  >
+    Radio button groups with variant support
+  </Card>
+  
+  <Card
+    title="Switch"
+    icon="toggle-right"
+    href="/components/switch"
+  >
+    Toggle switch with smooth animations
+  </Card>
+  
+  <Card
+    title="Textarea"
+    icon="align-left"
+    href="/components/textarea"
+  >
+    Multi-line text input with resize handling
+  </Card>
+  
+  <Card
+    title="Slider"
+    icon="sliders"
+    href="/components/slider"
+  >
+    Range slider with cyberpunk styling
+  </Card>
+  
+  <Card
+    title="Date Picker"
+    icon="calendar"
+    href="/components/date-picker"
+  >
+    Date selection with terminal aesthetics
+  </Card>
+</CardGroup>
+
+## Display & Feedback
+
+Components for displaying information and providing user feedback.
+
+<CardGroup cols={3}>
+  <Card
+    title="Card"
+    icon="square"
+    href="/components/card"
+  >
+    Flexible container with variant-specific styling
+    
+    <div className="ahb-component ahb-card-glass">Glass Card Container</div>
+    
+    ```svelte
+    <Card variant="glass">Glass Card Container</Card>
+    ```
+  </Card>
+  
+  <Card
+    title="Badge"
+    icon="tag"
+    href="/components/badge"
+  >
+    Status indicators and labels
+  </Card>
+  
+  <Card
+    title="Progress"
+    icon="activity"
+    href="/components/progress"
+  >
+    Progress bars with glow effects
+  </Card>
+  
+  <Card
+    title="Alert"
+    icon="alert-triangle"
+    href="/components/alert"
+  >
+    Notification messages with cyberpunk styling
+  </Card>
+  
+  <Card
+    title="Toast"
+    icon="message-circle"
+    href="/components/toast"
+  >
+    Temporary notifications with animations
+  </Card>
+  
+  <Card
+    title="Tooltip"
+    icon="help-circle"
+    href="/components/tooltip"
+  >
+    Contextual help with hover effects
+  </Card>
+  
+  <Card
+    title="GlowText"
+    icon="type"
+    href="/components/glow-text"
+  >
+    Typography with neon glow effects
+    
+    <div className="ahb-component ahb-glow-text">Neon Glow Text</div>
+    
+    ```svelte
+    <GlowText color="pink" intensity="intense">
+      Neon Glow Text
+    </GlowText>
+    ```
+  </Card>
+  
+  <Card
+    title="ColorPalette"
+    icon="palette"
+    href="/components/color-palette"
+  >
+    Interactive color showcase with copy-to-clipboard
+    
+    <div className="ahb-component ahb-color-palette">
+      <div className="ahb-color-swatch" style="background: #ff6b9d;"></div>
+      <div className="ahb-color-swatch" style="background: #c44af2;"></div>
+      <div className="ahb-color-swatch" style="background: #4fa8ff;"></div>
+      <div className="ahb-color-swatch" style="background: #00ff41;"></div>
+    </div>
+    
+    ```svelte
+    <ColorPalette theme="both" layout="grid" interactive />
+    ```
+  </Card>
+  
+  <Card
+    title="StatusBar"
+    icon="monitor"
+    href="/components/status-bar"
+  >
+    Terminal-style status information display
+    
+    <div className="ahb-component ahb-status-bar">Ready</div>
+    
+    ```svelte
+    <StatusBar variant="terminal" status="Ready" fileType="Svelte" />
+    ```
+  </Card>
+</CardGroup>
+
+## Navigation & Layout
+
+Components for structuring and navigating your application.
+
+<CardGroup cols={3}>
+  <Card
+    title="Tabs"
+    icon="folder"
+    href="/components/tabs"
+  >
+    Tabbed navigation with variant support
+  </Card>
+  
+  <Card
+    title="Modal"
+    icon="square"
+    href="/components/modal"
+  >
+    Overlay dialogs with backdrop blur
+  </Card>
+  
+  <Card
+    title="Drawer"
+    icon="sidebar"
+    href="/components/drawer"
+  >
+    Slide-out navigation panels
+  </Card>
+  
+  <Card
+    title="Dropdown"
+    icon="chevron-down"
+    href="/components/dropdown"
+  >
+    Contextual menus and actions
+  </Card>
+  
+  <Card
+    title="Navbar"
+    icon="menu"
+    href="/components/navbar"
+  >
+    Top navigation with cyberpunk styling
+  </Card>
+  
+  <Card
+    title="Breadcrumb"
+    icon="chevron-right"
+    href="/components/breadcrumb"
+  >
+    Navigation path indicators
+  </Card>
+  
+  <Card
+    title="Menu"
+    icon="list"
+    href="/components/menu"
+  >
+    Vertical navigation menus
+  </Card>
+  
+  <Card
+    title="Sidebar"
+    icon="layout-sidebar"
+    href="/components/sidebar"
+  >
+    Side navigation panels
+  </Card>
+</CardGroup>
+
+## Data Display
+
+Components for presenting and organizing data.
+
+<CardGroup cols={3}>
+  <Card
+    title="Table"
+    icon="table"
+    href="/components/table"
+  >
+    Basic data tables with styling
+  </Card>
+  
+  <Card
+    title="DataGrid"
+    icon="grid"
+    href="/components/data-grid"
+  >
+    Advanced data grid with sorting and filtering
+  </Card>
+  
+  <Card
+    title="DataTable"
+    icon="database"
+    href="/components/data-table"
+  >
+    Feature-rich data table component
+  </Card>
+  
+  <Card
+    title="List"
+    icon="list"
+    href="/components/list"
+  >
+    Styled lists with cyberpunk aesthetics
+  </Card>
+  
+  <Card
+    title="Pagination"
+    icon="more-horizontal"
+    href="/components/pagination"
+  >
+    Page navigation controls
+  </Card>
+  
+  <Card
+    title="Carousel"
+    icon="chevrons-right"
+    href="/components/carousel"
+  >
+    Image and content carousels
+  </Card>
+</CardGroup>
+
+## Terminal & Effects
+
+Cyberpunk-specific components for authentic terminal aesthetics.
+
+<CardGroup cols={3}>
+  <Card
+    title="TerminalWindow"
+    icon="terminal"
+    href="/components/terminal-window"
+  >
+    Authentic terminal window container
+  </Card>
+  
+  <Card
+    title="MatrixRain"
+    icon="zap"
+    href="/components/matrix-rain"
+  >
+    Animated matrix digital rain effect
+  </Card>
+  
+  <Card
+    title="AdvancedTerminal"
+    icon="code"
+    href="/components/advanced-terminal"
+  >
+    Interactive terminal with command history
+  </Card>
+  
+  <Card
+    title="BootSequence"
+    icon="power"
+    href="/components/boot-sequence"
+  >
+    Animated system boot sequence
+  </Card>
+  
+  <Card
+    title="CommandBlock"
+    icon="hash"
+    href="/components/command-block"
+  >
+    Styled command line blocks
+  </Card>
+  
+  <Card
+    title="AICommandSuggestions"
+    icon="brain"
+    href="/components/ai-command-suggestions"
+  >
+    AI-powered command suggestions
+  </Card>
+</CardGroup>
+
+## WebGL & 3D
+
+Optional WebGL components for immersive 3D experiences.
+
+<Warning>
+WebGL components require modern browsers with GPU support and additional peer dependencies (`@threlte/core`, `@threlte/extras`, `three`). They gracefully fallback to CSS-only versions when not supported.
+</Warning>
+
+<CardGroup cols={2}>
+  <Card
+    title="GlassScene"
+    icon="cube"
+    href="/components/glass-scene"
+  >
+    3D glass morphism scenes with particle effects
+  </Card>
+  
+  <Card
+    title="LazyThrelteCanvas"
+    icon="box"
+    href="/components/lazy-threlte-canvas"
+  >
+    Lazy-loaded 3D canvas with performance optimization
+  </Card>
+</CardGroup>
+
+## Utilities & System
+
+Helper components for debugging and system information.
+
+<CardGroup cols={3}>
+  <Card
+    title="ThemeSelector"
+    icon="palette"
+    href="/components/theme-selector"
+  >
+    Runtime theme switching interface
+  </Card>
+  
+  <Card
+    title="PerformanceMonitor"
+    icon="activity"
+    href="/components/performance-monitor"
+  >
+    Real-time performance metrics display
+  </Card>
+  
+  <Card
+    title="AccessibilityReport"
+    icon="universal-access"
+    href="/components/accessibility-report"
+  >
+    Accessibility compliance reporting
+  </Card>
+  
+  <Card
+    title="CodeHighlight"
+    icon="code"
+    href="/components/code-highlight"
+  >
+    Syntax highlighting with cyberpunk themes
+  </Card>
+</CardGroup>
+
+## Usage Patterns
+
+### Basic Component Usage
+
+```svelte
+<script>
+  import { Button, Card, GlowText } from 'a-hacker-brand';
+</script>
+
+<Card variant="glass">
+  <GlowText color="pink" intensity="intense">
+    Welcome to A Hacker's Brand
+  </GlowText>
+  <Button variant="terminal">Get Started</Button>
+</Card>
+```
+
+### Variant Switching
+
+```svelte
+<script>
+  import { Button } from 'a-hacker-brand';
+  
+  let currentVariant = 'terminal';
+  const variants = ['terminal', 'glass', 'liquid'];
+  
+  function cycleVariant() {
+    const currentIndex = variants.indexOf(currentVariant);
+    currentVariant = variants[(currentIndex + 1) % variants.length];
+  }
+</script>
+
+<Button variant={currentVariant} on:click={cycleVariant}>
+  Current: {currentVariant}
+</Button>
+```
+
+### Responsive Design
+
+```svelte
+<script>
+  import { Card, Button } from 'a-hacker-brand';
+</script>
+
+<div class="responsive-grid">
+  {#each items as item}
+    <Card variant="glass">
+      <h3>{item.title}</h3>
+      <p>{item.description}</p>
+      <Button variant="terminal">Learn More</Button>
+    </Card>
+  {/each}
+</div>
+
+<style>
+  .responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+</style>
+```
+
+## Component Status
+
+<Tabs>
+  <Tab title="Stable">
+    **Production-ready components**
+    
+    - Button, Card, Input, Select
+    - Tabs, Modal, Alert, Toast
+    - GlowText, StatusBar, ColorPalette
+    - All form controls and basic display components
+  </Tab>
+  
+  <Tab title="Beta">
+    **Feature-complete, minor API changes possible**
+    
+    - DataGrid, DataTable
+    - AdvancedTerminal, AICommandSuggestions
+    - PerformanceMonitor, AccessibilityReport
+  </Tab>
+  
+  <Tab title="Experimental">
+    **Subject to significant changes**
+    
+    - Liquid variant (all components)
+    - WebGL components (GlassScene, LazyThrelteCanvas)
+    - Advanced terminal effects
+  </Tab>
+</Tabs>
+
+## Getting Help
+
+<CardGroup cols={2}>
+  <Card
+    title="Installation Guide"
+    icon="download"
+    href="/getting-started/installation"
+  >
+    Set up A Hacker's Brand in your project
+  </Card>
+  <Card
+    title="Design Variants"
+    icon="palette"
+    href="/guides/variants"
+  >
+    Learn about terminal, glass, and liquid variants
+  </Card>
+  <Card
+    title="Theming Guide"
+    icon="paintbrush"
+    href="/guides/theming"
+  >
+    Customize colors and styling
+  </Card>
+  <Card
+    title="Accessibility"
+    icon="universal-access"
+    href="/guides/accessibility"
+  >
+    Build inclusive interfaces
+  </Card>
+</CardGroup>
+
+---
+
+Ready to build the future? Start with any component and explore the cyberpunk possibilities! 🚀⚡
