@@ -1,1 +1,7 @@
 node_modules
+.DS_Store
+*.log
+.cache
+.vite
+.hst-vite*
+dist/
